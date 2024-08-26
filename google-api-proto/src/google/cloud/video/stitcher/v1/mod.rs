@@ -95,166 +95,6 @@ pub struct GamVodConfig {
     #[prost(string, tag = "1")]
     pub network_code: ::prost::alloc::string::String,
 }
-/// Information related to the details for one ad tag. This resource is only
-/// available for live sessions that do not implement Google Ad Manager ad
-/// insertion.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LiveAdTagDetail {
-    /// The resource name in the form of
-    /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{id}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// A list of ad requests.
-    #[prost(message, repeated, tag = "2")]
-    pub ad_requests: ::prost::alloc::vec::Vec<AdRequest>,
-}
-/// Information related to the details for one ad tag. This resource is only
-/// available for VOD sessions that do not implement Google Ad Manager ad
-/// insertion.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VodAdTagDetail {
-    /// The name of the ad tag detail for the specified VOD session, in the form of
-    /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{id}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// A list of ad requests for one ad tag.
-    #[prost(message, repeated, tag = "2")]
-    pub ad_requests: ::prost::alloc::vec::Vec<AdRequest>,
-}
-/// Details of an ad request to an ad server.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdRequest {
-    /// The ad tag URI processed with integrated macros.
-    #[prost(string, tag = "1")]
-    pub uri: ::prost::alloc::string::String,
-    /// The request metadata used to make the ad request.
-    #[prost(message, optional, tag = "2")]
-    pub request_metadata: ::core::option::Option<RequestMetadata>,
-    /// The response metadata received from the ad request.
-    #[prost(message, optional, tag = "3")]
-    pub response_metadata: ::core::option::Option<ResponseMetadata>,
-}
-/// Metadata for an ad request.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RequestMetadata {
-    /// The HTTP headers of the ad request.
-    #[prost(message, optional, tag = "1")]
-    pub headers: ::core::option::Option<::prost_types::Struct>,
-}
-/// Metadata for the response of an ad request.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResponseMetadata {
-    /// Error message received when making the ad request.
-    #[prost(string, tag = "1")]
-    pub error: ::prost::alloc::string::String,
-    /// Headers from the response.
-    #[prost(message, optional, tag = "2")]
-    pub headers: ::core::option::Option<::prost_types::Struct>,
-    /// Status code for the response.
-    #[prost(string, tag = "3")]
-    pub status_code: ::prost::alloc::string::String,
-    /// Size in bytes of the response.
-    #[prost(int32, tag = "4")]
-    pub size_bytes: i32,
-    /// Total time elapsed for the response.
-    #[prost(message, optional, tag = "5")]
-    pub duration: ::core::option::Option<::prost_types::Duration>,
-    /// The body of the response.
-    #[prost(string, tag = "6")]
-    pub body: ::prost::alloc::string::String,
-}
-/// Configuration for a CDN key. Used by the Video Stitcher
-/// to sign URIs for fetching video manifests and signing
-/// media segments for playback.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CdnKey {
-    /// The resource name of the CDN key, in the form of
-    /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
-    /// The name is ignored when creating a CDN key.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The hostname this key applies to.
-    #[prost(string, tag = "4")]
-    pub hostname: ::prost::alloc::string::String,
-    /// Configuration associated with the CDN key.
-    #[prost(oneof = "cdn_key::CdnKeyConfig", tags = "5, 6, 8")]
-    pub cdn_key_config: ::core::option::Option<cdn_key::CdnKeyConfig>,
-}
-/// Nested message and enum types in `CdnKey`.
-pub mod cdn_key {
-    /// Configuration associated with the CDN key.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum CdnKeyConfig {
-        /// The configuration for a Google Cloud CDN key.
-        #[prost(message, tag = "5")]
-        GoogleCdnKey(super::GoogleCdnKey),
-        /// The configuration for an Akamai CDN key.
-        #[prost(message, tag = "6")]
-        AkamaiCdnKey(super::AkamaiCdnKey),
-        /// The configuration for a Media CDN key.
-        #[prost(message, tag = "8")]
-        MediaCdnKey(super::MediaCdnKey),
-    }
-}
-/// Configuration for a Google Cloud CDN key.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GoogleCdnKey {
-    /// Input only. Secret for this Google Cloud CDN key.
-    #[prost(bytes = "bytes", tag = "1")]
-    pub private_key: ::prost::bytes::Bytes,
-    /// The public name of the Google Cloud CDN key.
-    #[prost(string, tag = "2")]
-    pub key_name: ::prost::alloc::string::String,
-}
-/// Configuration for an Akamai CDN key.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AkamaiCdnKey {
-    /// Input only. Token key for the Akamai CDN edge configuration.
-    #[prost(bytes = "bytes", tag = "1")]
-    pub token_key: ::prost::bytes::Bytes,
-}
-/// Configuration for a Media CDN key.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MediaCdnKey {
-    /// Input only. 64-byte ed25519 private key for this Media CDN key.
-    #[prost(bytes = "bytes", tag = "1")]
-    pub private_key: ::prost::bytes::Bytes,
-    /// The keyset name of the Media CDN key.
-    #[prost(string, tag = "2")]
-    pub key_name: ::prost::alloc::string::String,
-    /// Optional. If set, the URL will be signed using the Media CDN token.
-    /// Otherwise, the URL would be signed using the standard Media CDN signature.
-    #[prost(message, optional, tag = "3")]
-    pub token_config: ::core::option::Option<media_cdn_key::TokenConfig>,
-}
-/// Nested message and enum types in `MediaCdnKey`.
-pub mod media_cdn_key {
-    /// Configuration for a Media CDN token.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct TokenConfig {
-        /// Optional. The query parameter in which to find the token.
-        ///
-        /// The name must be 1-64 characters long and match
-        /// the regular expression `[a-zA-Z](\[a-zA-Z0-9_-\])*` which means the
-        /// first character must be a letter, and all following characters
-        /// must be a dash, underscore, letter or digit.
-        ///
-        /// Defaults to `edge-cache-token`.
-        #[prost(string, tag = "1")]
-        pub query_parameter: ::prost::alloc::string::String,
-    }
-}
 /// Metadata for used to register live configs.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -393,7 +233,7 @@ pub mod live_config {
 }
 /// The configuration for prefetch ads.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct PrefetchConfig {
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
     #[prost(bool, tag = "1")]
@@ -871,7 +711,7 @@ pub struct VodSessionAd {
 }
 /// Metadata for the entire stitched content in a VOD session.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VodSessionContent {
     /// The total duration in seconds of the content including the ads stitched
     /// in.
@@ -1033,6 +873,166 @@ pub struct RenditionFilter {
     /// will match.
     #[prost(string, tag = "2")]
     pub codecs: ::prost::alloc::string::String,
+}
+/// Information related to the details for one ad tag. This resource is only
+/// available for live sessions that do not implement Google Ad Manager ad
+/// insertion.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LiveAdTagDetail {
+    /// The resource name in the form of
+    /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{id}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// A list of ad requests.
+    #[prost(message, repeated, tag = "2")]
+    pub ad_requests: ::prost::alloc::vec::Vec<AdRequest>,
+}
+/// Information related to the details for one ad tag. This resource is only
+/// available for VOD sessions that do not implement Google Ad Manager ad
+/// insertion.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct VodAdTagDetail {
+    /// The name of the ad tag detail for the specified VOD session, in the form of
+    /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{id}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// A list of ad requests for one ad tag.
+    #[prost(message, repeated, tag = "2")]
+    pub ad_requests: ::prost::alloc::vec::Vec<AdRequest>,
+}
+/// Details of an ad request to an ad server.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdRequest {
+    /// The ad tag URI processed with integrated macros.
+    #[prost(string, tag = "1")]
+    pub uri: ::prost::alloc::string::String,
+    /// The request metadata used to make the ad request.
+    #[prost(message, optional, tag = "2")]
+    pub request_metadata: ::core::option::Option<RequestMetadata>,
+    /// The response metadata received from the ad request.
+    #[prost(message, optional, tag = "3")]
+    pub response_metadata: ::core::option::Option<ResponseMetadata>,
+}
+/// Metadata for an ad request.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RequestMetadata {
+    /// The HTTP headers of the ad request.
+    #[prost(message, optional, tag = "1")]
+    pub headers: ::core::option::Option<::prost_types::Struct>,
+}
+/// Metadata for the response of an ad request.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResponseMetadata {
+    /// Error message received when making the ad request.
+    #[prost(string, tag = "1")]
+    pub error: ::prost::alloc::string::String,
+    /// Headers from the response.
+    #[prost(message, optional, tag = "2")]
+    pub headers: ::core::option::Option<::prost_types::Struct>,
+    /// Status code for the response.
+    #[prost(string, tag = "3")]
+    pub status_code: ::prost::alloc::string::String,
+    /// Size in bytes of the response.
+    #[prost(int32, tag = "4")]
+    pub size_bytes: i32,
+    /// Total time elapsed for the response.
+    #[prost(message, optional, tag = "5")]
+    pub duration: ::core::option::Option<::prost_types::Duration>,
+    /// The body of the response.
+    #[prost(string, tag = "6")]
+    pub body: ::prost::alloc::string::String,
+}
+/// Configuration for a CDN key. Used by the Video Stitcher
+/// to sign URIs for fetching video manifests and signing
+/// media segments for playback.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CdnKey {
+    /// The resource name of the CDN key, in the form of
+    /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
+    /// The name is ignored when creating a CDN key.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The hostname this key applies to.
+    #[prost(string, tag = "4")]
+    pub hostname: ::prost::alloc::string::String,
+    /// Configuration associated with the CDN key.
+    #[prost(oneof = "cdn_key::CdnKeyConfig", tags = "5, 6, 8")]
+    pub cdn_key_config: ::core::option::Option<cdn_key::CdnKeyConfig>,
+}
+/// Nested message and enum types in `CdnKey`.
+pub mod cdn_key {
+    /// Configuration associated with the CDN key.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum CdnKeyConfig {
+        /// The configuration for a Google Cloud CDN key.
+        #[prost(message, tag = "5")]
+        GoogleCdnKey(super::GoogleCdnKey),
+        /// The configuration for an Akamai CDN key.
+        #[prost(message, tag = "6")]
+        AkamaiCdnKey(super::AkamaiCdnKey),
+        /// The configuration for a Media CDN key.
+        #[prost(message, tag = "8")]
+        MediaCdnKey(super::MediaCdnKey),
+    }
+}
+/// Configuration for a Google Cloud CDN key.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GoogleCdnKey {
+    /// Input only. Secret for this Google Cloud CDN key.
+    #[prost(bytes = "bytes", tag = "1")]
+    pub private_key: ::prost::bytes::Bytes,
+    /// The public name of the Google Cloud CDN key.
+    #[prost(string, tag = "2")]
+    pub key_name: ::prost::alloc::string::String,
+}
+/// Configuration for an Akamai CDN key.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AkamaiCdnKey {
+    /// Input only. Token key for the Akamai CDN edge configuration.
+    #[prost(bytes = "bytes", tag = "1")]
+    pub token_key: ::prost::bytes::Bytes,
+}
+/// Configuration for a Media CDN key.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MediaCdnKey {
+    /// Input only. 64-byte ed25519 private key for this Media CDN key.
+    #[prost(bytes = "bytes", tag = "1")]
+    pub private_key: ::prost::bytes::Bytes,
+    /// The keyset name of the Media CDN key.
+    #[prost(string, tag = "2")]
+    pub key_name: ::prost::alloc::string::String,
+    /// Optional. If set, the URL will be signed using the Media CDN token.
+    /// Otherwise, the URL would be signed using the standard Media CDN signature.
+    #[prost(message, optional, tag = "3")]
+    pub token_config: ::core::option::Option<media_cdn_key::TokenConfig>,
+}
+/// Nested message and enum types in `MediaCdnKey`.
+pub mod media_cdn_key {
+    /// Configuration for a Media CDN token.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct TokenConfig {
+        /// Optional. The query parameter in which to find the token.
+        ///
+        /// The name must be 1-64 characters long and match
+        /// the regular expression `[a-zA-Z](\[a-zA-Z0-9_-\])*` which means the
+        /// first character must be a letter, and all following characters
+        /// must be a dash, underscore, letter or digit.
+        ///
+        /// Defaults to `edge-cache-token`.
+        #[prost(string, tag = "1")]
+        pub query_parameter: ::prost::alloc::string::String,
+    }
 }
 /// Slate object
 #[allow(clippy::derive_partial_eq_without_eq)]

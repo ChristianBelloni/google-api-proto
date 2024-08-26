@@ -75,7 +75,7 @@ pub struct Gcs {
 /// [InstancePolicyOrTemplate](<https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#instancepolicyortemplate>)
 /// field, make sure both fields are compatible with each other.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ComputeResource {
     /// The milliCPU count.
     ///
@@ -119,7 +119,7 @@ pub struct ComputeResource {
     #[prost(int64, tag = "4")]
     pub boot_disk_mib: i64,
 }
-/// Status event
+/// Status event.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StatusEvent {
@@ -132,17 +132,20 @@ pub struct StatusEvent {
     /// The time this event occurred.
     #[prost(message, optional, tag = "2")]
     pub event_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Task Execution
+    /// Task Execution.
+    /// This field is only defined for task-level status events where the task
+    /// fails.
     #[prost(message, optional, tag = "4")]
     pub task_execution: ::core::option::Option<TaskExecution>,
-    /// Task State
+    /// Task State.
+    /// This field is only defined for task-level status events.
     #[prost(enumeration = "task_status::State", tag = "5")]
     pub task_state: i32,
 }
 /// This Task Execution field includes detail information for
 /// task execution procedures, based on StatusEvent types.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TaskExecution {
     /// The exit code of a finished task.
     ///
@@ -158,11 +161,11 @@ pub struct TaskExecution {
     #[prost(int32, tag = "1")]
     pub exit_code: i32,
 }
-/// Status of a task
+/// Status of a task.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TaskStatus {
-    /// Task state
+    /// Task state.
     #[prost(enumeration = "task_status::State", tag = "1")]
     pub state: i32,
     /// Detailed info about why the state is reached.
@@ -242,13 +245,24 @@ pub struct Runnable {
     /// provided the index of the runnable will be used for outputs.
     #[prost(string, tag = "10")]
     pub display_name: ::prost::alloc::string::String,
-    /// Normally, a non-zero exit status causes the Task to fail. This flag allows
-    /// execution of other Runnables to continue instead.
+    /// Normally, a runnable that returns a non-zero exit status fails and causes
+    /// the task to fail. However, you can set this field to `true` to allow the
+    /// task to continue executing its other runnables even if this runnable
+    /// fails.
     #[prost(bool, tag = "3")]
     pub ignore_exit_status: bool,
-    /// This flag allows a Runnable to continue running in the background while the
-    /// Task executes subsequent Runnables. This is useful to provide services to
-    /// other Runnables (or to provide debugging support tools like SSH servers).
+    /// Normally, a runnable that doesn't exit causes its task to fail. However,
+    /// you can set this field to `true` to configure a background runnable.
+    /// Background runnables are allowed continue running in the background while
+    /// the task executes subsequent runnables. For example, background runnables
+    /// are useful for providing services to other runnables or providing
+    /// debugging-support tools like SSH servers.
+    ///
+    /// Specifically, background runnables are killed automatically (if they have
+    /// not already exited) a short time after all foreground runnables have
+    /// completed. Even though this is likely to result in a non-zero exit status
+    /// for the background runnable, these automatic kills are not treated as task
+    /// failures.
     #[prost(bool, tag = "4")]
     pub background: bool,
     /// By default, after a Runnable fails, no further Runnable are executed. This
@@ -274,7 +288,7 @@ pub struct Runnable {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-    /// The script or container to run.
+    /// Required. The script, container, or barrier for this runnable to execute.
     #[prost(oneof = "runnable::Executable", tags = "1, 2, 6")]
     pub executable: ::core::option::Option<runnable::Executable>,
 }
@@ -284,32 +298,36 @@ pub mod runnable {
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Container {
-        /// The URI to pull the container image from.
+        /// Required. The URI to pull the container image from.
         #[prost(string, tag = "1")]
         pub image_uri: ::prost::alloc::string::String,
-        /// Overrides the `CMD` specified in the container. If there is an ENTRYPOINT
-        /// (either in the container image or with the entrypoint field below) then
-        /// commands are appended as arguments to the ENTRYPOINT.
+        /// Required for some container images. Overrides the `CMD` specified in the
+        /// container. If there is an `ENTRYPOINT` (either in the container image or
+        /// with the `entrypoint` field below) then these commands are appended as
+        /// arguments to the `ENTRYPOINT`.
         #[prost(string, repeated, tag = "2")]
         pub commands: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-        /// Overrides the `ENTRYPOINT` specified in the container.
+        /// Required for some container images. Overrides the `ENTRYPOINT` specified
+        /// in the container.
         #[prost(string, tag = "3")]
         pub entrypoint: ::prost::alloc::string::String,
         /// Volumes to mount (bind mount) from the host machine files or directories
-        /// into the container, formatted to match docker run's --volume option,
-        /// e.g. /foo:/bar, or /foo:/bar:ro
+        /// into the container, formatted to match `--volume` option for the
+        /// `docker run` command&mdash;for example, `/foo:/bar` or `/foo:/bar:ro`.
         ///
         /// If the `TaskSpec.Volumes` field is specified but this field is not, Batch
         /// will mount each volume from the host machine to the container with the
         /// same mount path by default. In this case, the default mount option for
-        /// containers will be read-only (ro) for existing persistent disks and
-        /// read-write (rw) for other volume types, regardless of the original mount
-        /// options specified in `TaskSpec.Volumes`. If you need different mount
-        /// settings, you can explicitly configure them in this field.
+        /// containers will be read-only (`ro`) for existing persistent disks and
+        /// read-write (`rw`) for other volume types, regardless of the original
+        /// mount options specified in `TaskSpec.Volumes`. If you need different
+        /// mount settings, you can explicitly configure them in this field.
         #[prost(string, repeated, tag = "7")]
         pub volumes: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-        /// Arbitrary additional options to include in the "docker run" command when
-        /// running this container, e.g. "--network host".
+        /// Required for some container images. Arbitrary additional options to
+        /// include in the `docker run` command when running this container&mdash;for
+        /// example, `--network host`. For the `--volume` option, use the `volumes`
+        /// field for the container.
         #[prost(string, tag = "8")]
         pub options: ::prost::alloc::string::String,
         /// If set to true, external network access to and from container will be
@@ -377,37 +395,42 @@ pub mod runnable {
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Script {
+        /// Required. The source code for this script runnable.
         #[prost(oneof = "script::Command", tags = "1, 2")]
         pub command: ::core::option::Option<script::Command>,
     }
     /// Nested message and enum types in `Script`.
     pub mod script {
+        /// Required. The source code for this script runnable.
         #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Command {
-            /// Script file path on the host VM.
+            /// The path to a script file that is accessible from the host VM(s).
             ///
-            /// To specify an interpreter, please add a `#!<interpreter>`(also known as
-            /// [shebang line](<https://en.wikipedia.org/wiki/Shebang_(Unix>))) as the
-            /// first line of the file.(For example, to execute the script using bash,
-            /// `#!/bin/bash` should be the first line of the file. To execute the
-            /// script using`Python3`, `#!/usr/bin/env python3` should be the first
-            /// line of the file.) Otherwise, the file will by default be executed by
-            /// `/bin/sh`.
+            /// Unless the script file supports the default `#!/bin/sh` shell
+            /// interpreter, you must specify an interpreter by including a
+            /// [shebang line](<https://en.wikipedia.org/wiki/Shebang_(Unix>) as the
+            /// first line of the file. For example, to execute the script using bash,
+            /// include `#!/bin/bash` as the first line of the file. Alternatively,
+            /// to execute the script using Python3, include `#!/usr/bin/env python3`
+            /// as the first line of the file.
             #[prost(string, tag = "1")]
             Path(::prost::alloc::string::String),
-            /// Shell script text.
+            /// The text for a script.
             ///
-            /// To specify an interpreter, please add a `#!<interpreter>\n` at the
-            /// beginning of the text.(For example, to execute the script using bash,
-            /// `#!/bin/bash\n` should be added. To execute the script using`Python3`,
-            /// `#!/usr/bin/env python3\n` should be added.) Otherwise, the script will
-            /// by default be executed by `/bin/sh`.
+            /// Unless the script text supports the default `#!/bin/sh` shell
+            /// interpreter, you must specify an interpreter by including a
+            /// [shebang line](<https://en.wikipedia.org/wiki/Shebang_(Unix>) at the
+            /// beginning of the text. For example, to execute the script using bash,
+            /// include `#!/bin/bash\n` at the beginning of the text. Alternatively,
+            /// to execute the script using Python3, include `#!/usr/bin/env python3\n`
+            /// at the beginning of the text.
             #[prost(string, tag = "2")]
             Text(::prost::alloc::string::String),
         }
     }
-    /// Barrier runnable blocks until all tasks in a taskgroup reach it.
+    /// A barrier runnable automatically blocks the execution of subsequent
+    /// runnables until all the tasks in the task group reach the barrier.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Barrier {
@@ -416,7 +439,7 @@ pub mod runnable {
         #[prost(string, tag = "1")]
         pub name: ::prost::alloc::string::String,
     }
-    /// The script or container to run.
+    /// Required. The script, container, or barrier for this runnable to execute.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Executable {
@@ -435,16 +458,16 @@ pub mod runnable {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TaskSpec {
-    /// The sequence of scripts or containers to run for this Task. Each Task using
-    /// this TaskSpec executes its list of runnables in order. The Task succeeds if
-    /// all of its runnables either exit with a zero status or any that exit with a
-    /// non-zero status have the ignore_exit_status flag.
+    /// Required. The sequence of one or more runnables (executable scripts,
+    /// executable containers, and/or barriers) for each task in this task group to
+    /// run. Each task runs this list of runnables in order. For a task to succeed,
+    /// all of its script and container runnables each must meet at least one of
+    /// the following conditions:
     ///
-    /// Background runnables are killed automatically (if they have not already
-    /// exited) a short time after all foreground runnables have completed. Even
-    /// though this is likely to result in a non-zero exit status for the
-    /// background runnable, these automatic kills are not treated as Task
-    /// failures.
+    /// + The runnable exited with a zero status.
+    /// + The runnable didn't finish, but you enabled its `background` subfield.
+    /// + The runnable exited with a non-zero status, but you enabled its
+    ///    `ignore_exit_status` subfield.
     #[prost(message, repeated, tag = "8")]
     pub runnables: ::prost::alloc::vec::Vec<Runnable>,
     /// ComputeResource requirements.
@@ -691,7 +714,7 @@ pub mod logs_policy {
     /// `CloudLoggingOption` contains additional settings for Cloud Logging logs
     /// generated by Batch job.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct CloudLoggingOption {
         /// Optional. Set this flag to true to change the [monitored resource
         /// type](<https://cloud.google.com/monitoring/api/resources>) for
@@ -901,7 +924,7 @@ pub mod job_notification {
     /// job level: JOB_STATE_CHANGED and/or a specified new_job_state;
     /// task level: TASK_STATE_CHANGED and/or a specified new_task_state.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Message {
         /// The message type.
         #[prost(enumeration = "Type", tag = "1")]
@@ -1099,9 +1122,7 @@ pub mod allocation_policy {
             /// The following image values are supported for a boot disk:
             ///
             /// * `batch-debian`: use Batch Debian images.
-            /// * `batch-centos`: use Batch CentOS images.
             /// * `batch-cos`: use Batch Container-Optimized images.
-            /// * `batch-hpc-centos`: use Batch HPC CentOS images.
             /// * `batch-hpc-rocky`: use Batch HPC Rocky Linux images.
             #[prost(string, tag = "4")]
             Image(::prost::alloc::string::String),

@@ -187,6 +187,21 @@ pub struct GcsData {
     /// [Object Name Requirements](/storage/docs/naming#objectnames).
     #[prost(string, tag = "3")]
     pub path: ::prost::alloc::string::String,
+    /// Preview. Enables the transfer of managed folders between Cloud Storage
+    /// buckets. Set this option on the gcs_data_source.
+    ///
+    /// If set to true:
+    ///
+    /// - Managed folders in the source bucket are transferred to the
+    ///    destination bucket.
+    /// - Managed folders in the destination bucket are overwritten. Other
+    ///    OVERWRITE options are not supported.
+    ///
+    /// See
+    /// [Transfer Cloud Storage managed
+    /// folders](/storage-transfer/docs/managed-folders).
+    #[prost(bool, tag = "4")]
+    pub managed_folder_transfer_enabled: bool,
 }
 /// An AwsS3Data resource can be a data source, but not a data sink.
 /// In an AwsS3Data resource, an object's name is the S3 object's key name.
@@ -225,27 +240,54 @@ pub struct AwsS3Data {
     /// this project.
     #[prost(string, tag = "4")]
     pub role_arn: ::prost::alloc::string::String,
+    /// Optional. The CloudFront distribution domain name pointing to this bucket,
+    /// to use when fetching.
+    ///
+    /// See
+    /// [Transfer from S3 via
+    /// CloudFront](<https://cloud.google.com/storage-transfer/docs/s3-cloudfront>)
+    /// for more information.
+    ///
+    /// Format: `<https://{id}.cloudfront.net`> or any valid custom domain. Must
+    /// begin with `<https://`.>
+    #[prost(string, tag = "6")]
+    pub cloudfront_domain: ::prost::alloc::string::String,
     /// Optional. The Resource name of a secret in Secret Manager.
     ///
-    /// The Azure SAS token must be stored in Secret Manager in JSON format:
-    /// <pre>{
-    ///   "sas_token" : "<var>SAS_TOKEN</var>"
-    /// }</pre>
+    /// AWS credentials must be stored in Secret Manager in JSON format:
+    ///
+    /// {
+    ///   "access_key_id": "ACCESS_KEY_ID",
+    ///   "secret_access_key": "SECRET_ACCESS_KEY"
+    /// }
+    ///
     /// [GoogleServiceAccount][google.storagetransfer.v1.GoogleServiceAccount] must
     /// be granted `roles/secretmanager.secretAccessor` for the resource.
     ///
-    /// See \[Configure access to a source: Microsoft Azure Blob Storage\]
-    /// (<https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#secret_manager>)
+    /// See \[Configure access to a source: Amazon S3\]
+    /// (<https://cloud.google.com/storage-transfer/docs/source-amazon-s3#secret_manager>)
     /// for more information.
     ///
-    /// If `credentials_secret` is specified, do not specify [azure_credentials][].
-    ///
-    /// This feature is in
-    /// [preview](<https://cloud.google.com/terms/service-terms#1>).
+    /// If `credentials_secret` is specified, do not specify
+    /// [role_arn][google.storagetransfer.v1.AwsS3Data.role_arn] or
+    /// [aws_access_key][google.storagetransfer.v1.AwsS3Data.aws_access_key].
     ///
     /// Format: `projects/{project_number}/secrets/{secret_name}`
     #[prost(string, tag = "7")]
     pub credentials_secret: ::prost::alloc::string::String,
+    #[prost(oneof = "aws_s3_data::PrivateNetwork", tags = "8")]
+    pub private_network: ::core::option::Option<aws_s3_data::PrivateNetwork>,
+}
+/// Nested message and enum types in `AwsS3Data`.
+pub mod aws_s3_data {
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum PrivateNetwork {
+        /// Egress bytes over a Google-managed private network.
+        /// This network is shared between other users of Storage Transfer Service.
+        #[prost(bool, tag = "8")]
+        ManagedPrivateNetwork(bool),
+    }
 }
 /// An AzureBlobStorageData resource can be a data source, but not a data sink.
 /// An AzureBlobStorageData resource represents one Azure container. The storage
@@ -280,9 +322,11 @@ pub struct AzureBlobStorageData {
     /// Optional. The Resource name of a secret in Secret Manager.
     ///
     /// The Azure SAS token must be stored in Secret Manager in JSON format:
-    /// <pre>{
-    ///   "sas_token" : "<var>SAS_TOKEN</var>"
-    /// }</pre>
+    ///
+    /// {
+    ///   "sas_token" : "SAS_TOKEN"
+    /// }
+    ///
     /// [GoogleServiceAccount][google.storagetransfer.v1.GoogleServiceAccount] must
     /// be granted `roles/secretmanager.secretAccessor` for the resource.
     ///
@@ -292,9 +336,6 @@ pub struct AzureBlobStorageData {
     ///
     /// If `credentials_secret` is specified, do not specify
     /// [azure_credentials][google.storagetransfer.v1.AzureBlobStorageData.azure_credentials].
-    ///
-    /// This feature is in
-    /// [preview](<https://cloud.google.com/terms/service-terms#1>).
     ///
     /// Format: `projects/{project_number}/secrets/{secret_name}`
     #[prost(string, tag = "7")]
@@ -357,6 +398,17 @@ pub struct PosixFilesystem {
     #[prost(string, tag = "1")]
     pub root_directory: ::prost::alloc::string::String,
 }
+/// An HdfsData resource specifies a path within an HDFS entity (e.g. a cluster).
+/// All cluster-specific settings, such as namenodes and ports, are configured on
+/// the transfer agents servicing requests, so HdfsData only contains the root
+/// path to the data in our transfer.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct HdfsData {
+    /// Root path to transfer files.
+    #[prost(string, tag = "1")]
+    pub path: ::prost::alloc::string::String,
+}
 /// An AwsS3CompatibleData resource.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -390,7 +442,7 @@ pub mod aws_s3_compatible_data {
     /// may contain some attributes that do not apply to all S3-compatible data
     /// providers. When not specified, S3CompatibleMetadata is used by default.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum DataProvider {
         /// A S3 compatible metadata.
         #[prost(message, tag = "4")]
@@ -400,7 +452,7 @@ pub mod aws_s3_compatible_data {
 /// S3CompatibleMetadata contains the metadata fields that apply to the basic
 /// types of S3-compatible data providers.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct S3CompatibleMetadata {
     /// Specifies the authentication and authorization method used by the storage
     /// service. When not specified, Transfer Service will attempt to determine
@@ -600,7 +652,7 @@ pub mod s3_compatible_metadata {
         }
     }
 }
-/// Represents an On-Premises Agent pool.
+/// Represents an agent pool.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AgentPool {
@@ -624,7 +676,7 @@ pub struct AgentPool {
 pub mod agent_pool {
     /// Specifies a bandwidth limit for an agent pool.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct BandwidthLimit {
         /// Bandwidth rate in megabytes per second, distributed across all the agents
         /// in the pool.
@@ -647,8 +699,8 @@ pub mod agent_pool {
     pub enum State {
         /// Default value. This value is unused.
         Unspecified = 0,
-        /// This is an initialization state. During this stage, the resources such as
-        /// Pub/Sub topics are allocated for the AgentPool.
+        /// This is an initialization state. During this stage, resources are
+        /// allocated for the AgentPool.
         Creating = 1,
         /// Determines that the AgentPool is created for use. At this state, Agents
         /// can join the AgentPool and participate in the transfer jobs in that pool.
@@ -684,7 +736,7 @@ pub mod agent_pool {
 }
 /// TransferOptions define the actions to be performed on objects in a transfer.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TransferOptions {
     /// When to overwrite objects that already exist in the sink. The default is
     /// that only objects that are different from the source are ovewritten. If
@@ -803,7 +855,7 @@ pub struct TransferSpec {
     #[prost(oneof = "transfer_spec::DataSink", tags = "4, 13")]
     pub data_sink: ::core::option::Option<transfer_spec::DataSink>,
     /// The read source of the data.
-    #[prost(oneof = "transfer_spec::DataSource", tags = "1, 2, 3, 14, 8, 19")]
+    #[prost(oneof = "transfer_spec::DataSource", tags = "1, 2, 3, 14, 8, 19, 20")]
     pub data_source: ::core::option::Option<transfer_spec::DataSource>,
     #[prost(oneof = "transfer_spec::IntermediateDataLocation", tags = "16")]
     pub intermediate_data_location: ::core::option::Option<
@@ -845,6 +897,9 @@ pub mod transfer_spec {
         /// An AWS S3 compatible data source.
         #[prost(message, tag = "19")]
         AwsS3CompatibleDataSource(super::AwsS3CompatibleData),
+        /// An HDFS cluster data source.
+        #[prost(message, tag = "20")]
+        HdfsDataSource(super::HdfsData),
     }
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
@@ -861,7 +916,7 @@ pub mod transfer_spec {
 }
 /// Specifies the metadata options for running a transfer.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MetadataOptions {
     /// Specifies how symlinks should be handled by the transfer. By default,
     /// symlinks are not preserved. Only applicable to transfers involving
@@ -906,9 +961,10 @@ pub struct MetadataOptions {
     #[prost(enumeration = "metadata_options::KmsKey", tag = "8")]
     pub kms_key: i32,
     /// Specifies how each object's `timeCreated` metadata is preserved for
-    /// transfers between Google Cloud Storage buckets.  If unspecified, the
-    /// default behavior is the same as
+    /// transfers. If unspecified, the default behavior is the same as
     /// [TIME_CREATED_SKIP][google.storagetransfer.v1.MetadataOptions.TimeCreated.TIME_CREATED_SKIP].
+    /// This behavior is supported for transfers to Cloud Storage buckets from
+    /// Cloud Storage, Amazon S3, S3-compatible storage, and Azure sources.
     #[prost(enumeration = "metadata_options::TimeCreated", tag = "9")]
     pub time_created: i32,
 }
@@ -1308,10 +1364,10 @@ pub mod metadata_options {
         Unspecified = 0,
         /// Do not preserve the `timeCreated` metadata from the source object.
         Skip = 1,
-        /// Preserves the source object's `timeCreated` metadata in the `customTime`
-        /// field in the destination object.  Note that any value stored in the
-        /// source object's `customTime` field will not be propagated to the
-        /// destination object.
+        /// Preserves the source object's `timeCreated` or `lastModified` metadata in
+        /// the `customTime` field in the destination object.  Note that any value
+        /// stored in the source object's `customTime` field will not be propagated
+        /// to the destination object.
         PreserveAsCustomTime = 2,
     }
     impl TimeCreated {
@@ -1354,7 +1410,7 @@ pub struct TransferManifest {
 }
 /// Transfers can be scheduled to recur or to run just once.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Schedule {
     /// Required. The start date of a transfer. Date boundaries are determined
     /// relative to UTC time. If `schedule_start_date` and
@@ -1492,8 +1548,7 @@ pub struct TransferJob {
     /// Transfer specification.
     #[prost(message, optional, tag = "4")]
     pub transfer_spec: ::core::option::Option<TransferSpec>,
-    /// Notification configuration. This is not supported for transfers involving
-    /// PosixFilesystem.
+    /// Notification configuration.
     #[prost(message, optional, tag = "11")]
     pub notification_config: ::core::option::Option<NotificationConfig>,
     /// Logging configuration.
@@ -1619,7 +1674,7 @@ pub struct ErrorSummary {
 }
 /// A collection of counters that report the progress of a transfer operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TransferCounters {
     /// Objects found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
@@ -1849,33 +1904,26 @@ pub mod notification_config {
 }
 /// Specifies the logging behavior for transfer operations.
 ///
-/// For cloud-to-cloud transfers, logs are sent to Cloud Logging. See
+/// Logs can be sent to Cloud Logging for all transfer types. See
 /// [Read transfer
 /// logs](<https://cloud.google.com/storage-transfer/docs/read-transfer-logs>) for
 /// details.
-///
-/// For transfers to or from a POSIX file system, logs are stored in the
-/// Cloud Storage bucket that is the source or sink of the transfer.
-/// See \[Managing Transfer for on-premises jobs\]
-/// (<https://cloud.google.com/storage-transfer/docs/managing-on-prem-jobs#viewing-logs>)
-/// for details.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoggingConfig {
     /// Specifies the actions to be logged. If empty, no logs are generated.
-    /// Not supported for transfers with PosixFilesystem data sources; use
-    /// [enable_onprem_gcs_transfer_logs][google.storagetransfer.v1.LoggingConfig.enable_onprem_gcs_transfer_logs]
-    /// instead.
     #[prost(enumeration = "logging_config::LoggableAction", repeated, tag = "1")]
     pub log_actions: ::prost::alloc::vec::Vec<i32>,
     /// States in which `log_actions` are logged. If empty, no logs are generated.
-    /// Not supported for transfers with PosixFilesystem data sources; use
-    /// [enable_onprem_gcs_transfer_logs][google.storagetransfer.v1.LoggingConfig.enable_onprem_gcs_transfer_logs]
-    /// instead.
     #[prost(enumeration = "logging_config::LoggableActionState", repeated, tag = "2")]
     pub log_action_states: ::prost::alloc::vec::Vec<i32>,
-    /// For transfers with a PosixFilesystem source, this option enables the Cloud
-    /// Storage transfer logs for this transfer.
+    /// For PosixFilesystem transfers, enables
+    /// [file system transfer
+    /// logs](<https://cloud.google.com/storage-transfer/docs/on-prem-transfer-log-format>)
+    /// instead of, or in addition to, Cloud Logging.
+    ///
+    /// This option ignores \[LoggableAction\] and \[LoggableActionState\]. If these
+    /// are set, Cloud Logging will also be enabled for this transfer.
     #[prost(bool, tag = "3")]
     pub enable_onprem_gcs_transfer_logs: bool,
 }

@@ -18,6 +18,943 @@ pub struct ToxicCombination {
     #[prost(string, repeated, tag = "2")]
     pub related_findings: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+/// Represents a particular IAM binding, which captures a member's role addition,
+/// removal, or state.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IamBinding {
+    /// The action that was performed on a Binding.
+    #[prost(enumeration = "iam_binding::Action", tag = "1")]
+    pub action: i32,
+    /// Role that is assigned to "members".
+    /// For example, "roles/viewer", "roles/editor", or "roles/owner".
+    #[prost(string, tag = "2")]
+    pub role: ::prost::alloc::string::String,
+    /// A single identity requesting access for a Cloud Platform resource, for
+    /// example, "foo@google.com".
+    #[prost(string, tag = "3")]
+    pub member: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `IamBinding`.
+pub mod iam_binding {
+    /// The type of action performed on a Binding in a policy.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Action {
+        /// Unspecified.
+        Unspecified = 0,
+        /// Addition of a Binding.
+        Add = 1,
+        /// Removal of a Binding.
+        Remove = 2,
+    }
+    impl Action {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Action::Unspecified => "ACTION_UNSPECIFIED",
+                Action::Add => "ADD",
+                Action::Remove => "REMOVE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ACTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ADD" => Some(Self::Add),
+                "REMOVE" => Some(Self::Remove),
+                _ => None,
+            }
+        }
+    }
+}
+/// MITRE ATT&CK tactics and techniques related to this finding.
+/// See: <https://attack.mitre.org>
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MitreAttack {
+    /// The MITRE ATT&CK tactic most closely represented by this finding, if any.
+    #[prost(enumeration = "mitre_attack::Tactic", tag = "1")]
+    pub primary_tactic: i32,
+    /// The MITRE ATT&CK technique most closely represented by this finding, if
+    /// any. primary_techniques is a repeated field because there are multiple
+    /// levels of MITRE ATT&CK techniques.  If the technique most closely
+    /// represented by this finding is a sub-technique (e.g. `SCANNING_IP_BLOCKS`),
+    /// both the sub-technique and its parent technique(s) will be listed (e.g.
+    /// `SCANNING_IP_BLOCKS`, `ACTIVE_SCANNING`).
+    #[prost(enumeration = "mitre_attack::Technique", repeated, tag = "2")]
+    pub primary_techniques: ::prost::alloc::vec::Vec<i32>,
+    /// Additional MITRE ATT&CK tactics related to this finding, if any.
+    #[prost(enumeration = "mitre_attack::Tactic", repeated, tag = "3")]
+    pub additional_tactics: ::prost::alloc::vec::Vec<i32>,
+    /// Additional MITRE ATT&CK techniques related to this finding, if any, along
+    /// with any of their respective parent techniques.
+    #[prost(enumeration = "mitre_attack::Technique", repeated, tag = "4")]
+    pub additional_techniques: ::prost::alloc::vec::Vec<i32>,
+    /// The MITRE ATT&CK version referenced by the above fields. E.g. "8".
+    #[prost(string, tag = "5")]
+    pub version: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `MitreAttack`.
+pub mod mitre_attack {
+    /// MITRE ATT&CK tactics that can be referenced by SCC findings.
+    /// See: <https://attack.mitre.org/tactics/enterprise/>
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Tactic {
+        /// Unspecified value.
+        Unspecified = 0,
+        /// TA0043
+        Reconnaissance = 1,
+        /// TA0042
+        ResourceDevelopment = 2,
+        /// TA0001
+        InitialAccess = 5,
+        /// TA0002
+        Execution = 3,
+        /// TA0003
+        Persistence = 6,
+        /// TA0004
+        PrivilegeEscalation = 8,
+        /// TA0005
+        DefenseEvasion = 7,
+        /// TA0006
+        CredentialAccess = 9,
+        /// TA0007
+        Discovery = 10,
+        /// TA0008
+        LateralMovement = 11,
+        /// TA0009
+        Collection = 12,
+        /// TA0011
+        CommandAndControl = 4,
+        /// TA0010
+        Exfiltration = 13,
+        /// TA0040
+        Impact = 14,
+    }
+    impl Tactic {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Tactic::Unspecified => "TACTIC_UNSPECIFIED",
+                Tactic::Reconnaissance => "RECONNAISSANCE",
+                Tactic::ResourceDevelopment => "RESOURCE_DEVELOPMENT",
+                Tactic::InitialAccess => "INITIAL_ACCESS",
+                Tactic::Execution => "EXECUTION",
+                Tactic::Persistence => "PERSISTENCE",
+                Tactic::PrivilegeEscalation => "PRIVILEGE_ESCALATION",
+                Tactic::DefenseEvasion => "DEFENSE_EVASION",
+                Tactic::CredentialAccess => "CREDENTIAL_ACCESS",
+                Tactic::Discovery => "DISCOVERY",
+                Tactic::LateralMovement => "LATERAL_MOVEMENT",
+                Tactic::Collection => "COLLECTION",
+                Tactic::CommandAndControl => "COMMAND_AND_CONTROL",
+                Tactic::Exfiltration => "EXFILTRATION",
+                Tactic::Impact => "IMPACT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TACTIC_UNSPECIFIED" => Some(Self::Unspecified),
+                "RECONNAISSANCE" => Some(Self::Reconnaissance),
+                "RESOURCE_DEVELOPMENT" => Some(Self::ResourceDevelopment),
+                "INITIAL_ACCESS" => Some(Self::InitialAccess),
+                "EXECUTION" => Some(Self::Execution),
+                "PERSISTENCE" => Some(Self::Persistence),
+                "PRIVILEGE_ESCALATION" => Some(Self::PrivilegeEscalation),
+                "DEFENSE_EVASION" => Some(Self::DefenseEvasion),
+                "CREDENTIAL_ACCESS" => Some(Self::CredentialAccess),
+                "DISCOVERY" => Some(Self::Discovery),
+                "LATERAL_MOVEMENT" => Some(Self::LateralMovement),
+                "COLLECTION" => Some(Self::Collection),
+                "COMMAND_AND_CONTROL" => Some(Self::CommandAndControl),
+                "EXFILTRATION" => Some(Self::Exfiltration),
+                "IMPACT" => Some(Self::Impact),
+                _ => None,
+            }
+        }
+    }
+    /// MITRE ATT&CK techniques that can be referenced by SCC findings.
+    /// See: <https://attack.mitre.org/techniques/enterprise/>
+    /// Next ID: 65
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Technique {
+        /// Unspecified value.
+        Unspecified = 0,
+        /// T1036
+        Masquerading = 49,
+        /// T1036.005
+        MatchLegitimateNameOrLocation = 50,
+        /// T1037
+        BootOrLogonInitializationScripts = 37,
+        /// T1037.005
+        StartupItems = 38,
+        /// T1046
+        NetworkServiceDiscovery = 32,
+        /// T1057
+        ProcessDiscovery = 56,
+        /// T1059
+        CommandAndScriptingInterpreter = 6,
+        /// T1059.004
+        UnixShell = 7,
+        /// T1059.006
+        Python = 59,
+        /// T1068
+        ExploitationForPrivilegeEscalation = 63,
+        /// T1069
+        PermissionGroupsDiscovery = 18,
+        /// T1069.003
+        CloudGroups = 19,
+        /// T1070.004
+        IndicatorRemovalFileDeletion = 64,
+        /// T1071
+        ApplicationLayerProtocol = 45,
+        /// T1071.004
+        Dns = 46,
+        /// T1072
+        SoftwareDeploymentTools = 47,
+        /// T1078
+        ValidAccounts = 14,
+        /// T1078.001
+        DefaultAccounts = 35,
+        /// T1078.003
+        LocalAccounts = 15,
+        /// T1078.004
+        CloudAccounts = 16,
+        /// T1090
+        Proxy = 9,
+        /// T1090.002
+        ExternalProxy = 10,
+        /// T1090.003
+        MultiHopProxy = 11,
+        /// T1098
+        AccountManipulation = 22,
+        /// T1098.001
+        AdditionalCloudCredentials = 40,
+        /// T1098.004
+        SshAuthorizedKeys = 23,
+        /// T1098.006
+        AdditionalContainerClusterRoles = 58,
+        /// T1105
+        IngressToolTransfer = 3,
+        /// T1106
+        NativeApi = 4,
+        /// T1110
+        BruteForce = 44,
+        /// T1129
+        SharedModules = 5,
+        /// T1134
+        AccessTokenManipulation = 33,
+        /// T1134.001
+        TokenImpersonationOrTheft = 39,
+        /// T1190
+        ExploitPublicFacingApplication = 27,
+        /// T1484
+        DomainPolicyModification = 30,
+        /// T1485
+        DataDestruction = 29,
+        /// T1489
+        ServiceStop = 52,
+        /// T1490
+        InhibitSystemRecovery = 36,
+        /// T1496
+        ResourceHijacking = 8,
+        /// T1498
+        NetworkDenialOfService = 17,
+        /// T1526
+        CloudServiceDiscovery = 48,
+        /// T1528
+        StealApplicationAccessToken = 42,
+        /// T1531
+        AccountAccessRemoval = 51,
+        /// T1539
+        StealWebSessionCookie = 25,
+        /// T1543
+        CreateOrModifySystemProcess = 24,
+        /// T1548
+        AbuseElevationControlMechanism = 34,
+        /// T1552
+        UnsecuredCredentials = 13,
+        /// T1556
+        ModifyAuthenticationProcess = 28,
+        /// T1562
+        ImpairDefenses = 31,
+        /// T1562.001
+        DisableOrModifyTools = 55,
+        /// T1567
+        ExfiltrationOverWebService = 20,
+        /// T1567.002
+        ExfiltrationToCloudStorage = 21,
+        /// T1568
+        DynamicResolution = 12,
+        /// T1570
+        LateralToolTransfer = 41,
+        /// T1578
+        ModifyCloudComputeInfrastructure = 26,
+        /// T1578.001
+        CreateSnapshot = 54,
+        /// T1580
+        CloudInfrastructureDiscovery = 53,
+        /// T1588
+        ObtainCapabilities = 43,
+        /// T1595
+        ActiveScanning = 1,
+        /// T1595.001
+        ScanningIpBlocks = 2,
+        /// T1609
+        ContainerAdministrationCommand = 60,
+        /// T1611
+        EscapeToHost = 61,
+        /// T1613
+        ContainerAndResourceDiscovery = 57,
+        /// T1649
+        StealOrForgeAuthenticationCertificates = 62,
+    }
+    impl Technique {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Technique::Unspecified => "TECHNIQUE_UNSPECIFIED",
+                Technique::Masquerading => "MASQUERADING",
+                Technique::MatchLegitimateNameOrLocation => {
+                    "MATCH_LEGITIMATE_NAME_OR_LOCATION"
+                }
+                Technique::BootOrLogonInitializationScripts => {
+                    "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS"
+                }
+                Technique::StartupItems => "STARTUP_ITEMS",
+                Technique::NetworkServiceDiscovery => "NETWORK_SERVICE_DISCOVERY",
+                Technique::ProcessDiscovery => "PROCESS_DISCOVERY",
+                Technique::CommandAndScriptingInterpreter => {
+                    "COMMAND_AND_SCRIPTING_INTERPRETER"
+                }
+                Technique::UnixShell => "UNIX_SHELL",
+                Technique::Python => "PYTHON",
+                Technique::ExploitationForPrivilegeEscalation => {
+                    "EXPLOITATION_FOR_PRIVILEGE_ESCALATION"
+                }
+                Technique::PermissionGroupsDiscovery => "PERMISSION_GROUPS_DISCOVERY",
+                Technique::CloudGroups => "CLOUD_GROUPS",
+                Technique::IndicatorRemovalFileDeletion => {
+                    "INDICATOR_REMOVAL_FILE_DELETION"
+                }
+                Technique::ApplicationLayerProtocol => "APPLICATION_LAYER_PROTOCOL",
+                Technique::Dns => "DNS",
+                Technique::SoftwareDeploymentTools => "SOFTWARE_DEPLOYMENT_TOOLS",
+                Technique::ValidAccounts => "VALID_ACCOUNTS",
+                Technique::DefaultAccounts => "DEFAULT_ACCOUNTS",
+                Technique::LocalAccounts => "LOCAL_ACCOUNTS",
+                Technique::CloudAccounts => "CLOUD_ACCOUNTS",
+                Technique::Proxy => "PROXY",
+                Technique::ExternalProxy => "EXTERNAL_PROXY",
+                Technique::MultiHopProxy => "MULTI_HOP_PROXY",
+                Technique::AccountManipulation => "ACCOUNT_MANIPULATION",
+                Technique::AdditionalCloudCredentials => "ADDITIONAL_CLOUD_CREDENTIALS",
+                Technique::SshAuthorizedKeys => "SSH_AUTHORIZED_KEYS",
+                Technique::AdditionalContainerClusterRoles => {
+                    "ADDITIONAL_CONTAINER_CLUSTER_ROLES"
+                }
+                Technique::IngressToolTransfer => "INGRESS_TOOL_TRANSFER",
+                Technique::NativeApi => "NATIVE_API",
+                Technique::BruteForce => "BRUTE_FORCE",
+                Technique::SharedModules => "SHARED_MODULES",
+                Technique::AccessTokenManipulation => "ACCESS_TOKEN_MANIPULATION",
+                Technique::TokenImpersonationOrTheft => "TOKEN_IMPERSONATION_OR_THEFT",
+                Technique::ExploitPublicFacingApplication => {
+                    "EXPLOIT_PUBLIC_FACING_APPLICATION"
+                }
+                Technique::DomainPolicyModification => "DOMAIN_POLICY_MODIFICATION",
+                Technique::DataDestruction => "DATA_DESTRUCTION",
+                Technique::ServiceStop => "SERVICE_STOP",
+                Technique::InhibitSystemRecovery => "INHIBIT_SYSTEM_RECOVERY",
+                Technique::ResourceHijacking => "RESOURCE_HIJACKING",
+                Technique::NetworkDenialOfService => "NETWORK_DENIAL_OF_SERVICE",
+                Technique::CloudServiceDiscovery => "CLOUD_SERVICE_DISCOVERY",
+                Technique::StealApplicationAccessToken => {
+                    "STEAL_APPLICATION_ACCESS_TOKEN"
+                }
+                Technique::AccountAccessRemoval => "ACCOUNT_ACCESS_REMOVAL",
+                Technique::StealWebSessionCookie => "STEAL_WEB_SESSION_COOKIE",
+                Technique::CreateOrModifySystemProcess => {
+                    "CREATE_OR_MODIFY_SYSTEM_PROCESS"
+                }
+                Technique::AbuseElevationControlMechanism => {
+                    "ABUSE_ELEVATION_CONTROL_MECHANISM"
+                }
+                Technique::UnsecuredCredentials => "UNSECURED_CREDENTIALS",
+                Technique::ModifyAuthenticationProcess => "MODIFY_AUTHENTICATION_PROCESS",
+                Technique::ImpairDefenses => "IMPAIR_DEFENSES",
+                Technique::DisableOrModifyTools => "DISABLE_OR_MODIFY_TOOLS",
+                Technique::ExfiltrationOverWebService => "EXFILTRATION_OVER_WEB_SERVICE",
+                Technique::ExfiltrationToCloudStorage => "EXFILTRATION_TO_CLOUD_STORAGE",
+                Technique::DynamicResolution => "DYNAMIC_RESOLUTION",
+                Technique::LateralToolTransfer => "LATERAL_TOOL_TRANSFER",
+                Technique::ModifyCloudComputeInfrastructure => {
+                    "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE"
+                }
+                Technique::CreateSnapshot => "CREATE_SNAPSHOT",
+                Technique::CloudInfrastructureDiscovery => {
+                    "CLOUD_INFRASTRUCTURE_DISCOVERY"
+                }
+                Technique::ObtainCapabilities => "OBTAIN_CAPABILITIES",
+                Technique::ActiveScanning => "ACTIVE_SCANNING",
+                Technique::ScanningIpBlocks => "SCANNING_IP_BLOCKS",
+                Technique::ContainerAdministrationCommand => {
+                    "CONTAINER_ADMINISTRATION_COMMAND"
+                }
+                Technique::EscapeToHost => "ESCAPE_TO_HOST",
+                Technique::ContainerAndResourceDiscovery => {
+                    "CONTAINER_AND_RESOURCE_DISCOVERY"
+                }
+                Technique::StealOrForgeAuthenticationCertificates => {
+                    "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES"
+                }
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TECHNIQUE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MASQUERADING" => Some(Self::Masquerading),
+                "MATCH_LEGITIMATE_NAME_OR_LOCATION" => {
+                    Some(Self::MatchLegitimateNameOrLocation)
+                }
+                "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS" => {
+                    Some(Self::BootOrLogonInitializationScripts)
+                }
+                "STARTUP_ITEMS" => Some(Self::StartupItems),
+                "NETWORK_SERVICE_DISCOVERY" => Some(Self::NetworkServiceDiscovery),
+                "PROCESS_DISCOVERY" => Some(Self::ProcessDiscovery),
+                "COMMAND_AND_SCRIPTING_INTERPRETER" => {
+                    Some(Self::CommandAndScriptingInterpreter)
+                }
+                "UNIX_SHELL" => Some(Self::UnixShell),
+                "PYTHON" => Some(Self::Python),
+                "EXPLOITATION_FOR_PRIVILEGE_ESCALATION" => {
+                    Some(Self::ExploitationForPrivilegeEscalation)
+                }
+                "PERMISSION_GROUPS_DISCOVERY" => Some(Self::PermissionGroupsDiscovery),
+                "CLOUD_GROUPS" => Some(Self::CloudGroups),
+                "INDICATOR_REMOVAL_FILE_DELETION" => {
+                    Some(Self::IndicatorRemovalFileDeletion)
+                }
+                "APPLICATION_LAYER_PROTOCOL" => Some(Self::ApplicationLayerProtocol),
+                "DNS" => Some(Self::Dns),
+                "SOFTWARE_DEPLOYMENT_TOOLS" => Some(Self::SoftwareDeploymentTools),
+                "VALID_ACCOUNTS" => Some(Self::ValidAccounts),
+                "DEFAULT_ACCOUNTS" => Some(Self::DefaultAccounts),
+                "LOCAL_ACCOUNTS" => Some(Self::LocalAccounts),
+                "CLOUD_ACCOUNTS" => Some(Self::CloudAccounts),
+                "PROXY" => Some(Self::Proxy),
+                "EXTERNAL_PROXY" => Some(Self::ExternalProxy),
+                "MULTI_HOP_PROXY" => Some(Self::MultiHopProxy),
+                "ACCOUNT_MANIPULATION" => Some(Self::AccountManipulation),
+                "ADDITIONAL_CLOUD_CREDENTIALS" => Some(Self::AdditionalCloudCredentials),
+                "SSH_AUTHORIZED_KEYS" => Some(Self::SshAuthorizedKeys),
+                "ADDITIONAL_CONTAINER_CLUSTER_ROLES" => {
+                    Some(Self::AdditionalContainerClusterRoles)
+                }
+                "INGRESS_TOOL_TRANSFER" => Some(Self::IngressToolTransfer),
+                "NATIVE_API" => Some(Self::NativeApi),
+                "BRUTE_FORCE" => Some(Self::BruteForce),
+                "SHARED_MODULES" => Some(Self::SharedModules),
+                "ACCESS_TOKEN_MANIPULATION" => Some(Self::AccessTokenManipulation),
+                "TOKEN_IMPERSONATION_OR_THEFT" => Some(Self::TokenImpersonationOrTheft),
+                "EXPLOIT_PUBLIC_FACING_APPLICATION" => {
+                    Some(Self::ExploitPublicFacingApplication)
+                }
+                "DOMAIN_POLICY_MODIFICATION" => Some(Self::DomainPolicyModification),
+                "DATA_DESTRUCTION" => Some(Self::DataDestruction),
+                "SERVICE_STOP" => Some(Self::ServiceStop),
+                "INHIBIT_SYSTEM_RECOVERY" => Some(Self::InhibitSystemRecovery),
+                "RESOURCE_HIJACKING" => Some(Self::ResourceHijacking),
+                "NETWORK_DENIAL_OF_SERVICE" => Some(Self::NetworkDenialOfService),
+                "CLOUD_SERVICE_DISCOVERY" => Some(Self::CloudServiceDiscovery),
+                "STEAL_APPLICATION_ACCESS_TOKEN" => {
+                    Some(Self::StealApplicationAccessToken)
+                }
+                "ACCOUNT_ACCESS_REMOVAL" => Some(Self::AccountAccessRemoval),
+                "STEAL_WEB_SESSION_COOKIE" => Some(Self::StealWebSessionCookie),
+                "CREATE_OR_MODIFY_SYSTEM_PROCESS" => {
+                    Some(Self::CreateOrModifySystemProcess)
+                }
+                "ABUSE_ELEVATION_CONTROL_MECHANISM" => {
+                    Some(Self::AbuseElevationControlMechanism)
+                }
+                "UNSECURED_CREDENTIALS" => Some(Self::UnsecuredCredentials),
+                "MODIFY_AUTHENTICATION_PROCESS" => {
+                    Some(Self::ModifyAuthenticationProcess)
+                }
+                "IMPAIR_DEFENSES" => Some(Self::ImpairDefenses),
+                "DISABLE_OR_MODIFY_TOOLS" => Some(Self::DisableOrModifyTools),
+                "EXFILTRATION_OVER_WEB_SERVICE" => Some(Self::ExfiltrationOverWebService),
+                "EXFILTRATION_TO_CLOUD_STORAGE" => Some(Self::ExfiltrationToCloudStorage),
+                "DYNAMIC_RESOLUTION" => Some(Self::DynamicResolution),
+                "LATERAL_TOOL_TRANSFER" => Some(Self::LateralToolTransfer),
+                "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE" => {
+                    Some(Self::ModifyCloudComputeInfrastructure)
+                }
+                "CREATE_SNAPSHOT" => Some(Self::CreateSnapshot),
+                "CLOUD_INFRASTRUCTURE_DISCOVERY" => {
+                    Some(Self::CloudInfrastructureDiscovery)
+                }
+                "OBTAIN_CAPABILITIES" => Some(Self::ObtainCapabilities),
+                "ACTIVE_SCANNING" => Some(Self::ActiveScanning),
+                "SCANNING_IP_BLOCKS" => Some(Self::ScanningIpBlocks),
+                "CONTAINER_ADMINISTRATION_COMMAND" => {
+                    Some(Self::ContainerAdministrationCommand)
+                }
+                "ESCAPE_TO_HOST" => Some(Self::EscapeToHost),
+                "CONTAINER_AND_RESOURCE_DISCOVERY" => {
+                    Some(Self::ContainerAndResourceDiscovery)
+                }
+                "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES" => {
+                    Some(Self::StealOrForgeAuthenticationCertificates)
+                }
+                _ => None,
+            }
+        }
+    }
+}
+/// Message that contains the resource name and display name of a folder
+/// resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Folder {
+    /// Full resource name of this folder. See:
+    /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
+    #[prost(string, tag = "1")]
+    pub resource_folder: ::prost::alloc::string::String,
+    /// The user defined display name for this folder.
+    #[prost(string, tag = "2")]
+    pub resource_folder_display_name: ::prost::alloc::string::String,
+}
+/// Details about the Cloud Data Loss Prevention (Cloud DLP) [inspection
+/// job](<https://cloud.google.com/dlp/docs/concepts-job-triggers>) that produced
+/// the finding.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CloudDlpInspection {
+    /// Name of the inspection job, for example,
+    /// `projects/123/locations/europe/dlpJobs/i-8383929`.
+    #[prost(string, tag = "1")]
+    pub inspect_job: ::prost::alloc::string::String,
+    /// The type of information (or
+    /// *[infoType](<https://cloud.google.com/dlp/docs/infotypes-reference>)*) found,
+    /// for example, `EMAIL_ADDRESS` or `STREET_ADDRESS`.
+    #[prost(string, tag = "2")]
+    pub info_type: ::prost::alloc::string::String,
+    /// The number of times Cloud DLP found this infoType within this job
+    /// and resource.
+    #[prost(int64, tag = "3")]
+    pub info_type_count: i64,
+    /// Whether Cloud DLP scanned the complete resource or a sampled subset.
+    #[prost(bool, tag = "4")]
+    pub full_scan: bool,
+}
+/// Represents a posture that is deployed on Google Cloud by the
+/// Security Command Center Posture Management service.
+/// A posture contains one or more policy sets. A policy set is a
+/// group of policies that enforce a set of security rules on Google
+/// Cloud.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityPosture {
+    /// Name of the posture, for example, `CIS-Posture`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The version of the posture, for example, `c7cfa2a8`.
+    #[prost(string, tag = "2")]
+    pub revision_id: ::prost::alloc::string::String,
+    /// The project, folder, or organization on which the posture is deployed,
+    /// for example, `projects/{project_number}`.
+    #[prost(string, tag = "3")]
+    pub posture_deployment_resource: ::prost::alloc::string::String,
+    /// The name of the posture deployment, for example,
+    /// `organizations/{org_id}/posturedeployments/{posture_deployment_id}`.
+    #[prost(string, tag = "4")]
+    pub posture_deployment: ::prost::alloc::string::String,
+    /// The name of the updated policy, for example,
+    /// `projects/{project_id}/policies/{constraint_name}`.
+    #[prost(string, tag = "5")]
+    pub changed_policy: ::prost::alloc::string::String,
+    /// The name of the updated policy set, for example, `cis-policyset`.
+    #[prost(string, tag = "6")]
+    pub policy_set: ::prost::alloc::string::String,
+    /// The ID of the updated policy, for example, `compute-policy-1`.
+    #[prost(string, tag = "7")]
+    pub policy: ::prost::alloc::string::String,
+    /// The details about a change in an updated policy that violates the deployed
+    /// posture.
+    #[prost(message, repeated, tag = "8")]
+    pub policy_drift_details: ::prost::alloc::vec::Vec<
+        security_posture::PolicyDriftDetails,
+    >,
+}
+/// Nested message and enum types in `SecurityPosture`.
+pub mod security_posture {
+    /// The policy field that violates the deployed posture and its expected and
+    /// detected values.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct PolicyDriftDetails {
+        /// The name of the updated field, for example
+        /// constraint.implementation.policy_rules\[0\].enforce
+        #[prost(string, tag = "1")]
+        pub field: ::prost::alloc::string::String,
+        /// The value of this field that was configured in a posture, for example,
+        /// `true` or `allowed_values={"projects/29831892"}`.
+        #[prost(string, tag = "2")]
+        pub expected_value: ::prost::alloc::string::String,
+        /// The detected value that violates the deployed posture, for example,
+        /// `false` or `allowed_values={"projects/22831892"}`.
+        #[prost(string, tag = "3")]
+        pub detected_value: ::prost::alloc::string::String,
+    }
+}
+/// A path that an attacker could take to reach an exposed resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttackPath {
+    /// The attack path name, for example,
+    ///   `organizations/12/simulations/34/valuedResources/56/attackPaths/78`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// A list of nodes that exist in this attack path.
+    #[prost(message, repeated, tag = "2")]
+    pub path_nodes: ::prost::alloc::vec::Vec<attack_path::AttackPathNode>,
+    /// A list of the edges between nodes in this attack path.
+    #[prost(message, repeated, tag = "3")]
+    pub edges: ::prost::alloc::vec::Vec<attack_path::AttackPathEdge>,
+}
+/// Nested message and enum types in `AttackPath`.
+pub mod attack_path {
+    /// Represents one point that an attacker passes through in this attack path.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct AttackPathNode {
+        /// The name of the resource at this point in the attack path.
+        /// The format of the name follows the Cloud Asset Inventory [resource
+        /// name
+        /// format](<https://cloud.google.com/asset-inventory/docs/resource-name-format>)
+        #[prost(string, tag = "1")]
+        pub resource: ::prost::alloc::string::String,
+        /// The [supported resource
+        /// type](<https://cloud.google.com/asset-inventory/docs/supported-asset-types>)
+        #[prost(string, tag = "2")]
+        pub resource_type: ::prost::alloc::string::String,
+        /// Human-readable name of this resource.
+        #[prost(string, tag = "3")]
+        pub display_name: ::prost::alloc::string::String,
+        /// The findings associated with this node in the attack path.
+        #[prost(message, repeated, tag = "4")]
+        pub associated_findings: ::prost::alloc::vec::Vec<
+            attack_path_node::PathNodeAssociatedFinding,
+        >,
+        /// Unique id of the attack path node.
+        #[prost(string, tag = "5")]
+        pub uuid: ::prost::alloc::string::String,
+        /// A list of attack step nodes that exist in this attack path node.
+        #[prost(message, repeated, tag = "6")]
+        pub attack_steps: ::prost::alloc::vec::Vec<attack_path_node::AttackStepNode>,
+    }
+    /// Nested message and enum types in `AttackPathNode`.
+    pub mod attack_path_node {
+        /// A finding that is associated with this node in the attack path.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct PathNodeAssociatedFinding {
+            /// Canonical name of the associated findings. Example:
+            /// `organizations/123/sources/456/findings/789`
+            #[prost(string, tag = "1")]
+            pub canonical_finding: ::prost::alloc::string::String,
+            /// The additional taxonomy group within findings from a given source.
+            #[prost(string, tag = "2")]
+            pub finding_category: ::prost::alloc::string::String,
+            /// Full resource name of the finding.
+            #[prost(string, tag = "3")]
+            pub name: ::prost::alloc::string::String,
+        }
+        /// Detailed steps the attack can take between path nodes.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct AttackStepNode {
+            /// Unique ID for one Node
+            #[prost(string, tag = "1")]
+            pub uuid: ::prost::alloc::string::String,
+            /// Attack step type. Can be either AND, OR or DEFENSE
+            #[prost(enumeration = "NodeType", tag = "2")]
+            pub r#type: i32,
+            /// User friendly name of the attack step
+            #[prost(string, tag = "3")]
+            pub display_name: ::prost::alloc::string::String,
+            /// Attack step labels for metadata
+            #[prost(btree_map = "string, string", tag = "4")]
+            pub labels: ::prost::alloc::collections::BTreeMap<
+                ::prost::alloc::string::String,
+                ::prost::alloc::string::String,
+            >,
+            /// Attack step description
+            #[prost(string, tag = "5")]
+            pub description: ::prost::alloc::string::String,
+        }
+        /// The type of the incoming attack step node.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum NodeType {
+            /// Type not specified
+            Unspecified = 0,
+            /// Incoming edge joined with AND
+            And = 1,
+            /// Incoming edge joined with OR
+            Or = 2,
+            /// Incoming edge is defense
+            Defense = 3,
+            /// Incoming edge is attacker
+            Attacker = 4,
+        }
+        impl NodeType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    NodeType::Unspecified => "NODE_TYPE_UNSPECIFIED",
+                    NodeType::And => "NODE_TYPE_AND",
+                    NodeType::Or => "NODE_TYPE_OR",
+                    NodeType::Defense => "NODE_TYPE_DEFENSE",
+                    NodeType::Attacker => "NODE_TYPE_ATTACKER",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "NODE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "NODE_TYPE_AND" => Some(Self::And),
+                    "NODE_TYPE_OR" => Some(Self::Or),
+                    "NODE_TYPE_DEFENSE" => Some(Self::Defense),
+                    "NODE_TYPE_ATTACKER" => Some(Self::Attacker),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// Represents a connection between a source node and a destination node in
+    /// this attack path.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct AttackPathEdge {
+        /// The attack node uuid of the source node.
+        #[prost(string, tag = "1")]
+        pub source: ::prost::alloc::string::String,
+        /// The attack node uuid of the destination node.
+        #[prost(string, tag = "2")]
+        pub destination: ::prost::alloc::string::String,
+    }
+}
+/// Configures how to deliver Findings to BigQuery Instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigQueryExport {
+    /// Identifier. The relative resource name of this export. See:
+    /// <https://cloud.google.com/apis/design/resource_names#relative_resource_name.>
+    /// The following list shows some examples:
+    ///
+    /// +
+    /// `organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}`
+    /// + `folders/{folder_id}/locations/{location_id}/bigQueryExports/{export_id}`
+    /// +
+    /// `projects/{project_id}/locations/{location_id}/bigQueryExports/{export_id}`
+    ///
+    /// This field is provided in responses, and is ignored when provided in create
+    /// requests.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The description of the export (max of 1024 characters).
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    /// Expression that defines the filter to apply across create/update events
+    /// of findings. The expression is a list of zero or more restrictions combined
+    /// via logical operators `AND` and `OR`. Parentheses are supported, and `OR`
+    /// has higher precedence than `AND`.
+    ///
+    /// Restrictions have the form `<field> <operator> <value>` and may have a
+    /// `-` character in front of them to indicate negation. The fields map to
+    /// those defined in the corresponding resource.
+    ///
+    /// The supported operators are:
+    ///
+    /// * `=` for all value types.
+    /// * `>`, `<`, `>=`, `<=` for integer values.
+    /// * `:`, meaning substring matching, for strings.
+    ///
+    /// The supported value types are:
+    ///
+    /// * string literals in quotes.
+    /// * integer literals without quotes.
+    /// * boolean literals `true` and `false` without quotes.
+    #[prost(string, tag = "3")]
+    pub filter: ::prost::alloc::string::String,
+    /// The dataset to write findings' updates to. Its format is
+    /// "projects/\[project_id\]/datasets/\[bigquery_dataset_id\]".
+    /// BigQuery dataset unique ID  must contain only letters (a-z, A-Z), numbers
+    /// (0-9), or underscores (_).
+    #[prost(string, tag = "4")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. The time at which the BigQuery export was created.
+    /// This field is set by the server and will be ignored if provided on export
+    /// on creation.
+    #[prost(message, optional, tag = "5")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The most recent time at which the BigQuery export was updated.
+    /// This field is set by the server and will be ignored if provided on export
+    /// creation or update.
+    #[prost(message, optional, tag = "6")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Email address of the user who last edited the BigQuery export.
+    /// This field is set by the server and will be ignored if provided on export
+    /// creation or update.
+    #[prost(string, tag = "7")]
+    pub most_recent_editor: ::prost::alloc::string::String,
+    /// Output only. The service account that needs permission to create table and
+    /// upload data to the BigQuery dataset.
+    #[prost(string, tag = "8")]
+    pub principal: ::prost::alloc::string::String,
+}
+/// Representation of third party SIEM/SOAR fields within SCC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalSystem {
+    /// Full resource name of the external system. The following list
+    /// shows some examples:
+    ///
+    /// + `organizations/1234/sources/5678/findings/123456/externalSystems/jira`
+    /// +
+    /// `organizations/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
+    /// + `folders/1234/sources/5678/findings/123456/externalSystems/jira`
+    /// +
+    /// `folders/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
+    /// + `projects/1234/sources/5678/findings/123456/externalSystems/jira`
+    /// +
+    /// `projects/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// References primary/secondary etc assignees in the external system.
+    #[prost(string, repeated, tag = "2")]
+    pub assignees: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The identifier that's used to track the finding's corresponding case in the
+    /// external system.
+    #[prost(string, tag = "3")]
+    pub external_uid: ::prost::alloc::string::String,
+    /// The most recent status of the finding's corresponding case, as reported by
+    /// the external system.
+    #[prost(string, tag = "4")]
+    pub status: ::prost::alloc::string::String,
+    /// The time when the case was last updated, as reported by the external
+    /// system.
+    #[prost(message, optional, tag = "5")]
+    pub external_system_update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The link to the finding's corresponding case in the external system.
+    #[prost(string, tag = "6")]
+    pub case_uri: ::prost::alloc::string::String,
+    /// The priority of the finding's corresponding case in the external system.
+    #[prost(string, tag = "7")]
+    pub case_priority: ::prost::alloc::string::String,
+    /// The SLA of the finding's corresponding case in the external system.
+    #[prost(message, optional, tag = "9")]
+    pub case_sla: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time when the case was created, as reported by the external system.
+    #[prost(message, optional, tag = "10")]
+    pub case_create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time when the case was closed, as reported by the external system.
+    #[prost(message, optional, tag = "11")]
+    pub case_close_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Information about the ticket, if any, that is being used to track the
+    /// resolution of the issue that is identified by this finding.
+    #[prost(message, optional, tag = "8")]
+    pub ticket_info: ::core::option::Option<external_system::TicketInfo>,
+}
+/// Nested message and enum types in `ExternalSystem`.
+pub mod external_system {
+    /// Information about the ticket, if any, that is being used to track the
+    /// resolution of the issue that is identified by this finding.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct TicketInfo {
+        /// The identifier of the ticket in the ticket system.
+        #[prost(string, tag = "1")]
+        pub id: ::prost::alloc::string::String,
+        /// The assignee of the ticket in the ticket system.
+        #[prost(string, tag = "2")]
+        pub assignee: ::prost::alloc::string::String,
+        /// The description of the ticket in the ticket system.
+        #[prost(string, tag = "3")]
+        pub description: ::prost::alloc::string::String,
+        /// The link to the ticket in the ticket system.
+        #[prost(string, tag = "4")]
+        pub uri: ::prost::alloc::string::String,
+        /// The latest status of the ticket, as reported by the ticket system.
+        #[prost(string, tag = "5")]
+        pub status: ::prost::alloc::string::String,
+        /// The time when the ticket was last updated, as reported by the ticket
+        /// system.
+        #[prost(message, optional, tag = "6")]
+        pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    }
+}
 /// Represents an access event.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -139,7 +1076,7 @@ pub struct AttackExposure {
     pub latest_calculation_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The resource name of the attack path simulation result that contains the
     /// details regarding this attack exposure score.
-    /// Example: organizations/123/simulations/456/attackExposureResults/789
+    /// Example: `organizations/123/simulations/456/attackExposureResults/789`
     #[prost(string, tag = "3")]
     pub attack_exposure_result: ::prost::alloc::string::String,
     /// Output only. What state this AttackExposure is in. This captures whether or
@@ -321,7 +1258,7 @@ pub struct SecurityPolicy {
 }
 /// Information about the requests relevant to the finding.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Requests {
     /// For 'Increasing deny ratio', the ratio is the denied traffic divided by the
     /// allowed traffic. For 'Allowed traffic spike', the ratio is the allowed
@@ -341,7 +1278,7 @@ pub struct Requests {
 /// Information about [Google Cloud Armor Adaptive
 /// Protection](<https://cloud.google.com/armor/docs/cloud-armor-overview#google-cloud-armor-adaptive-protection>).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AdaptiveProtection {
     /// A score of 0 means that there is low confidence that the detected event is
     /// an actual attack. A score of 1 means that there is high confidence that the
@@ -423,29 +1360,6 @@ pub mod cloud_dlp_data_profile {
             }
         }
     }
-}
-/// Details about the Cloud Data Loss Prevention (Cloud DLP) [inspection
-/// job](<https://cloud.google.com/dlp/docs/concepts-job-triggers>) that produced
-/// the finding.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CloudDlpInspection {
-    /// Name of the inspection job, for example,
-    /// `projects/123/locations/europe/dlpJobs/i-8383929`.
-    #[prost(string, tag = "1")]
-    pub inspect_job: ::prost::alloc::string::String,
-    /// The type of information (or
-    /// *[infoType](<https://cloud.google.com/dlp/docs/infotypes-reference>)*) found,
-    /// for example, `EMAIL_ADDRESS` or `STREET_ADDRESS`.
-    #[prost(string, tag = "2")]
-    pub info_type: ::prost::alloc::string::String,
-    /// The number of times Cloud DLP found this infoType within this job
-    /// and resource.
-    #[prost(int64, tag = "3")]
-    pub info_type_count: i64,
-    /// Whether Cloud DLP scanned the complete resource or a sampled subset.
-    #[prost(bool, tag = "4")]
-    pub full_scan: bool,
 }
 /// Contains compliance information about a security standard indicating unmet
 /// recommendations.
@@ -671,87 +1585,6 @@ pub struct ExfilResource {
     #[prost(string, repeated, tag = "2")]
     pub components: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// Representation of third party SIEM/SOAR fields within SCC.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExternalSystem {
-    /// Full resource name of the external system. The following list
-    /// shows some examples:
-    ///
-    /// + `organizations/1234/sources/5678/findings/123456/externalSystems/jira`
-    /// +
-    /// `organizations/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
-    /// + `folders/1234/sources/5678/findings/123456/externalSystems/jira`
-    /// +
-    /// `folders/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
-    /// + `projects/1234/sources/5678/findings/123456/externalSystems/jira`
-    /// +
-    /// `projects/1234/sources/5678/locations/us/findings/123456/externalSystems/jira`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// References primary/secondary etc assignees in the external system.
-    #[prost(string, repeated, tag = "2")]
-    pub assignees: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The identifier that's used to track the finding's corresponding case in the
-    /// external system.
-    #[prost(string, tag = "3")]
-    pub external_uid: ::prost::alloc::string::String,
-    /// The most recent status of the finding's corresponding case, as reported by
-    /// the external system.
-    #[prost(string, tag = "4")]
-    pub status: ::prost::alloc::string::String,
-    /// The time when the case was last updated, as reported by the external
-    /// system.
-    #[prost(message, optional, tag = "5")]
-    pub external_system_update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The link to the finding's corresponding case in the external system.
-    #[prost(string, tag = "6")]
-    pub case_uri: ::prost::alloc::string::String,
-    /// The priority of the finding's corresponding case in the external system.
-    #[prost(string, tag = "7")]
-    pub case_priority: ::prost::alloc::string::String,
-    /// The SLA of the finding's corresponding case in the external system.
-    #[prost(message, optional, tag = "9")]
-    pub case_sla: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time when the case was created, as reported by the external system.
-    #[prost(message, optional, tag = "10")]
-    pub case_create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time when the case was closed, as reported by the external system.
-    #[prost(message, optional, tag = "11")]
-    pub case_close_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Information about the ticket, if any, that is being used to track the
-    /// resolution of the issue that is identified by this finding.
-    #[prost(message, optional, tag = "8")]
-    pub ticket_info: ::core::option::Option<external_system::TicketInfo>,
-}
-/// Nested message and enum types in `ExternalSystem`.
-pub mod external_system {
-    /// Information about the ticket, if any, that is being used to track the
-    /// resolution of the issue that is identified by this finding.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct TicketInfo {
-        /// The identifier of the ticket in the ticket system.
-        #[prost(string, tag = "1")]
-        pub id: ::prost::alloc::string::String,
-        /// The assignee of the ticket in the ticket system.
-        #[prost(string, tag = "2")]
-        pub assignee: ::prost::alloc::string::String,
-        /// The description of the ticket in the ticket system.
-        #[prost(string, tag = "3")]
-        pub description: ::prost::alloc::string::String,
-        /// The link to the ticket in the ticket system.
-        #[prost(string, tag = "4")]
-        pub uri: ::prost::alloc::string::String,
-        /// The latest status of the ticket, as reported by the ticket system.
-        #[prost(string, tag = "5")]
-        pub status: ::prost::alloc::string::String,
-        /// The time when the ticket was last updated, as reported by the ticket
-        /// system.
-        #[prost(message, optional, tag = "6")]
-        pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    }
-}
 /// File information about the related binary/library used by an executable, or
 /// the script used by a script interpreter
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -848,69 +1681,6 @@ pub mod group_membership {
             match value {
                 "GROUP_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
                 "GROUP_TYPE_TOXIC_COMBINATION" => Some(Self::ToxicCombination),
-                _ => None,
-            }
-        }
-    }
-}
-/// Represents a particular IAM binding, which captures a member's role addition,
-/// removal, or state.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct IamBinding {
-    /// The action that was performed on a Binding.
-    #[prost(enumeration = "iam_binding::Action", tag = "1")]
-    pub action: i32,
-    /// Role that is assigned to "members".
-    /// For example, "roles/viewer", "roles/editor", or "roles/owner".
-    #[prost(string, tag = "2")]
-    pub role: ::prost::alloc::string::String,
-    /// A single identity requesting access for a Cloud Platform resource, for
-    /// example, "foo@google.com".
-    #[prost(string, tag = "3")]
-    pub member: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `IamBinding`.
-pub mod iam_binding {
-    /// The type of action performed on a Binding in a policy.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Action {
-        /// Unspecified.
-        Unspecified = 0,
-        /// Addition of a Binding.
-        Add = 1,
-        /// Removal of a Binding.
-        Remove = 2,
-    }
-    impl Action {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Action::Unspecified => "ACTION_UNSPECIFIED",
-                Action::Add => "ADD",
-                Action::Remove => "REMOVE",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ACTION_UNSPECIFIED" => Some(Self::Unspecified),
-                "ADD" => Some(Self::Add),
-                "REMOVE" => Some(Self::Remove),
                 _ => None,
             }
         }
@@ -1408,467 +2178,6 @@ pub struct CloudLoggingEntry {
     #[prost(message, optional, tag = "4")]
     pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
 }
-/// MITRE ATT&CK tactics and techniques related to this finding.
-/// See: <https://attack.mitre.org>
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MitreAttack {
-    /// The MITRE ATT&CK tactic most closely represented by this finding, if any.
-    #[prost(enumeration = "mitre_attack::Tactic", tag = "1")]
-    pub primary_tactic: i32,
-    /// The MITRE ATT&CK technique most closely represented by this finding, if
-    /// any. primary_techniques is a repeated field because there are multiple
-    /// levels of MITRE ATT&CK techniques.  If the technique most closely
-    /// represented by this finding is a sub-technique (e.g. `SCANNING_IP_BLOCKS`),
-    /// both the sub-technique and its parent technique(s) will be listed (e.g.
-    /// `SCANNING_IP_BLOCKS`, `ACTIVE_SCANNING`).
-    #[prost(enumeration = "mitre_attack::Technique", repeated, tag = "2")]
-    pub primary_techniques: ::prost::alloc::vec::Vec<i32>,
-    /// Additional MITRE ATT&CK tactics related to this finding, if any.
-    #[prost(enumeration = "mitre_attack::Tactic", repeated, tag = "3")]
-    pub additional_tactics: ::prost::alloc::vec::Vec<i32>,
-    /// Additional MITRE ATT&CK techniques related to this finding, if any, along
-    /// with any of their respective parent techniques.
-    #[prost(enumeration = "mitre_attack::Technique", repeated, tag = "4")]
-    pub additional_techniques: ::prost::alloc::vec::Vec<i32>,
-    /// The MITRE ATT&CK version referenced by the above fields. E.g. "8".
-    #[prost(string, tag = "5")]
-    pub version: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `MitreAttack`.
-pub mod mitre_attack {
-    /// MITRE ATT&CK tactics that can be referenced by SCC findings.
-    /// See: <https://attack.mitre.org/tactics/enterprise/>
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Tactic {
-        /// Unspecified value.
-        Unspecified = 0,
-        /// TA0043
-        Reconnaissance = 1,
-        /// TA0042
-        ResourceDevelopment = 2,
-        /// TA0001
-        InitialAccess = 5,
-        /// TA0002
-        Execution = 3,
-        /// TA0003
-        Persistence = 6,
-        /// TA0004
-        PrivilegeEscalation = 8,
-        /// TA0005
-        DefenseEvasion = 7,
-        /// TA0006
-        CredentialAccess = 9,
-        /// TA0007
-        Discovery = 10,
-        /// TA0008
-        LateralMovement = 11,
-        /// TA0009
-        Collection = 12,
-        /// TA0011
-        CommandAndControl = 4,
-        /// TA0010
-        Exfiltration = 13,
-        /// TA0040
-        Impact = 14,
-    }
-    impl Tactic {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Tactic::Unspecified => "TACTIC_UNSPECIFIED",
-                Tactic::Reconnaissance => "RECONNAISSANCE",
-                Tactic::ResourceDevelopment => "RESOURCE_DEVELOPMENT",
-                Tactic::InitialAccess => "INITIAL_ACCESS",
-                Tactic::Execution => "EXECUTION",
-                Tactic::Persistence => "PERSISTENCE",
-                Tactic::PrivilegeEscalation => "PRIVILEGE_ESCALATION",
-                Tactic::DefenseEvasion => "DEFENSE_EVASION",
-                Tactic::CredentialAccess => "CREDENTIAL_ACCESS",
-                Tactic::Discovery => "DISCOVERY",
-                Tactic::LateralMovement => "LATERAL_MOVEMENT",
-                Tactic::Collection => "COLLECTION",
-                Tactic::CommandAndControl => "COMMAND_AND_CONTROL",
-                Tactic::Exfiltration => "EXFILTRATION",
-                Tactic::Impact => "IMPACT",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TACTIC_UNSPECIFIED" => Some(Self::Unspecified),
-                "RECONNAISSANCE" => Some(Self::Reconnaissance),
-                "RESOURCE_DEVELOPMENT" => Some(Self::ResourceDevelopment),
-                "INITIAL_ACCESS" => Some(Self::InitialAccess),
-                "EXECUTION" => Some(Self::Execution),
-                "PERSISTENCE" => Some(Self::Persistence),
-                "PRIVILEGE_ESCALATION" => Some(Self::PrivilegeEscalation),
-                "DEFENSE_EVASION" => Some(Self::DefenseEvasion),
-                "CREDENTIAL_ACCESS" => Some(Self::CredentialAccess),
-                "DISCOVERY" => Some(Self::Discovery),
-                "LATERAL_MOVEMENT" => Some(Self::LateralMovement),
-                "COLLECTION" => Some(Self::Collection),
-                "COMMAND_AND_CONTROL" => Some(Self::CommandAndControl),
-                "EXFILTRATION" => Some(Self::Exfiltration),
-                "IMPACT" => Some(Self::Impact),
-                _ => None,
-            }
-        }
-    }
-    /// MITRE ATT&CK techniques that can be referenced by SCC findings.
-    /// See: <https://attack.mitre.org/techniques/enterprise/>
-    /// Next ID: 63
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Technique {
-        /// Unspecified value.
-        Unspecified = 0,
-        /// T1036
-        Masquerading = 49,
-        /// T1036.005
-        MatchLegitimateNameOrLocation = 50,
-        /// T1037
-        BootOrLogonInitializationScripts = 37,
-        /// T1037.005
-        StartupItems = 38,
-        /// T1046
-        NetworkServiceDiscovery = 32,
-        /// T1057
-        ProcessDiscovery = 56,
-        /// T1059
-        CommandAndScriptingInterpreter = 6,
-        /// T1059.004
-        UnixShell = 7,
-        /// T1059.006
-        Python = 59,
-        /// T1069
-        PermissionGroupsDiscovery = 18,
-        /// T1069.003
-        CloudGroups = 19,
-        /// T1071
-        ApplicationLayerProtocol = 45,
-        /// T1071.004
-        Dns = 46,
-        /// T1072
-        SoftwareDeploymentTools = 47,
-        /// T1078
-        ValidAccounts = 14,
-        /// T1078.001
-        DefaultAccounts = 35,
-        /// T1078.003
-        LocalAccounts = 15,
-        /// T1078.004
-        CloudAccounts = 16,
-        /// T1090
-        Proxy = 9,
-        /// T1090.002
-        ExternalProxy = 10,
-        /// T1090.003
-        MultiHopProxy = 11,
-        /// T1098
-        AccountManipulation = 22,
-        /// T1098.001
-        AdditionalCloudCredentials = 40,
-        /// T1098.004
-        SshAuthorizedKeys = 23,
-        /// T1098.006
-        AdditionalContainerClusterRoles = 58,
-        /// T1105
-        IngressToolTransfer = 3,
-        /// T1106
-        NativeApi = 4,
-        /// T1110
-        BruteForce = 44,
-        /// T1129
-        SharedModules = 5,
-        /// T1134
-        AccessTokenManipulation = 33,
-        /// T1134.001
-        TokenImpersonationOrTheft = 39,
-        /// T1190
-        ExploitPublicFacingApplication = 27,
-        /// T1484
-        DomainPolicyModification = 30,
-        /// T1485
-        DataDestruction = 29,
-        /// T1489
-        ServiceStop = 52,
-        /// T1490
-        InhibitSystemRecovery = 36,
-        /// T1496
-        ResourceHijacking = 8,
-        /// T1498
-        NetworkDenialOfService = 17,
-        /// T1526
-        CloudServiceDiscovery = 48,
-        /// T1528
-        StealApplicationAccessToken = 42,
-        /// T1531
-        AccountAccessRemoval = 51,
-        /// T1539
-        StealWebSessionCookie = 25,
-        /// T1543
-        CreateOrModifySystemProcess = 24,
-        /// T1548
-        AbuseElevationControlMechanism = 34,
-        /// T1552
-        UnsecuredCredentials = 13,
-        /// T1556
-        ModifyAuthenticationProcess = 28,
-        /// T1562
-        ImpairDefenses = 31,
-        /// T1562.001
-        DisableOrModifyTools = 55,
-        /// T1567
-        ExfiltrationOverWebService = 20,
-        /// T1567.002
-        ExfiltrationToCloudStorage = 21,
-        /// T1568
-        DynamicResolution = 12,
-        /// T1570
-        LateralToolTransfer = 41,
-        /// T1578
-        ModifyCloudComputeInfrastructure = 26,
-        /// T1578.001
-        CreateSnapshot = 54,
-        /// T1580
-        CloudInfrastructureDiscovery = 53,
-        /// T1588
-        ObtainCapabilities = 43,
-        /// T1595
-        ActiveScanning = 1,
-        /// T1595.001
-        ScanningIpBlocks = 2,
-        /// T1613
-        ContainerAdministrationCommand = 60,
-        /// T1611
-        EscapeToHost = 61,
-        /// T1613
-        ContainerAndResourceDiscovery = 57,
-        /// T1649
-        StealOrForgeAuthenticationCertificates = 62,
-    }
-    impl Technique {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Technique::Unspecified => "TECHNIQUE_UNSPECIFIED",
-                Technique::Masquerading => "MASQUERADING",
-                Technique::MatchLegitimateNameOrLocation => {
-                    "MATCH_LEGITIMATE_NAME_OR_LOCATION"
-                }
-                Technique::BootOrLogonInitializationScripts => {
-                    "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS"
-                }
-                Technique::StartupItems => "STARTUP_ITEMS",
-                Technique::NetworkServiceDiscovery => "NETWORK_SERVICE_DISCOVERY",
-                Technique::ProcessDiscovery => "PROCESS_DISCOVERY",
-                Technique::CommandAndScriptingInterpreter => {
-                    "COMMAND_AND_SCRIPTING_INTERPRETER"
-                }
-                Technique::UnixShell => "UNIX_SHELL",
-                Technique::Python => "PYTHON",
-                Technique::PermissionGroupsDiscovery => "PERMISSION_GROUPS_DISCOVERY",
-                Technique::CloudGroups => "CLOUD_GROUPS",
-                Technique::ApplicationLayerProtocol => "APPLICATION_LAYER_PROTOCOL",
-                Technique::Dns => "DNS",
-                Technique::SoftwareDeploymentTools => "SOFTWARE_DEPLOYMENT_TOOLS",
-                Technique::ValidAccounts => "VALID_ACCOUNTS",
-                Technique::DefaultAccounts => "DEFAULT_ACCOUNTS",
-                Technique::LocalAccounts => "LOCAL_ACCOUNTS",
-                Technique::CloudAccounts => "CLOUD_ACCOUNTS",
-                Technique::Proxy => "PROXY",
-                Technique::ExternalProxy => "EXTERNAL_PROXY",
-                Technique::MultiHopProxy => "MULTI_HOP_PROXY",
-                Technique::AccountManipulation => "ACCOUNT_MANIPULATION",
-                Technique::AdditionalCloudCredentials => "ADDITIONAL_CLOUD_CREDENTIALS",
-                Technique::SshAuthorizedKeys => "SSH_AUTHORIZED_KEYS",
-                Technique::AdditionalContainerClusterRoles => {
-                    "ADDITIONAL_CONTAINER_CLUSTER_ROLES"
-                }
-                Technique::IngressToolTransfer => "INGRESS_TOOL_TRANSFER",
-                Technique::NativeApi => "NATIVE_API",
-                Technique::BruteForce => "BRUTE_FORCE",
-                Technique::SharedModules => "SHARED_MODULES",
-                Technique::AccessTokenManipulation => "ACCESS_TOKEN_MANIPULATION",
-                Technique::TokenImpersonationOrTheft => "TOKEN_IMPERSONATION_OR_THEFT",
-                Technique::ExploitPublicFacingApplication => {
-                    "EXPLOIT_PUBLIC_FACING_APPLICATION"
-                }
-                Technique::DomainPolicyModification => "DOMAIN_POLICY_MODIFICATION",
-                Technique::DataDestruction => "DATA_DESTRUCTION",
-                Technique::ServiceStop => "SERVICE_STOP",
-                Technique::InhibitSystemRecovery => "INHIBIT_SYSTEM_RECOVERY",
-                Technique::ResourceHijacking => "RESOURCE_HIJACKING",
-                Technique::NetworkDenialOfService => "NETWORK_DENIAL_OF_SERVICE",
-                Technique::CloudServiceDiscovery => "CLOUD_SERVICE_DISCOVERY",
-                Technique::StealApplicationAccessToken => {
-                    "STEAL_APPLICATION_ACCESS_TOKEN"
-                }
-                Technique::AccountAccessRemoval => "ACCOUNT_ACCESS_REMOVAL",
-                Technique::StealWebSessionCookie => "STEAL_WEB_SESSION_COOKIE",
-                Technique::CreateOrModifySystemProcess => {
-                    "CREATE_OR_MODIFY_SYSTEM_PROCESS"
-                }
-                Technique::AbuseElevationControlMechanism => {
-                    "ABUSE_ELEVATION_CONTROL_MECHANISM"
-                }
-                Technique::UnsecuredCredentials => "UNSECURED_CREDENTIALS",
-                Technique::ModifyAuthenticationProcess => "MODIFY_AUTHENTICATION_PROCESS",
-                Technique::ImpairDefenses => "IMPAIR_DEFENSES",
-                Technique::DisableOrModifyTools => "DISABLE_OR_MODIFY_TOOLS",
-                Technique::ExfiltrationOverWebService => "EXFILTRATION_OVER_WEB_SERVICE",
-                Technique::ExfiltrationToCloudStorage => "EXFILTRATION_TO_CLOUD_STORAGE",
-                Technique::DynamicResolution => "DYNAMIC_RESOLUTION",
-                Technique::LateralToolTransfer => "LATERAL_TOOL_TRANSFER",
-                Technique::ModifyCloudComputeInfrastructure => {
-                    "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE"
-                }
-                Technique::CreateSnapshot => "CREATE_SNAPSHOT",
-                Technique::CloudInfrastructureDiscovery => {
-                    "CLOUD_INFRASTRUCTURE_DISCOVERY"
-                }
-                Technique::ObtainCapabilities => "OBTAIN_CAPABILITIES",
-                Technique::ActiveScanning => "ACTIVE_SCANNING",
-                Technique::ScanningIpBlocks => "SCANNING_IP_BLOCKS",
-                Technique::ContainerAdministrationCommand => {
-                    "CONTAINER_ADMINISTRATION_COMMAND"
-                }
-                Technique::EscapeToHost => "ESCAPE_TO_HOST",
-                Technique::ContainerAndResourceDiscovery => {
-                    "CONTAINER_AND_RESOURCE_DISCOVERY"
-                }
-                Technique::StealOrForgeAuthenticationCertificates => {
-                    "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES"
-                }
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TECHNIQUE_UNSPECIFIED" => Some(Self::Unspecified),
-                "MASQUERADING" => Some(Self::Masquerading),
-                "MATCH_LEGITIMATE_NAME_OR_LOCATION" => {
-                    Some(Self::MatchLegitimateNameOrLocation)
-                }
-                "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS" => {
-                    Some(Self::BootOrLogonInitializationScripts)
-                }
-                "STARTUP_ITEMS" => Some(Self::StartupItems),
-                "NETWORK_SERVICE_DISCOVERY" => Some(Self::NetworkServiceDiscovery),
-                "PROCESS_DISCOVERY" => Some(Self::ProcessDiscovery),
-                "COMMAND_AND_SCRIPTING_INTERPRETER" => {
-                    Some(Self::CommandAndScriptingInterpreter)
-                }
-                "UNIX_SHELL" => Some(Self::UnixShell),
-                "PYTHON" => Some(Self::Python),
-                "PERMISSION_GROUPS_DISCOVERY" => Some(Self::PermissionGroupsDiscovery),
-                "CLOUD_GROUPS" => Some(Self::CloudGroups),
-                "APPLICATION_LAYER_PROTOCOL" => Some(Self::ApplicationLayerProtocol),
-                "DNS" => Some(Self::Dns),
-                "SOFTWARE_DEPLOYMENT_TOOLS" => Some(Self::SoftwareDeploymentTools),
-                "VALID_ACCOUNTS" => Some(Self::ValidAccounts),
-                "DEFAULT_ACCOUNTS" => Some(Self::DefaultAccounts),
-                "LOCAL_ACCOUNTS" => Some(Self::LocalAccounts),
-                "CLOUD_ACCOUNTS" => Some(Self::CloudAccounts),
-                "PROXY" => Some(Self::Proxy),
-                "EXTERNAL_PROXY" => Some(Self::ExternalProxy),
-                "MULTI_HOP_PROXY" => Some(Self::MultiHopProxy),
-                "ACCOUNT_MANIPULATION" => Some(Self::AccountManipulation),
-                "ADDITIONAL_CLOUD_CREDENTIALS" => Some(Self::AdditionalCloudCredentials),
-                "SSH_AUTHORIZED_KEYS" => Some(Self::SshAuthorizedKeys),
-                "ADDITIONAL_CONTAINER_CLUSTER_ROLES" => {
-                    Some(Self::AdditionalContainerClusterRoles)
-                }
-                "INGRESS_TOOL_TRANSFER" => Some(Self::IngressToolTransfer),
-                "NATIVE_API" => Some(Self::NativeApi),
-                "BRUTE_FORCE" => Some(Self::BruteForce),
-                "SHARED_MODULES" => Some(Self::SharedModules),
-                "ACCESS_TOKEN_MANIPULATION" => Some(Self::AccessTokenManipulation),
-                "TOKEN_IMPERSONATION_OR_THEFT" => Some(Self::TokenImpersonationOrTheft),
-                "EXPLOIT_PUBLIC_FACING_APPLICATION" => {
-                    Some(Self::ExploitPublicFacingApplication)
-                }
-                "DOMAIN_POLICY_MODIFICATION" => Some(Self::DomainPolicyModification),
-                "DATA_DESTRUCTION" => Some(Self::DataDestruction),
-                "SERVICE_STOP" => Some(Self::ServiceStop),
-                "INHIBIT_SYSTEM_RECOVERY" => Some(Self::InhibitSystemRecovery),
-                "RESOURCE_HIJACKING" => Some(Self::ResourceHijacking),
-                "NETWORK_DENIAL_OF_SERVICE" => Some(Self::NetworkDenialOfService),
-                "CLOUD_SERVICE_DISCOVERY" => Some(Self::CloudServiceDiscovery),
-                "STEAL_APPLICATION_ACCESS_TOKEN" => {
-                    Some(Self::StealApplicationAccessToken)
-                }
-                "ACCOUNT_ACCESS_REMOVAL" => Some(Self::AccountAccessRemoval),
-                "STEAL_WEB_SESSION_COOKIE" => Some(Self::StealWebSessionCookie),
-                "CREATE_OR_MODIFY_SYSTEM_PROCESS" => {
-                    Some(Self::CreateOrModifySystemProcess)
-                }
-                "ABUSE_ELEVATION_CONTROL_MECHANISM" => {
-                    Some(Self::AbuseElevationControlMechanism)
-                }
-                "UNSECURED_CREDENTIALS" => Some(Self::UnsecuredCredentials),
-                "MODIFY_AUTHENTICATION_PROCESS" => {
-                    Some(Self::ModifyAuthenticationProcess)
-                }
-                "IMPAIR_DEFENSES" => Some(Self::ImpairDefenses),
-                "DISABLE_OR_MODIFY_TOOLS" => Some(Self::DisableOrModifyTools),
-                "EXFILTRATION_OVER_WEB_SERVICE" => Some(Self::ExfiltrationOverWebService),
-                "EXFILTRATION_TO_CLOUD_STORAGE" => Some(Self::ExfiltrationToCloudStorage),
-                "DYNAMIC_RESOLUTION" => Some(Self::DynamicResolution),
-                "LATERAL_TOOL_TRANSFER" => Some(Self::LateralToolTransfer),
-                "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE" => {
-                    Some(Self::ModifyCloudComputeInfrastructure)
-                }
-                "CREATE_SNAPSHOT" => Some(Self::CreateSnapshot),
-                "CLOUD_INFRASTRUCTURE_DISCOVERY" => {
-                    Some(Self::CloudInfrastructureDiscovery)
-                }
-                "OBTAIN_CAPABILITIES" => Some(Self::ObtainCapabilities),
-                "ACTIVE_SCANNING" => Some(Self::ActiveScanning),
-                "SCANNING_IP_BLOCKS" => Some(Self::ScanningIpBlocks),
-                "CONTAINER_ADMINISTRATION_COMMAND" => {
-                    Some(Self::ContainerAdministrationCommand)
-                }
-                "ESCAPE_TO_HOST" => Some(Self::EscapeToHost),
-                "CONTAINER_AND_RESOURCE_DISCOVERY" => {
-                    Some(Self::ContainerAndResourceDiscovery)
-                }
-                "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES" => {
-                    Some(Self::StealOrForgeAuthenticationCertificates)
-                }
-                _ => None,
-            }
-        }
-    }
-}
 /// Represents a Jupyter notebook IPYNB file, such as a [Colab Enterprise
 /// notebook](<https://cloud.google.com/colab/docs/introduction>) file, that is
 /// associated with a finding.
@@ -2000,66 +2309,6 @@ pub struct SecurityMarks {
     #[prost(string, tag = "3")]
     pub canonical_name: ::prost::alloc::string::String,
 }
-/// Represents a posture that is deployed on Google Cloud by the
-/// Security Command Center Posture Management service.
-/// A posture contains one or more policy sets. A policy set is a
-/// group of policies that enforce a set of security rules on Google
-/// Cloud.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SecurityPosture {
-    /// Name of the posture, for example, `CIS-Posture`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The version of the posture, for example, `c7cfa2a8`.
-    #[prost(string, tag = "2")]
-    pub revision_id: ::prost::alloc::string::String,
-    /// The project, folder, or organization on which the posture is deployed,
-    /// for example, `projects/{project_number}`.
-    #[prost(string, tag = "3")]
-    pub posture_deployment_resource: ::prost::alloc::string::String,
-    /// The name of the posture deployment, for example,
-    /// `organizations/{org_id}/posturedeployments/{posture_deployment_id}`.
-    #[prost(string, tag = "4")]
-    pub posture_deployment: ::prost::alloc::string::String,
-    /// The name of the updated policy, for example,
-    /// `projects/{project_id}/policies/{constraint_name}`.
-    #[prost(string, tag = "5")]
-    pub changed_policy: ::prost::alloc::string::String,
-    /// The name of the updated policy set, for example, `cis-policyset`.
-    #[prost(string, tag = "6")]
-    pub policy_set: ::prost::alloc::string::String,
-    /// The ID of the updated policy, for example, `compute-policy-1`.
-    #[prost(string, tag = "7")]
-    pub policy: ::prost::alloc::string::String,
-    /// The details about a change in an updated policy that violates the deployed
-    /// posture.
-    #[prost(message, repeated, tag = "8")]
-    pub policy_drift_details: ::prost::alloc::vec::Vec<
-        security_posture::PolicyDriftDetails,
-    >,
-}
-/// Nested message and enum types in `SecurityPosture`.
-pub mod security_posture {
-    /// The policy field that violates the deployed posture and its expected and
-    /// detected values.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct PolicyDriftDetails {
-        /// The name of the updated field, for example
-        /// constraint.implementation.policy_rules\[0\].enforce
-        #[prost(string, tag = "1")]
-        pub field: ::prost::alloc::string::String,
-        /// The value of this field that was configured in a posture, for example,
-        /// `true` or `allowed_values={"projects/29831892"}`.
-        #[prost(string, tag = "2")]
-        pub expected_value: ::prost::alloc::string::String,
-        /// The detected value that violates the deployed posture, for example,
-        /// `false` or `allowed_values={"projects/22831892"}`.
-        #[prost(string, tag = "3")]
-        pub detected_value: ::prost::alloc::string::String,
-    }
-}
 /// Refers to common vulnerability fields e.g. cve, cvss, cwe etc.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2112,6 +2361,9 @@ pub struct Cve {
     /// published.
     #[prost(bool, tag = "8")]
     pub zero_day: bool,
+    /// Date the first publicly available exploit or PoC was released.
+    #[prost(message, optional, tag = "9")]
+    pub exploit_release_date: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `Cve`.
 pub mod cve {
@@ -2243,7 +2495,7 @@ pub struct Reference {
 }
 /// Common Vulnerability Scoring System version 3.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Cvssv3 {
     /// The base score is a function of the base metric scores.
     #[prost(double, tag = "1")]
@@ -2738,6 +2990,9 @@ pub struct Finding {
     /// shouldn't set the value of mute.
     #[prost(enumeration = "finding::Mute", tag = "15")]
     pub mute: i32,
+    /// Output only. The mute information regarding this finding.
+    #[prost(message, optional, tag = "53")]
+    pub mute_info: ::core::option::Option<finding::MuteInfo>,
     /// The class of the finding.
     #[prost(enumeration = "finding::FindingClass", tag = "16")]
     pub finding_class: i32,
@@ -2895,6 +3150,50 @@ pub struct Finding {
 }
 /// Nested message and enum types in `Finding`.
 pub mod finding {
+    /// Mute information about the finding, including whether the finding has a
+    /// static mute or any matching dynamic mute rules.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct MuteInfo {
+        /// If set, the static mute applied to this finding. Static mutes override
+        /// dynamic mutes. If unset, there is no static mute.
+        #[prost(message, optional, tag = "1")]
+        pub static_mute: ::core::option::Option<mute_info::StaticMute>,
+        /// The list of dynamic mute rules that currently match the finding.
+        #[prost(message, repeated, tag = "2")]
+        pub dynamic_mute_records: ::prost::alloc::vec::Vec<mute_info::DynamicMuteRecord>,
+    }
+    /// Nested message and enum types in `MuteInfo`.
+    pub mod mute_info {
+        /// Information about the static mute state. A static mute state overrides
+        /// any dynamic mute rules that apply to this finding. The static mute state
+        /// can be set by a static mute rule or by muting the finding directly.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct StaticMute {
+            /// The static mute state. If the value is `MUTED` or `UNMUTED`, then the
+            /// finding's overall mute state will have the same value.
+            #[prost(enumeration = "super::Mute", tag = "1")]
+            pub state: i32,
+            /// When the static mute was applied.
+            #[prost(message, optional, tag = "2")]
+            pub apply_time: ::core::option::Option<::prost_types::Timestamp>,
+        }
+        /// The record of a dynamic mute rule that matches the finding.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct DynamicMuteRecord {
+            /// The relative resource name of the mute rule, represented by a mute
+            /// config, that created this record, for example
+            /// `organizations/123/muteConfigs/mymuteconfig` or
+            /// `organizations/123/locations/global/muteConfigs/mymuteconfig`.
+            #[prost(string, tag = "1")]
+            pub mute_config: ::prost::alloc::string::String,
+            /// When the dynamic mute rule first matched the finding.
+            #[prost(message, optional, tag = "2")]
+            pub match_time: ::core::option::Option<::prost_types::Timestamp>,
+        }
+    }
     /// The state of the finding.
     #[derive(
         Clone,
@@ -3147,18 +3446,198 @@ pub mod finding {
         }
     }
 }
-/// Message that contains the resource name and display name of a folder
-/// resource.
+/// A mute config is a Cloud SCC resource that contains the configuration
+/// to mute create/update events of findings.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Folder {
-    /// Full resource name of this folder. See:
-    /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
+pub struct MuteConfig {
+    /// Identifier. This field will be ignored if provided on config creation. The
+    /// following list shows some examples of the format:
+    ///
+    /// + `organizations/{organization}/muteConfigs/{mute_config}`
+    /// +
+    /// `organizations/{organization}locations/{location}//muteConfigs/{mute_config}`
+    /// + `folders/{folder}/muteConfigs/{mute_config}`
+    /// + `folders/{folder}/locations/{location}/muteConfigs/{mute_config}`
+    /// + `projects/{project}/muteConfigs/{mute_config}`
+    /// + `projects/{project}/locations/{location}/muteConfigs/{mute_config}`
     #[prost(string, tag = "1")]
-    pub resource_folder: ::prost::alloc::string::String,
-    /// The user defined display name for this folder.
+    pub name: ::prost::alloc::string::String,
+    /// A description of the mute config.
     #[prost(string, tag = "2")]
-    pub resource_folder_display_name: ::prost::alloc::string::String,
+    pub description: ::prost::alloc::string::String,
+    /// Required. An expression that defines the filter to apply across
+    /// create/update events of findings. While creating a filter string, be
+    /// mindful of the scope in which the mute configuration is being created.
+    /// E.g., If a filter contains project = X but is created under the project = Y
+    /// scope, it might not match any findings.
+    ///
+    /// The following field and operator combinations are supported:
+    ///
+    /// * severity: `=`, `:`
+    /// * category: `=`, `:`
+    /// * resource.name: `=`, `:`
+    /// * resource.project_name: `=`, `:`
+    /// * resource.project_display_name: `=`, `:`
+    /// * resource.folders.resource_folder: `=`, `:`
+    /// * resource.parent_name: `=`, `:`
+    /// * resource.parent_display_name: `=`, `:`
+    /// * resource.type: `=`, `:`
+    /// * finding_class: `=`, `:`
+    /// * indicator.ip_addresses: `=`, `:`
+    /// * indicator.domains: `=`, `:`
+    #[prost(string, tag = "3")]
+    pub filter: ::prost::alloc::string::String,
+    /// Output only. The time at which the mute config was created.
+    /// This field is set by the server and will be ignored if provided on config
+    /// creation.
+    #[prost(message, optional, tag = "4")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The most recent time at which the mute config was updated.
+    /// This field is set by the server and will be ignored if provided on config
+    /// creation or update.
+    #[prost(message, optional, tag = "5")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Email address of the user who last edited the mute config.
+    /// This field is set by the server and will be ignored if provided on config
+    /// creation or update.
+    #[prost(string, tag = "6")]
+    pub most_recent_editor: ::prost::alloc::string::String,
+    /// Required. The type of the mute config, which determines what type of mute
+    /// state the config affects. Immutable after creation.
+    #[prost(enumeration = "mute_config::MuteConfigType", tag = "8")]
+    pub r#type: i32,
+    /// Optional. The expiry of the mute config. Only applicable for dynamic
+    /// configs. If the expiry is set, when the config expires, it is removed from
+    /// all findings.
+    #[prost(message, optional, tag = "9")]
+    pub expiry_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Nested message and enum types in `MuteConfig`.
+pub mod mute_config {
+    /// The type of MuteConfig.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum MuteConfigType {
+        /// Unused.
+        Unspecified = 0,
+        /// A static mute config, which sets the static mute state of future matching
+        /// findings to muted. Once the static mute state has been set, finding or
+        /// config modifications will not affect the state.
+        Static = 1,
+        /// A dynamic mute config, which is applied to existing and future matching
+        /// findings, setting their dynamic mute state to "muted". If the config is
+        /// updated or deleted, or a matching finding is updated, such that the
+        /// finding doesn't match the config, the config will be removed from the
+        /// finding, and the finding's dynamic mute state may become "unmuted"
+        /// (unless other configs still match).
+        Dynamic = 2,
+    }
+    impl MuteConfigType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                MuteConfigType::Unspecified => "MUTE_CONFIG_TYPE_UNSPECIFIED",
+                MuteConfigType::Static => "STATIC",
+                MuteConfigType::Dynamic => "DYNAMIC",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MUTE_CONFIG_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "STATIC" => Some(Self::Static),
+                "DYNAMIC" => Some(Self::Dynamic),
+                _ => None,
+            }
+        }
+    }
+}
+/// Cloud Security Command Center (Cloud SCC) notification configs.
+///
+/// A notification config is a Cloud SCC resource that contains the configuration
+/// to send notifications for create/update events of findings, assets and etc.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotificationConfig {
+    /// Identifier. The relative resource name of this notification config. See:
+    /// <https://cloud.google.com/apis/design/resource_names#relative_resource_name>
+    /// The following list shows some examples:
+    /// +
+    /// `organizations/{organization_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
+    /// +
+    /// `folders/{folder_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
+    /// +
+    /// `projects/{project_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The description of the notification config (max of 1024 characters).
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    /// The Pub/Sub topic to send notifications to. Its format is
+    /// "projects/\[project_id\]/topics/\[topic\]".
+    #[prost(string, tag = "3")]
+    pub pubsub_topic: ::prost::alloc::string::String,
+    /// Output only. The service account that needs "pubsub.topics.publish"
+    /// permission to publish to the Pub/Sub topic.
+    #[prost(string, tag = "4")]
+    pub service_account: ::prost::alloc::string::String,
+    /// The config for triggering notifications.
+    #[prost(oneof = "notification_config::NotifyConfig", tags = "5")]
+    pub notify_config: ::core::option::Option<notification_config::NotifyConfig>,
+}
+/// Nested message and enum types in `NotificationConfig`.
+pub mod notification_config {
+    /// The config for streaming-based notifications, which send each event as soon
+    /// as it is detected.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct StreamingConfig {
+        /// Expression that defines the filter to apply across create/update events
+        /// of assets or findings as specified by the event type. The expression is a
+        /// list of zero or more restrictions combined via logical operators `AND`
+        /// and `OR`. Parentheses are supported, and `OR` has higher precedence than
+        /// `AND`.
+        ///
+        /// Restrictions have the form `<field> <operator> <value>` and may have a
+        /// `-` character in front of them to indicate negation. The fields map to
+        /// those defined in the corresponding resource.
+        ///
+        /// The supported operators are:
+        ///
+        /// * `=` for all value types.
+        /// * `>`, `<`, `>=`, `<=` for integer values.
+        /// * `:`, meaning substring matching, for strings.
+        ///
+        /// The supported value types are:
+        ///
+        /// * string literals in quotes.
+        /// * integer literals without quotes.
+        /// * boolean literals `true` and `false` without quotes.
+        #[prost(string, tag = "1")]
+        pub filter: ::prost::alloc::string::String,
+    }
+    /// The config for triggering notifications.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum NotifyConfig {
+        /// The config for triggering streaming-based notifications.
+        #[prost(message, tag = "5")]
+        StreamingConfig(StreamingConfig),
+    }
 }
 /// Information related to the Google Cloud resource.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3188,13 +3667,13 @@ pub struct Resource {
     pub resource_path: ::core::option::Option<ResourcePath>,
     /// A string representation of the resource path.
     /// For Google Cloud, it has the format of
-    /// organizations/{organization_id}/folders/{folder_id}/folders/{folder_id}/projects/{project_id}
+    /// `organizations/{organization_id}/folders/{folder_id}/folders/{folder_id}/projects/{project_id}`
     /// where there can be any number of folders.
     /// For AWS, it has the format of
-    /// org/{organization_id}/ou/{organizational_unit_id}/ou/{organizational_unit_id}/account/{account_id}
+    /// `org/{organization_id}/ou/{organizational_unit_id}/ou/{organizational_unit_id}/account/{account_id}`
     /// where there can be any number of organizational units.
     /// For Azure, it has the format of
-    /// mg/{management_group_id}/mg/{management_group_id}/subscription/{subscription_id}/rg/{resource_group_name}
+    /// `mg/{management_group_id}/mg/{management_group_id}/subscription/{subscription_id}/rg/{resource_group_name}`
     /// where there can be any number of management groups.
     #[prost(string, tag = "11")]
     pub resource_path_string: ::prost::alloc::string::String,
@@ -3329,7 +3808,7 @@ pub mod azure_metadata {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct AzureManagementGroup {
         /// The UUID of the Azure management group, for example,
-        /// "20000000-0001-0000-0000-000000000000".
+        /// `20000000-0001-0000-0000-000000000000`.
         #[prost(string, tag = "1")]
         pub id: ::prost::alloc::string::String,
         /// The display name of the Azure management group.
@@ -3341,7 +3820,7 @@ pub mod azure_metadata {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct AzureSubscription {
         /// The UUID of the Azure subscription, for example,
-        /// "291bba3f-e0a5-47bc-a099-3bdcb2a50a05".
+        /// `291bba3f-e0a5-47bc-a099-3bdcb2a50a05`.
         #[prost(string, tag = "1")]
         pub id: ::prost::alloc::string::String,
         /// The display name of the Azure subscription.
@@ -3495,30 +3974,124 @@ impl CloudProvider {
         }
     }
 }
-/// Cloud SCC's Notification
+/// A resource value configuration (RVC) is a mapping configuration of user's
+/// resources to resource values. Used in Attack path simulations.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotificationMessage {
-    /// Name of the notification config that generated current notification.
+pub struct ResourceValueConfig {
+    /// Identifier. Name for the resource value configuration
     #[prost(string, tag = "1")]
-    pub notification_config_name: ::prost::alloc::string::String,
-    /// The Cloud resource tied to this notification's Finding.
-    #[prost(message, optional, tag = "3")]
-    pub resource: ::core::option::Option<Resource>,
-    /// Notification Event.
-    #[prost(oneof = "notification_message::Event", tags = "2")]
-    pub event: ::core::option::Option<notification_message::Event>,
+    pub name: ::prost::alloc::string::String,
+    /// Resource value level this expression represents
+    /// Only required when there is no Sensitive Data Protection mapping in the
+    /// request
+    #[prost(enumeration = "ResourceValue", tag = "2")]
+    pub resource_value: i32,
+    /// Tag values combined with `AND` to check against.
+    /// Values in the form "tagValues/123"
+    /// Example: `\[ "tagValues/123", "tagValues/456", "tagValues/789" \]`
+    /// <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing>
+    #[prost(string, repeated, tag = "3")]
+    pub tag_values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Apply resource_value only to resources that match resource_type.
+    /// resource_type will be checked with `AND` of other resources.
+    /// For example, "storage.googleapis.com/Bucket" with resource_value "HIGH"
+    /// will apply "HIGH" value only to "storage.googleapis.com/Bucket" resources.
+    #[prost(string, tag = "4")]
+    pub resource_type: ::prost::alloc::string::String,
+    /// Project or folder to scope this configuration to.
+    /// For example, "project/456" would apply this configuration only to resources
+    /// in "project/456" scope and will be checked with `AND` of other resources.
+    #[prost(string, tag = "5")]
+    pub scope: ::prost::alloc::string::String,
+    /// List of resource labels to search for, evaluated with `AND`.
+    /// For example, "resource_labels_selector": {"key": "value", "env": "prod"}
+    /// will match resources with labels "key": "value" `AND` "env":
+    /// "prod"
+    /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels>
+    #[prost(btree_map = "string, string", tag = "6")]
+    pub resource_labels_selector: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Description of the resource value configuration.
+    #[prost(string, tag = "7")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. Timestamp this resource value configuration was created.
+    #[prost(message, optional, tag = "8")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp this resource value configuration was last updated.
+    #[prost(message, optional, tag = "9")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Cloud provider this configuration applies to
+    #[prost(enumeration = "CloudProvider", tag = "10")]
+    pub cloud_provider: i32,
+    /// A mapping of the sensitivity on Sensitive Data Protection finding to
+    /// resource values. This mapping can only be used in combination with a
+    /// resource_type that is related to BigQuery, e.g.
+    /// "bigquery.googleapis.com/Dataset".
+    #[prost(message, optional, tag = "11")]
+    pub sensitive_data_protection_mapping: ::core::option::Option<
+        resource_value_config::SensitiveDataProtectionMapping,
+    >,
 }
-/// Nested message and enum types in `NotificationMessage`.
-pub mod notification_message {
-    /// Notification Event.
+/// Nested message and enum types in `ResourceValueConfig`.
+pub mod resource_value_config {
+    /// Resource value mapping for Sensitive Data Protection findings
+    /// If any of these mappings have a resource value that is not unspecified,
+    /// the resource_value field will be ignored when reading this configuration.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Event {
-        /// If it's a Finding based notification config, this field will be
-        /// populated.
-        #[prost(message, tag = "2")]
-        Finding(super::Finding),
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct SensitiveDataProtectionMapping {
+        /// Resource value mapping for high-sensitivity Sensitive Data Protection
+        /// findings
+        #[prost(enumeration = "super::ResourceValue", tag = "1")]
+        pub high_sensitivity_mapping: i32,
+        /// Resource value mapping for medium-sensitivity Sensitive Data Protection
+        /// findings
+        #[prost(enumeration = "super::ResourceValue", tag = "2")]
+        pub medium_sensitivity_mapping: i32,
+    }
+}
+/// Value enum to map to a resource
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ResourceValue {
+    /// Unspecific value
+    Unspecified = 0,
+    /// High resource value
+    High = 1,
+    /// Medium resource value
+    Medium = 2,
+    /// Low resource value
+    Low = 3,
+    /// No resource value, e.g. ignore these resources
+    None = 4,
+}
+impl ResourceValue {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            ResourceValue::Unspecified => "RESOURCE_VALUE_UNSPECIFIED",
+            ResourceValue::High => "HIGH",
+            ResourceValue::Medium => "MEDIUM",
+            ResourceValue::Low => "LOW",
+            ResourceValue::None => "NONE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "RESOURCE_VALUE_UNSPECIFIED" => Some(Self::Unspecified),
+            "HIGH" => Some(Self::High),
+            "MEDIUM" => Some(Self::Medium),
+            "LOW" => Some(Self::Low),
+            "NONE" => Some(Self::None),
+            _ => None,
+        }
     }
 }
 /// A resource that is determined to have value to a user's system
@@ -3616,253 +4189,26 @@ pub struct ResourceValueConfigMetadata {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
-/// Configures how to deliver Findings to BigQuery Instance.
+/// Attack path simulation
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BigQueryExport {
-    /// The relative resource name of this export. See:
-    /// <https://cloud.google.com/apis/design/resource_names#relative_resource_name.>
-    /// The following list shows some examples:
-    ///
-    /// +
-    /// `organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}`
-    /// + `folders/{folder_id}/locations/{location_id}/bigQueryExports/{export_id}`
-    /// +
-    /// `projects/{project_id}/locations/{location_id}/bigQueryExports/{export_id}`
-    ///
-    /// This field is provided in responses, and is ignored when provided in create
-    /// requests.
+pub struct Simulation {
+    /// Full resource name of the Simulation:
+    /// `organizations/123/simulations/456`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-    /// The description of the export (max of 1024 characters).
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// Expression that defines the filter to apply across create/update events
-    /// of findings. The expression is a list of zero or more restrictions combined
-    /// via logical operators `AND` and `OR`. Parentheses are supported, and `OR`
-    /// has higher precedence than `AND`.
-    ///
-    /// Restrictions have the form `<field> <operator> <value>` and may have a
-    /// `-` character in front of them to indicate negation. The fields map to
-    /// those defined in the corresponding resource.
-    ///
-    /// The supported operators are:
-    ///
-    /// * `=` for all value types.
-    /// * `>`, `<`, `>=`, `<=` for integer values.
-    /// * `:`, meaning substring matching, for strings.
-    ///
-    /// The supported value types are:
-    ///
-    /// * string literals in quotes.
-    /// * integer literals without quotes.
-    /// * boolean literals `true` and `false` without quotes.
-    #[prost(string, tag = "3")]
-    pub filter: ::prost::alloc::string::String,
-    /// The dataset to write findings' updates to. Its format is
-    /// "projects/\[project_id\]/datasets/\[bigquery_dataset_id\]".
-    /// BigQuery Dataset unique ID  must contain only letters (a-z, A-Z), numbers
-    /// (0-9), or underscores (_).
-    #[prost(string, tag = "4")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. The time at which the BigQuery export was created.
-    /// This field is set by the server and will be ignored if provided on export
-    /// on creation.
-    #[prost(message, optional, tag = "5")]
+    /// Output only. Time simulation was created
+    #[prost(message, optional, tag = "2")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The most recent time at which the BigQuery export was updated.
-    /// This field is set by the server and will be ignored if provided on export
-    /// creation or update.
-    #[prost(message, optional, tag = "6")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Email address of the user who last edited the BigQuery export.
-    /// This field is set by the server and will be ignored if provided on export
-    /// creation or update.
-    #[prost(string, tag = "7")]
-    pub most_recent_editor: ::prost::alloc::string::String,
-    /// Output only. The service account that needs permission to create table and
-    /// upload data to the BigQuery dataset.
-    #[prost(string, tag = "8")]
-    pub principal: ::prost::alloc::string::String,
-}
-/// Cloud Security Command Center (Cloud SCC) notification configs.
-///
-/// A notification config is a Cloud SCC resource that contains the configuration
-/// to send notifications for create/update events of findings, assets and etc.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotificationConfig {
-    /// The relative resource name of this notification config. See:
-    /// <https://cloud.google.com/apis/design/resource_names#relative_resource_name>
-    /// The following list shows some examples:
-    /// +
-    /// `organizations/{organization_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
-    /// +
-    /// `folders/{folder_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
-    /// +
-    /// `projects/{project_id}/locations/{location_id}/notificationConfigs/notify_public_bucket`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The description of the notification config (max of 1024 characters).
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// The Pub/Sub topic to send notifications to. Its format is
-    /// "projects/\[project_id\]/topics/\[topic\]".
-    #[prost(string, tag = "3")]
-    pub pubsub_topic: ::prost::alloc::string::String,
-    /// Output only. The service account that needs "pubsub.topics.publish"
-    /// permission to publish to the Pub/Sub topic.
-    #[prost(string, tag = "4")]
-    pub service_account: ::prost::alloc::string::String,
-    /// The config for triggering notifications.
-    #[prost(oneof = "notification_config::NotifyConfig", tags = "5")]
-    pub notify_config: ::core::option::Option<notification_config::NotifyConfig>,
-}
-/// Nested message and enum types in `NotificationConfig`.
-pub mod notification_config {
-    /// The config for streaming-based notifications, which send each event as soon
-    /// as it is detected.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct StreamingConfig {
-        /// Expression that defines the filter to apply across create/update events
-        /// of assets or findings as specified by the event type. The expression is a
-        /// list of zero or more restrictions combined via logical operators `AND`
-        /// and `OR`. Parentheses are supported, and `OR` has higher precedence than
-        /// `AND`.
-        ///
-        /// Restrictions have the form `<field> <operator> <value>` and may have a
-        /// `-` character in front of them to indicate negation. The fields map to
-        /// those defined in the corresponding resource.
-        ///
-        /// The supported operators are:
-        ///
-        /// * `=` for all value types.
-        /// * `>`, `<`, `>=`, `<=` for integer values.
-        /// * `:`, meaning substring matching, for strings.
-        ///
-        /// The supported value types are:
-        ///
-        /// * string literals in quotes.
-        /// * integer literals without quotes.
-        /// * boolean literals `true` and `false` without quotes.
-        #[prost(string, tag = "1")]
-        pub filter: ::prost::alloc::string::String,
-    }
-    /// The config for triggering notifications.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum NotifyConfig {
-        /// The config for triggering streaming-based notifications.
-        #[prost(message, tag = "5")]
-        StreamingConfig(StreamingConfig),
-    }
-}
-/// A mute config is a Cloud SCC resource that contains the configuration
-/// to mute create/update events of findings.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MuteConfig {
-    /// This field will be ignored if provided on config creation. The following
-    /// list shows some examples of the format:
-    ///
-    /// + `organizations/{organization}/muteConfigs/{mute_config}`
-    /// +
-    /// `organizations/{organization}locations/{location}//muteConfigs/{mute_config}`
-    /// + `folders/{folder}/muteConfigs/{mute_config}`
-    /// + `folders/{folder}/locations/{location}/muteConfigs/{mute_config}`
-    /// + `projects/{project}/muteConfigs/{mute_config}`
-    /// + `projects/{project}/locations/{location}/muteConfigs/{mute_config}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// A description of the mute config.
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// Required. An expression that defines the filter to apply across
-    /// create/update events of findings. While creating a filter string, be
-    /// mindful of the scope in which the mute configuration is being created.
-    /// E.g., If a filter contains project = X but is created under the project = Y
-    /// scope, it might not match any findings.
-    ///
-    /// The following field and operator combinations are supported:
-    ///
-    /// * severity: `=`, `:`
-    /// * category: `=`, `:`
-    /// * resource.name: `=`, `:`
-    /// * resource.project_name: `=`, `:`
-    /// * resource.project_display_name: `=`, `:`
-    /// * resource.folders.resource_folder: `=`, `:`
-    /// * resource.parent_name: `=`, `:`
-    /// * resource.parent_display_name: `=`, `:`
-    /// * resource.type: `=`, `:`
-    /// * finding_class: `=`, `:`
-    /// * indicator.ip_addresses: `=`, `:`
-    /// * indicator.domains: `=`, `:`
-    #[prost(string, tag = "3")]
-    pub filter: ::prost::alloc::string::String,
-    /// Output only. The time at which the mute config was created.
-    /// This field is set by the server and will be ignored if provided on config
-    /// creation.
-    #[prost(message, optional, tag = "4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The most recent time at which the mute config was updated.
-    /// This field is set by the server and will be ignored if provided on config
-    /// creation or update.
-    #[prost(message, optional, tag = "5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Email address of the user who last edited the mute config.
-    /// This field is set by the server and will be ignored if provided on config
-    /// creation or update.
-    #[prost(string, tag = "6")]
-    pub most_recent_editor: ::prost::alloc::string::String,
-    /// Required. The type of the mute config, which determines what type of mute
-    /// state the config affects. Immutable after creation.
-    #[prost(enumeration = "mute_config::MuteConfigType", tag = "8")]
-    pub r#type: i32,
-}
-/// Nested message and enum types in `MuteConfig`.
-pub mod mute_config {
-    /// The type of MuteConfig.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum MuteConfigType {
-        /// Unused.
-        Unspecified = 0,
-        /// A static mute config, which sets the static mute state of future matching
-        /// findings to muted. Once the static mute state has been set, finding or
-        /// config modifications will not affect the state.
-        Static = 1,
-    }
-    impl MuteConfigType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                MuteConfigType::Unspecified => "MUTE_CONFIG_TYPE_UNSPECIFIED",
-                MuteConfigType::Static => "STATIC",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "MUTE_CONFIG_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "STATIC" => Some(Self::Static),
-                _ => None,
-            }
-        }
-    }
+    /// Resource value configurations' metadata used in this simulation. Maximum of
+    /// 100.
+    #[prost(message, repeated, tag = "3")]
+    pub resource_value_configs_metadata: ::prost::alloc::vec::Vec<
+        ResourceValueConfigMetadata,
+    >,
+    /// Indicates which cloud provider was used in this simulation.
+    #[prost(enumeration = "CloudProvider", tag = "4")]
+    pub cloud_provider: i32,
 }
 /// Security Command Center finding source. A finding source
 /// is an entity or a mechanism that can produce a finding. A source is like a
@@ -3901,298 +4247,6 @@ pub struct Source {
     /// finding.
     #[prost(string, tag = "4")]
     pub canonical_name: ::prost::alloc::string::String,
-}
-/// Attack path simulation
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Simulation {
-    /// Full resource name of the Simulation:
-    /// organizations/123/simulations/456
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. Time simulation was created
-    #[prost(message, optional, tag = "2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Resource value configurations' metadata used in this simulation. Maximum of
-    /// 100.
-    #[prost(message, repeated, tag = "3")]
-    pub resource_value_configs_metadata: ::prost::alloc::vec::Vec<
-        ResourceValueConfigMetadata,
-    >,
-    /// Indicates which cloud provider was used in this simulation.
-    #[prost(enumeration = "CloudProvider", tag = "4")]
-    pub cloud_provider: i32,
-}
-/// A path that an attacker could take to reach an exposed resource.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttackPath {
-    /// The attack path name, for example,
-    ///   `organizations/12/simulations/34/valuedResources/56/attackPaths/78`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// A list of nodes that exist in this attack path.
-    #[prost(message, repeated, tag = "2")]
-    pub path_nodes: ::prost::alloc::vec::Vec<attack_path::AttackPathNode>,
-    /// A list of the edges between nodes in this attack path.
-    #[prost(message, repeated, tag = "3")]
-    pub edges: ::prost::alloc::vec::Vec<attack_path::AttackPathEdge>,
-}
-/// Nested message and enum types in `AttackPath`.
-pub mod attack_path {
-    /// Represents one point that an attacker passes through in this attack path.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct AttackPathNode {
-        /// The name of the resource at this point in the attack path.
-        /// The format of the name follows the Cloud Asset Inventory [resource
-        /// name
-        /// format]("<https://cloud.google.com/asset-inventory/docs/resource-name-format">)
-        #[prost(string, tag = "1")]
-        pub resource: ::prost::alloc::string::String,
-        /// The [supported resource
-        /// type](<https://cloud.google.com/asset-inventory/docs/supported-asset-types">)
-        #[prost(string, tag = "2")]
-        pub resource_type: ::prost::alloc::string::String,
-        /// Human-readable name of this resource.
-        #[prost(string, tag = "3")]
-        pub display_name: ::prost::alloc::string::String,
-        /// The findings associated with this node in the attack path.
-        #[prost(message, repeated, tag = "4")]
-        pub associated_findings: ::prost::alloc::vec::Vec<
-            attack_path_node::PathNodeAssociatedFinding,
-        >,
-        /// Unique id of the attack path node.
-        #[prost(string, tag = "5")]
-        pub uuid: ::prost::alloc::string::String,
-        /// A list of attack step nodes that exist in this attack path node.
-        #[prost(message, repeated, tag = "6")]
-        pub attack_steps: ::prost::alloc::vec::Vec<attack_path_node::AttackStepNode>,
-    }
-    /// Nested message and enum types in `AttackPathNode`.
-    pub mod attack_path_node {
-        /// A finding that is associated with this node in the attack path.
-        #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
-        pub struct PathNodeAssociatedFinding {
-            /// Canonical name of the associated findings. Example:
-            /// organizations/123/sources/456/findings/789
-            #[prost(string, tag = "1")]
-            pub canonical_finding: ::prost::alloc::string::String,
-            /// The additional taxonomy group within findings from a given source.
-            #[prost(string, tag = "2")]
-            pub finding_category: ::prost::alloc::string::String,
-            /// Full resource name of the finding.
-            #[prost(string, tag = "3")]
-            pub name: ::prost::alloc::string::String,
-        }
-        /// Detailed steps the attack can take between path nodes.
-        #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
-        pub struct AttackStepNode {
-            /// Unique ID for one Node
-            #[prost(string, tag = "1")]
-            pub uuid: ::prost::alloc::string::String,
-            /// Attack step type. Can be either AND, OR or DEFENSE
-            #[prost(enumeration = "NodeType", tag = "2")]
-            pub r#type: i32,
-            /// User friendly name of the attack step
-            #[prost(string, tag = "3")]
-            pub display_name: ::prost::alloc::string::String,
-            /// Attack step labels for metadata
-            #[prost(btree_map = "string, string", tag = "4")]
-            pub labels: ::prost::alloc::collections::BTreeMap<
-                ::prost::alloc::string::String,
-                ::prost::alloc::string::String,
-            >,
-            /// Attack step description
-            #[prost(string, tag = "5")]
-            pub description: ::prost::alloc::string::String,
-        }
-        /// The type of the incoming attack step node.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum NodeType {
-            /// Type not specified
-            Unspecified = 0,
-            /// Incoming edge joined with AND
-            And = 1,
-            /// Incoming edge joined with OR
-            Or = 2,
-            /// Incoming edge is defense
-            Defense = 3,
-            /// Incoming edge is attacker
-            Attacker = 4,
-        }
-        impl NodeType {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    NodeType::Unspecified => "NODE_TYPE_UNSPECIFIED",
-                    NodeType::And => "NODE_TYPE_AND",
-                    NodeType::Or => "NODE_TYPE_OR",
-                    NodeType::Defense => "NODE_TYPE_DEFENSE",
-                    NodeType::Attacker => "NODE_TYPE_ATTACKER",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "NODE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "NODE_TYPE_AND" => Some(Self::And),
-                    "NODE_TYPE_OR" => Some(Self::Or),
-                    "NODE_TYPE_DEFENSE" => Some(Self::Defense),
-                    "NODE_TYPE_ATTACKER" => Some(Self::Attacker),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// Represents a connection between a source node and a destination node in
-    /// this attack path.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct AttackPathEdge {
-        /// The attack node uuid of the source node.
-        #[prost(string, tag = "1")]
-        pub source: ::prost::alloc::string::String,
-        /// The attack node uuid of the destination node.
-        #[prost(string, tag = "2")]
-        pub destination: ::prost::alloc::string::String,
-    }
-}
-/// A resource value configuration (RVC) is a mapping configuration of user's
-/// resources to resource values. Used in Attack path simulations.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResourceValueConfig {
-    /// Name for the resource value configuration
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Resource value level this expression represents
-    /// Only required when there is no SDP mapping in the request
-    #[prost(enumeration = "ResourceValue", tag = "2")]
-    pub resource_value: i32,
-    /// Required. Tag values combined with <code>AND</code> to check against.
-    /// Values in the form "tagValues/123"
-    /// Example: \[ "tagValues/123", "tagValues/456", "tagValues/789" \]
-    /// <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing>
-    #[prost(string, repeated, tag = "3")]
-    pub tag_values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Apply resource_value only to resources that match resource_type.
-    /// resource_type will be checked with <code>AND</code> of other resources.
-    /// For example, "storage.googleapis.com/Bucket" with resource_value "HIGH"
-    /// will apply "HIGH" value only to "storage.googleapis.com/Bucket" resources.
-    #[prost(string, tag = "4")]
-    pub resource_type: ::prost::alloc::string::String,
-    /// Project or folder to scope this configuration to.
-    /// For example, "project/456" would apply this configuration only to resources
-    /// in "project/456" scope will be checked with <code>AND</code> of other
-    /// resources.
-    #[prost(string, tag = "5")]
-    pub scope: ::prost::alloc::string::String,
-    /// List of resource labels to search for, evaluated with <code>AND</code>.
-    /// For example, "resource_labels_selector": {"key": "value", "env": "prod"}
-    /// will match resources with labels "key": "value" <code>AND</code> "env":
-    /// "prod"
-    /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels>
-    #[prost(btree_map = "string, string", tag = "6")]
-    pub resource_labels_selector: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Description of the resource value configuration.
-    #[prost(string, tag = "7")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. Timestamp this resource value configuration was created.
-    #[prost(message, optional, tag = "8")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp this resource value configuration was last updated.
-    #[prost(message, optional, tag = "9")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Cloud provider this configuration applies to
-    #[prost(enumeration = "CloudProvider", tag = "10")]
-    pub cloud_provider: i32,
-    /// A mapping of the sensitivity on Sensitive Data Protection finding to
-    /// resource values. This mapping can only be used in combination with a
-    /// resource_type that is related to BigQuery, e.g.
-    /// "bigquery.googleapis.com/Dataset".
-    #[prost(message, optional, tag = "11")]
-    pub sensitive_data_protection_mapping: ::core::option::Option<
-        resource_value_config::SensitiveDataProtectionMapping,
-    >,
-}
-/// Nested message and enum types in `ResourceValueConfig`.
-pub mod resource_value_config {
-    /// Resource value mapping for Sensitive Data Protection findings
-    /// If any of these mappings have a resource value that is not unspecified,
-    /// the resource_value field will be ignored when reading this configuration.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct SensitiveDataProtectionMapping {
-        /// Resource value mapping for high-sensitivity Sensitive Data Protection
-        /// findings
-        #[prost(enumeration = "super::ResourceValue", tag = "1")]
-        pub high_sensitivity_mapping: i32,
-        /// Resource value mapping for medium-sensitivity Sensitive Data Protection
-        /// findings
-        #[prost(enumeration = "super::ResourceValue", tag = "2")]
-        pub medium_sensitivity_mapping: i32,
-    }
-}
-/// Value enum to map to a resource
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum ResourceValue {
-    /// Unspecific value
-    Unspecified = 0,
-    /// High resource value
-    High = 1,
-    /// Medium resource value
-    Medium = 2,
-    /// Low resource value
-    Low = 3,
-    /// No resource value, e.g. ignore these resources
-    None = 4,
-}
-impl ResourceValue {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            ResourceValue::Unspecified => "RESOURCE_VALUE_UNSPECIFIED",
-            ResourceValue::High => "HIGH",
-            ResourceValue::Medium => "MEDIUM",
-            ResourceValue::Low => "LOW",
-            ResourceValue::None => "NONE",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "RESOURCE_VALUE_UNSPECIFIED" => Some(Self::Unspecified),
-            "HIGH" => Some(Self::High),
-            "MEDIUM" => Some(Self::Medium),
-            "LOW" => Some(Self::Low),
-            "NONE" => Some(Self::None),
-            _ => None,
-        }
-    }
 }
 /// Request message to create multiple resource value configs
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -4258,19 +4312,70 @@ pub struct BulkMuteFindingsRequest {
     /// * boolean literals `true` and `false` without quotes.
     #[prost(string, tag = "2")]
     pub filter: ::prost::alloc::string::String,
+    /// Optional. All findings matching the given filter will have their mute state
+    /// set to this value. The default value is `MUTED`. Setting this to
+    /// `UNDEFINED` will clear the mute state on all matching findings.
+    #[prost(enumeration = "bulk_mute_findings_request::MuteState", tag = "3")]
+    pub mute_state: i32,
+}
+/// Nested message and enum types in `BulkMuteFindingsRequest`.
+pub mod bulk_mute_findings_request {
+    /// The mute state.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum MuteState {
+        /// Unused.
+        Unspecified = 0,
+        /// Matching findings will be muted (default).
+        Muted = 1,
+        /// Matching findings will have their mute state cleared.
+        Undefined = 2,
+    }
+    impl MuteState {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                MuteState::Unspecified => "MUTE_STATE_UNSPECIFIED",
+                MuteState::Muted => "MUTED",
+                MuteState::Undefined => "UNDEFINED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MUTE_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MUTED" => Some(Self::Muted),
+                "UNDEFINED" => Some(Self::Undefined),
+                _ => None,
+            }
+        }
+    }
 }
 /// The response to a BulkMute request. Contains the LRO information.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct BulkMuteFindingsResponse {}
 /// Request message for creating a BigQuery export.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateBigQueryExportRequest {
     /// Required. The name of the parent resource of the new BigQuery export. Its
-    /// format is "organizations/\[organization_id\]/locations/\[location_id\]",
-    /// "folders/\[folder_id\]/locations/\[location_id\]", or
-    /// "projects/\[project_id\]/locations/\[location_id\]".
+    /// format is `organizations/\[organization_id\]/locations/\[location_id\]`,
+    /// `folders/\[folder_id\]/locations/\[location_id\]`, or
+    /// `projects/\[project_id\]/locations/\[location_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The BigQuery export being created.
@@ -4310,9 +4415,9 @@ pub struct CreateFindingRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateMuteConfigRequest {
     /// Required. Resource name of the new mute configs's parent. Its format is
-    /// "organizations/\[organization_id\]/locations/\[location_id\]",
-    /// "folders/\[folder_id\]/locations/\[location_id\]", or
-    /// "projects/\[project_id\]/locations/\[location_id\]".
+    /// `organizations/\[organization_id\]/locations/\[location_id\]`,
+    /// `folders/\[folder_id\]/locations/\[location_id\]`, or
+    /// `projects/\[project_id\]/locations/\[location_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The mute config being created.
@@ -4330,9 +4435,9 @@ pub struct CreateMuteConfigRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateNotificationConfigRequest {
     /// Required. Resource name of the new notification config's parent. Its format
-    /// is "organizations/\[organization_id\]/locations/\[location_id\]",
-    /// "folders/\[folder_id\]/locations/\[location_id\]", or
-    /// "projects/\[project_id\]/locations/\[location_id\]".
+    /// is `organizations/\[organization_id\]/locations/\[location_id\]`,
+    /// `folders/\[folder_id\]/locations/\[location_id\]`, or
+    /// `projects/\[project_id\]/locations/\[location_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required.
@@ -4363,7 +4468,7 @@ pub struct CreateResourceValueConfigRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSourceRequest {
     /// Required. Resource name of the new source's parent. Its format should be
-    /// "organizations/\[organization_id\]".
+    /// `organizations/\[organization_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Source being created, only the display_name and description
@@ -4489,7 +4594,7 @@ pub struct GetResourceValueConfigRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSourceRequest {
     /// Required. Relative resource name of the source. Its format is
-    /// "organizations/\[organization_id\]/source/\[source_id\]".
+    /// `organizations/\[organization_id\]/source/\[source_id\]`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -4623,10 +4728,10 @@ pub struct ListAttackPathsRequest {
     /// Required. Name of parent to list attack paths.
     ///
     /// Valid formats:
-    /// "organizations/{organization}",
-    /// "organizations/{organization}/simulations/{simulation}"
-    /// "organizations/{organization}/simulations/{simulation}/attackExposureResults/{attack_exposure_result_v2}"
-    /// "organizations/{organization}/simulations/{simulation}/valuedResources/{valued_resource}"
+    /// `organizations/{organization}`,
+    /// `organizations/{organization}/simulations/{simulation}`
+    /// `organizations/{organization}/simulations/{simulation}/attackExposureResults/{attack_exposure_result_v2}`
+    /// `organizations/{organization}/simulations/{simulation}/valuedResources/{valued_resource}`
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The filter expression that filters the attack path in the response.
@@ -4667,8 +4772,8 @@ pub struct GetSimulationRequest {
     /// Required. The organization name or simulation name of this simulation
     ///
     /// Valid format:
-    /// "organizations/{organization}/simulations/latest"
-    /// "organizations/{organization}/simulations/{simulation}"
+    /// `organizations/{organization}/simulations/latest`
+    /// `organizations/{organization}/simulations/{simulation}`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -4679,7 +4784,7 @@ pub struct GetValuedResourceRequest {
     /// Required. The name of this valued resource
     ///
     /// Valid format:
-    /// "organizations/{organization}/simulations/{simulation}/valuedResources/{valued_resource}"
+    /// `organizations/{organization}/simulations/{simulation}/valuedResources/{valued_resource}`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -4689,9 +4794,9 @@ pub struct GetValuedResourceRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListBigQueryExportsRequest {
     /// Required. The parent, which owns the collection of BigQuery exports. Its
-    /// format is "organizations/\[organization_id\]/locations/\[location_id\]",
-    /// "folders/\[folder_id\]/locations/\[location_id\]", or
-    /// "projects/\[project_id\]/locations/\[location_id\]".
+    /// format is `organizations/\[organization_id\]/locations/\[location_id\]`,
+    /// `folders/\[folder_id\]/locations/\[location_id\]`, or
+    /// `projects/\[project_id\]/locations/\[location_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of configs to return. The service may return fewer than
@@ -4890,13 +4995,13 @@ pub mod list_findings_response {
             pub resource_path: ::core::option::Option<super::super::ResourcePath>,
             /// A string representation of the resource path.
             /// For Google Cloud, it has the format of
-            /// organizations/{organization_id}/folders/{folder_id}/folders/{folder_id}/projects/{project_id}
+            /// `organizations/{organization_id}/folders/{folder_id}/folders/{folder_id}/projects/{project_id}`
             /// where there can be any number of folders.
             /// For AWS, it has the format of
-            /// org/{organization_id}/ou/{organizational_unit_id}/ou/{organizational_unit_id}/account/{account_id}
+            /// `org/{organization_id}/ou/{organizational_unit_id}/ou/{organizational_unit_id}/account/{account_id}`
             /// where there can be any number of organizational units.
             /// For Azure, it has the format of
-            /// mg/{management_group_id}/mg/{management_group_id}/subscription/{subscription_id}/rg/{resource_group_name}
+            /// `mg/{management_group_id}/mg/{management_group_id}/subscription/{subscription_id}/rg/{resource_group_name}`
             /// where there can be any number of management groups.
             #[prost(string, tag = "11")]
             pub resource_path_string: ::prost::alloc::string::String,
@@ -4930,11 +5035,11 @@ pub mod list_findings_response {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMuteConfigsRequest {
     /// Required. The parent, which owns the collection of mute configs. Its format
-    /// is "organizations/\[organization_id\]", "folders/\[folder_id\]",
-    /// "projects/\[project_id\]",
-    /// "organizations/\[organization_id\]/locations/\[location_id\]",
-    /// "folders/\[folder_id\]/locations/\[location_id\]",
-    /// "projects/\[project_id\]/locations/\[location_id\]".
+    /// is `organizations/\[organization_id\]", "folders/\[folder_id\]`,
+    /// `projects/\[project_id\]`,
+    /// `organizations/\[organization_id\]/locations/\[location_id\]`,
+    /// `folders/\[folder_id\]/locations/\[location_id\]`,
+    /// `projects/\[project_id\]/locations/\[location_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of configs to return. The service may return fewer than
@@ -5002,7 +5107,7 @@ pub struct ListNotificationConfigsResponse {
 pub struct ListResourceValueConfigsRequest {
     /// Required. The parent, which owns the collection of resource value configs.
     /// Its format is
-    /// "organizations/\[organization_id\]"
+    /// `organizations/\[organization_id\]`
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of configs to return. The service may return fewer than
@@ -5039,8 +5144,8 @@ pub struct ListResourceValueConfigsResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSourcesRequest {
     /// Required. Resource name of the parent of sources to list. Its format should
-    /// be "organizations/\[organization_id\]", "folders/\[folder_id\]", or
-    /// "projects/\[project_id\]".
+    /// be `organizations/\[organization_id\]`, `folders/\[folder_id\]`, or
+    /// `projects/\[project_id\]`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The value returned by the last `ListSourcesResponse`; indicates
@@ -5072,9 +5177,9 @@ pub struct ListValuedResourcesRequest {
     /// Required. Name of parent to list exposed resources.
     ///
     /// Valid formats:
-    /// "organizations/{organization}",
-    /// "organizations/{organization}/simulations/{simulation}"
-    /// "organizations/{organization}/simulations/{simulation}/attackExposureResults/{attack_exposure_result_v2}"
+    /// `organizations/{organization}`,
+    /// `organizations/{organization}/simulations/{simulation}`
+    /// `organizations/{organization}/simulations/{simulation}/attackExposureResults/{attack_exposure_result_v2}`
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The filter expression that filters the valued resources in the response.
@@ -6599,5 +6704,31 @@ pub mod security_center_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Cloud SCC's Notification
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotificationMessage {
+    /// Name of the notification config that generated current notification.
+    #[prost(string, tag = "1")]
+    pub notification_config_name: ::prost::alloc::string::String,
+    /// The Cloud resource tied to this notification's Finding.
+    #[prost(message, optional, tag = "3")]
+    pub resource: ::core::option::Option<Resource>,
+    /// Notification Event.
+    #[prost(oneof = "notification_message::Event", tags = "2")]
+    pub event: ::core::option::Option<notification_message::Event>,
+}
+/// Nested message and enum types in `NotificationMessage`.
+pub mod notification_message {
+    /// Notification Event.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Event {
+        /// If it's a Finding based notification config, this field will be
+        /// populated.
+        #[prost(message, tag = "2")]
+        Finding(super::Finding),
     }
 }

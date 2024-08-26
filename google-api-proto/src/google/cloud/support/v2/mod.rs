@@ -218,69 +218,6 @@ pub struct CaseClassification {
     #[prost(string, tag = "4")]
     pub display_name: ::prost::alloc::string::String,
 }
-/// An escalation of a support case.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Escalation {
-    /// Required. The reason why the Case is being escalated.
-    #[prost(enumeration = "escalation::Reason", tag = "4")]
-    pub reason: i32,
-    /// Required. A free text description to accompany the `reason` field above.
-    /// Provides additional context on why the case is being escalated.
-    #[prost(string, tag = "5")]
-    pub justification: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `Escalation`.
-pub mod escalation {
-    /// An enum detailing the possible reasons a case may be escalated.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Reason {
-        /// The escalation reason is in an unknown state or has not been specified.
-        Unspecified = 0,
-        /// The case is taking too long to resolve.
-        ResolutionTime = 1,
-        /// The support agent does not have the expertise required to successfully
-        /// resolve the issue.
-        TechnicalExpertise = 2,
-        /// The issue is having a significant business impact.
-        BusinessImpact = 3,
-    }
-    impl Reason {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Reason::Unspecified => "REASON_UNSPECIFIED",
-                Reason::ResolutionTime => "RESOLUTION_TIME",
-                Reason::TechnicalExpertise => "TECHNICAL_EXPERTISE",
-                Reason::BusinessImpact => "BUSINESS_IMPACT",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REASON_UNSPECIFIED" => Some(Self::Unspecified),
-                "RESOLUTION_TIME" => Some(Self::ResolutionTime),
-                "TECHNICAL_EXPERTISE" => Some(Self::TechnicalExpertise),
-                "BUSINESS_IMPACT" => Some(Self::BusinessImpact),
-                _ => None,
-            }
-        }
-    }
-}
 /// Represents a file attached to a support case.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -441,6 +378,69 @@ pub mod case_attachment_service_client {
                     ),
                 );
             self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// An escalation of a support case.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Escalation {
+    /// Required. The reason why the Case is being escalated.
+    #[prost(enumeration = "escalation::Reason", tag = "4")]
+    pub reason: i32,
+    /// Required. A free text description to accompany the `reason` field above.
+    /// Provides additional context on why the case is being escalated.
+    #[prost(string, tag = "5")]
+    pub justification: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `Escalation`.
+pub mod escalation {
+    /// An enum detailing the possible reasons a case may be escalated.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Reason {
+        /// The escalation reason is in an unknown state or has not been specified.
+        Unspecified = 0,
+        /// The case is taking too long to resolve.
+        ResolutionTime = 1,
+        /// The support agent does not have the expertise required to successfully
+        /// resolve the issue.
+        TechnicalExpertise = 2,
+        /// The issue is having a significant business impact.
+        BusinessImpact = 3,
+    }
+    impl Reason {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Reason::Unspecified => "REASON_UNSPECIFIED",
+                Reason::ResolutionTime => "RESOLUTION_TIME",
+                Reason::TechnicalExpertise => "TECHNICAL_EXPERTISE",
+                Reason::BusinessImpact => "BUSINESS_IMPACT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "RESOLUTION_TIME" => Some(Self::ResolutionTime),
+                "TECHNICAL_EXPERTISE" => Some(Self::TechnicalExpertise),
+                "BUSINESS_IMPACT" => Some(Self::BusinessImpact),
+                _ => None,
+            }
         }
     }
 }

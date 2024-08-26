@@ -597,7 +597,7 @@ pub mod waypoint {
 }
 /// Encapsulates a location (a geographic point, and an optional heading).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Location {
     /// The waypoint's geographic coordinates.
     #[prost(message, optional, tag = "1")]
@@ -934,7 +934,7 @@ pub struct RouteObjective {
 pub mod route_objective {
     /// Encapsulates a RateCard route objective.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RateCard {
         /// Optional. Cost per minute.
         #[prost(message, optional, tag = "2")]
@@ -950,7 +950,7 @@ pub mod route_objective {
     pub mod rate_card {
         /// Encapsulates the cost used in the rate card.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct MonetaryCost {
             /// Required. The cost value in local currency inferred from the request.
             #[prost(double, tag = "1")]
@@ -983,7 +983,7 @@ pub mod route_objective {
     }
     /// The route objective.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Objective {
         /// The RateCard objective.
         #[prost(message, tag = "1")]
@@ -1251,7 +1251,7 @@ pub struct NavigationInstruction {
 /// SpeedReadingInterval defines an interval and describes its traffic using the
 /// following categories.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SpeedReadingInterval {
     /// The starting index of this interval in the polyline.
     /// In JSON, when the index is 0, the field appears to be unpopulated.
@@ -1448,11 +1448,28 @@ impl Maneuver {
         }
     }
 }
+/// Encapsulates a custom route computed based on the route objective specified
+/// by the customer. CustomRoute contains a route and a route token, which can be
+/// passed to NavSDK to reconstruct the custom route for turn by turn navigation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CustomRoute {
+    /// The route considered 'best' for the input route objective.
+    #[prost(message, optional, tag = "11")]
+    pub route: ::core::option::Option<Route>,
+    /// Web-safe base64 encoded route token that can be passed to NavSDK, which
+    /// allows NavSDK to reconstruct the route during navigation, and in the event
+    /// of rerouting honor the original intention when RoutesPreferred
+    /// ComputeCustomRoutes is called. Customers should treat this token as an
+    /// opaque blob.
+    #[prost(string, tag = "12")]
+    pub token: ::prost::alloc::string::String,
+}
 /// Information related to how and why a fallback result was used. If this field
 /// is set, then it means the server used a different routing mode from your
 /// preferred mode as fallback.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct FallbackInfo {
     /// Routing mode used for the response. If fallback was triggered, the mode
     /// may be different from routing preference set in the original client
@@ -1537,6 +1554,185 @@ impl FallbackRoutingMode {
         }
     }
 }
+/// ComputeCustomRoutes response message.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ComputeCustomRoutesResponse {
+    /// The ‘best’ routes for the input route objective.
+    #[prost(message, repeated, tag = "7")]
+    pub routes: ::prost::alloc::vec::Vec<CustomRoute>,
+    /// The fastest reference route.
+    #[prost(message, optional, tag = "5")]
+    pub fastest_route: ::core::option::Option<CustomRoute>,
+    /// The shortest reference route.
+    #[prost(message, optional, tag = "6")]
+    pub shortest_route: ::core::option::Option<CustomRoute>,
+    /// Fallback info for custom routes.
+    #[prost(message, optional, tag = "8")]
+    pub fallback_info: ::core::option::Option<
+        compute_custom_routes_response::FallbackInfo,
+    >,
+}
+/// Nested message and enum types in `ComputeCustomRoutesResponse`.
+pub mod compute_custom_routes_response {
+    /// Encapsulates fallback info for ComputeCustomRoutes. ComputeCustomRoutes
+    /// performs two types of fallbacks:
+    ///
+    /// 1. If it cannot compute the route using the routing_preference requested by
+    /// the customer, it will fallback to another routing mode. In this case
+    /// fallback_routing_mode and routing_mode_fallback_reason are used to
+    /// communicate the fallback routing mode used, as well as the reason for
+    /// fallback.
+    ///
+    /// 2. If it cannot compute a 'best' route for the route objective specified by
+    /// the customer, it might fallback to another objective.
+    /// fallback_route_objective is used to communicate the fallback route
+    /// objective.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct FallbackInfo {
+        /// Routing mode used for the response. If fallback was triggered, the mode
+        /// may be different from routing preference set in the original client
+        /// request.
+        #[prost(enumeration = "super::FallbackRoutingMode", tag = "1")]
+        pub routing_mode: i32,
+        /// The reason why fallback response was used instead of the original
+        /// response.
+        /// This field is only populated when the fallback mode is triggered and
+        /// the fallback response is returned.
+        #[prost(enumeration = "super::FallbackReason", tag = "2")]
+        pub routing_mode_reason: i32,
+        /// The route objective used for the response. If fallback was triggered, the
+        /// objective may be different from the route objective provided in the
+        /// original client request.
+        #[prost(enumeration = "fallback_info::FallbackRouteObjective", tag = "3")]
+        pub route_objective: i32,
+    }
+    /// Nested message and enum types in `FallbackInfo`.
+    pub mod fallback_info {
+        /// RouteObjective used for the response.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum FallbackRouteObjective {
+            /// Fallback route objective unspecified.
+            Unspecified = 0,
+            /// If customer requests RateCard and sets include_tolls to true, and
+            /// Google does not have toll price data for the route, the API falls back
+            /// to RateCard without considering toll price.
+            FallbackRatecardWithoutTollPriceData = 1,
+        }
+        impl FallbackRouteObjective {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    FallbackRouteObjective::Unspecified => {
+                        "FALLBACK_ROUTE_OBJECTIVE_UNSPECIFIED"
+                    }
+                    FallbackRouteObjective::FallbackRatecardWithoutTollPriceData => {
+                        "FALLBACK_RATECARD_WITHOUT_TOLL_PRICE_DATA"
+                    }
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "FALLBACK_ROUTE_OBJECTIVE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "FALLBACK_RATECARD_WITHOUT_TOLL_PRICE_DATA" => {
+                        Some(Self::FallbackRatecardWithoutTollPriceData)
+                    }
+                    _ => None,
+                }
+            }
+        }
+    }
+}
+/// ComputeRouteMatrix request message
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ComputeRouteMatrixRequest {
+    /// Required. Array of origins, which determines the rows of the response matrix.
+    /// Several size restrictions apply to the cardinality of origins and
+    /// destinations:
+    ///
+    /// * The number of elements (origins × destinations) must be no greater than
+    /// 625 in any case.
+    /// * The number of elements (origins × destinations) must be no greater than
+    /// 100 if routing_preference is set to `TRAFFIC_AWARE_OPTIMAL`.
+    /// * The number of waypoints (origins + destinations) specified as `place_id`
+    /// must be no greater than 50.
+    #[prost(message, repeated, tag = "1")]
+    pub origins: ::prost::alloc::vec::Vec<RouteMatrixOrigin>,
+    /// Required. Array of destinations, which determines the columns of the response matrix.
+    #[prost(message, repeated, tag = "2")]
+    pub destinations: ::prost::alloc::vec::Vec<RouteMatrixDestination>,
+    /// Optional. Specifies the mode of transportation.
+    #[prost(enumeration = "RouteTravelMode", tag = "3")]
+    pub travel_mode: i32,
+    /// Optional. Specifies how to compute the route. The server attempts to use the selected
+    /// routing preference to compute the route. If the routing preference results
+    /// in an error or an extra long latency, an error is returned. In the future,
+    /// we might implement a fallback mechanism to use a different option when the
+    /// preferred option does not give a valid result. You can specify this option
+    /// only when the `travel_mode` is `DRIVE` or `TWO_WHEELER`, otherwise the
+    /// request fails.
+    #[prost(enumeration = "RoutingPreference", tag = "4")]
+    pub routing_preference: i32,
+    /// Optional. The departure time. If you don't set this value, this defaults to the time
+    /// that you made the request. If you set this value to a time that has already
+    /// occurred, the request fails.
+    #[prost(message, optional, tag = "5")]
+    pub departure_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// A single origin for ComputeRouteMatrixRequest
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RouteMatrixOrigin {
+    /// Required. Origin waypoint
+    #[prost(message, optional, tag = "1")]
+    pub waypoint: ::core::option::Option<Waypoint>,
+    /// Optional. Modifiers for every route that takes this as the origin
+    #[prost(message, optional, tag = "2")]
+    pub route_modifiers: ::core::option::Option<RouteModifiers>,
+}
+/// A single destination for ComputeRouteMatrixRequest
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RouteMatrixDestination {
+    /// Required. Destination waypoint
+    #[prost(message, optional, tag = "1")]
+    pub waypoint: ::core::option::Option<Waypoint>,
+}
+/// ComputeRoutes the response message.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ComputeRoutesResponse {
+    /// Contains an array of computed routes (up to three) when you specify
+    /// compute_alternatives_routes, and contains just one route when you don't.
+    /// When this array contains multiple entries, the first one is the most
+    /// recommended route. If the array is empty, then it means no route could be
+    /// found.
+    #[prost(message, repeated, tag = "1")]
+    pub routes: ::prost::alloc::vec::Vec<Route>,
+    /// In some cases when the server is not able to compute the route results with
+    /// all of the input preferences, it may fallback to using a different way of
+    /// computation. When fallback mode is used, this field contains detailed info
+    /// about the fallback response. Otherwise this field is unset.
+    #[prost(message, optional, tag = "2")]
+    pub fallback_info: ::core::option::Option<FallbackInfo>,
+}
 /// Encapsulates route information computed for an origin/destination pair in the
 /// ComputeRouteMatrix API. This proto can be streamed to the client.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1614,202 +1810,6 @@ impl RouteMatrixElementCondition {
             "ROUTE_EXISTS" => Some(Self::RouteExists),
             "ROUTE_NOT_FOUND" => Some(Self::RouteNotFound),
             _ => None,
-        }
-    }
-}
-/// ComputeRouteMatrix request message
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ComputeRouteMatrixRequest {
-    /// Required. Array of origins, which determines the rows of the response matrix.
-    /// Several size restrictions apply to the cardinality of origins and
-    /// destinations:
-    ///
-    /// * The number of elements (origins × destinations) must be no greater than
-    /// 625 in any case.
-    /// * The number of elements (origins × destinations) must be no greater than
-    /// 100 if routing_preference is set to `TRAFFIC_AWARE_OPTIMAL`.
-    /// * The number of waypoints (origins + destinations) specified as `place_id`
-    /// must be no greater than 50.
-    #[prost(message, repeated, tag = "1")]
-    pub origins: ::prost::alloc::vec::Vec<RouteMatrixOrigin>,
-    /// Required. Array of destinations, which determines the columns of the response matrix.
-    #[prost(message, repeated, tag = "2")]
-    pub destinations: ::prost::alloc::vec::Vec<RouteMatrixDestination>,
-    /// Optional. Specifies the mode of transportation.
-    #[prost(enumeration = "RouteTravelMode", tag = "3")]
-    pub travel_mode: i32,
-    /// Optional. Specifies how to compute the route. The server attempts to use the selected
-    /// routing preference to compute the route. If the routing preference results
-    /// in an error or an extra long latency, an error is returned. In the future,
-    /// we might implement a fallback mechanism to use a different option when the
-    /// preferred option does not give a valid result. You can specify this option
-    /// only when the `travel_mode` is `DRIVE` or `TWO_WHEELER`, otherwise the
-    /// request fails.
-    #[prost(enumeration = "RoutingPreference", tag = "4")]
-    pub routing_preference: i32,
-    /// Optional. The departure time. If you don't set this value, this defaults to the time
-    /// that you made the request. If you set this value to a time that has already
-    /// occurred, the request fails.
-    #[prost(message, optional, tag = "5")]
-    pub departure_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// A single origin for ComputeRouteMatrixRequest
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RouteMatrixOrigin {
-    /// Required. Origin waypoint
-    #[prost(message, optional, tag = "1")]
-    pub waypoint: ::core::option::Option<Waypoint>,
-    /// Optional. Modifiers for every route that takes this as the origin
-    #[prost(message, optional, tag = "2")]
-    pub route_modifiers: ::core::option::Option<RouteModifiers>,
-}
-/// A single destination for ComputeRouteMatrixRequest
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RouteMatrixDestination {
-    /// Required. Destination waypoint
-    #[prost(message, optional, tag = "1")]
-    pub waypoint: ::core::option::Option<Waypoint>,
-}
-/// Encapsulates a custom route computed based on the route objective specified
-/// by the customer. CustomRoute contains a route and a route token, which can be
-/// passed to NavSDK to reconstruct the custom route for turn by turn navigation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CustomRoute {
-    /// The route considered 'best' for the input route objective.
-    #[prost(message, optional, tag = "11")]
-    pub route: ::core::option::Option<Route>,
-    /// Web-safe base64 encoded route token that can be passed to NavSDK, which
-    /// allows NavSDK to reconstruct the route during navigation, and in the event
-    /// of rerouting honor the original intention when RoutesPreferred
-    /// ComputeCustomRoutes is called. Customers should treat this token as an
-    /// opaque blob.
-    #[prost(string, tag = "12")]
-    pub token: ::prost::alloc::string::String,
-}
-/// ComputeRoutes the response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ComputeRoutesResponse {
-    /// Contains an array of computed routes (up to three) when you specify
-    /// compute_alternatives_routes, and contains just one route when you don't.
-    /// When this array contains multiple entries, the first one is the most
-    /// recommended route. If the array is empty, then it means no route could be
-    /// found.
-    #[prost(message, repeated, tag = "1")]
-    pub routes: ::prost::alloc::vec::Vec<Route>,
-    /// In some cases when the server is not able to compute the route results with
-    /// all of the input preferences, it may fallback to using a different way of
-    /// computation. When fallback mode is used, this field contains detailed info
-    /// about the fallback response. Otherwise this field is unset.
-    #[prost(message, optional, tag = "2")]
-    pub fallback_info: ::core::option::Option<FallbackInfo>,
-}
-/// ComputeCustomRoutes response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ComputeCustomRoutesResponse {
-    /// The ‘best’ routes for the input route objective.
-    #[prost(message, repeated, tag = "7")]
-    pub routes: ::prost::alloc::vec::Vec<CustomRoute>,
-    /// The fastest reference route.
-    #[prost(message, optional, tag = "5")]
-    pub fastest_route: ::core::option::Option<CustomRoute>,
-    /// The shortest reference route.
-    #[prost(message, optional, tag = "6")]
-    pub shortest_route: ::core::option::Option<CustomRoute>,
-    /// Fallback info for custom routes.
-    #[prost(message, optional, tag = "8")]
-    pub fallback_info: ::core::option::Option<
-        compute_custom_routes_response::FallbackInfo,
-    >,
-}
-/// Nested message and enum types in `ComputeCustomRoutesResponse`.
-pub mod compute_custom_routes_response {
-    /// Encapsulates fallback info for ComputeCustomRoutes. ComputeCustomRoutes
-    /// performs two types of fallbacks:
-    ///
-    /// 1. If it cannot compute the route using the routing_preference requested by
-    /// the customer, it will fallback to another routing mode. In this case
-    /// fallback_routing_mode and routing_mode_fallback_reason are used to
-    /// communicate the fallback routing mode used, as well as the reason for
-    /// fallback.
-    ///
-    /// 2. If it cannot compute a 'best' route for the route objective specified by
-    /// the customer, it might fallback to another objective.
-    /// fallback_route_objective is used to communicate the fallback route
-    /// objective.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct FallbackInfo {
-        /// Routing mode used for the response. If fallback was triggered, the mode
-        /// may be different from routing preference set in the original client
-        /// request.
-        #[prost(enumeration = "super::FallbackRoutingMode", tag = "1")]
-        pub routing_mode: i32,
-        /// The reason why fallback response was used instead of the original
-        /// response.
-        /// This field is only populated when the fallback mode is triggered and
-        /// the fallback response is returned.
-        #[prost(enumeration = "super::FallbackReason", tag = "2")]
-        pub routing_mode_reason: i32,
-        /// The route objective used for the response. If fallback was triggered, the
-        /// objective may be different from the route objective provided in the
-        /// original client request.
-        #[prost(enumeration = "fallback_info::FallbackRouteObjective", tag = "3")]
-        pub route_objective: i32,
-    }
-    /// Nested message and enum types in `FallbackInfo`.
-    pub mod fallback_info {
-        /// RouteObjective used for the response.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum FallbackRouteObjective {
-            /// Fallback route objective unspecified.
-            Unspecified = 0,
-            /// If customer requests RateCard and sets include_tolls to true, and
-            /// Google does not have toll price data for the route, the API falls back
-            /// to RateCard without considering toll price.
-            FallbackRatecardWithoutTollPriceData = 1,
-        }
-        impl FallbackRouteObjective {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    FallbackRouteObjective::Unspecified => {
-                        "FALLBACK_ROUTE_OBJECTIVE_UNSPECIFIED"
-                    }
-                    FallbackRouteObjective::FallbackRatecardWithoutTollPriceData => {
-                        "FALLBACK_RATECARD_WITHOUT_TOLL_PRICE_DATA"
-                    }
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "FALLBACK_ROUTE_OBJECTIVE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "FALLBACK_RATECARD_WITHOUT_TOLL_PRICE_DATA" => {
-                        Some(Self::FallbackRatecardWithoutTollPriceData)
-                    }
-                    _ => None,
-                }
-            }
         }
     }
 }

@@ -38,6 +38,8 @@ pub mod apigateway;
 pub mod apigeeconnect;
 #[cfg(any(feature = "google-cloud-apigeeregistry-v1"))]
 pub mod apigeeregistry;
+#[cfg(any(feature = "google-cloud-apihub-v1"))]
+pub mod apihub;
 #[cfg(any(feature = "google-cloud-apphub-v1"))]
 pub mod apphub;
 #[cfg(
@@ -99,6 +101,7 @@ pub mod beyondcorp;
         feature = "google-cloud-bigquery-migration-v2alpha",
         feature = "google-cloud-bigquery-reservation-v1",
         feature = "google-cloud-bigquery-storage-v1",
+        feature = "google-cloud-bigquery-storage-v1alpha",
         feature = "google-cloud-bigquery-storage-v1beta1",
         feature = "google-cloud-bigquery-storage-v1beta2",
         feature = "google-cloud-bigquery-v2",
@@ -120,6 +123,8 @@ pub mod billing;
     )
 )]
 pub mod binaryauthorization;
+#[cfg(any(feature = "google-cloud-blockchainnodeengine-v1"))]
+pub mod blockchainnodeengine;
 #[cfg(
     any(
         feature = "google-cloud-certificatemanager-logging-v1",
@@ -298,7 +303,6 @@ pub mod gkebackup;
 #[cfg(
     any(
         feature = "google-cloud-gkeconnect-gateway-v1",
-        feature = "google-cloud-gkeconnect-gateway-v1alpha1",
         feature = "google-cloud-gkeconnect-gateway-v1beta1",
     )
 )]

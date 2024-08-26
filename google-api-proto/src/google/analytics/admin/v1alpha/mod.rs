@@ -184,353 +184,145 @@ pub struct ChannelGroup {
     /// updated for this channel group.
     #[prost(bool, tag = "5")]
     pub system_defined: bool,
+    /// Optional. If true, this channel group will be used as the default channel
+    /// group for reports. Only one channel group can be set as `primary` at any
+    /// time. If the `primary` field gets set on a channel group, it will get unset
+    /// on the previous primary channel group.
+    ///
+    /// The Google Analytics predefined channel group is the primary by default.
+    #[prost(bool, tag = "6")]
+    pub primary: bool,
 }
-/// A specific filter for a single dimension
+/// Dimensions are attributes of your data. For example, the dimension
+/// `userEmail` indicates the email of the user that accessed reporting data.
+/// Dimension values in report responses are strings.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExpandedDataSetFilter {
-    /// Required. The dimension name to filter.
+pub struct AccessDimension {
+    /// The API name of the dimension. See [Data Access
+    /// Schema](<https://developers.google.com/analytics/devguides/config/admin/v1/access-api-schema>)
+    /// for the list of dimensions supported in this API.
+    ///
+    /// Dimensions are referenced by name in `dimensionFilter` and `orderBys`.
     #[prost(string, tag = "1")]
-    pub field_name: ::prost::alloc::string::String,
-    /// One of the above filters.
-    #[prost(oneof = "expanded_data_set_filter::OneFilter", tags = "2, 3")]
-    pub one_filter: ::core::option::Option<expanded_data_set_filter::OneFilter>,
+    pub dimension_name: ::prost::alloc::string::String,
 }
-/// Nested message and enum types in `ExpandedDataSetFilter`.
-pub mod expanded_data_set_filter {
-    /// A filter for a string-type dimension that matches a particular pattern.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct StringFilter {
-        /// Required. The match type for the string filter.
-        #[prost(enumeration = "string_filter::MatchType", tag = "1")]
-        pub match_type: i32,
-        /// Required. The string value to be matched against.
-        #[prost(string, tag = "2")]
-        pub value: ::prost::alloc::string::String,
-        /// Optional. If true, the match is case-sensitive. If false, the match is
-        /// case-insensitive.
-        /// Must be true when match_type is EXACT.
-        /// Must be false when match_type is CONTAINS.
-        #[prost(bool, tag = "3")]
-        pub case_sensitive: bool,
-    }
-    /// Nested message and enum types in `StringFilter`.
-    pub mod string_filter {
-        /// The match type for the string filter.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum MatchType {
-            /// Unspecified
-            Unspecified = 0,
-            /// Exact match of the string value.
-            Exact = 1,
-            /// Contains the string value.
-            Contains = 2,
-        }
-        impl MatchType {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
-                    MatchType::Exact => "EXACT",
-                    MatchType::Contains => "CONTAINS",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "EXACT" => Some(Self::Exact),
-                    "CONTAINS" => Some(Self::Contains),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// A filter for a string dimension that matches a particular list of options.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct InListFilter {
-        /// Required. The list of possible string values to match against. Must be
-        /// non-empty.
-        #[prost(string, repeated, tag = "1")]
-        pub values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-        /// Optional. If true, the match is case-sensitive. If false, the match is
-        /// case-insensitive.
-        /// Must be true.
-        #[prost(bool, tag = "2")]
-        pub case_sensitive: bool,
-    }
-    /// One of the above filters.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum OneFilter {
-        /// A filter for a string-type dimension that matches a particular pattern.
-        #[prost(message, tag = "2")]
-        StringFilter(StringFilter),
-        /// A filter for a string dimension that matches a particular list of
-        /// options.
-        #[prost(message, tag = "3")]
-        InListFilter(InListFilter),
-    }
-}
-/// A logical expression of EnhancedDataSet dimension filters.
+/// The quantitative measurements of a report. For example, the metric
+/// `accessCount` is the total number of data access records.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExpandedDataSetFilterExpression {
-    /// The expression applied to a filter.
-    #[prost(oneof = "expanded_data_set_filter_expression::Expr", tags = "1, 2, 3")]
-    pub expr: ::core::option::Option<expanded_data_set_filter_expression::Expr>,
-}
-/// Nested message and enum types in `ExpandedDataSetFilterExpression`.
-pub mod expanded_data_set_filter_expression {
-    /// The expression applied to a filter.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Expr {
-        /// A list of expressions to be AND’ed together. It must contain a
-        /// ExpandedDataSetFilterExpression with either not_expression or
-        /// dimension_filter. This must be set for the top level
-        /// ExpandedDataSetFilterExpression.
-        #[prost(message, tag = "1")]
-        AndGroup(super::ExpandedDataSetFilterExpressionList),
-        /// A filter expression to be NOT'ed (that is, inverted, complemented). It
-        /// must include a dimension_filter. This cannot be set on the
-        /// top level ExpandedDataSetFilterExpression.
-        #[prost(message, tag = "2")]
-        NotExpression(
-            ::prost::alloc::boxed::Box<super::ExpandedDataSetFilterExpression>,
-        ),
-        /// A filter on a single dimension. This cannot be set on the top
-        /// level ExpandedDataSetFilterExpression.
-        #[prost(message, tag = "3")]
-        Filter(super::ExpandedDataSetFilter),
-    }
-}
-/// A list of ExpandedDataSet filter expressions.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExpandedDataSetFilterExpressionList {
-    /// A list of ExpandedDataSet filter expressions.
-    #[prost(message, repeated, tag = "1")]
-    pub filter_expressions: ::prost::alloc::vec::Vec<ExpandedDataSetFilterExpression>,
-}
-/// A resource message representing a GA4 ExpandedDataSet.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExpandedDataSet {
-    /// Output only. The resource name for this ExpandedDataSet resource.
-    /// Format: properties/{property_id}/expandedDataSets/{expanded_data_set}
+pub struct AccessMetric {
+    /// The API name of the metric. See [Data Access
+    /// Schema](<https://developers.google.com/analytics/devguides/config/admin/v1/access-api-schema>)
+    /// for the list of metrics supported in this API.
+    ///
+    /// Metrics are referenced by name in `metricFilter` & `orderBys`.
     #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The display name of the ExpandedDataSet.
-    /// Max 200 chars.
+    pub metric_name: ::prost::alloc::string::String,
+}
+/// A contiguous range of days: startDate, startDate + 1, ..., endDate.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessDateRange {
+    /// The inclusive start date for the query in the format `YYYY-MM-DD`. Cannot
+    /// be after `endDate`. The format `NdaysAgo`, `yesterday`, or `today` is also
+    /// accepted, and in that case, the date is inferred based on the current time
+    /// in the request's time zone.
+    #[prost(string, tag = "1")]
+    pub start_date: ::prost::alloc::string::String,
+    /// The inclusive end date for the query in the format `YYYY-MM-DD`. Cannot
+    /// be before `startDate`. The format `NdaysAgo`, `yesterday`, or `today` is
+    /// also accepted, and in that case, the date is inferred based on the current
+    /// time in the request's time zone.
     #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// Optional. The description of the ExpandedDataSet.
-    /// Max 50 chars.
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-    /// Immutable. The list of dimensions included in the ExpandedDataSet.
-    /// See the [API
-    /// Dimensions](<https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#dimensions>)
-    /// for the list of dimension names.
-    #[prost(string, repeated, tag = "4")]
-    pub dimension_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Immutable. The list of metrics included in the ExpandedDataSet.
-    /// See the [API
-    /// Metrics](<https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#metrics>)
-    /// for the list of dimension names.
-    #[prost(string, repeated, tag = "5")]
-    pub metric_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Immutable. A logical expression of ExpandedDataSet filters applied to
-    /// dimension included in the ExpandedDataSet. This filter is used to reduce
-    /// the number of rows and thus the chance of encountering `other` row.
-    #[prost(message, optional, tag = "6")]
-    pub dimension_filter_expression: ::core::option::Option<
-        ExpandedDataSetFilterExpression,
-    >,
-    /// Output only. Time when expanded data set began (or will begin) collecing
-    /// data.
-    #[prost(message, optional, tag = "7")]
-    pub data_collection_start_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub end_date: ::prost::alloc::string::String,
 }
-/// A specific filter expression
+/// Expresses dimension or metric filters. The fields in the same expression need
+/// to be either all dimensions or all metrics.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SubpropertyEventFilterCondition {
-    /// Required. The field that is being filtered.
+pub struct AccessFilterExpression {
+    /// Specify one type of filter expression for `FilterExpression`.
+    #[prost(oneof = "access_filter_expression::OneExpression", tags = "1, 2, 3, 4")]
+    pub one_expression: ::core::option::Option<access_filter_expression::OneExpression>,
+}
+/// Nested message and enum types in `AccessFilterExpression`.
+pub mod access_filter_expression {
+    /// Specify one type of filter expression for `FilterExpression`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum OneExpression {
+        /// Each of the FilterExpressions in the and_group has an AND relationship.
+        #[prost(message, tag = "1")]
+        AndGroup(super::AccessFilterExpressionList),
+        /// Each of the FilterExpressions in the or_group has an OR relationship.
+        #[prost(message, tag = "2")]
+        OrGroup(super::AccessFilterExpressionList),
+        /// The FilterExpression is NOT of not_expression.
+        #[prost(message, tag = "3")]
+        NotExpression(::prost::alloc::boxed::Box<super::AccessFilterExpression>),
+        /// A primitive filter. In the same FilterExpression, all of the filter's
+        /// field names need to be either all dimensions or all metrics.
+        #[prost(message, tag = "4")]
+        AccessFilter(super::AccessFilter),
+    }
+}
+/// A list of filter expressions.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessFilterExpressionList {
+    /// A list of filter expressions.
+    #[prost(message, repeated, tag = "1")]
+    pub expressions: ::prost::alloc::vec::Vec<AccessFilterExpression>,
+}
+/// An expression to filter dimension or metric values.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessFilter {
+    /// The dimension name or metric name.
     #[prost(string, tag = "1")]
     pub field_name: ::prost::alloc::string::String,
-    #[prost(oneof = "subproperty_event_filter_condition::OneFilter", tags = "2, 3")]
-    pub one_filter: ::core::option::Option<
-        subproperty_event_filter_condition::OneFilter,
-    >,
+    /// Specify one type of filter for `Filter`.
+    #[prost(oneof = "access_filter::OneFilter", tags = "2, 3, 4, 5")]
+    pub one_filter: ::core::option::Option<access_filter::OneFilter>,
 }
-/// Nested message and enum types in `SubpropertyEventFilterCondition`.
-pub mod subproperty_event_filter_condition {
-    /// A filter for a string-type dimension that matches a particular pattern.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct StringFilter {
-        /// Required. The match type for the string filter.
-        #[prost(enumeration = "string_filter::MatchType", tag = "1")]
-        pub match_type: i32,
-        /// Required. The string value used for the matching.
-        #[prost(string, tag = "2")]
-        pub value: ::prost::alloc::string::String,
-        /// Optional. If true, the string value is case sensitive. If false, the
-        /// match is case-insensitive.
-        #[prost(bool, tag = "3")]
-        pub case_sensitive: bool,
-    }
-    /// Nested message and enum types in `StringFilter`.
-    pub mod string_filter {
-        /// How the filter will be used to determine a match.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum MatchType {
-            /// Match type unknown or not specified.
-            Unspecified = 0,
-            /// Exact match of the string value.
-            Exact = 1,
-            /// Begins with the string value.
-            BeginsWith = 2,
-            /// Ends with the string value.
-            EndsWith = 3,
-            /// Contains the string value.
-            Contains = 4,
-            /// Full regular expression matches with the string value.
-            FullRegexp = 5,
-            /// Partial regular expression matches with the string value.
-            PartialRegexp = 6,
-        }
-        impl MatchType {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
-                    MatchType::Exact => "EXACT",
-                    MatchType::BeginsWith => "BEGINS_WITH",
-                    MatchType::EndsWith => "ENDS_WITH",
-                    MatchType::Contains => "CONTAINS",
-                    MatchType::FullRegexp => "FULL_REGEXP",
-                    MatchType::PartialRegexp => "PARTIAL_REGEXP",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "EXACT" => Some(Self::Exact),
-                    "BEGINS_WITH" => Some(Self::BeginsWith),
-                    "ENDS_WITH" => Some(Self::EndsWith),
-                    "CONTAINS" => Some(Self::Contains),
-                    "FULL_REGEXP" => Some(Self::FullRegexp),
-                    "PARTIAL_REGEXP" => Some(Self::PartialRegexp),
-                    _ => None,
-                }
-            }
-        }
-    }
+/// Nested message and enum types in `AccessFilter`.
+pub mod access_filter {
+    /// Specify one type of filter for `Filter`.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OneFilter {
-        /// A filter for null values.
-        #[prost(bool, tag = "2")]
-        NullFilter(bool),
-        /// A filter for a string-type dimension that matches a particular pattern.
-        #[prost(message, tag = "3")]
-        StringFilter(StringFilter),
-    }
-}
-/// A logical expression of Subproperty event filters.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SubpropertyEventFilterExpression {
-    /// The expression applied to a filter.
-    #[prost(oneof = "subproperty_event_filter_expression::Expr", tags = "1, 2, 3")]
-    pub expr: ::core::option::Option<subproperty_event_filter_expression::Expr>,
-}
-/// Nested message and enum types in `SubpropertyEventFilterExpression`.
-pub mod subproperty_event_filter_expression {
-    /// The expression applied to a filter.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Expr {
-        /// A list of expressions to OR’ed together. Must only contain
-        /// not_expression or filter_condition expressions.
-        #[prost(message, tag = "1")]
-        OrGroup(super::SubpropertyEventFilterExpressionList),
-        /// A filter expression to be NOT'ed (inverted, complemented). It can only
-        /// include a filter. This cannot be set on the top level
-        /// SubpropertyEventFilterExpression.
+        /// Strings related filter.
         #[prost(message, tag = "2")]
-        NotExpression(
-            ::prost::alloc::boxed::Box<super::SubpropertyEventFilterExpression>,
-        ),
-        /// Creates a filter that matches a specific event. This cannot be set on the
-        /// top level SubpropertyEventFilterExpression.
+        StringFilter(super::AccessStringFilter),
+        /// A filter for in list values.
         #[prost(message, tag = "3")]
-        FilterCondition(super::SubpropertyEventFilterCondition),
+        InListFilter(super::AccessInListFilter),
+        /// A filter for numeric or date values.
+        #[prost(message, tag = "4")]
+        NumericFilter(super::AccessNumericFilter),
+        /// A filter for two values.
+        #[prost(message, tag = "5")]
+        BetweenFilter(super::AccessBetweenFilter),
     }
 }
-/// A list of Subproperty event filter expressions.
+/// The filter for strings.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SubpropertyEventFilterExpressionList {
-    /// Required. Unordered list. A list of Subproperty event filter expressions
-    #[prost(message, repeated, tag = "1")]
-    pub filter_expressions: ::prost::alloc::vec::Vec<SubpropertyEventFilterExpression>,
+pub struct AccessStringFilter {
+    /// The match type for this filter.
+    #[prost(enumeration = "access_string_filter::MatchType", tag = "1")]
+    pub match_type: i32,
+    /// The string value used for the matching.
+    #[prost(string, tag = "2")]
+    pub value: ::prost::alloc::string::String,
+    /// If true, the string value is case sensitive.
+    #[prost(bool, tag = "3")]
+    pub case_sensitive: bool,
 }
-/// A clause for defining a filter. A filter may be inclusive (events satisfying
-/// the filter clause are included in the subproperty's data) or exclusive
-/// (events satisfying the filter clause are excluded from the subproperty's
-/// data).
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SubpropertyEventFilterClause {
-    /// Required. The type for the filter clause.
-    #[prost(
-        enumeration = "subproperty_event_filter_clause::FilterClauseType",
-        tag = "1"
-    )]
-    pub filter_clause_type: i32,
-    /// Required. The logical expression for what events are sent to the
-    /// subproperty.
-    #[prost(message, optional, tag = "2")]
-    pub filter_expression: ::core::option::Option<SubpropertyEventFilterExpression>,
-}
-/// Nested message and enum types in `SubpropertyEventFilterClause`.
-pub mod subproperty_event_filter_clause {
-    /// Specifies whether this is an include or exclude filter clause.
+/// Nested message and enum types in `AccessStringFilter`.
+pub mod access_string_filter {
+    /// The match type of a string filter.
     #[derive(
         Clone,
         Copy,
@@ -543,55 +335,363 @@ pub mod subproperty_event_filter_clause {
         ::prost::Enumeration
     )]
     #[repr(i32)]
-    pub enum FilterClauseType {
-        /// Filter clause type unknown or not specified.
+    pub enum MatchType {
+        /// Unspecified
         Unspecified = 0,
-        /// Events will be included in the Sub property if the filter clause is met.
-        Include = 1,
-        /// Events will be excluded from the Sub property if the filter clause is
-        /// met.
-        Exclude = 2,
+        /// Exact match of the string value.
+        Exact = 1,
+        /// Begins with the string value.
+        BeginsWith = 2,
+        /// Ends with the string value.
+        EndsWith = 3,
+        /// Contains the string value.
+        Contains = 4,
+        /// Full match for the regular expression with the string value.
+        FullRegexp = 5,
+        /// Partial match for the regular expression with the string value.
+        PartialRegexp = 6,
     }
-    impl FilterClauseType {
+    impl MatchType {
         /// String value of the enum field names used in the ProtoBuf definition.
         ///
         /// The values are not transformed in any way and thus are considered stable
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FilterClauseType::Unspecified => "FILTER_CLAUSE_TYPE_UNSPECIFIED",
-                FilterClauseType::Include => "INCLUDE",
-                FilterClauseType::Exclude => "EXCLUDE",
+                MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
+                MatchType::Exact => "EXACT",
+                MatchType::BeginsWith => "BEGINS_WITH",
+                MatchType::EndsWith => "ENDS_WITH",
+                MatchType::Contains => "CONTAINS",
+                MatchType::FullRegexp => "FULL_REGEXP",
+                MatchType::PartialRegexp => "PARTIAL_REGEXP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
-                "FILTER_CLAUSE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "INCLUDE" => Some(Self::Include),
-                "EXCLUDE" => Some(Self::Exclude),
+                "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "EXACT" => Some(Self::Exact),
+                "BEGINS_WITH" => Some(Self::BeginsWith),
+                "ENDS_WITH" => Some(Self::EndsWith),
+                "CONTAINS" => Some(Self::Contains),
+                "FULL_REGEXP" => Some(Self::FullRegexp),
+                "PARTIAL_REGEXP" => Some(Self::PartialRegexp),
                 _ => None,
             }
         }
     }
 }
-/// A resource message representing a GA4 Subproperty event filter.
+/// The result needs to be in a list of string values.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SubpropertyEventFilter {
-    /// Output only. Format:
-    /// properties/{ordinary_property_id}/subpropertyEventFilters/{sub_property_event_filter}
-    /// Example: properties/1234/subpropertyEventFilters/5678
+pub struct AccessInListFilter {
+    /// The list of string values. Must be non-empty.
+    #[prost(string, repeated, tag = "1")]
+    pub values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// If true, the string value is case sensitive.
+    #[prost(bool, tag = "2")]
+    pub case_sensitive: bool,
+}
+/// Filters for numeric or date values.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AccessNumericFilter {
+    /// The operation type for this filter.
+    #[prost(enumeration = "access_numeric_filter::Operation", tag = "1")]
+    pub operation: i32,
+    /// A numeric value or a date value.
+    #[prost(message, optional, tag = "2")]
+    pub value: ::core::option::Option<NumericValue>,
+}
+/// Nested message and enum types in `AccessNumericFilter`.
+pub mod access_numeric_filter {
+    /// The operation applied to a numeric filter.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Operation {
+        /// Unspecified.
+        Unspecified = 0,
+        /// Equal
+        Equal = 1,
+        /// Less than
+        LessThan = 2,
+        /// Less than or equal
+        LessThanOrEqual = 3,
+        /// Greater than
+        GreaterThan = 4,
+        /// Greater than or equal
+        GreaterThanOrEqual = 5,
+    }
+    impl Operation {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Operation::Unspecified => "OPERATION_UNSPECIFIED",
+                Operation::Equal => "EQUAL",
+                Operation::LessThan => "LESS_THAN",
+                Operation::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
+                Operation::GreaterThan => "GREATER_THAN",
+                Operation::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "OPERATION_UNSPECIFIED" => Some(Self::Unspecified),
+                "EQUAL" => Some(Self::Equal),
+                "LESS_THAN" => Some(Self::LessThan),
+                "LESS_THAN_OR_EQUAL" => Some(Self::LessThanOrEqual),
+                "GREATER_THAN" => Some(Self::GreaterThan),
+                "GREATER_THAN_OR_EQUAL" => Some(Self::GreaterThanOrEqual),
+                _ => None,
+            }
+        }
+    }
+}
+/// To express that the result needs to be between two numbers (inclusive).
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AccessBetweenFilter {
+    /// Begins with this number.
+    #[prost(message, optional, tag = "1")]
+    pub from_value: ::core::option::Option<NumericValue>,
+    /// Ends with this number.
+    #[prost(message, optional, tag = "2")]
+    pub to_value: ::core::option::Option<NumericValue>,
+}
+/// To represent a number.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct NumericValue {
+    /// One of a numeric value
+    #[prost(oneof = "numeric_value::OneValue", tags = "1, 2")]
+    pub one_value: ::core::option::Option<numeric_value::OneValue>,
+}
+/// Nested message and enum types in `NumericValue`.
+pub mod numeric_value {
+    /// One of a numeric value
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum OneValue {
+        /// Integer value
+        #[prost(int64, tag = "1")]
+        Int64Value(i64),
+        /// Double value
+        #[prost(double, tag = "2")]
+        DoubleValue(f64),
+    }
+}
+/// Order bys define how rows will be sorted in the response. For example,
+/// ordering rows by descending access count is one ordering, and ordering rows
+/// by the country string is a different ordering.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessOrderBy {
+    /// If true, sorts by descending order. If false or unspecified, sorts in
+    /// ascending order.
+    #[prost(bool, tag = "3")]
+    pub desc: bool,
+    /// Specify one type of order by for `OrderBy`.
+    #[prost(oneof = "access_order_by::OneOrderBy", tags = "1, 2")]
+    pub one_order_by: ::core::option::Option<access_order_by::OneOrderBy>,
+}
+/// Nested message and enum types in `AccessOrderBy`.
+pub mod access_order_by {
+    /// Sorts by metric values.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct MetricOrderBy {
+        /// A metric name in the request to order by.
+        #[prost(string, tag = "1")]
+        pub metric_name: ::prost::alloc::string::String,
+    }
+    /// Sorts by dimension values.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct DimensionOrderBy {
+        /// A dimension name in the request to order by.
+        #[prost(string, tag = "1")]
+        pub dimension_name: ::prost::alloc::string::String,
+        /// Controls the rule for dimension value ordering.
+        #[prost(enumeration = "dimension_order_by::OrderType", tag = "2")]
+        pub order_type: i32,
+    }
+    /// Nested message and enum types in `DimensionOrderBy`.
+    pub mod dimension_order_by {
+        /// Rule to order the string dimension values by.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum OrderType {
+            /// Unspecified.
+            Unspecified = 0,
+            /// Alphanumeric sort by Unicode code point. For example, "2" < "A" < "X" <
+            /// "b" < "z".
+            Alphanumeric = 1,
+            /// Case insensitive alphanumeric sort by lower case Unicode code point.
+            /// For example, "2" < "A" < "b" < "X" < "z".
+            CaseInsensitiveAlphanumeric = 2,
+            /// Dimension values are converted to numbers before sorting. For example
+            /// in NUMERIC sort, "25" < "100", and in `ALPHANUMERIC` sort, "100" <
+            /// "25". Non-numeric dimension values all have equal ordering value below
+            /// all numeric values.
+            Numeric = 3,
+        }
+        impl OrderType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    OrderType::Unspecified => "ORDER_TYPE_UNSPECIFIED",
+                    OrderType::Alphanumeric => "ALPHANUMERIC",
+                    OrderType::CaseInsensitiveAlphanumeric => {
+                        "CASE_INSENSITIVE_ALPHANUMERIC"
+                    }
+                    OrderType::Numeric => "NUMERIC",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "ORDER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "ALPHANUMERIC" => Some(Self::Alphanumeric),
+                    "CASE_INSENSITIVE_ALPHANUMERIC" => {
+                        Some(Self::CaseInsensitiveAlphanumeric)
+                    }
+                    "NUMERIC" => Some(Self::Numeric),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// Specify one type of order by for `OrderBy`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum OneOrderBy {
+        /// Sorts results by a metric's values.
+        #[prost(message, tag = "1")]
+        Metric(MetricOrderBy),
+        /// Sorts results by a dimension's values.
+        #[prost(message, tag = "2")]
+        Dimension(DimensionOrderBy),
+    }
+}
+/// Describes a dimension column in the report. Dimensions requested in a report
+/// produce column entries within rows and DimensionHeaders. However, dimensions
+/// used exclusively within filters or expressions do not produce columns in a
+/// report; correspondingly, those dimensions do not produce headers.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessDimensionHeader {
+    /// The dimension's name; for example 'userEmail'.
     #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Immutable. Resource name of the Subproperty that uses this filter.
-    #[prost(string, optional, tag = "2")]
-    pub apply_to_property: ::core::option::Option<::prost::alloc::string::String>,
-    /// Required. Unordered list. Filter clauses that define the
-    /// SubpropertyEventFilter. All clauses are AND'ed together to determine what
-    /// data is sent to the subproperty.
-    #[prost(message, repeated, tag = "3")]
-    pub filter_clauses: ::prost::alloc::vec::Vec<SubpropertyEventFilterClause>,
+    pub dimension_name: ::prost::alloc::string::String,
+}
+/// Describes a metric column in the report. Visible metrics requested in a
+/// report produce column entries within rows and MetricHeaders. However,
+/// metrics used exclusively within filters or expressions do not produce columns
+/// in a report; correspondingly, those metrics do not produce headers.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessMetricHeader {
+    /// The metric's name; for example 'accessCount'.
+    #[prost(string, tag = "1")]
+    pub metric_name: ::prost::alloc::string::String,
+}
+/// Access report data for each row.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessRow {
+    /// List of dimension values. These values are in the same order as specified
+    /// in the request.
+    #[prost(message, repeated, tag = "1")]
+    pub dimension_values: ::prost::alloc::vec::Vec<AccessDimensionValue>,
+    /// List of metric values. These values are in the same order as specified
+    /// in the request.
+    #[prost(message, repeated, tag = "2")]
+    pub metric_values: ::prost::alloc::vec::Vec<AccessMetricValue>,
+}
+/// The value of a dimension.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessDimensionValue {
+    /// The dimension value. For example, this value may be 'France' for the
+    /// 'country' dimension.
+    #[prost(string, tag = "1")]
+    pub value: ::prost::alloc::string::String,
+}
+/// The value of a metric.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessMetricValue {
+    /// The measurement value. For example, this value may be '13'.
+    #[prost(string, tag = "1")]
+    pub value: ::prost::alloc::string::String,
+}
+/// Current state of all quotas for this Analytics property. If any quota for a
+/// property is exhausted, all requests to that property will return Resource
+/// Exhausted errors.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AccessQuota {
+    /// Properties can use 250,000 tokens per day. Most requests consume fewer than
+    /// 10 tokens.
+    #[prost(message, optional, tag = "1")]
+    pub tokens_per_day: ::core::option::Option<AccessQuotaStatus>,
+    /// Properties can use 50,000 tokens per hour. An API request consumes a single
+    /// number of tokens, and that number is deducted from all of the hourly,
+    /// daily, and per project hourly quotas.
+    #[prost(message, optional, tag = "2")]
+    pub tokens_per_hour: ::core::option::Option<AccessQuotaStatus>,
+    /// Properties can use up to 50 concurrent requests.
+    #[prost(message, optional, tag = "3")]
+    pub concurrent_requests: ::core::option::Option<AccessQuotaStatus>,
+    /// Properties and cloud project pairs can have up to 50 server errors per
+    /// hour.
+    #[prost(message, optional, tag = "4")]
+    pub server_errors_per_project_per_hour: ::core::option::Option<AccessQuotaStatus>,
+    /// Properties can use up to 25% of their tokens per project per hour. This
+    /// amounts to Analytics 360 Properties can use 12,500 tokens per project per
+    /// hour. An API request consumes a single number of tokens, and that number is
+    /// deducted from all of the hourly, daily, and per project hourly quotas.
+    #[prost(message, optional, tag = "5")]
+    pub tokens_per_project_per_hour: ::core::option::Option<AccessQuotaStatus>,
+}
+/// Current state for a particular quota group.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AccessQuotaStatus {
+    /// Quota consumed by this request.
+    #[prost(int32, tag = "1")]
+    pub consumed: i32,
+    /// Quota remaining after this request.
+    #[prost(int32, tag = "2")]
+    pub remaining: i32,
 }
 /// A specific filter for a single dimension or metric.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -725,7 +825,7 @@ pub mod audience_dimension_or_metric_filter {
     }
     /// To represent a number.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct NumericValue {
         /// One of a numeric value.
         #[prost(oneof = "numeric_value::OneValue", tags = "1, 2")]
@@ -735,7 +835,7 @@ pub mod audience_dimension_or_metric_filter {
     pub mod numeric_value {
         /// One of a numeric value.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
         pub enum OneValue {
             /// Integer value.
             #[prost(int64, tag = "1")]
@@ -747,7 +847,7 @@ pub mod audience_dimension_or_metric_filter {
     }
     /// A filter for numeric or date values on a dimension or metric.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct NumericFilter {
         /// Required. The operation applied to a numeric filter.
         #[prost(enumeration = "numeric_filter::Operation", tag = "1")]
@@ -809,7 +909,7 @@ pub mod audience_dimension_or_metric_filter {
     /// A filter for numeric or date values between certain values on a dimension
     /// or metric.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct BetweenFilter {
         /// Required. Begins with this number, inclusive.
         #[prost(message, optional, tag = "1")]
@@ -1128,6 +1228,9 @@ pub struct Audience {
     /// Audience. All clauses will be AND’ed together.
     #[prost(message, repeated, tag = "8")]
     pub filter_clauses: ::prost::alloc::vec::Vec<AudienceFilterClause>,
+    /// Output only. Time when the Audience was created.
+    #[prost(message, optional, tag = "9")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `Audience`.
 pub mod audience {
@@ -1292,6 +1395,44 @@ pub struct EventCreateRule {
     #[prost(message, repeated, tag = "5")]
     pub parameter_mutations: ::prost::alloc::vec::Vec<ParameterMutation>,
 }
+/// An Event Edit Rule defines conditions that will trigger the creation of an
+/// entirely new event based upon matched criteria of a source event. Additional
+/// mutations of the parameters from the source event can be defined.
+///
+/// Unlike Event Create rules, Event Edit Rules are applied in their defined
+/// order.
+///
+/// Event Edit rules can't be used to modify an event created from an Event
+/// Create rule.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EventEditRule {
+    /// Identifier. Resource name for this EventEditRule resource.
+    /// Format:
+    /// properties/{property}/dataStreams/{data_stream}/eventEditRules/{event_edit_rule}
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The display name of this event edit rule. Maximum of 255
+    /// characters.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Required. Conditions on the source event must match for this rule to be
+    /// applied. Must have at least one condition, and can have up to 10 max.
+    #[prost(message, repeated, tag = "3")]
+    pub event_conditions: ::prost::alloc::vec::Vec<MatchingCondition>,
+    /// Required. Parameter mutations define parameter behavior on the new event,
+    /// and are applied in order. A maximum of 20 mutations can be applied.
+    #[prost(message, repeated, tag = "4")]
+    pub parameter_mutations: ::prost::alloc::vec::Vec<ParameterMutation>,
+    /// Output only. The order for which this rule will be processed. Rules with an
+    /// order value lower than this will be processed before this rule, rules with
+    /// an order value higher than this will be processed after this rule. New
+    /// event edit rules will be assigned an order value at the end of the order.
+    ///
+    /// This value does not apply to event create rules.
+    #[prost(int64, tag = "5")]
+    pub processing_order: i64,
+}
 /// Defines a condition for when an Event Edit or Event Creation rule applies to
 /// an event.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1419,6 +1560,190 @@ pub mod matching_condition {
         }
     }
 }
+/// A specific filter for a single dimension
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExpandedDataSetFilter {
+    /// Required. The dimension name to filter.
+    #[prost(string, tag = "1")]
+    pub field_name: ::prost::alloc::string::String,
+    /// One of the above filters.
+    #[prost(oneof = "expanded_data_set_filter::OneFilter", tags = "2, 3")]
+    pub one_filter: ::core::option::Option<expanded_data_set_filter::OneFilter>,
+}
+/// Nested message and enum types in `ExpandedDataSetFilter`.
+pub mod expanded_data_set_filter {
+    /// A filter for a string-type dimension that matches a particular pattern.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct StringFilter {
+        /// Required. The match type for the string filter.
+        #[prost(enumeration = "string_filter::MatchType", tag = "1")]
+        pub match_type: i32,
+        /// Required. The string value to be matched against.
+        #[prost(string, tag = "2")]
+        pub value: ::prost::alloc::string::String,
+        /// Optional. If true, the match is case-sensitive. If false, the match is
+        /// case-insensitive.
+        /// Must be true when match_type is EXACT.
+        /// Must be false when match_type is CONTAINS.
+        #[prost(bool, tag = "3")]
+        pub case_sensitive: bool,
+    }
+    /// Nested message and enum types in `StringFilter`.
+    pub mod string_filter {
+        /// The match type for the string filter.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum MatchType {
+            /// Unspecified
+            Unspecified = 0,
+            /// Exact match of the string value.
+            Exact = 1,
+            /// Contains the string value.
+            Contains = 2,
+        }
+        impl MatchType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
+                    MatchType::Exact => "EXACT",
+                    MatchType::Contains => "CONTAINS",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "EXACT" => Some(Self::Exact),
+                    "CONTAINS" => Some(Self::Contains),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// A filter for a string dimension that matches a particular list of options.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct InListFilter {
+        /// Required. The list of possible string values to match against. Must be
+        /// non-empty.
+        #[prost(string, repeated, tag = "1")]
+        pub values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+        /// Optional. If true, the match is case-sensitive. If false, the match is
+        /// case-insensitive.
+        /// Must be true.
+        #[prost(bool, tag = "2")]
+        pub case_sensitive: bool,
+    }
+    /// One of the above filters.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum OneFilter {
+        /// A filter for a string-type dimension that matches a particular pattern.
+        #[prost(message, tag = "2")]
+        StringFilter(StringFilter),
+        /// A filter for a string dimension that matches a particular list of
+        /// options.
+        #[prost(message, tag = "3")]
+        InListFilter(InListFilter),
+    }
+}
+/// A logical expression of EnhancedDataSet dimension filters.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExpandedDataSetFilterExpression {
+    /// The expression applied to a filter.
+    #[prost(oneof = "expanded_data_set_filter_expression::Expr", tags = "1, 2, 3")]
+    pub expr: ::core::option::Option<expanded_data_set_filter_expression::Expr>,
+}
+/// Nested message and enum types in `ExpandedDataSetFilterExpression`.
+pub mod expanded_data_set_filter_expression {
+    /// The expression applied to a filter.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Expr {
+        /// A list of expressions to be AND’ed together. It must contain a
+        /// ExpandedDataSetFilterExpression with either not_expression or
+        /// dimension_filter. This must be set for the top level
+        /// ExpandedDataSetFilterExpression.
+        #[prost(message, tag = "1")]
+        AndGroup(super::ExpandedDataSetFilterExpressionList),
+        /// A filter expression to be NOT'ed (that is, inverted, complemented). It
+        /// must include a dimension_filter. This cannot be set on the
+        /// top level ExpandedDataSetFilterExpression.
+        #[prost(message, tag = "2")]
+        NotExpression(
+            ::prost::alloc::boxed::Box<super::ExpandedDataSetFilterExpression>,
+        ),
+        /// A filter on a single dimension. This cannot be set on the top
+        /// level ExpandedDataSetFilterExpression.
+        #[prost(message, tag = "3")]
+        Filter(super::ExpandedDataSetFilter),
+    }
+}
+/// A list of ExpandedDataSet filter expressions.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExpandedDataSetFilterExpressionList {
+    /// A list of ExpandedDataSet filter expressions.
+    #[prost(message, repeated, tag = "1")]
+    pub filter_expressions: ::prost::alloc::vec::Vec<ExpandedDataSetFilterExpression>,
+}
+/// A resource message representing a GA4 ExpandedDataSet.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExpandedDataSet {
+    /// Output only. The resource name for this ExpandedDataSet resource.
+    /// Format: properties/{property_id}/expandedDataSets/{expanded_data_set}
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The display name of the ExpandedDataSet.
+    /// Max 200 chars.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Optional. The description of the ExpandedDataSet.
+    /// Max 50 chars.
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    /// Immutable. The list of dimensions included in the ExpandedDataSet.
+    /// See the [API
+    /// Dimensions](<https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#dimensions>)
+    /// for the list of dimension names.
+    #[prost(string, repeated, tag = "4")]
+    pub dimension_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Immutable. The list of metrics included in the ExpandedDataSet.
+    /// See the [API
+    /// Metrics](<https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema#metrics>)
+    /// for the list of dimension names.
+    #[prost(string, repeated, tag = "5")]
+    pub metric_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Immutable. A logical expression of ExpandedDataSet filters applied to
+    /// dimension included in the ExpandedDataSet. This filter is used to reduce
+    /// the number of rows and thus the chance of encountering `other` row.
+    #[prost(message, optional, tag = "6")]
+    pub dimension_filter_expression: ::core::option::Option<
+        ExpandedDataSetFilterExpression,
+    >,
+    /// Output only. Time when expanded data set began (or will begin) collecing
+    /// data.
+    #[prost(message, optional, tag = "7")]
+    pub data_collection_start_time: ::core::option::Option<::prost_types::Timestamp>,
+}
 /// A resource message representing a Google Analytics account.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1444,6 +1769,11 @@ pub struct Account {
     /// accounts are excluded from List results unless specifically requested.
     #[prost(bool, tag = "6")]
     pub deleted: bool,
+    /// Output only. The URI for a Google Marketing Platform organization resource.
+    /// Only set when this account is connected to a GMP organization.
+    /// Format: marketingplatformadmin.googleapis.com/organizations/{org_id}
+    #[prost(string, tag = "7")]
+    pub gmp_organization: ::prost::alloc::string::String,
 }
 /// A resource message representing a Google Analytics GA4 property.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2336,6 +2666,105 @@ pub mod conversion_event {
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
                 "CONVERSION_COUNTING_METHOD_UNSPECIFIED" => Some(Self::Unspecified),
+                "ONCE_PER_EVENT" => Some(Self::OncePerEvent),
+                "ONCE_PER_SESSION" => Some(Self::OncePerSession),
+                _ => None,
+            }
+        }
+    }
+}
+/// A key event in a Google Analytics property.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct KeyEvent {
+    /// Output only. Resource name of this key event.
+    /// Format: properties/{property}/keyEvents/{key_event}
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Immutable. The event name for this key event.
+    /// Examples: 'click', 'purchase'
+    #[prost(string, tag = "2")]
+    pub event_name: ::prost::alloc::string::String,
+    /// Output only. Time when this key event was created in the property.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. If set to true, this event can be deleted.
+    #[prost(bool, tag = "4")]
+    pub deletable: bool,
+    /// Output only. If set to true, this key event refers to a custom event.  If
+    /// set to false, this key event refers to a default event in GA. Default
+    /// events typically have special meaning in GA. Default events are usually
+    /// created for you by the GA system, but in some cases can be created by
+    /// property admins. Custom events count towards the maximum number of
+    /// custom key events that may be created per property.
+    #[prost(bool, tag = "5")]
+    pub custom: bool,
+    /// Required. The method by which Key Events will be counted across multiple
+    /// events within a session.
+    #[prost(enumeration = "key_event::CountingMethod", tag = "6")]
+    pub counting_method: i32,
+    /// Optional. Defines a default value/currency for a key event.
+    #[prost(message, optional, tag = "7")]
+    pub default_value: ::core::option::Option<key_event::DefaultValue>,
+}
+/// Nested message and enum types in `KeyEvent`.
+pub mod key_event {
+    /// Defines a default value/currency for a key event.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct DefaultValue {
+        /// Required. This will be used to populate the "value" parameter for all
+        /// occurrences of this Key Event (specified by event_name) where that
+        /// parameter is unset.
+        #[prost(double, tag = "1")]
+        pub numeric_value: f64,
+        /// Required. When an occurrence of this Key Event (specified by event_name)
+        /// has no set currency this currency will be applied as the default. Must be
+        /// in ISO 4217 currency code format.
+        ///
+        /// See <https://en.wikipedia.org/wiki/ISO_4217> for more information.
+        #[prost(string, tag = "2")]
+        pub currency_code: ::prost::alloc::string::String,
+    }
+    /// The method by which Key Events will be counted across multiple events
+    /// within a session.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum CountingMethod {
+        /// Counting method not specified.
+        Unspecified = 0,
+        /// Each Event instance is considered a Key Event.
+        OncePerEvent = 1,
+        /// An Event instance is considered a Key Event at most once per session per
+        /// user.
+        OncePerSession = 2,
+    }
+    impl CountingMethod {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                CountingMethod::Unspecified => "COUNTING_METHOD_UNSPECIFIED",
+                CountingMethod::OncePerEvent => "ONCE_PER_EVENT",
+                CountingMethod::OncePerSession => "ONCE_PER_SESSION",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "COUNTING_METHOD_UNSPECIFIED" => Some(Self::Unspecified),
                 "ONCE_PER_EVENT" => Some(Self::OncePerEvent),
                 "ONCE_PER_SESSION" => Some(Self::OncePerSession),
                 _ => None,
@@ -3290,6 +3719,11 @@ pub struct BigQueryLink {
     /// The list of event names that will be excluded from exports.
     #[prost(string, repeated, tag = "8")]
     pub excluded_events: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Required. Immutable. The geographic location where the created BigQuery
+    /// dataset should reside. See <https://cloud.google.com/bigquery/docs/locations>
+    /// for supported locations.
+    #[prost(string, tag = "10")]
+    pub dataset_location: ::prost::alloc::string::String,
 }
 /// Singleton resource under a web DataStream, configuring measurement of
 /// additional site interactions and content.
@@ -3699,6 +4133,8 @@ pub enum ChangeHistoryResourceType {
     ExpandedDataSet = 21,
     /// ChannelGroup resource
     ChannelGroup = 22,
+    /// BigQuery link resource
+    BigqueryLink = 23,
     /// EnhancedMeasurementSettings resource
     EnhancedMeasurementSettings = 24,
     /// DataRedactionSettings resource
@@ -3747,6 +4183,7 @@ impl ChangeHistoryResourceType {
             ChangeHistoryResourceType::AttributionSettings => "ATTRIBUTION_SETTINGS",
             ChangeHistoryResourceType::ExpandedDataSet => "EXPANDED_DATA_SET",
             ChangeHistoryResourceType::ChannelGroup => "CHANNEL_GROUP",
+            ChangeHistoryResourceType::BigqueryLink => "BIGQUERY_LINK",
             ChangeHistoryResourceType::EnhancedMeasurementSettings => {
                 "ENHANCED_MEASUREMENT_SETTINGS"
             }
@@ -3785,6 +4222,7 @@ impl ChangeHistoryResourceType {
             "ATTRIBUTION_SETTINGS" => Some(Self::AttributionSettings),
             "EXPANDED_DATA_SET" => Some(Self::ExpandedDataSet),
             "CHANNEL_GROUP" => Some(Self::ChannelGroup),
+            "BIGQUERY_LINK" => Some(Self::BigqueryLink),
             "ENHANCED_MEASUREMENT_SETTINGS" => Some(Self::EnhancedMeasurementSettings),
             "DATA_REDACTION_SETTINGS" => Some(Self::DataRedactionSettings),
             "SKADNETWORK_CONVERSION_VALUE_SCHEMA" => {
@@ -4045,346 +4483,38 @@ impl CoarseValue {
         }
     }
 }
-/// Dimensions are attributes of your data. For example, the dimension
-/// `userEmail` indicates the email of the user that accessed reporting data.
-/// Dimension values in report responses are strings.
+/// A specific filter expression
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessDimension {
-    /// The API name of the dimension. See [Data Access
-    /// Schema](<https://developers.google.com/analytics/devguides/config/admin/v1/access-api-schema>)
-    /// for the list of dimensions supported in this API.
-    ///
-    /// Dimensions are referenced by name in `dimensionFilter` and `orderBys`.
-    #[prost(string, tag = "1")]
-    pub dimension_name: ::prost::alloc::string::String,
-}
-/// The quantitative measurements of a report. For example, the metric
-/// `accessCount` is the total number of data access records.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessMetric {
-    /// The API name of the metric. See [Data Access
-    /// Schema](<https://developers.google.com/analytics/devguides/config/admin/v1/access-api-schema>)
-    /// for the list of metrics supported in this API.
-    ///
-    /// Metrics are referenced by name in `metricFilter` & `orderBys`.
-    #[prost(string, tag = "1")]
-    pub metric_name: ::prost::alloc::string::String,
-}
-/// A contiguous range of days: startDate, startDate + 1, ..., endDate.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessDateRange {
-    /// The inclusive start date for the query in the format `YYYY-MM-DD`. Cannot
-    /// be after `endDate`. The format `NdaysAgo`, `yesterday`, or `today` is also
-    /// accepted, and in that case, the date is inferred based on the current time
-    /// in the request's time zone.
-    #[prost(string, tag = "1")]
-    pub start_date: ::prost::alloc::string::String,
-    /// The inclusive end date for the query in the format `YYYY-MM-DD`. Cannot
-    /// be before `startDate`. The format `NdaysAgo`, `yesterday`, or `today` is
-    /// also accepted, and in that case, the date is inferred based on the current
-    /// time in the request's time zone.
-    #[prost(string, tag = "2")]
-    pub end_date: ::prost::alloc::string::String,
-}
-/// Expresses dimension or metric filters. The fields in the same expression need
-/// to be either all dimensions or all metrics.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessFilterExpression {
-    /// Specify one type of filter expression for `FilterExpression`.
-    #[prost(oneof = "access_filter_expression::OneExpression", tags = "1, 2, 3, 4")]
-    pub one_expression: ::core::option::Option<access_filter_expression::OneExpression>,
-}
-/// Nested message and enum types in `AccessFilterExpression`.
-pub mod access_filter_expression {
-    /// Specify one type of filter expression for `FilterExpression`.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum OneExpression {
-        /// Each of the FilterExpressions in the and_group has an AND relationship.
-        #[prost(message, tag = "1")]
-        AndGroup(super::AccessFilterExpressionList),
-        /// Each of the FilterExpressions in the or_group has an OR relationship.
-        #[prost(message, tag = "2")]
-        OrGroup(super::AccessFilterExpressionList),
-        /// The FilterExpression is NOT of not_expression.
-        #[prost(message, tag = "3")]
-        NotExpression(::prost::alloc::boxed::Box<super::AccessFilterExpression>),
-        /// A primitive filter. In the same FilterExpression, all of the filter's
-        /// field names need to be either all dimensions or all metrics.
-        #[prost(message, tag = "4")]
-        AccessFilter(super::AccessFilter),
-    }
-}
-/// A list of filter expressions.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessFilterExpressionList {
-    /// A list of filter expressions.
-    #[prost(message, repeated, tag = "1")]
-    pub expressions: ::prost::alloc::vec::Vec<AccessFilterExpression>,
-}
-/// An expression to filter dimension or metric values.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessFilter {
-    /// The dimension name or metric name.
+pub struct SubpropertyEventFilterCondition {
+    /// Required. The field that is being filtered.
     #[prost(string, tag = "1")]
     pub field_name: ::prost::alloc::string::String,
-    /// Specify one type of filter for `Filter`.
-    #[prost(oneof = "access_filter::OneFilter", tags = "2, 3, 4, 5")]
-    pub one_filter: ::core::option::Option<access_filter::OneFilter>,
+    #[prost(oneof = "subproperty_event_filter_condition::OneFilter", tags = "2, 3")]
+    pub one_filter: ::core::option::Option<
+        subproperty_event_filter_condition::OneFilter,
+    >,
 }
-/// Nested message and enum types in `AccessFilter`.
-pub mod access_filter {
-    /// Specify one type of filter for `Filter`.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum OneFilter {
-        /// Strings related filter.
-        #[prost(message, tag = "2")]
-        StringFilter(super::AccessStringFilter),
-        /// A filter for in list values.
-        #[prost(message, tag = "3")]
-        InListFilter(super::AccessInListFilter),
-        /// A filter for numeric or date values.
-        #[prost(message, tag = "4")]
-        NumericFilter(super::AccessNumericFilter),
-        /// A filter for two values.
-        #[prost(message, tag = "5")]
-        BetweenFilter(super::AccessBetweenFilter),
-    }
-}
-/// The filter for strings.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessStringFilter {
-    /// The match type for this filter.
-    #[prost(enumeration = "access_string_filter::MatchType", tag = "1")]
-    pub match_type: i32,
-    /// The string value used for the matching.
-    #[prost(string, tag = "2")]
-    pub value: ::prost::alloc::string::String,
-    /// If true, the string value is case sensitive.
-    #[prost(bool, tag = "3")]
-    pub case_sensitive: bool,
-}
-/// Nested message and enum types in `AccessStringFilter`.
-pub mod access_string_filter {
-    /// The match type of a string filter.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum MatchType {
-        /// Unspecified
-        Unspecified = 0,
-        /// Exact match of the string value.
-        Exact = 1,
-        /// Begins with the string value.
-        BeginsWith = 2,
-        /// Ends with the string value.
-        EndsWith = 3,
-        /// Contains the string value.
-        Contains = 4,
-        /// Full match for the regular expression with the string value.
-        FullRegexp = 5,
-        /// Partial match for the regular expression with the string value.
-        PartialRegexp = 6,
-    }
-    impl MatchType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
-                MatchType::Exact => "EXACT",
-                MatchType::BeginsWith => "BEGINS_WITH",
-                MatchType::EndsWith => "ENDS_WITH",
-                MatchType::Contains => "CONTAINS",
-                MatchType::FullRegexp => "FULL_REGEXP",
-                MatchType::PartialRegexp => "PARTIAL_REGEXP",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "EXACT" => Some(Self::Exact),
-                "BEGINS_WITH" => Some(Self::BeginsWith),
-                "ENDS_WITH" => Some(Self::EndsWith),
-                "CONTAINS" => Some(Self::Contains),
-                "FULL_REGEXP" => Some(Self::FullRegexp),
-                "PARTIAL_REGEXP" => Some(Self::PartialRegexp),
-                _ => None,
-            }
-        }
-    }
-}
-/// The result needs to be in a list of string values.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessInListFilter {
-    /// The list of string values. Must be non-empty.
-    #[prost(string, repeated, tag = "1")]
-    pub values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// If true, the string value is case sensitive.
-    #[prost(bool, tag = "2")]
-    pub case_sensitive: bool,
-}
-/// Filters for numeric or date values.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessNumericFilter {
-    /// The operation type for this filter.
-    #[prost(enumeration = "access_numeric_filter::Operation", tag = "1")]
-    pub operation: i32,
-    /// A numeric value or a date value.
-    #[prost(message, optional, tag = "2")]
-    pub value: ::core::option::Option<NumericValue>,
-}
-/// Nested message and enum types in `AccessNumericFilter`.
-pub mod access_numeric_filter {
-    /// The operation applied to a numeric filter.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Operation {
-        /// Unspecified.
-        Unspecified = 0,
-        /// Equal
-        Equal = 1,
-        /// Less than
-        LessThan = 2,
-        /// Less than or equal
-        LessThanOrEqual = 3,
-        /// Greater than
-        GreaterThan = 4,
-        /// Greater than or equal
-        GreaterThanOrEqual = 5,
-    }
-    impl Operation {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Operation::Unspecified => "OPERATION_UNSPECIFIED",
-                Operation::Equal => "EQUAL",
-                Operation::LessThan => "LESS_THAN",
-                Operation::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
-                Operation::GreaterThan => "GREATER_THAN",
-                Operation::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "OPERATION_UNSPECIFIED" => Some(Self::Unspecified),
-                "EQUAL" => Some(Self::Equal),
-                "LESS_THAN" => Some(Self::LessThan),
-                "LESS_THAN_OR_EQUAL" => Some(Self::LessThanOrEqual),
-                "GREATER_THAN" => Some(Self::GreaterThan),
-                "GREATER_THAN_OR_EQUAL" => Some(Self::GreaterThanOrEqual),
-                _ => None,
-            }
-        }
-    }
-}
-/// To express that the result needs to be between two numbers (inclusive).
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessBetweenFilter {
-    /// Begins with this number.
-    #[prost(message, optional, tag = "1")]
-    pub from_value: ::core::option::Option<NumericValue>,
-    /// Ends with this number.
-    #[prost(message, optional, tag = "2")]
-    pub to_value: ::core::option::Option<NumericValue>,
-}
-/// To represent a number.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NumericValue {
-    /// One of a numeric value
-    #[prost(oneof = "numeric_value::OneValue", tags = "1, 2")]
-    pub one_value: ::core::option::Option<numeric_value::OneValue>,
-}
-/// Nested message and enum types in `NumericValue`.
-pub mod numeric_value {
-    /// One of a numeric value
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum OneValue {
-        /// Integer value
-        #[prost(int64, tag = "1")]
-        Int64Value(i64),
-        /// Double value
-        #[prost(double, tag = "2")]
-        DoubleValue(f64),
-    }
-}
-/// Order bys define how rows will be sorted in the response. For example,
-/// ordering rows by descending access count is one ordering, and ordering rows
-/// by the country string is a different ordering.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessOrderBy {
-    /// If true, sorts by descending order. If false or unspecified, sorts in
-    /// ascending order.
-    #[prost(bool, tag = "3")]
-    pub desc: bool,
-    /// Specify one type of order by for `OrderBy`.
-    #[prost(oneof = "access_order_by::OneOrderBy", tags = "1, 2")]
-    pub one_order_by: ::core::option::Option<access_order_by::OneOrderBy>,
-}
-/// Nested message and enum types in `AccessOrderBy`.
-pub mod access_order_by {
-    /// Sorts by metric values.
+/// Nested message and enum types in `SubpropertyEventFilterCondition`.
+pub mod subproperty_event_filter_condition {
+    /// A filter for a string-type dimension that matches a particular pattern.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct MetricOrderBy {
-        /// A metric name in the request to order by.
-        #[prost(string, tag = "1")]
-        pub metric_name: ::prost::alloc::string::String,
+    pub struct StringFilter {
+        /// Required. The match type for the string filter.
+        #[prost(enumeration = "string_filter::MatchType", tag = "1")]
+        pub match_type: i32,
+        /// Required. The string value used for the matching.
+        #[prost(string, tag = "2")]
+        pub value: ::prost::alloc::string::String,
+        /// Optional. If true, the string value is case sensitive. If false, the
+        /// match is case-insensitive.
+        #[prost(bool, tag = "3")]
+        pub case_sensitive: bool,
     }
-    /// Sorts by dimension values.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct DimensionOrderBy {
-        /// A dimension name in the request to order by.
-        #[prost(string, tag = "1")]
-        pub dimension_name: ::prost::alloc::string::String,
-        /// Controls the rule for dimension value ordering.
-        #[prost(enumeration = "dimension_order_by::OrderType", tag = "2")]
-        pub order_type: i32,
-    }
-    /// Nested message and enum types in `DimensionOrderBy`.
-    pub mod dimension_order_by {
-        /// Rule to order the string dimension values by.
+    /// Nested message and enum types in `StringFilter`.
+    pub mod string_filter {
+        /// How the filter will be used to determine a match.
         #[derive(
             Clone,
             Copy,
@@ -4397,153 +4527,185 @@ pub mod access_order_by {
             ::prost::Enumeration
         )]
         #[repr(i32)]
-        pub enum OrderType {
-            /// Unspecified.
+        pub enum MatchType {
+            /// Match type unknown or not specified.
             Unspecified = 0,
-            /// Alphanumeric sort by Unicode code point. For example, "2" < "A" < "X" <
-            /// "b" < "z".
-            Alphanumeric = 1,
-            /// Case insensitive alphanumeric sort by lower case Unicode code point.
-            /// For example, "2" < "A" < "b" < "X" < "z".
-            CaseInsensitiveAlphanumeric = 2,
-            /// Dimension values are converted to numbers before sorting. For example
-            /// in NUMERIC sort, "25" < "100", and in `ALPHANUMERIC` sort, "100" <
-            /// "25". Non-numeric dimension values all have equal ordering value below
-            /// all numeric values.
-            Numeric = 3,
+            /// Exact match of the string value.
+            Exact = 1,
+            /// Begins with the string value.
+            BeginsWith = 2,
+            /// Ends with the string value.
+            EndsWith = 3,
+            /// Contains the string value.
+            Contains = 4,
+            /// Full regular expression matches with the string value.
+            FullRegexp = 5,
+            /// Partial regular expression matches with the string value.
+            PartialRegexp = 6,
         }
-        impl OrderType {
+        impl MatchType {
             /// String value of the enum field names used in the ProtoBuf definition.
             ///
             /// The values are not transformed in any way and thus are considered stable
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    OrderType::Unspecified => "ORDER_TYPE_UNSPECIFIED",
-                    OrderType::Alphanumeric => "ALPHANUMERIC",
-                    OrderType::CaseInsensitiveAlphanumeric => {
-                        "CASE_INSENSITIVE_ALPHANUMERIC"
-                    }
-                    OrderType::Numeric => "NUMERIC",
+                    MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
+                    MatchType::Exact => "EXACT",
+                    MatchType::BeginsWith => "BEGINS_WITH",
+                    MatchType::EndsWith => "ENDS_WITH",
+                    MatchType::Contains => "CONTAINS",
+                    MatchType::FullRegexp => "FULL_REGEXP",
+                    MatchType::PartialRegexp => "PARTIAL_REGEXP",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
             pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
                 match value {
-                    "ORDER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "ALPHANUMERIC" => Some(Self::Alphanumeric),
-                    "CASE_INSENSITIVE_ALPHANUMERIC" => {
-                        Some(Self::CaseInsensitiveAlphanumeric)
-                    }
-                    "NUMERIC" => Some(Self::Numeric),
+                    "MATCH_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "EXACT" => Some(Self::Exact),
+                    "BEGINS_WITH" => Some(Self::BeginsWith),
+                    "ENDS_WITH" => Some(Self::EndsWith),
+                    "CONTAINS" => Some(Self::Contains),
+                    "FULL_REGEXP" => Some(Self::FullRegexp),
+                    "PARTIAL_REGEXP" => Some(Self::PartialRegexp),
                     _ => None,
                 }
             }
         }
     }
-    /// Specify one type of order by for `OrderBy`.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum OneOrderBy {
-        /// Sorts results by a metric's values.
-        #[prost(message, tag = "1")]
-        Metric(MetricOrderBy),
-        /// Sorts results by a dimension's values.
-        #[prost(message, tag = "2")]
-        Dimension(DimensionOrderBy),
+    pub enum OneFilter {
+        /// A filter for null values.
+        #[prost(bool, tag = "2")]
+        NullFilter(bool),
+        /// A filter for a string-type dimension that matches a particular pattern.
+        #[prost(message, tag = "3")]
+        StringFilter(StringFilter),
     }
 }
-/// Describes a dimension column in the report. Dimensions requested in a report
-/// produce column entries within rows and DimensionHeaders. However, dimensions
-/// used exclusively within filters or expressions do not produce columns in a
-/// report; correspondingly, those dimensions do not produce headers.
+/// A logical expression of Subproperty event filters.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessDimensionHeader {
-    /// The dimension's name; for example 'userEmail'.
-    #[prost(string, tag = "1")]
-    pub dimension_name: ::prost::alloc::string::String,
+pub struct SubpropertyEventFilterExpression {
+    /// The expression applied to a filter.
+    #[prost(oneof = "subproperty_event_filter_expression::Expr", tags = "1, 2, 3")]
+    pub expr: ::core::option::Option<subproperty_event_filter_expression::Expr>,
 }
-/// Describes a metric column in the report. Visible metrics requested in a
-/// report produce column entries within rows and MetricHeaders. However,
-/// metrics used exclusively within filters or expressions do not produce columns
-/// in a report; correspondingly, those metrics do not produce headers.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessMetricHeader {
-    /// The metric's name; for example 'accessCount'.
-    #[prost(string, tag = "1")]
-    pub metric_name: ::prost::alloc::string::String,
+/// Nested message and enum types in `SubpropertyEventFilterExpression`.
+pub mod subproperty_event_filter_expression {
+    /// The expression applied to a filter.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Expr {
+        /// A list of expressions to OR’ed together. Must only contain
+        /// not_expression or filter_condition expressions.
+        #[prost(message, tag = "1")]
+        OrGroup(super::SubpropertyEventFilterExpressionList),
+        /// A filter expression to be NOT'ed (inverted, complemented). It can only
+        /// include a filter. This cannot be set on the top level
+        /// SubpropertyEventFilterExpression.
+        #[prost(message, tag = "2")]
+        NotExpression(
+            ::prost::alloc::boxed::Box<super::SubpropertyEventFilterExpression>,
+        ),
+        /// Creates a filter that matches a specific event. This cannot be set on the
+        /// top level SubpropertyEventFilterExpression.
+        #[prost(message, tag = "3")]
+        FilterCondition(super::SubpropertyEventFilterCondition),
+    }
 }
-/// Access report data for each row.
+/// A list of Subproperty event filter expressions.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessRow {
-    /// List of dimension values. These values are in the same order as specified
-    /// in the request.
+pub struct SubpropertyEventFilterExpressionList {
+    /// Required. Unordered list. A list of Subproperty event filter expressions
     #[prost(message, repeated, tag = "1")]
-    pub dimension_values: ::prost::alloc::vec::Vec<AccessDimensionValue>,
-    /// List of metric values. These values are in the same order as specified
-    /// in the request.
-    #[prost(message, repeated, tag = "2")]
-    pub metric_values: ::prost::alloc::vec::Vec<AccessMetricValue>,
+    pub filter_expressions: ::prost::alloc::vec::Vec<SubpropertyEventFilterExpression>,
 }
-/// The value of a dimension.
+/// A clause for defining a filter. A filter may be inclusive (events satisfying
+/// the filter clause are included in the subproperty's data) or exclusive
+/// (events satisfying the filter clause are excluded from the subproperty's
+/// data).
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessDimensionValue {
-    /// The dimension value. For example, this value may be 'France' for the
-    /// 'country' dimension.
-    #[prost(string, tag = "1")]
-    pub value: ::prost::alloc::string::String,
-}
-/// The value of a metric.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessMetricValue {
-    /// The measurement value. For example, this value may be '13'.
-    #[prost(string, tag = "1")]
-    pub value: ::prost::alloc::string::String,
-}
-/// Current state of all quotas for this Analytics property. If any quota for a
-/// property is exhausted, all requests to that property will return Resource
-/// Exhausted errors.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessQuota {
-    /// Properties can use 250,000 tokens per day. Most requests consume fewer than
-    /// 10 tokens.
-    #[prost(message, optional, tag = "1")]
-    pub tokens_per_day: ::core::option::Option<AccessQuotaStatus>,
-    /// Properties can use 50,000 tokens per hour. An API request consumes a single
-    /// number of tokens, and that number is deducted from all of the hourly,
-    /// daily, and per project hourly quotas.
+pub struct SubpropertyEventFilterClause {
+    /// Required. The type for the filter clause.
+    #[prost(
+        enumeration = "subproperty_event_filter_clause::FilterClauseType",
+        tag = "1"
+    )]
+    pub filter_clause_type: i32,
+    /// Required. The logical expression for what events are sent to the
+    /// subproperty.
     #[prost(message, optional, tag = "2")]
-    pub tokens_per_hour: ::core::option::Option<AccessQuotaStatus>,
-    /// Properties can use up to 50 concurrent requests.
-    #[prost(message, optional, tag = "3")]
-    pub concurrent_requests: ::core::option::Option<AccessQuotaStatus>,
-    /// Properties and cloud project pairs can have up to 50 server errors per
-    /// hour.
-    #[prost(message, optional, tag = "4")]
-    pub server_errors_per_project_per_hour: ::core::option::Option<AccessQuotaStatus>,
-    /// Properties can use up to 25% of their tokens per project per hour. This
-    /// amounts to Analytics 360 Properties can use 12,500 tokens per project per
-    /// hour. An API request consumes a single number of tokens, and that number is
-    /// deducted from all of the hourly, daily, and per project hourly quotas.
-    #[prost(message, optional, tag = "5")]
-    pub tokens_per_project_per_hour: ::core::option::Option<AccessQuotaStatus>,
+    pub filter_expression: ::core::option::Option<SubpropertyEventFilterExpression>,
 }
-/// Current state for a particular quota group.
+/// Nested message and enum types in `SubpropertyEventFilterClause`.
+pub mod subproperty_event_filter_clause {
+    /// Specifies whether this is an include or exclude filter clause.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum FilterClauseType {
+        /// Filter clause type unknown or not specified.
+        Unspecified = 0,
+        /// Events will be included in the Sub property if the filter clause is met.
+        Include = 1,
+        /// Events will be excluded from the Sub property if the filter clause is
+        /// met.
+        Exclude = 2,
+    }
+    impl FilterClauseType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                FilterClauseType::Unspecified => "FILTER_CLAUSE_TYPE_UNSPECIFIED",
+                FilterClauseType::Include => "INCLUDE",
+                FilterClauseType::Exclude => "EXCLUDE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "FILTER_CLAUSE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "INCLUDE" => Some(Self::Include),
+                "EXCLUDE" => Some(Self::Exclude),
+                _ => None,
+            }
+        }
+    }
+}
+/// A resource message representing a GA4 Subproperty event filter.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AccessQuotaStatus {
-    /// Quota consumed by this request.
-    #[prost(int32, tag = "1")]
-    pub consumed: i32,
-    /// Quota remaining after this request.
-    #[prost(int32, tag = "2")]
-    pub remaining: i32,
+pub struct SubpropertyEventFilter {
+    /// Output only. Format:
+    /// properties/{ordinary_property_id}/subpropertyEventFilters/{sub_property_event_filter}
+    /// Example: properties/1234/subpropertyEventFilters/5678
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Immutable. Resource name of the Subproperty that uses this filter.
+    #[prost(string, optional, tag = "2")]
+    pub apply_to_property: ::core::option::Option<::prost::alloc::string::String>,
+    /// Required. Unordered list. Filter clauses that define the
+    /// SubpropertyEventFilter. All clauses are AND'ed together to determine what
+    /// data is sent to the subproperty.
+    #[prost(message, repeated, tag = "3")]
+    pub filter_clauses: ::prost::alloc::vec::Vec<SubpropertyEventFilterClause>,
 }
 /// The request for a Data Access Record Report.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -4863,7 +5025,8 @@ pub struct DeletePropertyRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateFirebaseLinkRequest {
     /// Required. Format: properties/{property_id}
-    /// Example: properties/1234
+    ///
+    /// Example: `properties/1234`
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Firebase link to create.
@@ -4875,7 +5038,8 @@ pub struct CreateFirebaseLinkRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteFirebaseLinkRequest {
     /// Required. Format: properties/{property_id}/firebaseLinks/{firebase_link_id}
-    /// Example: properties/1234/firebaseLinks/5678
+    ///
+    /// Example: `properties/1234/firebaseLinks/5678`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -4884,7 +5048,8 @@ pub struct DeleteFirebaseLinkRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListFirebaseLinksRequest {
     /// Required. Format: properties/{property_id}
-    /// Example: properties/1234
+    ///
+    /// Example: `properties/1234`
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of resources to return. The service may return
@@ -4921,7 +5086,8 @@ pub struct GetGlobalSiteTagRequest {
     /// Required. The name of the site tag to lookup.
     /// Note that site tags are singletons and do not have unique IDs.
     /// Format: properties/{property_id}/dataStreams/{stream_id}/globalSiteTag
-    /// Example: "properties/123/dataStreams/456/globalSiteTag"
+    ///
+    /// Example: `properties/123/dataStreams/456/globalSiteTag`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -4996,7 +5162,8 @@ pub struct ListGoogleAdsLinksResponse {
 pub struct GetDataSharingSettingsRequest {
     /// Required. The name of the settings to lookup.
     /// Format: accounts/{account}/dataSharingSettings
-    /// Example: "accounts/1000/dataSharingSettings"
+    ///
+    /// Example: `accounts/1000/dataSharingSettings`
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
@@ -5049,20 +5216,23 @@ pub struct AcknowledgeUserDataCollectionRequest {
 }
 /// Response message for AcknowledgeUserDataCollection RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AcknowledgeUserDataCollectionResponse {}
 /// Request message for SearchChangeHistoryEvents RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchChangeHistoryEventsRequest {
     /// Required. The account resource for which to return change history
-    /// resources. Format: accounts/{account} Example: "accounts/100"
+    /// resources. Format: accounts/{account}
+    ///
+    /// Example: `accounts/100`
     #[prost(string, tag = "1")]
     pub account: ::prost::alloc::string::String,
     /// Optional. Resource name for a child property. If set, only return changes
     /// made to this property or its child resources.
     /// Format: properties/{propertyId}
-    /// Example: "properties/100"
+    ///
+    /// Example: `properties/100`
     #[prost(string, tag = "2")]
     pub property: ::prost::alloc::string::String,
     /// Optional. If set, only return changes if they are for a resource that
@@ -5381,6 +5551,85 @@ pub struct ListConversionEventsResponse {
     /// The requested conversion events
     #[prost(message, repeated, tag = "1")]
     pub conversion_events: ::prost::alloc::vec::Vec<ConversionEvent>,
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for CreateKeyEvent RPC
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateKeyEventRequest {
+    /// Required. The Key Event to create.
+    #[prost(message, optional, tag = "1")]
+    pub key_event: ::core::option::Option<KeyEvent>,
+    /// Required. The resource name of the parent property where this Key Event
+    /// will be created. Format: properties/123
+    #[prost(string, tag = "2")]
+    pub parent: ::prost::alloc::string::String,
+}
+/// Request message for UpdateKeyEvent RPC
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateKeyEventRequest {
+    /// Required. The Key Event to update.
+    /// The `name` field is used to identify the settings to be updated.
+    #[prost(message, optional, tag = "1")]
+    pub key_event: ::core::option::Option<KeyEvent>,
+    /// Required. The list of fields to be updated. Field names must be in snake
+    /// case (e.g., "field_to_update"). Omitted fields will not be updated. To
+    /// replace the entire entity, use one path with the string "*" to match all
+    /// fields.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for GetKeyEvent RPC
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetKeyEventRequest {
+    /// Required. The resource name of the Key Event to retrieve.
+    /// Format: properties/{property}/keyEvents/{key_event}
+    /// Example: "properties/123/keyEvents/456"
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for DeleteKeyEvent RPC
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteKeyEventRequest {
+    /// Required. The resource name of the Key Event to delete.
+    /// Format: properties/{property}/keyEvents/{key_event}
+    /// Example: "properties/123/keyEvents/456"
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for ListKeyEvents RPC
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListKeyEventsRequest {
+    /// Required. The resource name of the parent property.
+    /// Example: 'properties/123'
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of resources to return.
+    /// If unspecified, at most 50 resources will be returned.
+    /// The maximum value is 200; (higher values will be coerced to the maximum)
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// A page token, received from a previous `ListKeyEvents` call.
+    /// Provide this to retrieve the subsequent page.
+    /// When paginating, all other parameters provided to `ListKeyEvents`
+    /// must match the call that provided the page token.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for ListKeyEvents RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListKeyEventsResponse {
+    /// The requested Key Events
+    #[prost(message, repeated, tag = "1")]
+    pub key_events: ::prost::alloc::vec::Vec<KeyEvent>,
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[prost(string, tag = "2")]
@@ -6415,7 +6664,7 @@ pub struct SetAutomatedGa4ConfigurationOptOutRequest {
 /// Response message for setting the opt out status for the automated GA4 setup
 /// process.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SetAutomatedGa4ConfigurationOptOutResponse {}
 /// Request for fetching the opt out status for the automated GA4 setup process.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -6431,11 +6680,22 @@ pub struct FetchAutomatedGa4ConfigurationOptOutRequest {
 /// Response message for fetching the opt out status for the automated GA4 setup
 /// process.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct FetchAutomatedGa4ConfigurationOptOutResponse {
     /// The opt out status for the UA property.
     #[prost(bool, tag = "1")]
     pub opt_out: bool,
+}
+/// Request message for CreateBigQueryLink RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateBigQueryLinkRequest {
+    /// Required. Example format: properties/1234
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The BigQueryLink to create.
+    #[prost(message, optional, tag = "2")]
+    pub bigquery_link: ::core::option::Option<BigQueryLink>,
 }
 /// Request message for GetBigQueryLink RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -6480,6 +6740,30 @@ pub struct ListBigQueryLinksResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for UpdateBigQueryLink RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateBigQueryLinkRequest {
+    /// Required. The settings to update.
+    /// The `name` field is used to identify the settings to be updated.
+    #[prost(message, optional, tag = "1")]
+    pub bigquery_link: ::core::option::Option<BigQueryLink>,
+    /// Required. The list of fields to be updated. Field names must be in snake
+    /// case (e.g., "field_to_update"). Omitted fields will not be updated. To
+    /// replace the entire entity, use one path with the string "*" to match all
+    /// fields.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for DeleteBigQueryLink RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteBigQueryLinkRequest {
+    /// Required. The BigQueryLink to delete.
+    /// Example format: properties/1234/bigQueryLinks/5678
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
 }
 /// Request message for GetEnhancedMeasurementSettings RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -6551,7 +6835,7 @@ pub struct CreateConnectedSiteTagRequest {
 }
 /// Response message for CreateConnectedSiteTag RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateConnectedSiteTagResponse {}
 /// Request message for DeleteConnectedSiteTag RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -6756,6 +7040,96 @@ pub struct ListEventCreateRulesResponse {
     #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
+/// Request message for CreateEventEditRule RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateEventEditRuleRequest {
+    /// Required. Example format: properties/123/dataStreams/456
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The EventEditRule to create.
+    #[prost(message, optional, tag = "2")]
+    pub event_edit_rule: ::core::option::Option<EventEditRule>,
+}
+/// Request message for UpdateEventEditRule RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateEventEditRuleRequest {
+    /// Required. The EventEditRule to update.
+    /// The resource's `name` field is used to identify the EventEditRule to be
+    /// updated.
+    #[prost(message, optional, tag = "1")]
+    pub event_edit_rule: ::core::option::Option<EventEditRule>,
+    /// Required. The list of fields to be updated. Field names must be in snake
+    /// case (e.g., "field_to_update"). Omitted fields will not be updated. To
+    /// replace the entire entity, use one path with the string "*" to match all
+    /// fields.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for DeleteEventEditRule RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteEventEditRuleRequest {
+    /// Required. Example format: properties/123/dataStreams/456/eventEditRules/789
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for GetEventEditRule RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEventEditRuleRequest {
+    /// Required. The name of the EventEditRule to get.
+    /// Example format: properties/123/dataStreams/456/eventEditRules/789
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for ListEventEditRules RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListEventEditRulesRequest {
+    /// Required. Example format: properties/123/dataStreams/456
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. The maximum number of resources to return.
+    /// If unspecified, at most 50 resources will be returned.
+    /// The maximum value is 200 (higher values will be coerced to the maximum).
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Optional. A page token, received from a previous `ListEventEditRules` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListEventEditRules`
+    /// must match the call that provided the page token.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for ListEventEditRules RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListEventEditRulesResponse {
+    /// List of EventEditRules. These will be ordered stably, but in an arbitrary
+    /// order.
+    #[prost(message, repeated, tag = "1")]
+    pub event_edit_rules: ::prost::alloc::vec::Vec<EventEditRule>,
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for ReorderEventEditRules RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReorderEventEditRulesRequest {
+    /// Required. Example format: properties/123/dataStreams/456
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. EventEditRule resource names for the specified data stream, in
+    /// the needed processing order. All EventEditRules for the stream must be
+    /// present in the list.
+    #[prost(string, repeated, tag = "2")]
+    pub event_edit_rules: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
 /// Request message for CreateRollupProperty RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -6849,12 +7223,7 @@ pub struct DeleteRollupPropertySourceLinkRequest {
 /// Request message for CreateSubproperty RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateSubpropertyRequest {
-    /// Required. The ordinary property for which to create a subproperty.
-    /// Format: properties/property_id
-    /// Example: properties/123
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
+pub struct ProvisionSubpropertyRequest {
     /// Required. The subproperty to create.
     #[prost(message, optional, tag = "2")]
     pub subproperty: ::core::option::Option<Property>,
@@ -6862,10 +7231,10 @@ pub struct CreateSubpropertyRequest {
     #[prost(message, optional, tag = "3")]
     pub subproperty_event_filter: ::core::option::Option<SubpropertyEventFilter>,
 }
-/// Response message for CreateSubproperty RPC.
+/// Response message for ProvisionSubproperty RPC.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateSubpropertyResponse {
+pub struct ProvisionSubpropertyResponse {
     /// The created subproperty.
     #[prost(message, optional, tag = "1")]
     pub subproperty: ::core::option::Option<Property>,
@@ -8099,6 +8468,7 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Deprecated: Use `CreateKeyEvent` instead.
         /// Creates a conversion event with the specified attributes.
         pub async fn create_conversion_event(
             &mut self,
@@ -8130,6 +8500,7 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Deprecated: Use `UpdateKeyEvent` instead.
         /// Updates a conversion event with the specified attributes.
         pub async fn update_conversion_event(
             &mut self,
@@ -8161,6 +8532,7 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Deprecated: Use `GetKeyEvent` instead.
         /// Retrieve a single conversion event.
         pub async fn get_conversion_event(
             &mut self,
@@ -8192,6 +8564,7 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Deprecated: Use `DeleteKeyEvent` instead.
         /// Deletes a conversion event in a property.
         pub async fn delete_conversion_event(
             &mut self,
@@ -8220,6 +8593,7 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Deprecated: Use `ListKeyEvents` instead.
         /// Returns a list of conversion events in the specified parent property.
         ///
         /// Returns an empty list if no conversion events are found.
@@ -8249,6 +8623,150 @@ pub mod analytics_admin_service_client {
                     GrpcMethod::new(
                         "google.analytics.admin.v1alpha.AnalyticsAdminService",
                         "ListConversionEvents",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a Key Event.
+        pub async fn create_key_event(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/CreateKeyEvent",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "CreateKeyEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates a Key Event.
+        pub async fn update_key_event(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/UpdateKeyEvent",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "UpdateKeyEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Retrieve a single Key Event.
+        pub async fn get_key_event(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/GetKeyEvent",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "GetKeyEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a Key Event.
+        pub async fn delete_key_event(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/DeleteKeyEvent",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "DeleteKeyEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Returns a list of Key Events in the specified parent property.
+        /// Returns an empty list if no Key Events are found.
+        pub async fn list_key_events(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListKeyEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListKeyEventsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/ListKeyEvents",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "ListKeyEvents",
                     ),
                 );
             self.inner.unary(req, path, codec).await
@@ -10161,6 +10679,34 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Creates a BigQueryLink.
+        pub async fn create_big_query_link(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateBigQueryLinkRequest>,
+        ) -> std::result::Result<tonic::Response<super::BigQueryLink>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/CreateBigQueryLink",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "CreateBigQueryLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         /// Lookup for a single BigQuery Link.
         pub async fn get_big_query_link(
             &mut self,
@@ -10216,6 +10762,62 @@ pub mod analytics_admin_service_client {
                     GrpcMethod::new(
                         "google.analytics.admin.v1alpha.AnalyticsAdminService",
                         "ListBigQueryLinks",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a BigQueryLink on a property.
+        pub async fn delete_big_query_link(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteBigQueryLinkRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/DeleteBigQueryLink",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "DeleteBigQueryLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates a BigQueryLink.
+        pub async fn update_big_query_link(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateBigQueryLinkRequest>,
+        ) -> std::result::Result<tonic::Response<super::BigQueryLink>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/UpdateBigQueryLink",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "UpdateBigQueryLink",
                     ),
                 );
             self.inner.unary(req, path, codec).await
@@ -10684,6 +11286,177 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// Lookup for a single EventEditRule.
+        pub async fn get_event_edit_rule(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetEventEditRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::EventEditRule>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/GetEventEditRule",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "GetEventEditRule",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists EventEditRules on a web data stream.
+        pub async fn list_event_edit_rules(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListEventEditRulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventEditRulesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/ListEventEditRules",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "ListEventEditRules",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates an EventEditRule.
+        pub async fn create_event_edit_rule(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateEventEditRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::EventEditRule>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/CreateEventEditRule",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "CreateEventEditRule",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates an EventEditRule.
+        pub async fn update_event_edit_rule(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateEventEditRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::EventEditRule>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/UpdateEventEditRule",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "UpdateEventEditRule",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes an EventEditRule.
+        pub async fn delete_event_edit_rule(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteEventEditRuleRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/DeleteEventEditRule",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "DeleteEventEditRule",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Changes the processing order of event edit rules on the specified stream.
+        pub async fn reorder_event_edit_rules(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ReorderEventEditRulesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/ReorderEventEditRules",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.analytics.admin.v1alpha.AnalyticsAdminService",
+                        "ReorderEventEditRules",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         /// Updates a DataRedactionSettings on a property.
         pub async fn update_data_redaction_settings(
             &mut self,
@@ -11064,11 +11837,11 @@ pub mod analytics_admin_service_client {
         }
         /// Create a subproperty and a subproperty event filter that applies to the
         /// created subproperty.
-        pub async fn create_subproperty(
+        pub async fn provision_subproperty(
             &mut self,
-            request: impl tonic::IntoRequest<super::CreateSubpropertyRequest>,
+            request: impl tonic::IntoRequest<super::ProvisionSubpropertyRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::CreateSubpropertyResponse>,
+            tonic::Response<super::ProvisionSubpropertyResponse>,
             tonic::Status,
         > {
             self.inner
@@ -11082,14 +11855,14 @@ pub mod analytics_admin_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/google.analytics.admin.v1alpha.AnalyticsAdminService/CreateSubproperty",
+                "/google.analytics.admin.v1alpha.AnalyticsAdminService/ProvisionSubproperty",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new(
                         "google.analytics.admin.v1alpha.AnalyticsAdminService",
-                        "CreateSubproperty",
+                        "ProvisionSubproperty",
                     ),
                 );
             self.inner.unary(req, path, codec).await

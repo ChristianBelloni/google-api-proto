@@ -2,7 +2,7 @@
 /// Represents preferences for sending email notifications for transfer run
 /// events.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct EmailPreferences {
     /// If true, email notifications will be sent on transfer run failures.
     #[prost(bool, tag = "1")]
@@ -10,7 +10,7 @@ pub struct EmailPreferences {
 }
 /// Options customizing the data transfer schedule.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ScheduleOptions {
     /// If true, automatic scheduling of data transfer runs for this configuration
     /// will be disabled. The runs can be started on ad-hoc basis using
@@ -751,6 +751,10 @@ pub struct CreateTransferConfigRequest {
     /// Required. Data transfer configuration to create.
     #[prost(message, optional, tag = "2")]
     pub transfer_config: ::core::option::Option<TransferConfig>,
+    /// Deprecated: Authorization code was required when
+    /// `transferConfig.dataSourceId` is 'youtube_channel' but it is no longer used
+    /// in any data sources. Use `version_info` instead.
+    ///
     /// Optional OAuth2 authorization code to use with this transfer configuration.
     /// This is required only if `transferConfig.dataSourceId` is 'youtube_channel'
     /// and new credentials are needed, as indicated by `CheckValidCreds`. In order
@@ -758,23 +762,25 @@ pub struct CreateTransferConfigRequest {
     /// <pre class="prettyprint" suppresswarning="true">
     /// <https://bigquery.cloud.google.com/datatransfer/oauthz/auth?redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=authorization_code&client_id=<var>client_id</var>&scope=<var>data_source_scopes</var>>
     /// </pre>
-    /// * The <var>client_id</var> is the OAuth client_id of the a data source as
+    /// * The <var>client_id</var> is the OAuth client_id of the data source as
     /// returned by ListDataSources method.
     /// * <var>data_source_scopes</var> are the scopes returned by ListDataSources
     /// method.
     ///
     /// Note that this should not be set when `service_account_name` is used to
     /// create the transfer config.
+    #[deprecated]
     #[prost(string, tag = "3")]
     pub authorization_code: ::prost::alloc::string::String,
-    /// Optional version info. This is required only if
-    /// `transferConfig.dataSourceId` is not 'youtube_channel' and new credentials
+    /// Optional version info. This parameter replaces `authorization_code` which
+    /// is no longer used in any data sources. This is required only if
+    /// `transferConfig.dataSourceId` is 'youtube_channel' *or* new credentials
     /// are needed, as indicated by `CheckValidCreds`. In order to obtain version
     /// info, make a request to the following URL:
     /// <pre class="prettyprint" suppresswarning="true">
     /// <https://bigquery.cloud.google.com/datatransfer/oauthz/auth?redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=version_info&client_id=<var>client_id</var>&scope=<var>data_source_scopes</var>>
     /// </pre>
-    /// * The <var>client_id</var> is the OAuth client_id of the a data source as
+    /// * The <var>client_id</var> is the OAuth client_id of the data source as
     /// returned by ListDataSources method.
     /// * <var>data_source_scopes</var> are the scopes returned by ListDataSources
     /// method.
@@ -803,6 +809,10 @@ pub struct UpdateTransferConfigRequest {
     /// Required. Data transfer configuration to create.
     #[prost(message, optional, tag = "1")]
     pub transfer_config: ::core::option::Option<TransferConfig>,
+    /// Deprecated: Authorization code was required when
+    /// `transferConfig.dataSourceId` is 'youtube_channel' but it is no longer used
+    /// in any data sources. Use `version_info` instead.
+    ///
     /// Optional OAuth2 authorization code to use with this transfer configuration.
     /// This is required only if `transferConfig.dataSourceId` is 'youtube_channel'
     /// and new credentials are needed, as indicated by `CheckValidCreds`. In order
@@ -810,26 +820,28 @@ pub struct UpdateTransferConfigRequest {
     /// <pre class="prettyprint" suppresswarning="true">
     /// <https://bigquery.cloud.google.com/datatransfer/oauthz/auth?redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=authorization_code&client_id=<var>client_id</var>&scope=<var>data_source_scopes</var>>
     /// </pre>
-    /// * The <var>client_id</var> is the OAuth client_id of the a data source as
+    /// * The <var>client_id</var> is the OAuth client_id of the data source as
     /// returned by ListDataSources method.
     /// * <var>data_source_scopes</var> are the scopes returned by ListDataSources
     /// method.
     ///
     /// Note that this should not be set when `service_account_name` is used to
     /// update the transfer config.
+    #[deprecated]
     #[prost(string, tag = "3")]
     pub authorization_code: ::prost::alloc::string::String,
     /// Required. Required list of fields to be updated in this request.
     #[prost(message, optional, tag = "4")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Optional version info. This is required only if
-    /// `transferConfig.dataSourceId` is not 'youtube_channel' and new credentials
+    /// Optional version info. This parameter replaces `authorization_code` which
+    /// is no longer used in any data sources. This is required only if
+    /// `transferConfig.dataSourceId` is 'youtube_channel' *or* new credentials
     /// are needed, as indicated by `CheckValidCreds`. In order to obtain version
     /// info, make a request to the following URL:
     /// <pre class="prettyprint" suppresswarning="true">
     /// <https://bigquery.cloud.google.com/datatransfer/oauthz/auth?redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=version_info&client_id=<var>client_id</var>&scope=<var>data_source_scopes</var>>
     /// </pre>
-    /// * The <var>client_id</var> is the OAuth client_id of the a data source as
+    /// * The <var>client_id</var> is the OAuth client_id of the data source as
     /// returned by ListDataSources method.
     /// * <var>data_source_scopes</var> are the scopes returned by ListDataSources
     /// method.
@@ -1068,7 +1080,7 @@ pub struct CheckValidCredsRequest {
 }
 /// A response indicating whether the credentials exist and are valid.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CheckValidCredsResponse {
     /// If set to `true`, the credentials exist and are valid.
     #[prost(bool, tag = "1")]
@@ -1119,7 +1131,7 @@ pub mod start_manual_transfer_runs_request {
     /// A specification for a time range, this will request transfer runs with
     /// run_time between start_time (inclusive) and end_time (exclusive).
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct TimeRange {
         /// Start time of the range of transfer runs. For example,
         /// `"2017-05-25T00:00:00+00:00"`. The start_time must be strictly less than
@@ -1137,7 +1149,7 @@ pub mod start_manual_transfer_runs_request {
     /// The requested time specification - this can be a time range or a specific
     /// run_time.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Time {
         /// A time_range start and end timestamp for historical data files or reports
         /// that are scheduled to be transferred by the scheduled transfer run.

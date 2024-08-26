@@ -498,7 +498,7 @@ pub struct Vrf {
 pub mod vrf {
     /// QOS policy parameters.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct QosPolicy {
         /// The bandwidth permitted by the QOS policy, in gbps.
         #[prost(double, tag = "1")]
@@ -836,7 +836,7 @@ pub struct Volume {
 pub mod volume {
     /// Details about snapshot space reservation and usage on the storage volume.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct SnapshotReservationDetail {
         /// The space on this storage volume reserved for snapshots, shown in GiB.
         #[prost(int64, tag = "1")]
@@ -1423,7 +1423,7 @@ pub struct StartInstanceRequest {
 }
 /// Response message from starting a server.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StartInstanceResponse {}
 /// Message requesting to stop a server.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1435,7 +1435,7 @@ pub struct StopInstanceRequest {
 }
 /// Response message from stopping a server.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StopInstanceResponse {}
 /// Message for enabling the interactive serial console on an instance.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1447,7 +1447,7 @@ pub struct EnableInteractiveSerialConsoleRequest {
 }
 /// Message for response of EnableInteractiveSerialConsole.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct EnableInteractiveSerialConsoleResponse {}
 /// Message for disabling the interactive serial console on an instance.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1459,7 +1459,7 @@ pub struct DisableInteractiveSerialConsoleRequest {
 }
 /// Message for response of DisableInteractiveSerialConsole.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DisableInteractiveSerialConsoleResponse {}
 /// Message for detach specific LUN from an Instance.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1864,6 +1864,72 @@ pub struct DeleteNfsShareRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
+/// An SSH key, used for authorizing with the interactive serial console feature.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SshKey {
+    /// Output only. The name of this SSH key.
+    /// Currently, the only valid value for the location is "global".
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The public SSH key. This must be in OpenSSH .authorized_keys format.
+    #[prost(string, tag = "2")]
+    pub public_key: ::prost::alloc::string::String,
+}
+/// Message for listing the public SSH keys in a project.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSshKeysRequest {
+    /// Required. The parent containing the SSH keys.
+    /// Currently, the only valid value for the location is "global".
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value returned from a previous List request, if any.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Message for response of ListSSHKeys.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListSshKeysResponse {
+    /// The SSH keys registered in the project.
+    #[prost(message, repeated, tag = "1")]
+    pub ssh_keys: ::prost::alloc::vec::Vec<SshKey>,
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    #[prost(string, tag = "90")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Message for registering a public SSH key in a project.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateSshKeyRequest {
+    /// Required. The parent containing the SSH keys.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The SSH key to register.
+    #[prost(message, optional, tag = "2")]
+    pub ssh_key: ::core::option::Option<SshKey>,
+    /// Required. The ID to use for the key, which will become the final component
+    /// of the key's resource name.
+    ///
+    /// This value must match the regex:
+    ///    \[a-zA-Z0-9@.\-_\]{1,64}
+    #[prost(string, tag = "3")]
+    pub ssh_key_id: ::prost::alloc::string::String,
+}
+/// Message for deleting an SSH key from a project.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteSshKeyRequest {
+    /// Required. The name of the SSH key to delete.
+    /// Currently, the only valid value for the location is "global".
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
 /// Operation System image.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2149,7 +2215,7 @@ pub mod provisioning_quota {
     }
     /// Available quantity based on asset type.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Availability {
         /// Server count.
         #[prost(int64, tag = "7")]
@@ -2358,7 +2424,7 @@ pub struct VolumeConfig {
 pub mod volume_config {
     /// A LUN(Logical Unit Number) range.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct LunRange {
         /// Number of LUNs to create.
         #[prost(int32, tag = "1")]
@@ -2800,72 +2866,6 @@ pub struct UpdateProvisioningConfigRequest {
     #[prost(string, tag = "3")]
     pub email: ::prost::alloc::string::String,
 }
-/// An SSH key, used for authorizing with the interactive serial console feature.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SshKey {
-    /// Output only. The name of this SSH key.
-    /// Currently, the only valid value for the location is "global".
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The public SSH key. This must be in OpenSSH .authorized_keys format.
-    #[prost(string, tag = "2")]
-    pub public_key: ::prost::alloc::string::String,
-}
-/// Message for listing the public SSH keys in a project.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListSshKeysRequest {
-    /// Required. The parent containing the SSH keys.
-    /// Currently, the only valid value for the location is "global".
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value returned from a previous List request, if any.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Message for response of ListSSHKeys.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListSshKeysResponse {
-    /// The SSH keys registered in the project.
-    #[prost(message, repeated, tag = "1")]
-    pub ssh_keys: ::prost::alloc::vec::Vec<SshKey>,
-    /// Token to retrieve the next page of results, or empty if there are no more
-    /// results in the list.
-    #[prost(string, tag = "90")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Message for registering a public SSH key in a project.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateSshKeyRequest {
-    /// Required. The parent containing the SSH keys.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The SSH key to register.
-    #[prost(message, optional, tag = "2")]
-    pub ssh_key: ::core::option::Option<SshKey>,
-    /// Required. The ID to use for the key, which will become the final component
-    /// of the key's resource name.
-    ///
-    /// This value must match the regex:
-    ///    \[a-zA-Z0-9@.\-_\]{1,64}
-    #[prost(string, tag = "3")]
-    pub ssh_key_id: ::prost::alloc::string::String,
-}
-/// Message for deleting an SSH key from a project.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteSshKeyRequest {
-    /// Required. The name of the SSH key to delete.
-    /// Currently, the only valid value for the location is "global".
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
 /// A snapshot of a volume. Only boot volumes can have snapshots.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -3033,7 +3033,7 @@ pub struct OperationMetadata {
 }
 /// Response message from resetting a server.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ResetInstanceResponse {}
 /// Generated client implementations.
 pub mod bare_metal_solution_client {

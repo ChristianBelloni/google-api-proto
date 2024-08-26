@@ -124,7 +124,7 @@ pub struct ImageClassificationAnnotation {
 /// A vertex represents a 2D point in the image.
 /// NOTE: the vertex coordinates are in the same scale as the original image.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Vertex {
     /// X coordinate.
     #[prost(int32, tag = "1")]
@@ -137,7 +137,7 @@ pub struct Vertex {
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct NormalizedVertex {
     /// X coordinate.
     #[prost(float, tag = "1")]
@@ -267,7 +267,7 @@ pub struct TextEntityExtractionAnnotation {
 }
 /// Start and end position in a sequence (e.g. text segment).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SequentialSegment {
     /// Start position (inclusive).
     #[prost(int32, tag = "1")]
@@ -278,7 +278,7 @@ pub struct SequentialSegment {
 }
 /// A time period inside of an example that has a time dimension (e.g. video).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TimeSegment {
     /// Start of the time segment (inclusive), represented as the duration since
     /// the example start.
@@ -788,7 +788,7 @@ pub struct TextClassificationConfig {
 }
 /// Config for setting up sentiments.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SentimentConfig {
     /// If set to true, contributors will have the option to select sentiment of
     /// the label they selected, to mark it as negative or positive label. Default
@@ -930,7 +930,7 @@ pub struct TextMetadata {
 }
 /// Metadata for classification annotations.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ClassificationMetadata {
     /// Whether the classification task is multi-label or not.
     #[prost(bool, tag = "1")]
@@ -1279,7 +1279,7 @@ pub struct Evaluation {
 /// Configuration details used for calculating evaluation metrics and creating an
 /// [Evaluation][google.cloud.datalabeling.v1beta1.Evaluation].
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct EvaluationConfig {
     /// Vertical specific options for general metrics.
     #[prost(oneof = "evaluation_config::VerticalOption", tags = "1")]
@@ -1289,7 +1289,7 @@ pub struct EvaluationConfig {
 pub mod evaluation_config {
     /// Vertical specific options for general metrics.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum VerticalOption {
         /// Only specify this field if the related model performs image object
         /// detection (`IMAGE_BOUNDING_BOX_ANNOTATION`). Describes how to evaluate
@@ -1300,7 +1300,7 @@ pub mod evaluation_config {
 }
 /// Options regarding evaluation between bounding boxes.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct BoundingBoxEvaluationOptions {
     /// Minimum
     /// [intersection-over-union
@@ -1375,7 +1375,7 @@ pub struct PrCurve {
 /// Nested message and enum types in `PrCurve`.
 pub mod pr_curve {
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ConfidenceMetricsEntry {
         /// Threshold used for this entry.
         ///
@@ -1813,6 +1813,257 @@ pub struct PdfInstruction {
     /// PDF file for the instruction. Only gcs path is allowed.
     #[prost(string, tag = "1")]
     pub gcs_file_uri: ::prost::alloc::string::String,
+}
+/// Response used for ImportData longrunning operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportDataOperationResponse {
+    /// Ouptut only. The name of imported dataset.
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Total number of examples requested to import
+    #[prost(int32, tag = "2")]
+    pub total_count: i32,
+    /// Output only. Number of examples imported successfully.
+    #[prost(int32, tag = "3")]
+    pub import_count: i32,
+}
+/// Response used for ExportDataset longrunning operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportDataOperationResponse {
+    /// Ouptut only. The name of dataset.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Total number of examples requested to export
+    #[prost(int32, tag = "2")]
+    pub total_count: i32,
+    /// Output only. Number of examples exported successfully.
+    #[prost(int32, tag = "3")]
+    pub export_count: i32,
+    /// Output only. Statistic infos of labels in the exported dataset.
+    #[prost(message, optional, tag = "4")]
+    pub label_stats: ::core::option::Option<LabelStats>,
+    /// Output only. output_config in the ExportData request.
+    #[prost(message, optional, tag = "5")]
+    pub output_config: ::core::option::Option<OutputConfig>,
+}
+/// Metadata of an ImportData operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportDataOperationMetadata {
+    /// Output only. The name of imported dataset.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when import dataset request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Metadata of an ExportData operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportDataOperationMetadata {
+    /// Output only. The name of dataset to be exported.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when export dataset request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Metadata of a labeling operation, such as LabelImage or LabelVideo.
+/// Next tag: 20
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelOperationMetadata {
+    /// Output only. Progress of label operation. Range: \[0, 100\].
+    #[prost(int32, tag = "1")]
+    pub progress_percent: i32,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when labeling request was created.
+    #[prost(message, optional, tag = "16")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Ouptut only. Details of specific label operation.
+    #[prost(
+        oneof = "label_operation_metadata::Details",
+        tags = "3, 4, 11, 14, 12, 15, 5, 6, 7, 8, 9, 13"
+    )]
+    pub details: ::core::option::Option<label_operation_metadata::Details>,
+}
+/// Nested message and enum types in `LabelOperationMetadata`.
+pub mod label_operation_metadata {
+    /// Ouptut only. Details of specific label operation.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Details {
+        /// Details of label image classification operation.
+        #[prost(message, tag = "3")]
+        ImageClassificationDetails(super::LabelImageClassificationOperationMetadata),
+        /// Details of label image bounding box operation.
+        #[prost(message, tag = "4")]
+        ImageBoundingBoxDetails(super::LabelImageBoundingBoxOperationMetadata),
+        /// Details of label image bounding poly operation.
+        #[prost(message, tag = "11")]
+        ImageBoundingPolyDetails(super::LabelImageBoundingPolyOperationMetadata),
+        /// Details of label image oriented bounding box operation.
+        #[prost(message, tag = "14")]
+        ImageOrientedBoundingBoxDetails(
+            super::LabelImageOrientedBoundingBoxOperationMetadata,
+        ),
+        /// Details of label image polyline operation.
+        #[prost(message, tag = "12")]
+        ImagePolylineDetails(super::LabelImagePolylineOperationMetadata),
+        /// Details of label image segmentation operation.
+        #[prost(message, tag = "15")]
+        ImageSegmentationDetails(super::LabelImageSegmentationOperationMetadata),
+        /// Details of label video classification operation.
+        #[prost(message, tag = "5")]
+        VideoClassificationDetails(super::LabelVideoClassificationOperationMetadata),
+        /// Details of label video object detection operation.
+        #[prost(message, tag = "6")]
+        VideoObjectDetectionDetails(super::LabelVideoObjectDetectionOperationMetadata),
+        /// Details of label video object tracking operation.
+        #[prost(message, tag = "7")]
+        VideoObjectTrackingDetails(super::LabelVideoObjectTrackingOperationMetadata),
+        /// Details of label video event operation.
+        #[prost(message, tag = "8")]
+        VideoEventDetails(super::LabelVideoEventOperationMetadata),
+        /// Details of label text classification operation.
+        #[prost(message, tag = "9")]
+        TextClassificationDetails(super::LabelTextClassificationOperationMetadata),
+        /// Details of label text entity extraction operation.
+        #[prost(message, tag = "13")]
+        TextEntityExtractionDetails(super::LabelTextEntityExtractionOperationMetadata),
+    }
+}
+/// Metadata of a LabelImageClassification operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageBoundingBox operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageBoundingBoxOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageOrientedBoundingBox operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageOrientedBoundingBoxOperationMetadata {
+    /// Basic human annotation config.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of LabelImageBoundingPoly operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageBoundingPolyOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of LabelImagePolyline operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImagePolylineOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageSegmentation operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageSegmentationOperationMetadata {
+    /// Basic human annotation config.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoClassification operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoObjectDetection operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoObjectDetectionOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoObjectTracking operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoObjectTrackingOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoEvent operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoEventOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelTextClassification operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelTextClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelTextEntityExtraction operation metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelTextEntityExtractionOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Metadata of a CreateInstruction operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateInstructionMetadata {
+    /// The name of the created Instruction.
+    /// projects/{project_id}/instructions/{instruction_id}
+    #[prost(string, tag = "1")]
+    pub instruction: ::prost::alloc::string::String,
+    /// Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Timestamp when create instruction request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Request message for CreateDataset.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3828,255 +4079,4 @@ pub mod data_labeling_service_client {
             self.inner.unary(req, path, codec).await
         }
     }
-}
-/// Response used for ImportData longrunning operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportDataOperationResponse {
-    /// Ouptut only. The name of imported dataset.
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Total number of examples requested to import
-    #[prost(int32, tag = "2")]
-    pub total_count: i32,
-    /// Output only. Number of examples imported successfully.
-    #[prost(int32, tag = "3")]
-    pub import_count: i32,
-}
-/// Response used for ExportDataset longrunning operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDataOperationResponse {
-    /// Ouptut only. The name of dataset.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Total number of examples requested to export
-    #[prost(int32, tag = "2")]
-    pub total_count: i32,
-    /// Output only. Number of examples exported successfully.
-    #[prost(int32, tag = "3")]
-    pub export_count: i32,
-    /// Output only. Statistic infos of labels in the exported dataset.
-    #[prost(message, optional, tag = "4")]
-    pub label_stats: ::core::option::Option<LabelStats>,
-    /// Output only. output_config in the ExportData request.
-    #[prost(message, optional, tag = "5")]
-    pub output_config: ::core::option::Option<OutputConfig>,
-}
-/// Metadata of an ImportData operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportDataOperationMetadata {
-    /// Output only. The name of imported dataset.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when import dataset request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Metadata of an ExportData operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDataOperationMetadata {
-    /// Output only. The name of dataset to be exported.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when export dataset request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Metadata of a labeling operation, such as LabelImage or LabelVideo.
-/// Next tag: 20
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelOperationMetadata {
-    /// Output only. Progress of label operation. Range: \[0, 100\].
-    #[prost(int32, tag = "1")]
-    pub progress_percent: i32,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when labeling request was created.
-    #[prost(message, optional, tag = "16")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Ouptut only. Details of specific label operation.
-    #[prost(
-        oneof = "label_operation_metadata::Details",
-        tags = "3, 4, 11, 14, 12, 15, 5, 6, 7, 8, 9, 13"
-    )]
-    pub details: ::core::option::Option<label_operation_metadata::Details>,
-}
-/// Nested message and enum types in `LabelOperationMetadata`.
-pub mod label_operation_metadata {
-    /// Ouptut only. Details of specific label operation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Details {
-        /// Details of label image classification operation.
-        #[prost(message, tag = "3")]
-        ImageClassificationDetails(super::LabelImageClassificationOperationMetadata),
-        /// Details of label image bounding box operation.
-        #[prost(message, tag = "4")]
-        ImageBoundingBoxDetails(super::LabelImageBoundingBoxOperationMetadata),
-        /// Details of label image bounding poly operation.
-        #[prost(message, tag = "11")]
-        ImageBoundingPolyDetails(super::LabelImageBoundingPolyOperationMetadata),
-        /// Details of label image oriented bounding box operation.
-        #[prost(message, tag = "14")]
-        ImageOrientedBoundingBoxDetails(
-            super::LabelImageOrientedBoundingBoxOperationMetadata,
-        ),
-        /// Details of label image polyline operation.
-        #[prost(message, tag = "12")]
-        ImagePolylineDetails(super::LabelImagePolylineOperationMetadata),
-        /// Details of label image segmentation operation.
-        #[prost(message, tag = "15")]
-        ImageSegmentationDetails(super::LabelImageSegmentationOperationMetadata),
-        /// Details of label video classification operation.
-        #[prost(message, tag = "5")]
-        VideoClassificationDetails(super::LabelVideoClassificationOperationMetadata),
-        /// Details of label video object detection operation.
-        #[prost(message, tag = "6")]
-        VideoObjectDetectionDetails(super::LabelVideoObjectDetectionOperationMetadata),
-        /// Details of label video object tracking operation.
-        #[prost(message, tag = "7")]
-        VideoObjectTrackingDetails(super::LabelVideoObjectTrackingOperationMetadata),
-        /// Details of label video event operation.
-        #[prost(message, tag = "8")]
-        VideoEventDetails(super::LabelVideoEventOperationMetadata),
-        /// Details of label text classification operation.
-        #[prost(message, tag = "9")]
-        TextClassificationDetails(super::LabelTextClassificationOperationMetadata),
-        /// Details of label text entity extraction operation.
-        #[prost(message, tag = "13")]
-        TextEntityExtractionDetails(super::LabelTextEntityExtractionOperationMetadata),
-    }
-}
-/// Metadata of a LabelImageClassification operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageBoundingBox operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageBoundingBoxOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageOrientedBoundingBox operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageOrientedBoundingBoxOperationMetadata {
-    /// Basic human annotation config.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of LabelImageBoundingPoly operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageBoundingPolyOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of LabelImagePolyline operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImagePolylineOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageSegmentation operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageSegmentationOperationMetadata {
-    /// Basic human annotation config.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoClassification operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoObjectDetection operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoObjectDetectionOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoObjectTracking operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoObjectTrackingOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoEvent operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoEventOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelTextClassification operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelTextClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelTextEntityExtraction operation metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelTextEntityExtractionOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Metadata of a CreateInstruction operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateInstructionMetadata {
-    /// The name of the created Instruction.
-    /// projects/{project_id}/instructions/{instruction_id}
-    #[prost(string, tag = "1")]
-    pub instruction: ::prost::alloc::string::String,
-    /// Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Timestamp when create instruction request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }

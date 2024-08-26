@@ -19,60 +19,31 @@ pub struct TimePartitioning {
     #[prost(message, optional, tag = "3")]
     pub field: ::core::option::Option<::prost::alloc::string::String>,
 }
-/// Id path of a row access policy.
+/// Configuration for Cloud KMS encryption settings.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RowAccessPolicyReference {
-    /// Required. The ID of the project containing this row access policy.
+pub struct EncryptionConfiguration {
+    /// Optional. Describes the Cloud KMS encryption key that will be used to
+    /// protect destination BigQuery table. The BigQuery Service Account associated
+    /// with your project requires access to this encryption key.
+    #[prost(message, optional, tag = "1")]
+    pub kms_key_name: ::core::option::Option<::prost::alloc::string::String>,
+}
+/// Id path of a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RoutineReference {
+    /// Required. The ID of the project containing this routine.
     #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    /// Required. The ID of the dataset containing this row access policy.
+    /// Required. The ID of the dataset containing this routine.
     #[prost(string, tag = "2")]
     pub dataset_id: ::prost::alloc::string::String,
-    /// Required. The ID of the table containing this row access policy.
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-    /// Required. The ID of the row access policy. The ID must contain only
+    /// Required. The ID of the routine. The ID must contain only
     /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
     /// length is 256 characters.
-    #[prost(string, tag = "4")]
-    pub policy_id: ::prost::alloc::string::String,
-}
-/// This enum defines how to interpret source URIs for load jobs and external
-/// tables.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum FileSetSpecType {
-    /// This option expands source URIs by listing files from the object store. It
-    /// is the default behavior if FileSetSpecType is not set.
-    FileSystemMatch = 0,
-    /// This option indicates that the provided URIs are newline-delimited manifest
-    /// files, with one URI per line. Wildcard URIs are not supported.
-    NewLineDelimitedManifest = 1,
-}
-impl FileSetSpecType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            FileSetSpecType::FileSystemMatch => "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH",
-            FileSetSpecType::NewLineDelimitedManifest => {
-                "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST"
-            }
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH" => Some(Self::FileSystemMatch),
-            "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST" => {
-                Some(Self::NewLineDelimitedManifest)
-            }
-            _ => None,
-        }
-    }
+    #[prost(string, tag = "3")]
+    pub routine_id: ::prost::alloc::string::String,
 }
 /// The data type of a variable such as a function argument.
 /// Examples include:
@@ -108,6 +79,13 @@ impl FileSetSpecType {
 ///            }
 ///          ]
 ///        }
+///      }
+///
+/// * RANGE<DATE>:
+///
+///      {
+///        "typeKind": "RANGE",
+///        "rangeElementType": {"typeKind": "DATE"}
 ///      }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -272,83 +250,287 @@ pub struct StandardSqlTableType {
     #[prost(message, repeated, tag = "1")]
     pub columns: ::prost::alloc::vec::Vec<StandardSqlField>,
 }
-/// BigQuery-specific metadata about a location. This will be set on
-/// google.cloud.location.Location.metadata in Cloud Location API
-/// responses.
+/// A user-defined function or a stored procedure.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LocationMetadata {
-    /// The legacy BigQuery location ID, e.g. “EU” for the “europe” location.
-    /// This is for any API consumers that need the legacy “US” and “EU” locations.
+pub struct Routine {
+    /// Output only. A hash of this resource.
     #[prost(string, tag = "1")]
-    pub legacy_location_id: ::prost::alloc::string::String,
-}
-/// Identifier for a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DatasetReference {
-    /// Required. A unique ID for this dataset, without the project name. The ID
-    /// must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_).
-    /// The maximum length is 1,024 characters.
-    #[prost(string, tag = "1")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Optional. The ID of the project containing this dataset.
-    #[prost(string, tag = "2")]
-    pub project_id: ::prost::alloc::string::String,
-}
-/// Configuration for Cloud KMS encryption settings.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EncryptionConfiguration {
-    /// Optional. Describes the Cloud KMS encryption key that will be used to
-    /// protect destination BigQuery table. The BigQuery Service Account associated
-    /// with your project requires access to this encryption key.
-    #[prost(message, optional, tag = "1")]
-    pub kms_key_name: ::core::option::Option<::prost::alloc::string::String>,
-}
-/// Options defining open source compatible datasets living in the BigQuery
-/// catalog. Contains metadata of open source database, schema
-/// or namespace represented by the current dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExternalCatalogDatasetOptions {
-    /// Optional. A map of key value pairs defining the parameters and properties
-    /// of the open source schema. Maximum size of 2Mib.
-    #[prost(btree_map = "string, string", tag = "1")]
-    pub parameters: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. The storage location URI for all tables in the dataset.
-    /// Equivalent to hive metastore's database locationUri. Maximum length of 1024
-    /// characters.
-    #[prost(string, tag = "2")]
-    pub default_storage_location_uri: ::prost::alloc::string::String,
-}
-/// Configures the access a dataset defined in an external metadata storage.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExternalDatasetReference {
-    /// Required. External source that backs this dataset.
-    #[prost(string, tag = "2")]
-    pub external_source: ::prost::alloc::string::String,
-    /// Required. The connection id that is used to access the external_source.
+    pub etag: ::prost::alloc::string::String,
+    /// Required. Reference describing the ID of this routine.
+    #[prost(message, optional, tag = "2")]
+    pub routine_reference: ::core::option::Option<RoutineReference>,
+    /// Required. The type of routine.
+    #[prost(enumeration = "routine::RoutineType", tag = "3")]
+    pub routine_type: i32,
+    /// Output only. The time when this routine was created, in milliseconds since
+    /// the epoch.
+    #[prost(int64, tag = "4")]
+    pub creation_time: i64,
+    /// Output only. The time when this routine was last modified, in milliseconds
+    /// since the epoch.
+    #[prost(int64, tag = "5")]
+    pub last_modified_time: i64,
+    /// Optional. Defaults to "SQL" if remote_function_options field is absent, not
+    /// set otherwise.
+    #[prost(enumeration = "routine::Language", tag = "6")]
+    pub language: i32,
+    /// Optional.
+    #[prost(message, repeated, tag = "7")]
+    pub arguments: ::prost::alloc::vec::Vec<routine::Argument>,
+    /// Optional if language = "SQL"; required otherwise.
+    /// Cannot be set if routine_type = "TABLE_VALUED_FUNCTION".
     ///
-    /// Format:
-    ///    projects/{project_id}/locations/{location_id}/connections/{connection_id}
-    #[prost(string, tag = "3")]
-    pub connection: ::prost::alloc::string::String,
+    /// If absent, the return type is inferred from definition_body at query time
+    /// in each query that references this routine. If present, then the evaluated
+    /// result will be cast to the specified returned type at query time.
+    ///
+    /// For example, for the functions created with the following statements:
+    ///
+    /// * `CREATE FUNCTION Add(x FLOAT64, y FLOAT64) RETURNS FLOAT64 AS (x + y);`
+    ///
+    /// * `CREATE FUNCTION Increment(x FLOAT64) AS (Add(x, 1));`
+    ///
+    /// * `CREATE FUNCTION Decrement(x FLOAT64) RETURNS FLOAT64 AS (Add(x, -1));`
+    ///
+    /// The return_type is `{type_kind: "FLOAT64"}` for `Add` and `Decrement`, and
+    /// is absent for `Increment` (inferred as FLOAT64 at query time).
+    ///
+    /// Suppose the function `Add` is replaced by
+    ///    `CREATE OR REPLACE FUNCTION Add(x INT64, y INT64) AS (x + y);`
+    ///
+    /// Then the inferred return type of `Increment` is automatically changed to
+    /// INT64 at query time, while the return type of `Decrement` remains FLOAT64.
+    #[prost(message, optional, tag = "10")]
+    pub return_type: ::core::option::Option<StandardSqlDataType>,
+    /// Optional. Can be set only if routine_type = "TABLE_VALUED_FUNCTION".
+    ///
+    /// If absent, the return table type is inferred from definition_body at query
+    /// time in each query that references this routine. If present, then the
+    /// columns in the evaluated table result will be cast to match the column
+    /// types specified in return table type, at query time.
+    #[prost(message, optional, tag = "13")]
+    pub return_table_type: ::core::option::Option<StandardSqlTableType>,
+    /// Optional. If language = "JAVASCRIPT", this field stores the path of the
+    /// imported JAVASCRIPT libraries.
+    #[prost(string, repeated, tag = "8")]
+    pub imported_libraries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Required. The body of the routine.
+    ///
+    /// For functions, this is the expression in the AS clause.
+    ///
+    /// If language=SQL, it is the substring inside (but excluding) the
+    /// parentheses. For example, for the function created with the following
+    /// statement:
+    ///
+    /// `CREATE FUNCTION JoinLines(x string, y string) as (concat(x, "\n", y))`
+    ///
+    /// The definition_body is `concat(x, "\n", y)` (\n is not replaced with
+    /// linebreak).
+    ///
+    /// If language=JAVASCRIPT, it is the evaluated string in the AS clause.
+    /// For example, for the function created with the following statement:
+    ///
+    /// `CREATE FUNCTION f() RETURNS STRING LANGUAGE js AS 'return "\n";\n'`
+    ///
+    /// The definition_body is
+    ///
+    /// `return "\n";\n`
+    ///
+    /// Note that both \n are replaced with linebreaks.
+    #[prost(string, tag = "9")]
+    pub definition_body: ::prost::alloc::string::String,
+    /// Optional. The description of the routine, if defined.
+    #[prost(string, tag = "11")]
+    pub description: ::prost::alloc::string::String,
+    /// Optional. The determinism level of the JavaScript UDF, if defined.
+    #[prost(enumeration = "routine::DeterminismLevel", tag = "12")]
+    pub determinism_level: i32,
+    /// Optional. The security mode of the routine, if defined. If not defined, the
+    /// security mode is automatically determined from the routine's configuration.
+    #[prost(enumeration = "routine::SecurityMode", tag = "18")]
+    pub security_mode: i32,
+    /// Optional. Use this option to catch many common errors. Error checking is
+    /// not exhaustive, and successfully creating a procedure doesn't guarantee
+    /// that the procedure will successfully execute at runtime. If `strictMode` is
+    /// set to `TRUE`, the procedure body is further checked for errors such as
+    /// non-existent tables or columns. The `CREATE PROCEDURE` statement fails if
+    /// the body fails any of these checks.
+    ///
+    /// If `strictMode` is set to `FALSE`, the procedure body is checked only for
+    /// syntax. For procedures that invoke themselves recursively, specify
+    /// `strictMode=FALSE` to avoid non-existent procedure errors during
+    /// validation.
+    ///
+    /// Default value is `TRUE`.
+    #[prost(message, optional, tag = "14")]
+    pub strict_mode: ::core::option::Option<bool>,
+    /// Optional. Remote function specific options.
+    #[prost(message, optional, tag = "15")]
+    pub remote_function_options: ::core::option::Option<routine::RemoteFunctionOptions>,
+    /// Optional. Spark specific options.
+    #[prost(message, optional, tag = "16")]
+    pub spark_options: ::core::option::Option<SparkOptions>,
+    /// Optional. If set to `DATA_MASKING`, the function is validated and made
+    /// available as a masking function. For more information, see [Create custom
+    /// masking
+    /// routines](<https://cloud.google.com/bigquery/docs/user-defined-functions#custom-mask>).
+    #[prost(enumeration = "routine::DataGovernanceType", tag = "17")]
+    pub data_governance_type: i32,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RestrictionConfig {
-    /// Output only. Specifies the type of dataset/table restriction.
-    #[prost(enumeration = "restriction_config::RestrictionType", tag = "1")]
-    pub r#type: i32,
-}
-/// Nested message and enum types in `RestrictionConfig`.
-pub mod restriction_config {
-    /// RestrictionType specifies the type of dataset/table restriction.
+/// Nested message and enum types in `Routine`.
+pub mod routine {
+    /// Input/output argument of a function or a stored procedure.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Argument {
+        /// Optional. The name of this argument. Can be absent for function return
+        /// argument.
+        #[prost(string, tag = "1")]
+        pub name: ::prost::alloc::string::String,
+        /// Optional. Defaults to FIXED_TYPE.
+        #[prost(enumeration = "argument::ArgumentKind", tag = "2")]
+        pub argument_kind: i32,
+        /// Optional. Specifies whether the argument is input or output.
+        /// Can be set for procedures only.
+        #[prost(enumeration = "argument::Mode", tag = "3")]
+        pub mode: i32,
+        /// Required unless argument_kind = ANY_TYPE.
+        #[prost(message, optional, tag = "4")]
+        pub data_type: ::core::option::Option<super::StandardSqlDataType>,
+        /// Optional. Whether the argument is an aggregate function parameter.
+        /// Must be Unset for routine types other than AGGREGATE_FUNCTION.
+        /// For AGGREGATE_FUNCTION, if set to false, it is equivalent to adding "NOT
+        /// AGGREGATE" clause in DDL; Otherwise, it is equivalent to omitting "NOT
+        /// AGGREGATE" clause in DDL.
+        #[prost(message, optional, tag = "6")]
+        pub is_aggregate: ::core::option::Option<bool>,
+    }
+    /// Nested message and enum types in `Argument`.
+    pub mod argument {
+        /// Represents the kind of a given argument.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ArgumentKind {
+            /// Default value.
+            Unspecified = 0,
+            /// The argument is a variable with fully specified type, which can be a
+            /// struct or an array, but not a table.
+            FixedType = 1,
+            /// The argument is any type, including struct or array, but not a table.
+            /// To be added: FIXED_TABLE, ANY_TABLE
+            AnyType = 2,
+        }
+        impl ArgumentKind {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    ArgumentKind::Unspecified => "ARGUMENT_KIND_UNSPECIFIED",
+                    ArgumentKind::FixedType => "FIXED_TYPE",
+                    ArgumentKind::AnyType => "ANY_TYPE",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "ARGUMENT_KIND_UNSPECIFIED" => Some(Self::Unspecified),
+                    "FIXED_TYPE" => Some(Self::FixedType),
+                    "ANY_TYPE" => Some(Self::AnyType),
+                    _ => None,
+                }
+            }
+        }
+        /// The input/output mode of the argument.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum Mode {
+            /// Default value.
+            Unspecified = 0,
+            /// The argument is input-only.
+            In = 1,
+            /// The argument is output-only.
+            Out = 2,
+            /// The argument is both an input and an output.
+            Inout = 3,
+        }
+        impl Mode {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Mode::Unspecified => "MODE_UNSPECIFIED",
+                    Mode::In => "IN",
+                    Mode::Out => "OUT",
+                    Mode::Inout => "INOUT",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "IN" => Some(Self::In),
+                    "OUT" => Some(Self::Out),
+                    "INOUT" => Some(Self::Inout),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// Options for a remote user-defined function.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct RemoteFunctionOptions {
+        /// Endpoint of the user-provided remote service, e.g.
+        /// ```<https://us-east1-my_gcf_project.cloudfunctions.net/remote_add```>
+        #[prost(string, tag = "1")]
+        pub endpoint: ::prost::alloc::string::String,
+        /// Fully qualified name of the user-provided connection object which holds
+        /// the authentication information to send requests to the remote service.
+        /// Format:
+        /// ```"projects/{projectId}/locations/{locationId}/connections/{connectionId}"```
+        #[prost(string, tag = "2")]
+        pub connection: ::prost::alloc::string::String,
+        /// User-defined context as a set of key/value pairs, which will be sent as
+        /// function invocation context together with batched arguments in the
+        /// requests to the remote service. The total number of bytes of keys and
+        /// values must be less than 8KB.
+        #[prost(btree_map = "string, string", tag = "3")]
+        pub user_defined_context: ::prost::alloc::collections::BTreeMap<
+            ::prost::alloc::string::String,
+            ::prost::alloc::string::String,
+        >,
+        /// Max number of rows in each batch sent to the remote service.
+        /// If absent or if 0, BigQuery dynamically decides the number of rows in a
+        /// batch.
+        #[prost(int64, tag = "4")]
+        pub max_batching_rows: i64,
+    }
+    /// The fine-grained type of the routine.
     #[derive(
         Clone,
         Copy,
@@ -361,69 +543,681 @@ pub mod restriction_config {
         ::prost::Enumeration
     )]
     #[repr(i32)]
-    pub enum RestrictionType {
-        /// Should never be used.
+    pub enum RoutineType {
+        /// Default value.
         Unspecified = 0,
-        /// Restrict data egress. See [Data
-        /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
-        /// details.
-        RestrictedDataEgress = 1,
+        /// Non-built-in persistent scalar function.
+        ScalarFunction = 1,
+        /// Stored procedure.
+        Procedure = 2,
+        /// Non-built-in persistent TVF.
+        TableValuedFunction = 3,
+        /// Non-built-in persistent aggregate function.
+        AggregateFunction = 4,
     }
-    impl RestrictionType {
+    impl RoutineType {
         /// String value of the enum field names used in the ProtoBuf definition.
         ///
         /// The values are not transformed in any way and thus are considered stable
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RestrictionType::Unspecified => "RESTRICTION_TYPE_UNSPECIFIED",
-                RestrictionType::RestrictedDataEgress => "RESTRICTED_DATA_EGRESS",
+                RoutineType::Unspecified => "ROUTINE_TYPE_UNSPECIFIED",
+                RoutineType::ScalarFunction => "SCALAR_FUNCTION",
+                RoutineType::Procedure => "PROCEDURE",
+                RoutineType::TableValuedFunction => "TABLE_VALUED_FUNCTION",
+                RoutineType::AggregateFunction => "AGGREGATE_FUNCTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
-                "RESTRICTION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "RESTRICTED_DATA_EGRESS" => Some(Self::RestrictedDataEgress),
+                "ROUTINE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SCALAR_FUNCTION" => Some(Self::ScalarFunction),
+                "PROCEDURE" => Some(Self::Procedure),
+                "TABLE_VALUED_FUNCTION" => Some(Self::TableValuedFunction),
+                "AGGREGATE_FUNCTION" => Some(Self::AggregateFunction),
+                _ => None,
+            }
+        }
+    }
+    /// The language of the routine.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Language {
+        /// Default value.
+        Unspecified = 0,
+        /// SQL language.
+        Sql = 1,
+        /// JavaScript language.
+        Javascript = 2,
+        /// Python language.
+        Python = 3,
+        /// Java language.
+        Java = 4,
+        /// Scala language.
+        Scala = 5,
+    }
+    impl Language {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Language::Unspecified => "LANGUAGE_UNSPECIFIED",
+                Language::Sql => "SQL",
+                Language::Javascript => "JAVASCRIPT",
+                Language::Python => "PYTHON",
+                Language::Java => "JAVA",
+                Language::Scala => "SCALA",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "LANGUAGE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SQL" => Some(Self::Sql),
+                "JAVASCRIPT" => Some(Self::Javascript),
+                "PYTHON" => Some(Self::Python),
+                "JAVA" => Some(Self::Java),
+                "SCALA" => Some(Self::Scala),
+                _ => None,
+            }
+        }
+    }
+    /// JavaScript UDF determinism levels.
+    ///
+    /// If all JavaScript UDFs are DETERMINISTIC, the query result is
+    /// potentially cachable (see below). If any JavaScript UDF is
+    /// NOT_DETERMINISTIC, the query result is not cacheable.
+    ///
+    /// Even if a JavaScript UDF is deterministic, many other factors can prevent
+    /// usage of cached query results. Example factors include but not limited to:
+    /// DDL/DML, non-deterministic SQL function calls, update of referenced
+    /// tables/views/UDFs or imported JavaScript libraries.
+    ///
+    /// SQL UDFs cannot have determinism specified. Their determinism is
+    /// automatically determined.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum DeterminismLevel {
+        /// The determinism of the UDF is unspecified.
+        Unspecified = 0,
+        /// The UDF is deterministic, meaning that 2 function calls with the same
+        /// inputs always produce the same result, even across 2 query runs.
+        Deterministic = 1,
+        /// The UDF is not deterministic.
+        NotDeterministic = 2,
+    }
+    impl DeterminismLevel {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                DeterminismLevel::Unspecified => "DETERMINISM_LEVEL_UNSPECIFIED",
+                DeterminismLevel::Deterministic => "DETERMINISTIC",
+                DeterminismLevel::NotDeterministic => "NOT_DETERMINISTIC",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DETERMINISM_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
+                "DETERMINISTIC" => Some(Self::Deterministic),
+                "NOT_DETERMINISTIC" => Some(Self::NotDeterministic),
+                _ => None,
+            }
+        }
+    }
+    /// Security mode.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum SecurityMode {
+        /// The security mode of the routine is unspecified.
+        Unspecified = 0,
+        /// The routine is to be executed with the privileges of the user who
+        /// defines it.
+        Definer = 1,
+        /// The routine is to be executed with the privileges of the user who
+        /// invokes it.
+        Invoker = 2,
+    }
+    impl SecurityMode {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                SecurityMode::Unspecified => "SECURITY_MODE_UNSPECIFIED",
+                SecurityMode::Definer => "DEFINER",
+                SecurityMode::Invoker => "INVOKER",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SECURITY_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DEFINER" => Some(Self::Definer),
+                "INVOKER" => Some(Self::Invoker),
+                _ => None,
+            }
+        }
+    }
+    /// Data governance type values. Only supports `DATA_MASKING`.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum DataGovernanceType {
+        /// The data governance type is unspecified.
+        Unspecified = 0,
+        /// The data governance type is data masking.
+        DataMasking = 1,
+    }
+    impl DataGovernanceType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                DataGovernanceType::Unspecified => "DATA_GOVERNANCE_TYPE_UNSPECIFIED",
+                DataGovernanceType::DataMasking => "DATA_MASKING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DATA_GOVERNANCE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DATA_MASKING" => Some(Self::DataMasking),
                 _ => None,
             }
         }
     }
 }
-/// Id path of a routine.
+/// Options for a user-defined Spark routine.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RoutineReference {
-    /// Required. The ID of the project containing this routine.
+pub struct SparkOptions {
+    /// Fully qualified name of the user-provided Spark connection object. Format:
+    /// ```"projects/{project_id}/locations/{location_id}/connections/{connection_id}"```
+    #[prost(string, tag = "1")]
+    pub connection: ::prost::alloc::string::String,
+    /// Runtime version. If not specified, the default runtime version is used.
+    #[prost(string, tag = "2")]
+    pub runtime_version: ::prost::alloc::string::String,
+    /// Custom container image for the runtime environment.
+    #[prost(string, tag = "3")]
+    pub container_image: ::prost::alloc::string::String,
+    /// Configuration properties as a set of key/value pairs, which will be passed
+    /// on to the Spark application. For more information, see
+    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>) and the
+    /// [procedure option
+    /// list](<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#procedure_option_list>).
+    #[prost(btree_map = "string, string", tag = "4")]
+    pub properties: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// The main file/jar URI of the Spark application. Exactly one of the
+    /// definition_body field and the main_file_uri field must be set for Python.
+    /// Exactly one of main_class and main_file_uri field
+    /// should be set for Java/Scala language type.
+    #[prost(string, tag = "5")]
+    pub main_file_uri: ::prost::alloc::string::String,
+    /// Python files to be placed on the PYTHONPATH for PySpark application.
+    /// Supported file types: `.py`, `.egg`, and `.zip`. For more information
+    /// about Apache Spark, see
+    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
+    #[prost(string, repeated, tag = "6")]
+    pub py_file_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// JARs to include on the driver and executor CLASSPATH.
+    /// For more information about Apache Spark, see
+    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
+    #[prost(string, repeated, tag = "7")]
+    pub jar_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Files to be placed in the working directory of each executor.
+    /// For more information about Apache Spark, see
+    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
+    #[prost(string, repeated, tag = "8")]
+    pub file_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Archive files to be extracted into the working directory of each executor.
+    /// For more information about Apache Spark, see
+    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
+    #[prost(string, repeated, tag = "9")]
+    pub archive_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The fully qualified name of a class in jar_uris, for example,
+    /// com.example.wordcount. Exactly one of main_class and main_jar_uri field
+    ///   should be set for Java/Scala language type.
+    #[prost(string, tag = "10")]
+    pub main_class: ::prost::alloc::string::String,
+}
+/// Describes the format for getting information about a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRoutineRequest {
+    /// Required. Project ID of the requested routine
     #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    /// Required. The ID of the dataset containing this routine.
+    /// Required. Dataset ID of the requested routine
     #[prost(string, tag = "2")]
     pub dataset_id: ::prost::alloc::string::String,
-    /// Required. The ID of the routine. The ID must contain only
-    /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
-    /// length is 256 characters.
+    /// Required. Routine ID of the requested routine
+    #[prost(string, tag = "3")]
+    pub routine_id: ::prost::alloc::string::String,
+    /// If set, only the Routine fields in the field mask are returned in the
+    /// response. If unset, all Routine fields are returned.
+    #[prost(message, optional, tag = "4")]
+    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Describes the format for inserting a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InsertRoutineRequest {
+    /// Required. Project ID of the new routine
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the new routine
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. A routine resource to insert
+    #[prost(message, optional, tag = "3")]
+    pub routine: ::core::option::Option<Routine>,
+}
+/// Describes the format for updating a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateRoutineRequest {
+    /// Required. Project ID of the routine to update
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the routine to update
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Routine ID of the routine to update
+    #[prost(string, tag = "3")]
+    pub routine_id: ::prost::alloc::string::String,
+    /// Required. A routine resource which will replace the specified routine
+    #[prost(message, optional, tag = "4")]
+    pub routine: ::core::option::Option<Routine>,
+}
+/// Describes the format for the partial update (patch) of a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PatchRoutineRequest {
+    /// Required. Project ID of the routine to update
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the routine to update
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Routine ID of the routine to update
+    #[prost(string, tag = "3")]
+    pub routine_id: ::prost::alloc::string::String,
+    /// Required. A routine resource which will be used to partially
+    /// update the specified routine
+    #[prost(message, optional, tag = "4")]
+    pub routine: ::core::option::Option<Routine>,
+    /// Only the Routine fields in the field mask are updated
+    /// by the given routine. Repeated routine fields will be fully replaced
+    /// if contained in the field mask.
+    #[prost(message, optional, tag = "5")]
+    pub field_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Describes the format for deleting a routine.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteRoutineRequest {
+    /// Required. Project ID of the routine to delete
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the routine to delete
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Routine ID of the routine to delete
     #[prost(string, tag = "3")]
     pub routine_id: ::prost::alloc::string::String,
 }
+/// Describes the format for listing routines.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TableReference {
-    /// Required. The ID of the project containing this table.
+pub struct ListRoutinesRequest {
+    /// Required. Project ID of the routines to list
     #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    /// Required. The ID of the dataset containing this table.
+    /// Required. Dataset ID of the routines to list
     #[prost(string, tag = "2")]
     pub dataset_id: ::prost::alloc::string::String,
-    /// Required. The ID of the table. The ID can contain Unicode characters in
-    /// category L (letter), M (mark), N (number), Pc (connector, including
-    /// underscore), Pd (dash), and Zs (space). For more information, see [General
-    /// Category](<https://wikipedia.org/wiki/Unicode_character_property#General_Category>).
-    /// The maximum length is 1,024 characters.  Certain operations allow suffixing
-    /// of the table ID with a partition decorator, such as
-    /// `sample_table$20190123`.
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
+    /// The maximum number of results to return in a single response page.
+    /// Leverage the page tokens to iterate through the entire collection.
+    #[prost(message, optional, tag = "3")]
+    pub max_results: ::core::option::Option<u32>,
+    /// Page token, returned by a previous call, to request the next page of
+    /// results
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+    /// If set, then only the Routine fields in the field mask, as well as
+    /// project_id, dataset_id and routine_id, are returned in the response.
+    /// If unset, then the following Routine fields are returned:
+    /// etag, project_id, dataset_id, routine_id, routine_type, creation_time,
+    /// last_modified_time, and language.
+    #[prost(message, optional, tag = "5")]
+    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// If set, then only the Routines matching this filter are returned.
+    /// The supported format is `routineType:{RoutineType}`, where `{RoutineType}`
+    /// is a RoutineType enum. For example: `routineType:SCALAR_FUNCTION`.
+    #[prost(string, tag = "6")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// Describes the format of a single result page when listing routines.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListRoutinesResponse {
+    /// Routines in the requested dataset. Unless read_mask is set in the request,
+    /// only the following fields are populated:
+    /// etag, project_id, dataset_id, routine_id, routine_type, creation_time,
+    /// last_modified_time, language, and remote_function_options.
+    #[prost(message, repeated, tag = "1")]
+    pub routines: ::prost::alloc::vec::Vec<Routine>,
+    /// A token to request the next page of results.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod routine_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// This is an experimental RPC service definition for the BigQuery
+    /// Routine Service.
+    ///
+    /// It should not be relied on for production use cases at this time.
+    #[derive(Debug, Clone)]
+    pub struct RoutineServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> RoutineServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> RoutineServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            RoutineServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Gets the specified routine resource by routine ID.
+        pub async fn get_routine(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetRoutineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/GetRoutine",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "GetRoutine",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a new routine in the dataset.
+        pub async fn insert_routine(
+            &mut self,
+            request: impl tonic::IntoRequest<super::InsertRoutineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/InsertRoutine",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "InsertRoutine",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates information in an existing routine. The update method replaces the
+        /// entire Routine resource.
+        pub async fn update_routine(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateRoutineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/UpdateRoutine",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "UpdateRoutine",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Patches information in an existing routine. The patch method does a partial
+        /// update to an existing Routine resource.
+        pub async fn patch_routine(
+            &mut self,
+            request: impl tonic::IntoRequest<super::PatchRoutineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/PatchRoutine",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "PatchRoutine",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes the routine specified by routineId from the dataset.
+        pub async fn delete_routine(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteRoutineRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/DeleteRoutine",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "DeleteRoutine",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists all routines in the specified dataset. Requires the READER dataset
+        /// role.
+        pub async fn list_routines(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListRoutinesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRoutinesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RoutineService/ListRoutines",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RoutineService",
+                        "ListRoutines",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
 }
 /// Schema of a table
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -441,7 +1235,7 @@ pub struct TableSchema {
 /// Metadata about the foreign data type definition such as the system
 /// in which the type is defined.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ForeignTypeInfo {
     /// Required. Specifies the system which defines the foreign data type.
     #[prost(enumeration = "foreign_type_info::TypeSystem", tag = "1")]
@@ -490,6 +1284,16 @@ pub mod foreign_type_info {
         }
     }
 }
+/// Data policy option proto, it currently supports name only, will support
+/// precedence later.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DataPolicyOption {
+    /// Data policy resource name in the form of
+    /// projects/project_id/locations/location_id/dataPolicies/data_policy_id.
+    #[prost(string, optional, tag = "1")]
+    pub name: ::core::option::Option<::prost::alloc::string::String>,
+}
 /// A field in TableSchema
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -515,7 +1319,7 @@ pub struct TableFieldSchema {
     /// * BIGNUMERIC
     /// * JSON
     /// * RECORD (or STRUCT)
-    /// * RANGE ([Preview](/products/#product-launch-stages))
+    /// * RANGE
     ///
     /// Use of RECORD/STRUCT indicates that the field contains a nested schema.
     #[prost(string, tag = "2")]
@@ -535,6 +1339,9 @@ pub struct TableFieldSchema {
     /// access control. If not set, defaults to empty policy_tags.
     #[prost(message, optional, tag = "9")]
     pub policy_tags: ::core::option::Option<table_field_schema::PolicyTagList>,
+    /// Optional. Data policy options, will replace the data_policies.
+    #[prost(message, repeated, tag = "21")]
+    pub data_policies: ::prost::alloc::vec::Vec<DataPolicyOption>,
     /// Optional. Maximum length of values of this field for STRINGS or BYTES.
     ///
     /// If max_length is not specified, no maximum length constraint is imposed
@@ -694,1030 +1501,139 @@ pub mod table_field_schema {
         }
     }
 }
-/// Grants all resources of particular types in a particular dataset read access
-/// to the current dataset.
-///
-/// Similar to how individually authorized views work, updates to any resource
-/// granted through its dataset (including creation of new resources) requires
-/// read permission to referenced resources, plus write permission to the
-/// authorizing dataset.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DatasetAccessEntry {
-    /// The dataset this entry applies to
-    #[prost(message, optional, tag = "1")]
-    pub dataset: ::core::option::Option<DatasetReference>,
-    /// Which resources in the dataset this entry applies to. Currently, only
-    /// views are supported, but additional target types may be added in the
-    /// future.
-    #[prost(enumeration = "dataset_access_entry::TargetType", repeated, tag = "2")]
-    pub target_types: ::prost::alloc::vec::Vec<i32>,
-}
-/// Nested message and enum types in `DatasetAccessEntry`.
-pub mod dataset_access_entry {
-    /// Indicates the type of resources in a dataset that the entry applies to.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum TargetType {
-        /// Do not use. You must set a target type explicitly.
-        Unspecified = 0,
-        /// This entry applies to views in the dataset.
-        Views = 1,
-        /// This entry applies to routines in the dataset.
-        Routines = 2,
-    }
-    impl TargetType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                TargetType::Unspecified => "TARGET_TYPE_UNSPECIFIED",
-                TargetType::Views => "VIEWS",
-                TargetType::Routines => "ROUTINES",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TARGET_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "VIEWS" => Some(Self::Views),
-                "ROUTINES" => Some(Self::Routines),
-                _ => None,
-            }
-        }
-    }
-}
-/// An object that defines dataset access for an entity.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Access {
-    /// An IAM role ID that should be granted to the user, group,
-    /// or domain specified in this access entry.
-    /// The following legacy mappings will be applied:
-    ///
-    /// * `OWNER`: `roles/bigquery.dataOwner`
-    /// * `WRITER`: `roles/bigquery.dataEditor`
-    /// * `READER`: `roles/bigquery.dataViewer`
-    ///
-    /// This field will accept any of the above formats, but will return only
-    /// the legacy format. For example, if you set this field to
-    /// "roles/bigquery.dataOwner", it will be returned back as "OWNER".
-    #[prost(string, tag = "1")]
-    pub role: ::prost::alloc::string::String,
-    /// \[Pick one\] An email address of a user to grant access to. For example:
-    /// fred@example.com. Maps to IAM policy member "user:EMAIL" or
-    /// "serviceAccount:EMAIL".
-    #[prost(string, tag = "2")]
-    pub user_by_email: ::prost::alloc::string::String,
-    /// \[Pick one\] An email address of a Google Group to grant access to.
-    /// Maps to IAM policy member "group:GROUP".
-    #[prost(string, tag = "3")]
-    pub group_by_email: ::prost::alloc::string::String,
-    /// \[Pick one\] A domain to grant access to. Any users signed in with the domain
-    /// specified will be granted the specified access. Example: "example.com".
-    /// Maps to IAM policy member "domain:DOMAIN".
-    #[prost(string, tag = "4")]
-    pub domain: ::prost::alloc::string::String,
-    /// \[Pick one\] A special group to grant access to. Possible values include:
-    ///
-    ///    * projectOwners: Owners of the enclosing project.
-    ///    * projectReaders: Readers of the enclosing project.
-    ///    * projectWriters: Writers of the enclosing project.
-    ///    * allAuthenticatedUsers: All authenticated BigQuery users.
-    ///
-    /// Maps to similarly-named IAM members.
-    #[prost(string, tag = "5")]
-    pub special_group: ::prost::alloc::string::String,
-    /// \[Pick one\] Some other type of member that appears in the IAM Policy but
-    /// isn't a user, group, domain, or special group.
-    #[prost(string, tag = "7")]
-    pub iam_member: ::prost::alloc::string::String,
-    /// \[Pick one\] A view from a different dataset to grant access to. Queries
-    /// executed against that view will have read access to views/tables/routines
-    /// in this dataset.
-    /// The role field is not required when this field is set. If that view is
-    /// updated by any user, access to the view needs to be granted again via an
-    /// update operation.
-    #[prost(message, optional, tag = "6")]
-    pub view: ::core::option::Option<TableReference>,
-    /// \[Pick one\] A routine from a different dataset to grant access to. Queries
-    /// executed against that routine will have read access to
-    /// views/tables/routines in this dataset. Only UDF is supported for now.
-    /// The role field is not required when this field is set. If that routine is
-    /// updated by any user, access to the routine needs to be granted again via
-    /// an update operation.
-    #[prost(message, optional, tag = "8")]
-    pub routine: ::core::option::Option<RoutineReference>,
-    /// \[Pick one\] A grant authorizing all resources of a particular type in a
-    /// particular dataset access to this dataset. Only views are supported for
-    /// now. The role field is not required when this field is set. If that dataset
-    /// is deleted and re-created, its access needs to be granted again via an
-    /// update operation.
-    #[prost(message, optional, tag = "9")]
-    pub dataset: ::core::option::Option<DatasetAccessEntry>,
-}
-/// Represents a BigQuery dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Dataset {
-    /// Output only. The resource type.
-    #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// Output only. A hash of the resource.
-    #[prost(string, tag = "2")]
-    pub etag: ::prost::alloc::string::String,
-    /// Output only. The fully-qualified unique name of the dataset in the format
-    /// projectId:datasetId. The dataset name without the project name is given in
-    /// the datasetId field. When creating a new dataset, leave this field blank,
-    /// and instead specify the datasetId field.
-    #[prost(string, tag = "3")]
-    pub id: ::prost::alloc::string::String,
-    /// Output only. A URL that can be used to access the resource again. You can
-    /// use this URL in Get or Update requests to the resource.
-    #[prost(string, tag = "4")]
-    pub self_link: ::prost::alloc::string::String,
-    /// Required. A reference that identifies the dataset.
-    #[prost(message, optional, tag = "5")]
-    pub dataset_reference: ::core::option::Option<DatasetReference>,
-    /// Optional. A descriptive name for the dataset.
-    #[prost(message, optional, tag = "6")]
-    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. A user-friendly description of the dataset.
-    #[prost(message, optional, tag = "7")]
-    pub description: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. The default lifetime of all tables in the dataset, in
-    /// milliseconds. The minimum lifetime value is 3600000 milliseconds (one
-    /// hour). To clear an existing default expiration with a PATCH request, set to
-    /// 0. Once this property is set, all newly-created tables in the dataset will
-    /// have an expirationTime property set to the creation time plus the value in
-    /// this property, and changing the value will only affect new tables, not
-    /// existing ones. When the expirationTime for a given table is reached, that
-    /// table will be deleted automatically.
-    /// If a table's expirationTime is modified or removed before the table
-    /// expires, or if you provide an explicit expirationTime when creating a
-    /// table, that value takes precedence over the default expiration time
-    /// indicated by this property.
-    #[prost(message, optional, tag = "8")]
-    pub default_table_expiration_ms: ::core::option::Option<i64>,
-    /// This default partition expiration, expressed in milliseconds.
-    ///
-    /// When new time-partitioned tables are created in a dataset where this
-    /// property is set, the table will inherit this value, propagated as the
-    /// `TimePartitioning.expirationMs` property on the new table.  If you set
-    /// `TimePartitioning.expirationMs` explicitly when creating a table,
-    /// the `defaultPartitionExpirationMs` of the containing dataset is ignored.
-    ///
-    /// When creating a partitioned table, if `defaultPartitionExpirationMs`
-    /// is set, the `defaultTableExpirationMs` value is ignored and the table
-    /// will not be inherit a table expiration deadline.
-    #[prost(message, optional, tag = "14")]
-    pub default_partition_expiration_ms: ::core::option::Option<i64>,
-    /// The labels associated with this dataset. You can use these
-    /// to organize and group your datasets.
-    /// You can set this property when inserting or updating a dataset.
-    /// See [Creating and Updating Dataset
-    /// Labels](<https://cloud.google.com/bigquery/docs/creating-managing-labels#creating_and_updating_dataset_labels>)
-    /// for more information.
-    #[prost(btree_map = "string, string", tag = "9")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. An array of objects that define dataset access for one or more
-    /// entities. You can set this property when inserting or updating a dataset in
-    /// order to control who is allowed to access the data. If unspecified at
-    /// dataset creation time, BigQuery adds default dataset access for the
-    /// following entities: access.specialGroup: projectReaders; access.role:
-    /// READER; access.specialGroup: projectWriters; access.role: WRITER;
-    /// access.specialGroup: projectOwners; access.role: OWNER;
-    /// access.userByEmail: \[dataset creator email\]; access.role: OWNER;
-    #[prost(message, repeated, tag = "10")]
-    pub access: ::prost::alloc::vec::Vec<Access>,
-    /// Output only. The time when this dataset was created, in milliseconds since
-    /// the epoch.
-    #[prost(int64, tag = "11")]
-    pub creation_time: i64,
-    /// Output only. The date when this dataset was last modified, in milliseconds
-    /// since the epoch.
-    #[prost(int64, tag = "12")]
-    pub last_modified_time: i64,
-    /// The geographic location where the dataset should reside. See
-    /// <https://cloud.google.com/bigquery/docs/locations> for supported
-    /// locations.
-    #[prost(string, tag = "13")]
-    pub location: ::prost::alloc::string::String,
-    /// The default encryption key for all tables in the dataset.
-    /// After this property is set, the encryption key of all newly-created tables
-    /// in the dataset is set to this value unless the table creation request or
-    /// query explicitly overrides the key.
-    #[prost(message, optional, tag = "16")]
-    pub default_encryption_configuration: ::core::option::Option<
-        EncryptionConfiguration,
-    >,
-    /// Output only. Reserved for future use.
-    #[prost(message, optional, tag = "17")]
-    pub satisfies_pzs: ::core::option::Option<bool>,
-    /// Output only. Reserved for future use.
-    #[prost(message, optional, tag = "31")]
-    pub satisfies_pzi: ::core::option::Option<bool>,
-    /// Output only. Same as `type` in `ListFormatDataset`.
-    /// The type of the dataset, one of:
-    ///
-    /// * DEFAULT - only accessible by owner and authorized accounts,
-    /// * PUBLIC - accessible by everyone,
-    /// * LINKED - linked dataset,
-    /// * EXTERNAL - dataset with definition in external metadata catalog.
-    #[prost(string, tag = "18")]
-    pub r#type: ::prost::alloc::string::String,
-    /// Optional. The source dataset reference when the dataset is of type LINKED.
-    /// For all other dataset types it is not set. This field cannot be updated
-    /// once it is set. Any attempt to update this field using Update and Patch API
-    /// Operations will be ignored.
-    #[prost(message, optional, tag = "19")]
-    pub linked_dataset_source: ::core::option::Option<LinkedDatasetSource>,
-    /// Output only. Metadata about the LinkedDataset. Filled out when the dataset
-    /// type is LINKED.
-    #[prost(message, optional, tag = "29")]
-    pub linked_dataset_metadata: ::core::option::Option<LinkedDatasetMetadata>,
-    /// Optional. Reference to a read-only external dataset defined in data
-    /// catalogs outside of BigQuery. Filled out when the dataset type is EXTERNAL.
-    #[prost(message, optional, tag = "20")]
-    pub external_dataset_reference: ::core::option::Option<ExternalDatasetReference>,
-    /// Optional. Options defining open source compatible datasets living in the
-    /// BigQuery catalog. Contains metadata of open source database, schema or
-    /// namespace represented by the current dataset.
-    #[prost(message, optional, tag = "32")]
-    pub external_catalog_dataset_options: ::core::option::Option<
-        ExternalCatalogDatasetOptions,
-    >,
-    /// Optional. TRUE if the dataset and its table names are case-insensitive,
-    /// otherwise FALSE. By default, this is FALSE, which means the dataset and its
-    /// table names are case-sensitive. This field does not affect routine
-    /// references.
-    #[prost(message, optional, tag = "21")]
-    pub is_case_insensitive: ::core::option::Option<bool>,
-    /// Optional. Defines the default collation specification of future tables
-    /// created in the dataset. If a table is created in this dataset without
-    /// table-level default collation, then the table inherits the dataset default
-    /// collation, which is applied to the string fields that do not have explicit
-    /// collation specified. A change to this field affects only tables created
-    /// afterwards, and does not alter the existing tables.
-    /// The following values are supported:
-    ///
-    /// * 'und:ci': undetermined locale, case insensitive.
-    /// * '': empty string. Default to case-sensitive behavior.
-    #[prost(message, optional, tag = "22")]
-    pub default_collation: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. Defines the default rounding mode specification of new tables
-    /// created within this dataset. During table creation, if this field is
-    /// specified, the table within this dataset will inherit the default rounding
-    /// mode of the dataset. Setting the default rounding mode on a table overrides
-    /// this option. Existing tables in the dataset are unaffected.
-    /// If columns are defined during that table creation,
-    /// they will immediately inherit the table's default rounding mode,
-    /// unless otherwise specified.
-    #[prost(enumeration = "table_field_schema::RoundingMode", tag = "26")]
-    pub default_rounding_mode: i32,
-    /// Optional. Defines the time travel window in hours. The value can be from 48
-    /// to 168 hours (2 to 7 days). The default value is 168 hours if this is not
-    /// set.
-    #[prost(message, optional, tag = "23")]
-    pub max_time_travel_hours: ::core::option::Option<i64>,
-    /// Output only. Tags for the Dataset.
-    #[prost(message, repeated, tag = "24")]
-    pub tags: ::prost::alloc::vec::Vec<GcpTag>,
-    /// Optional. Updates storage_billing_model for the dataset.
-    #[prost(enumeration = "dataset::StorageBillingModel", tag = "25")]
-    pub storage_billing_model: i32,
-    /// Optional. Output only. Restriction config for all tables and dataset. If
-    /// set, restrict certain accesses on the dataset and all its tables based on
-    /// the config. See [Data
-    /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
-    /// details.
-    #[prost(message, optional, tag = "27")]
-    pub restrictions: ::core::option::Option<RestrictionConfig>,
-    /// Optional. The [tags](/bigquery/docs/tags) attached to this dataset. Tag
-    /// keys are globally unique. Tag key is expected to be in the namespaced
-    /// format, for example "123456789012/environment" where 123456789012 is the ID
-    /// of the parent organization or project resource for this tag key. Tag value
-    /// is expected to be the short name, for example "Production". See [Tag
-    /// definitions](/iam/docs/tags-access-control#definitions) for more details.
-    #[prost(btree_map = "string, string", tag = "30")]
-    pub resource_tags: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-}
-/// Nested message and enum types in `Dataset`.
-pub mod dataset {
-    /// Indicates the billing model that will be applied to the dataset.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum StorageBillingModel {
-        /// Value not set.
-        Unspecified = 0,
-        /// Billing for logical bytes.
-        Logical = 1,
-        /// Billing for physical bytes.
-        Physical = 2,
-    }
-    impl StorageBillingModel {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                StorageBillingModel::Unspecified => "STORAGE_BILLING_MODEL_UNSPECIFIED",
-                StorageBillingModel::Logical => "LOGICAL",
-                StorageBillingModel::Physical => "PHYSICAL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STORAGE_BILLING_MODEL_UNSPECIFIED" => Some(Self::Unspecified),
-                "LOGICAL" => Some(Self::Logical),
-                "PHYSICAL" => Some(Self::Physical),
-                _ => None,
-            }
-        }
-    }
-}
-/// A global tag managed by Resource Manager.
-/// <https://cloud.google.com/iam/docs/tags-access-control#definitions>
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GcpTag {
-    /// Required. The namespaced friendly name of the tag key, e.g.
-    /// "12345/environment" where 12345 is org id.
-    #[prost(string, tag = "1")]
-    pub tag_key: ::prost::alloc::string::String,
-    /// Required. The friendly short name of the tag value, e.g. "production".
-    #[prost(string, tag = "2")]
-    pub tag_value: ::prost::alloc::string::String,
-}
-/// A dataset source type which refers to another BigQuery dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LinkedDatasetSource {
-    /// The source dataset reference contains project numbers and not project ids.
-    #[prost(message, optional, tag = "1")]
-    pub source_dataset: ::core::option::Option<DatasetReference>,
-}
-/// Metadata about the Linked Dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LinkedDatasetMetadata {
-    /// Output only. Specifies whether Linked Dataset is currently in a linked
-    /// state or not.
-    #[prost(enumeration = "linked_dataset_metadata::LinkState", tag = "1")]
-    pub link_state: i32,
-}
-/// Nested message and enum types in `LinkedDatasetMetadata`.
-pub mod linked_dataset_metadata {
-    /// Specifies whether Linked Dataset is currently in a linked state or not.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum LinkState {
-        /// The default value.
-        /// Default to the LINKED state.
-        Unspecified = 0,
-        /// Normal Linked Dataset state. Data is queryable via the Linked Dataset.
-        Linked = 1,
-        /// Data publisher or owner has unlinked this Linked Dataset. It means you
-        /// can no longer query or see the data in the Linked Dataset.
-        Unlinked = 2,
-    }
-    impl LinkState {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                LinkState::Unspecified => "LINK_STATE_UNSPECIFIED",
-                LinkState::Linked => "LINKED",
-                LinkState::Unlinked => "UNLINKED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "LINK_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "LINKED" => Some(Self::Linked),
-                "UNLINKED" => Some(Self::Unlinked),
-                _ => None,
-            }
-        }
-    }
-}
-/// Request format for getting information about a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetDatasetRequest {
-    /// Required. Project ID of the requested dataset
+pub struct TableReference {
+    /// Required. The ID of the project containing this table.
     #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the requested dataset
+    /// Required. The ID of the dataset containing this table.
     #[prost(string, tag = "2")]
     pub dataset_id: ::prost::alloc::string::String,
-    /// Optional. Specifies the view that determines which dataset information is
-    /// returned. By default, metadata and ACL information are returned.
-    #[prost(enumeration = "get_dataset_request::DatasetView", tag = "3")]
-    pub dataset_view: i32,
-}
-/// Nested message and enum types in `GetDatasetRequest`.
-pub mod get_dataset_request {
-    /// DatasetView specifies which dataset information is returned.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum DatasetView {
-        /// The default value.
-        /// Default to the FULL view.
-        Unspecified = 0,
-        /// Includes metadata information for the dataset, such as location,
-        /// etag, lastModifiedTime, etc.
-        Metadata = 1,
-        /// Includes ACL information for the dataset, which defines dataset access
-        /// for one or more entities.
-        Acl = 2,
-        /// Includes both dataset metadata and ACL information.
-        Full = 3,
-    }
-    impl DatasetView {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                DatasetView::Unspecified => "DATASET_VIEW_UNSPECIFIED",
-                DatasetView::Metadata => "METADATA",
-                DatasetView::Acl => "ACL",
-                DatasetView::Full => "FULL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DATASET_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
-                "METADATA" => Some(Self::Metadata),
-                "ACL" => Some(Self::Acl),
-                "FULL" => Some(Self::Full),
-                _ => None,
-            }
-        }
-    }
-}
-/// Request format for inserting a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InsertDatasetRequest {
-    /// Required. Project ID of the new dataset
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Datasets resource to use for the new dataset
-    #[prost(message, optional, tag = "2")]
-    pub dataset: ::core::option::Option<Dataset>,
-}
-/// Message for updating or patching a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateOrPatchDatasetRequest {
-    /// Required. Project ID of the dataset being updated
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the dataset being updated
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Datasets resource which will replace or patch the specified
-    /// dataset.
-    #[prost(message, optional, tag = "3")]
-    pub dataset: ::core::option::Option<Dataset>,
-}
-/// Request format for deleting a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteDatasetRequest {
-    /// Required. Project ID of the dataset being deleted
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of dataset being deleted
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// If True, delete all the tables in the dataset.
-    /// If False and the dataset contains tables, the request will fail.
-    /// Default is False
-    #[prost(bool, tag = "3")]
-    pub delete_contents: bool,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListDatasetsRequest {
-    /// Required. Project ID of the datasets to be listed
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// The maximum number of results to return in a single response page.
-    /// Leverage the page tokens to iterate through the entire collection.
-    #[prost(message, optional, tag = "2")]
-    pub max_results: ::core::option::Option<u32>,
-    /// Page token, returned by a previous call, to request the next page of
-    /// results
+    /// Required. The ID of the table. The ID can contain Unicode characters in
+    /// category L (letter), M (mark), N (number), Pc (connector, including
+    /// underscore), Pd (dash), and Zs (space). For more information, see [General
+    /// Category](<https://wikipedia.org/wiki/Unicode_character_property#General_Category>).
+    /// The maximum length is 1,024 characters.  Certain operations allow suffixing
+    /// of the table ID with a partition decorator, such as
+    /// `sample_table$20190123`.
     #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Whether to list all datasets, including hidden ones
-    #[prost(bool, tag = "4")]
-    pub all: bool,
-    /// An expression for filtering the results of the request by label.
-    /// The syntax is `labels.<name>\[:<value>\]`.
-    /// Multiple filters can be ANDed together by connecting with a space.
-    /// Example: `labels.department:receiving labels.active`.
-    /// See [Filtering datasets using
-    /// labels](<https://cloud.google.com/bigquery/docs/filtering-labels#filtering_datasets_using_labels>)
-    /// for details.
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
+    pub table_id: ::prost::alloc::string::String,
 }
-/// A dataset resource with only a subset of fields, to be returned in a list of
-/// datasets.
+/// Represents the primary key constraint on a table's columns.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListFormatDataset {
-    /// The resource type.
-    /// This property always returns the value "bigquery#dataset"
+pub struct PrimaryKey {
+    /// Required. The columns that are composed of the primary key constraint.
+    #[prost(string, repeated, tag = "1")]
+    pub columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// The pair of the foreign key column and primary key column.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ColumnReference {
+    /// Required. The column that composes the foreign key.
     #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// The fully-qualified, unique, opaque ID of the dataset.
+    pub referencing_column: ::prost::alloc::string::String,
+    /// Required. The column in the primary key that are referenced by the
+    /// referencing_column.
     #[prost(string, tag = "2")]
-    pub id: ::prost::alloc::string::String,
-    /// The dataset reference.
-    /// Use this property to access specific parts of the dataset's ID, such as
-    /// project ID or dataset ID.
-    #[prost(message, optional, tag = "3")]
-    pub dataset_reference: ::core::option::Option<DatasetReference>,
-    /// The labels associated with this dataset.
-    /// You can use these to organize and group your datasets.
-    #[prost(btree_map = "string, string", tag = "4")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// An alternate name for the dataset.  The friendly name is purely
-    /// decorative in nature.
-    #[prost(message, optional, tag = "5")]
-    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
-    /// The geographic location where the dataset resides.
-    #[prost(string, tag = "6")]
-    pub location: ::prost::alloc::string::String,
+    pub referenced_column: ::prost::alloc::string::String,
 }
-/// Response format for a page of results when listing datasets.
+/// Represents a foreign key constraint on a table's columns.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DatasetList {
-    /// Output only. The resource type.
-    /// This property always returns the value "bigquery#datasetList"
-    #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// Output only. A hash value of the results page. You can use this property to
-    /// determine if the page has changed since the last request.
-    #[prost(string, tag = "2")]
-    pub etag: ::prost::alloc::string::String,
-    /// A token that can be used to request the next results page. This property is
-    /// omitted on the final results page.
-    #[prost(string, tag = "3")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// An array of the dataset resources in the project.
-    /// Each resource contains basic information.
-    /// For full information about a particular dataset resource, use the Datasets:
-    /// get method. This property is omitted when there are no datasets in the
-    /// project.
-    #[prost(message, repeated, tag = "4")]
-    pub datasets: ::prost::alloc::vec::Vec<ListFormatDataset>,
-    /// A list of skipped locations that were unreachable. For more information
-    /// about BigQuery locations, see:
-    /// <https://cloud.google.com/bigquery/docs/locations.> Example: "europe-west5"
-    #[prost(string, repeated, tag = "5")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Request format for undeleting a dataset.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UndeleteDatasetRequest {
-    /// Required. Project ID of the dataset to be undeleted
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of dataset being deleted
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Optional. The exact time when the dataset was deleted. If not specified,
-    /// the most recently deleted version is undeleted. Undeleting a dataset
-    /// using deletion time is not supported.
-    #[prost(message, optional, tag = "3")]
-    pub deletion_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Generated client implementations.
-pub mod dataset_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// This is an experimental RPC service definition for the BigQuery
-    /// Dataset Service.
-    ///
-    /// It should not be relied on for production use cases at this time.
-    #[derive(Debug, Clone)]
-    pub struct DatasetServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> DatasetServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> DatasetServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            DatasetServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Returns the dataset specified by datasetID.
-        pub async fn get_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/GetDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "GetDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a new empty dataset.
-        pub async fn insert_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::InsertDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/InsertDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "InsertDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates information in an existing dataset. The update method replaces the
-        /// entire dataset resource, whereas the patch method only replaces fields that
-        /// are provided in the submitted dataset resource.
-        /// This method supports RFC5789 patch semantics.
-        pub async fn patch_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateOrPatchDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/PatchDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "PatchDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates information in an existing dataset. The update method replaces the
-        /// entire dataset resource, whereas the patch method only replaces fields that
-        /// are provided in the submitted dataset resource.
-        pub async fn update_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateOrPatchDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/UpdateDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "UpdateDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes the dataset specified by the datasetId value. Before you can delete
-        /// a dataset, you must delete all its tables, either manually or by specifying
-        /// deleteContents. Immediately after deletion, you can create another dataset
-        /// with the same name.
-        pub async fn delete_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/DeleteDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "DeleteDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists all datasets in the specified project to which the user has been
-        /// granted the READER dataset role.
-        pub async fn list_datasets(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListDatasetsRequest>,
-        ) -> std::result::Result<tonic::Response<super::DatasetList>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/ListDatasets",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "ListDatasets",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Undeletes a dataset which is within time travel window based on datasetId.
-        /// If a time is specified, the dataset version deleted at that time is
-        /// undeleted, else the last live version is undeleted.
-        pub async fn undelete_dataset(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UndeleteDatasetRequest>,
-        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.DatasetService/UndeleteDataset",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.DatasetService",
-                        "UndeleteDataset",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// Metadata about open source compatible table. The fields contained in
-/// these options correspond to hive metastore's table level properties.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExternalCatalogTableOptions {
-    /// Optional. A map of key value pairs defining the parameters and properties
-    /// of the open source table. Corresponds with hive meta store table
-    /// parameters. Maximum size of 4Mib.
-    #[prost(btree_map = "string, string", tag = "1")]
-    pub parameters: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. A storage descriptor containing information about the physical
-    /// storage of this table.
-    #[prost(message, optional, tag = "2")]
-    pub storage_descriptor: ::core::option::Option<StorageDescriptor>,
-    /// Optional. The connection specifying the credentials to be used to read
-    /// external storage, such as Azure Blob, Cloud Storage, or S3. The connection
-    /// is needed to read the open source table from BigQuery Engine. The
-    /// connection_id can have the form
-    /// `<project_id>.<location_id>.<connection_id>` or
-    /// `projects/<project_id>/locations/<location_id>/connections/<connection_id>`.
-    #[prost(string, tag = "3")]
-    pub connection_id: ::prost::alloc::string::String,
-}
-/// Contains information about how a table's data is stored and accessed by open
-/// source query engines.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StorageDescriptor {
-    /// Optional. The physical location of the table
-    /// (e.g. 'gs://spark-dataproc-data/pangea-data/case_sensitive/' or
-    /// 'gs://spark-dataproc-data/pangea-data/*').
-    /// The maximum length is 2056 bytes.
-    #[prost(string, tag = "1")]
-    pub location_uri: ::prost::alloc::string::String,
-    /// Optional. Specifies the fully qualified class name of the InputFormat
-    /// (e.g. "org.apache.hadoop.hive.ql.io.orc.OrcInputFormat").
-    /// The maximum length is 128 characters.
-    #[prost(string, tag = "2")]
-    pub input_format: ::prost::alloc::string::String,
-    /// Optional. Specifies the fully qualified class name of the OutputFormat
-    /// (e.g. "org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat").
-    /// The maximum length is 128 characters.
-    #[prost(string, tag = "3")]
-    pub output_format: ::prost::alloc::string::String,
-    /// Optional. Serializer and deserializer information.
-    #[prost(message, optional, tag = "4")]
-    pub serde_info: ::core::option::Option<SerDeInfo>,
-}
-/// Serializer and deserializer information.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SerDeInfo {
-    /// Optional. Name of the SerDe.
-    /// The maximum length is 256 characters.
+pub struct ForeignKey {
+    /// Optional. Set only if the foreign key constraint is named.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-    /// Required. Specifies a fully-qualified class name of the serialization
-    /// library that is responsible for the translation of data between table
-    /// representation and the underlying low-level input and output format
-    /// structures. The maximum length is 256 characters.
+    /// Required. The table that holds the primary key and is referenced by this
+    /// foreign key.
+    #[prost(message, optional, tag = "2")]
+    pub referenced_table: ::core::option::Option<TableReference>,
+    /// Required. The columns that compose the foreign key.
+    #[prost(message, repeated, tag = "3")]
+    pub column_references: ::prost::alloc::vec::Vec<ColumnReference>,
+}
+/// The TableConstraints defines the primary key and foreign key.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TableConstraints {
+    /// Optional. Represents a primary key constraint on a table's columns.
+    /// Present only if the table has a primary key.
+    /// The primary key is not enforced.
+    #[prost(message, optional, tag = "1")]
+    pub primary_key: ::core::option::Option<PrimaryKey>,
+    /// Optional. Present only if the table has a foreign key.
+    /// The foreign key is not enforced.
+    #[prost(message, repeated, tag = "2")]
+    pub foreign_keys: ::prost::alloc::vec::Vec<ForeignKey>,
+}
+/// Options for data format adjustments.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DataFormatOptions {
+    /// Optional. Output timestamp as usec int64. Default is false.
+    #[prost(bool, tag = "1")]
+    pub use_int64_timestamp: bool,
+}
+/// Indicates the map target type. Only applies to parquet maps.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum MapTargetType {
+    /// In this mode, the map will have the following schema:
+    /// struct map_field_name {  repeated struct key_value {  key  value  } }.
+    Unspecified = 0,
+    /// In this mode, the map will have the following schema:
+    /// repeated struct map_field_name {  key  value }.
+    ArrayOfStruct = 1,
+}
+impl MapTargetType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            MapTargetType::Unspecified => "MAP_TARGET_TYPE_UNSPECIFIED",
+            MapTargetType::ArrayOfStruct => "ARRAY_OF_STRUCT",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "MAP_TARGET_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "ARRAY_OF_STRUCT" => Some(Self::ArrayOfStruct),
+            _ => None,
+        }
+    }
+}
+/// Configures table clustering.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Clustering {
+    /// One or more fields on which data should be clustered. Only top-level,
+    /// non-repeated, simple-type fields are supported. The ordering of the
+    /// clustering fields should be prioritized from most to least important
+    /// for filtering purposes.
+    ///
+    /// Additional information on limitations can be found here:
+    /// <https://cloud.google.com/bigquery/docs/creating-clustered-tables#limitations>
+    #[prost(string, repeated, tag = "1")]
+    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Identifier for a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DatasetReference {
+    /// Required. A unique ID for this dataset, without the project name. The ID
+    /// must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_).
+    /// The maximum length is 1,024 characters.
+    #[prost(string, tag = "1")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Optional. The ID of the project containing this dataset.
     #[prost(string, tag = "2")]
-    pub serialization_library: ::prost::alloc::string::String,
-    /// Optional. Key-value pairs that define the initialization parameters for the
-    /// serialization library.
-    /// Maximum size 10 Kib.
-    #[prost(btree_map = "string, string", tag = "3")]
-    pub parameters: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
+    pub project_id: ::prost::alloc::string::String,
 }
 /// The data types that could be used as a target type when converting decimal
 /// values.
@@ -1759,336 +1675,41 @@ impl DecimalTargetType {
         }
     }
 }
-/// Configuration for BigLake managed tables.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BigLakeConfiguration {
-    /// Required. The connection specifying the credentials to be used to read and
-    /// write to external storage, such as Cloud Storage. The connection_id can
-    /// have the form `{project}.{location}.{connection_id}` or
-    /// `projects/{project}/locations/{location}/connections/{connection_id}".
-    #[prost(string, tag = "1")]
-    pub connection_id: ::prost::alloc::string::String,
-    /// Required. The fully qualified location prefix of the external folder where
-    /// table data is stored. The '*' wildcard character is not allowed. The URI
-    /// should be in the format `gs://bucket/path_to_table/`
-    #[prost(string, tag = "2")]
-    pub storage_uri: ::prost::alloc::string::String,
-    /// Required. The file format the table data is stored in.
-    #[prost(enumeration = "big_lake_configuration::FileFormat", tag = "3")]
-    pub file_format: i32,
-    /// Required. The table format the metadata only snapshots are stored in.
-    #[prost(enumeration = "big_lake_configuration::TableFormat", tag = "4")]
-    pub table_format: i32,
+/// This enum defines how to interpret source URIs for load jobs and external
+/// tables.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FileSetSpecType {
+    /// This option expands source URIs by listing files from the object store. It
+    /// is the default behavior if FileSetSpecType is not set.
+    FileSystemMatch = 0,
+    /// This option indicates that the provided URIs are newline-delimited manifest
+    /// files, with one URI per line. Wildcard URIs are not supported.
+    NewLineDelimitedManifest = 1,
 }
-/// Nested message and enum types in `BigLakeConfiguration`.
-pub mod big_lake_configuration {
-    /// Supported file formats for BigLake tables.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum FileFormat {
-        /// Default Value.
-        Unspecified = 0,
-        /// Apache Parquet format.
-        Parquet = 1,
-    }
-    impl FileFormat {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                FileFormat::Unspecified => "FILE_FORMAT_UNSPECIFIED",
-                FileFormat::Parquet => "PARQUET",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "FILE_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
-                "PARQUET" => Some(Self::Parquet),
-                _ => None,
-            }
-        }
-    }
-    /// Supported table formats for BigLake tables.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum TableFormat {
-        /// Default Value.
-        Unspecified = 0,
-        /// Apache Iceberg format.
-        Iceberg = 1,
-    }
-    impl TableFormat {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                TableFormat::Unspecified => "TABLE_FORMAT_UNSPECIFIED",
-                TableFormat::Iceberg => "ICEBERG",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TABLE_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
-                "ICEBERG" => Some(Self::Iceberg),
-                _ => None,
-            }
-        }
-    }
-}
-/// \[Preview\] Information related to sessions.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SessionInfo {
-    /// Output only. The id of the session.
-    #[prost(string, tag = "1")]
-    pub session_id: ::prost::alloc::string::String,
-}
-/// Id path of a model.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ModelReference {
-    /// Required. The ID of the project containing this model.
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. The ID of the dataset containing this model.
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. The ID of the model. The ID must contain only
-    /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
-    /// length is 1,024 characters.
-    #[prost(string, tag = "3")]
-    pub model_id: ::prost::alloc::string::String,
-}
-/// Request message for the ListRowAccessPolicies method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListRowAccessPoliciesRequest {
-    /// Required. Project ID of the row access policies to list.
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of row access policies to list.
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Table ID of the table to list row access policies.
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-    /// Page token, returned by a previous call, to request the next page of
-    /// results.
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-    /// The maximum number of results to return in a single response page. Leverage
-    /// the page tokens to iterate through the entire collection.
-    #[prost(int32, tag = "5")]
-    pub page_size: i32,
-}
-/// Response message for the ListRowAccessPolicies method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListRowAccessPoliciesResponse {
-    /// Row access policies on the requested table.
-    #[prost(message, repeated, tag = "1")]
-    pub row_access_policies: ::prost::alloc::vec::Vec<RowAccessPolicy>,
-    /// A token to request the next page of results.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Represents access on a subset of rows on the specified table, defined by its
-/// filter predicate. Access to the subset of rows is controlled by its IAM
-/// policy.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RowAccessPolicy {
-    /// Output only. A hash of this resource.
-    #[prost(string, tag = "1")]
-    pub etag: ::prost::alloc::string::String,
-    /// Required. Reference describing the ID of this row access policy.
-    #[prost(message, optional, tag = "2")]
-    pub row_access_policy_reference: ::core::option::Option<RowAccessPolicyReference>,
-    /// Required. A SQL boolean expression that represents the rows defined by this
-    /// row access policy, similar to the boolean expression in a WHERE clause of a
-    /// SELECT query on a table.
-    /// References to other tables, routines, and temporary functions are not
-    /// supported.
+impl FileSetSpecType {
+    /// String value of the enum field names used in the ProtoBuf definition.
     ///
-    /// Examples: region="EU"
-    ///            date_field = CAST('2019-9-27' as DATE)
-    ///            nullable_field is not NULL
-    ///            numeric_field BETWEEN 1.0 AND 5.0
-    #[prost(string, tag = "3")]
-    pub filter_predicate: ::prost::alloc::string::String,
-    /// Output only. The time when this row access policy was created, in
-    /// milliseconds since the epoch.
-    #[prost(message, optional, tag = "4")]
-    pub creation_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The time when this row access policy was last modified, in
-    /// milliseconds since the epoch.
-    #[prost(message, optional, tag = "5")]
-    pub last_modified_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Generated client implementations.
-pub mod row_access_policy_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Service for interacting with row access policies.
-    #[derive(Debug, Clone)]
-    pub struct RowAccessPolicyServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> RowAccessPolicyServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> RowAccessPolicyServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            RowAccessPolicyServiceClient::new(
-                InterceptedService::new(inner, interceptor),
-            )
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Lists all row access policies on the specified table.
-        pub async fn list_row_access_policies(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListRowAccessPoliciesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListRowAccessPoliciesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RowAccessPolicyService/ListRowAccessPolicies",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RowAccessPolicyService",
-                        "ListRowAccessPolicies",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            FileSetSpecType::FileSystemMatch => "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH",
+            FileSetSpecType::NewLineDelimitedManifest => {
+                "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST"
+            }
         }
     }
-}
-/// The partitioning information, which includes managed table, external table
-/// and metastore partitioned table partition information.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartitioningDefinition {
-    /// Optional. Details about each partitioning column. This field is output only
-    /// for all partitioning types other than metastore partitioned tables.
-    /// BigQuery native tables only support 1 partitioning column. Other table
-    /// types may support 0, 1 or more partitioning columns.
-    /// For metastore partitioned tables, the order must match the definition order
-    /// in the Hive Metastore, where it must match the physical layout of the
-    /// table. For example,
-    ///
-    /// CREATE TABLE a_table(id BIGINT, name STRING)
-    /// PARTITIONED BY (city STRING, state STRING).
-    ///
-    /// In this case the values must be \['city', 'state'\] in that order.
-    #[prost(message, repeated, tag = "1")]
-    pub partitioned_column: ::prost::alloc::vec::Vec<PartitionedColumn>,
-}
-/// The partitioning column information.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartitionedColumn {
-    /// Required. The name of the partition column.
-    #[prost(string, optional, tag = "1")]
-    pub field: ::core::option::Option<::prost::alloc::string::String>,
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH" => Some(Self::FileSystemMatch),
+            "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST" => {
+                Some(Self::NewLineDelimitedManifest)
+            }
+            _ => None,
+        }
+    }
 }
 /// Options for configuring hive partitioning detect.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2153,145 +1774,6 @@ pub struct HivePartitioningOptions {
     #[prost(string, repeated, tag = "4")]
     pub fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// Options for data format adjustments.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DataFormatOptions {
-    /// Optional. Output timestamp as usec int64. Default is false.
-    #[prost(bool, tag = "1")]
-    pub use_int64_timestamp: bool,
-}
-///
-/// This is used for defining User Defined Function (UDF) resources only when
-/// using legacy SQL.  Users of GoogleSQL should leverage either DDL (e.g.
-/// CREATE \[TEMPORARY\] FUNCTION ... ) or the Routines API to define UDF
-/// resources.
-///
-/// For additional information on migrating, see:
-/// <https://cloud.google.com/bigquery/docs/reference/standard-sql/migrating-from-legacy-sql#differences_in_user-defined_javascript_functions>
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UserDefinedFunctionResource {
-    /// \[Pick one\] A code resource to load from a Google Cloud Storage URI
-    /// (gs://bucket/path).
-    #[prost(message, optional, tag = "1")]
-    pub resource_uri: ::core::option::Option<::prost::alloc::string::String>,
-    /// \[Pick one\] An inline resource that contains code for a user-defined
-    /// function (UDF). Providing a inline code resource is equivalent to providing
-    /// a URI for a file containing the same code.
-    #[prost(message, optional, tag = "2")]
-    pub inline_code: ::core::option::Option<::prost::alloc::string::String>,
-}
-/// Error details.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ErrorProto {
-    /// A short error code that summarizes the error.
-    #[prost(string, tag = "1")]
-    pub reason: ::prost::alloc::string::String,
-    /// Specifies where the error occurred, if present.
-    #[prost(string, tag = "2")]
-    pub location: ::prost::alloc::string::String,
-    /// Debugging information. This property is internal to Google and should not
-    /// be used.
-    #[prost(string, tag = "3")]
-    pub debug_info: ::prost::alloc::string::String,
-    /// A human-readable description of the error.
-    #[prost(string, tag = "4")]
-    pub message: ::prost::alloc::string::String,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct JobStatus {
-    /// Output only. Final error result of the job. If present, indicates that the
-    /// job has completed and was unsuccessful.
-    #[prost(message, optional, tag = "1")]
-    pub error_result: ::core::option::Option<ErrorProto>,
-    /// Output only. The first errors encountered during the running of the job.
-    /// The final message includes the number of errors that caused the process to
-    /// stop. Errors here do not necessarily mean that the job has not completed or
-    /// was unsuccessful.
-    #[prost(message, repeated, tag = "2")]
-    pub errors: ::prost::alloc::vec::Vec<ErrorProto>,
-    /// Output only. Running state of the job.  Valid states include 'PENDING',
-    /// 'RUNNING', and 'DONE'.
-    #[prost(string, tag = "3")]
-    pub state: ::prost::alloc::string::String,
-}
-/// Reason about why a Job was created from a
-/// [`jobs.query`](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query>)
-/// method when used with `JOB_CREATION_OPTIONAL` Job creation mode.
-///
-/// For
-/// [`jobs.insert`](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert>)
-/// method calls it will always be `REQUESTED`.
-///
-/// This feature is not yet available. Jobs will always be created.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct JobCreationReason {
-    /// Output only. Specifies the high level reason why a Job was created.
-    #[prost(enumeration = "job_creation_reason::Code", tag = "1")]
-    pub code: i32,
-}
-/// Nested message and enum types in `JobCreationReason`.
-pub mod job_creation_reason {
-    /// Indicates the high level reason why a job was created.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Code {
-        /// Reason is not specified.
-        Unspecified = 0,
-        /// Job creation was requested.
-        Requested = 1,
-        /// The query request ran beyond a system defined timeout specified by the
-        /// [timeoutMs field in the
-        /// QueryRequest](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#queryrequest>).
-        /// As a result it was considered a long running operation for which a job
-        /// was created.
-        LongRunning = 2,
-        /// The results from the query cannot fit in the response.
-        LargeResults = 3,
-        /// BigQuery has determined that the query needs to be executed as a Job.
-        Other = 4,
-    }
-    impl Code {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Code::Unspecified => "CODE_UNSPECIFIED",
-                Code::Requested => "REQUESTED",
-                Code::LongRunning => "LONG_RUNNING",
-                Code::LargeResults => "LARGE_RESULTS",
-                Code::Other => "OTHER",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "CODE_UNSPECIFIED" => Some(Self::Unspecified),
-                "REQUESTED" => Some(Self::Requested),
-                "LONG_RUNNING" => Some(Self::LongRunning),
-                "LARGE_RESULTS" => Some(Self::LargeResults),
-                "OTHER" => Some(Self::Other),
-                _ => None,
-            }
-        }
-    }
-}
 /// Used to indicate that a JSON variant, rather than normal JSON, is being used
 /// as the source_format. This should only be used in combination with the
 /// JSON source format.
@@ -2324,54 +1806,9 @@ impl JsonExtension {
         }
     }
 }
-/// Configures table clustering.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Clustering {
-    /// One or more fields on which data should be clustered. Only top-level,
-    /// non-repeated, simple-type fields are supported. The ordering of the
-    /// clustering fields should be prioritized from most to least important
-    /// for filtering purposes.
-    ///
-    /// Additional information on limitations can be found here:
-    /// <https://cloud.google.com/bigquery/docs/creating-clustered-tables#limitations>
-    #[prost(string, repeated, tag = "1")]
-    pub fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Indicates the map target type. Only applies to parquet maps.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum MapTargetType {
-    /// In this mode, the map will have the following schema:
-    /// struct map_field_name {  repeated struct key_value {  key  value  } }.
-    Unspecified = 0,
-    /// In this mode, the map will have the following schema:
-    /// repeated struct map_field_name {  key  value }.
-    ArrayOfStruct = 1,
-}
-impl MapTargetType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            MapTargetType::Unspecified => "MAP_TARGET_TYPE_UNSPECIFIED",
-            MapTargetType::ArrayOfStruct => "ARRAY_OF_STRUCT",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "MAP_TARGET_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-            "ARRAY_OF_STRUCT" => Some(Self::ArrayOfStruct),
-            _ => None,
-        }
-    }
-}
 /// Options for external data sources.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AvroOptions {
     /// Optional. If sourceFormat is set to "AVRO", indicates whether to interpret
     /// logical types as the corresponding BigQuery data type (for example,
@@ -2381,7 +1818,7 @@ pub struct AvroOptions {
 }
 /// Parquet Options for load and make external tables.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ParquetOptions {
     /// Optional. Indicates whether to infer Parquet ENUM logical type as STRING
     /// instead of BYTES by default.
@@ -2903,1208 +2340,21 @@ pub mod external_data_configuration {
         }
     }
 }
-/// Represents privacy policy associated with "aggregation threshold" method.
+/// Id path of a model.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AggregationThresholdPolicy {
-    /// Optional. The threshold for the "aggregation threshold" policy.
-    #[prost(int64, optional, tag = "1")]
-    pub threshold: ::core::option::Option<i64>,
-    /// Optional. The privacy unit column(s) associated with this policy.
-    /// For now, only one column per data source object (table, view) is allowed as
-    /// a privacy unit column.
-    /// Representing as a repeated field in metadata for extensibility to
-    /// multiple columns in future.
-    /// Duplicates and Repeated struct fields are not allowed.
-    /// For nested fields, use dot notation ("outer.inner")
-    #[prost(string, repeated, tag = "2")]
-    pub privacy_unit_columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Represents privacy policy associated with "differential privacy" method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DifferentialPrivacyPolicy {
-    /// Optional. The maximum epsilon value that a query can consume. If the
-    /// subscriber specifies epsilon as a parameter in a SELECT query, it must be
-    /// less than or equal to this value. The epsilon parameter controls the amount
-    /// of noise that is added to the groups — a higher epsilon means less noise.
-    #[prost(double, optional, tag = "1")]
-    pub max_epsilon_per_query: ::core::option::Option<f64>,
-    /// Optional. The delta value that is used per query. Delta represents the
-    /// probability that any row will fail to be epsilon differentially private.
-    /// Indicates the risk associated with exposing aggregate rows in the result of
-    /// a query.
-    #[prost(double, optional, tag = "2")]
-    pub delta_per_query: ::core::option::Option<f64>,
-    /// Optional. The maximum groups contributed value that is used per query.
-    /// Represents the maximum number of groups to which each protected entity can
-    /// contribute. Changing this value does not improve or worsen privacy. The
-    /// best value for accuracy and utility depends on the query and data.
-    #[prost(int64, optional, tag = "3")]
-    pub max_groups_contributed: ::core::option::Option<i64>,
-    /// Optional. The privacy unit column associated with this policy. Differential
-    /// privacy policies can only have one privacy unit column per data source
-    /// object (table, view).
-    #[prost(string, optional, tag = "4")]
-    pub privacy_unit_column: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. The total epsilon budget for all queries against the
-    /// privacy-protected view. Each subscriber query against this view charges the
-    /// amount of epsilon they request in their query. If there is sufficient
-    /// budget, then the subscriber query attempts to complete. It might still fail
-    /// due to other reasons, in which case the charge is refunded. If there is
-    /// insufficient budget the query is rejected. There might be multiple charge
-    /// attempts if a single query references multiple views. In this case there
-    /// must be sufficient budget for all charges or the query is rejected and
-    /// charges are refunded in best effort. The budget does not have a refresh
-    /// policy and can only be updated via ALTER VIEW or circumvented by creating a
-    /// new view that can be queried with a fresh budget.
-    #[prost(double, optional, tag = "5")]
-    pub epsilon_budget: ::core::option::Option<f64>,
-    /// Optional. The total delta budget for all queries against the
-    /// privacy-protected view. Each subscriber query against this view charges the
-    /// amount of delta that is pre-defined by the contributor through the privacy
-    /// policy delta_per_query field. If there is sufficient budget, then the
-    /// subscriber query attempts to complete. It might still fail due to other
-    /// reasons, in which case the charge is refunded. If there is insufficient
-    /// budget the query is rejected. There might be multiple charge attempts if a
-    /// single query references multiple views. In this case there must be
-    /// sufficient budget for all charges or the query is rejected and charges are
-    /// refunded in best effort. The budget does not have a refresh policy and can
-    /// only be updated via ALTER VIEW or circumvented by creating a new view that
-    /// can be queried with a fresh budget.
-    #[prost(double, optional, tag = "6")]
-    pub delta_budget: ::core::option::Option<f64>,
-    /// Output only. The epsilon budget remaining. If budget is exhausted, no more
-    /// queries are allowed. Note that the budget for queries that are in progress
-    /// is deducted before the query executes. If the query fails or is cancelled
-    /// then the budget is refunded. In this case the amount of budget remaining
-    /// can increase.
-    #[prost(double, optional, tag = "7")]
-    pub epsilon_budget_remaining: ::core::option::Option<f64>,
-    /// Output only. The delta budget remaining. If budget is exhausted, no more
-    /// queries are allowed. Note that the budget for queries that are in progress
-    /// is deducted before the query executes. If the query fails or is cancelled
-    /// then the budget is refunded. In this case the amount of budget remaining
-    /// can increase.
-    #[prost(double, optional, tag = "8")]
-    pub delta_budget_remaining: ::core::option::Option<f64>,
-}
-/// Represents privacy policy associated with "join restrictions". Join
-/// restriction gives data providers the ability to enforce joins on the
-/// 'join_allowed_columns' when data is queried from a privacy protected view.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct JoinRestrictionPolicy {
-    /// Optional. Specifies if a join is required or not on queries for the view.
-    /// Default is JOIN_CONDITION_UNSPECIFIED.
-    #[prost(enumeration = "join_restriction_policy::JoinCondition", optional, tag = "1")]
-    pub join_condition: ::core::option::Option<i32>,
-    /// Optional. The only columns that joins are allowed on.
-    /// This field is must be specified for join_conditions JOIN_ANY and JOIN_ALL
-    /// and it cannot be set for JOIN_BLOCKED.
-    #[prost(string, repeated, tag = "2")]
-    pub join_allowed_columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Nested message and enum types in `JoinRestrictionPolicy`.
-pub mod join_restriction_policy {
-    /// Enum for Join Restrictions policy.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum JoinCondition {
-        /// A join is neither required nor restricted on any column. Default value.
-        Unspecified = 0,
-        /// A join is required on at least one of the specified columns.
-        JoinAny = 1,
-        /// A join is required on all specified columns.
-        JoinAll = 2,
-        /// A join is not required, but if present it is only permitted on
-        /// 'join_allowed_columns'
-        JoinNotRequired = 3,
-        /// Joins are blocked for all queries.
-        JoinBlocked = 4,
-    }
-    impl JoinCondition {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                JoinCondition::Unspecified => "JOIN_CONDITION_UNSPECIFIED",
-                JoinCondition::JoinAny => "JOIN_ANY",
-                JoinCondition::JoinAll => "JOIN_ALL",
-                JoinCondition::JoinNotRequired => "JOIN_NOT_REQUIRED",
-                JoinCondition::JoinBlocked => "JOIN_BLOCKED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "JOIN_CONDITION_UNSPECIFIED" => Some(Self::Unspecified),
-                "JOIN_ANY" => Some(Self::JoinAny),
-                "JOIN_ALL" => Some(Self::JoinAll),
-                "JOIN_NOT_REQUIRED" => Some(Self::JoinNotRequired),
-                "JOIN_BLOCKED" => Some(Self::JoinBlocked),
-                _ => None,
-            }
-        }
-    }
-}
-/// Represents privacy policy that contains the privacy requirements specified by
-/// the data owner. Currently, this is only supported on views.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PrivacyPolicy {
-    /// Optional. Join restriction policy is outside of the one of policies, since
-    /// this policy can be set along with other policies. This policy gives data
-    /// providers the ability to enforce joins on the 'join_allowed_columns' when
-    /// data is queried from a privacy protected view.
-    #[prost(message, optional, tag = "1")]
-    pub join_restriction_policy: ::core::option::Option<JoinRestrictionPolicy>,
-    /// Privacy policy associated with this requirement specification. Only one of
-    /// the privacy methods is allowed per data source object.
-    #[prost(oneof = "privacy_policy::PrivacyPolicy", tags = "2, 3")]
-    pub privacy_policy: ::core::option::Option<privacy_policy::PrivacyPolicy>,
-}
-/// Nested message and enum types in `PrivacyPolicy`.
-pub mod privacy_policy {
-    /// Privacy policy associated with this requirement specification. Only one of
-    /// the privacy methods is allowed per data source object.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum PrivacyPolicy {
-        /// Optional. Policy used for aggregation thresholds.
-        #[prost(message, tag = "2")]
-        AggregationThresholdPolicy(super::AggregationThresholdPolicy),
-        /// Optional. Policy used for differential privacy.
-        #[prost(message, tag = "3")]
-        DifferentialPrivacyPolicy(super::DifferentialPrivacyPolicy),
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RangePartitioning {
-    /// Required. The name of the column to partition the table on. It must be a
-    /// top-level, INT64 column whose mode is NULLABLE or REQUIRED.
-    #[prost(string, tag = "1")]
-    pub field: ::prost::alloc::string::String,
-    /// Defines the ranges for range partitioning.
-    #[prost(message, optional, tag = "2")]
-    pub range: ::core::option::Option<range_partitioning::Range>,
-}
-/// Nested message and enum types in `RangePartitioning`.
-pub mod range_partitioning {
-    /// Defines the ranges for range partitioning.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Range {
-        /// Required. The start of range partitioning, inclusive. This field is an
-        /// INT64 value represented as a string.
-        #[prost(string, tag = "1")]
-        pub start: ::prost::alloc::string::String,
-        /// Required. The end of range partitioning, exclusive. This field is an
-        /// INT64 value represented as a string.
-        #[prost(string, tag = "2")]
-        pub end: ::prost::alloc::string::String,
-        /// Required. The width of each interval. This field is an INT64 value
-        /// represented as a string.
-        #[prost(string, tag = "3")]
-        pub interval: ::prost::alloc::string::String,
-    }
-}
-/// Represents the primary key constraint on a table's columns.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PrimaryKey {
-    /// Required. The columns that are composed of the primary key constraint.
-    #[prost(string, repeated, tag = "1")]
-    pub columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// The pair of the foreign key column and primary key column.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ColumnReference {
-    /// Required. The column that composes the foreign key.
-    #[prost(string, tag = "1")]
-    pub referencing_column: ::prost::alloc::string::String,
-    /// Required. The column in the primary key that are referenced by the
-    /// referencing_column.
-    #[prost(string, tag = "2")]
-    pub referenced_column: ::prost::alloc::string::String,
-}
-/// Represents a foreign key constraint on a table's columns.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ForeignKey {
-    /// Optional. Set only if the foreign key constraint is named.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The table that holds the primary key and is referenced by this
-    /// foreign key.
-    #[prost(message, optional, tag = "2")]
-    pub referenced_table: ::core::option::Option<TableReference>,
-    /// Required. The columns that compose the foreign key.
-    #[prost(message, repeated, tag = "3")]
-    pub column_references: ::prost::alloc::vec::Vec<ColumnReference>,
-}
-/// The TableConstraints defines the primary key and foreign key.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TableConstraints {
-    /// Optional. Represents a primary key constraint on a table's columns.
-    /// Present only if the table has a primary key.
-    /// The primary key is not enforced.
-    #[prost(message, optional, tag = "1")]
-    pub primary_key: ::core::option::Option<PrimaryKey>,
-    /// Optional. Present only if the table has a foreign key.
-    /// The foreign key is not enforced.
-    #[prost(message, repeated, tag = "2")]
-    pub foreign_keys: ::prost::alloc::vec::Vec<ForeignKey>,
-}
-/// Replication info of a table created using `AS REPLICA` DDL like:
-/// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TableReplicationInfo {
-    /// Required. Source table reference that is replicated.
-    #[prost(message, optional, tag = "1")]
-    pub source_table: ::core::option::Option<TableReference>,
-    /// Optional. Specifies the interval at which the source table is polled for
-    /// updates.
-    /// It's Optional. If not specified, default replication interval would be
-    /// applied.
-    #[prost(int64, tag = "2")]
-    pub replication_interval_ms: i64,
-    /// Optional. Output only. If source is a materialized view, this field
-    /// signifies the last refresh time of the source.
-    #[prost(int64, tag = "3")]
-    pub replicated_source_last_refresh_time: i64,
-    /// Optional. Output only. Replication status of configured replication.
-    #[prost(enumeration = "table_replication_info::ReplicationStatus", tag = "4")]
-    pub replication_status: i32,
-    /// Optional. Output only. Replication error that will permanently stopped
-    /// table replication.
-    #[prost(message, optional, tag = "5")]
-    pub replication_error: ::core::option::Option<ErrorProto>,
-}
-/// Nested message and enum types in `TableReplicationInfo`.
-pub mod table_replication_info {
-    /// Replication status of the table created using `AS REPLICA` like:
-    /// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum ReplicationStatus {
-        /// Default value.
-        Unspecified = 0,
-        /// Replication is Active with no errors.
-        Active = 1,
-        /// Source object is deleted.
-        SourceDeleted = 2,
-        /// Source revoked replication permissions.
-        PermissionDenied = 3,
-        /// Source configuration doesn’t allow replication.
-        UnsupportedConfiguration = 4,
-    }
-    impl ReplicationStatus {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                ReplicationStatus::Unspecified => "REPLICATION_STATUS_UNSPECIFIED",
-                ReplicationStatus::Active => "ACTIVE",
-                ReplicationStatus::SourceDeleted => "SOURCE_DELETED",
-                ReplicationStatus::PermissionDenied => "PERMISSION_DENIED",
-                ReplicationStatus::UnsupportedConfiguration => {
-                    "UNSUPPORTED_CONFIGURATION"
-                }
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REPLICATION_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
-                "ACTIVE" => Some(Self::Active),
-                "SOURCE_DELETED" => Some(Self::SourceDeleted),
-                "PERMISSION_DENIED" => Some(Self::PermissionDenied),
-                "UNSUPPORTED_CONFIGURATION" => Some(Self::UnsupportedConfiguration),
-                _ => None,
-            }
-        }
-    }
-}
-/// Describes the definition of a logical view.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ViewDefinition {
-    /// Required. A query that BigQuery executes when the view is referenced.
-    #[prost(string, tag = "1")]
-    pub query: ::prost::alloc::string::String,
-    /// Describes user-defined function resources used in the query.
-    #[prost(message, repeated, tag = "2")]
-    pub user_defined_function_resources: ::prost::alloc::vec::Vec<
-        UserDefinedFunctionResource,
-    >,
-    /// Specifies whether to use BigQuery's legacy SQL for this view.
-    /// The default value is true. If set to false, the view will use
-    /// BigQuery's GoogleSQL:
-    /// <https://cloud.google.com/bigquery/sql-reference/>
-    ///
-    /// Queries and views that reference this view must use the same flag value.
-    /// A wrapper is used here because the default value is True.
-    #[prost(message, optional, tag = "3")]
-    pub use_legacy_sql: ::core::option::Option<bool>,
-    /// True if the column names are explicitly specified. For example by using the
-    /// 'CREATE VIEW v(c1, c2) AS ...' syntax.
-    /// Can only be set for GoogleSQL views.
-    #[prost(bool, tag = "4")]
-    pub use_explicit_column_names: bool,
-    /// Optional. Specifices the privacy policy for the view.
-    #[prost(message, optional, tag = "5")]
-    pub privacy_policy: ::core::option::Option<PrivacyPolicy>,
-    /// Optional. Foreign view representations.
-    #[prost(message, repeated, tag = "6")]
-    pub foreign_definitions: ::prost::alloc::vec::Vec<ForeignViewDefinition>,
-}
-/// A view can be represented in multiple ways. Each representation has its own
-/// dialect. This message stores the metadata required for these representations.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ForeignViewDefinition {
-    /// Required. The query that defines the view.
-    #[prost(string, tag = "1")]
-    pub query: ::prost::alloc::string::String,
-    /// Optional. Represents the dialect of the query.
-    #[prost(string, tag = "7")]
-    pub dialect: ::prost::alloc::string::String,
-}
-/// Definition and configuration of a materialized view.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MaterializedViewDefinition {
-    /// Required. A query whose results are persisted.
-    #[prost(string, tag = "1")]
-    pub query: ::prost::alloc::string::String,
-    /// Output only. The time when this materialized view was last refreshed, in
-    /// milliseconds since the epoch.
-    #[prost(int64, tag = "2")]
-    pub last_refresh_time: i64,
-    /// Optional. Enable automatic refresh of the materialized view when the base
-    /// table is updated. The default value is "true".
-    #[prost(message, optional, tag = "3")]
-    pub enable_refresh: ::core::option::Option<bool>,
-    /// Optional. The maximum frequency at which this materialized view will be
-    /// refreshed. The default value is "1800000" (30 minutes).
-    #[prost(message, optional, tag = "4")]
-    pub refresh_interval_ms: ::core::option::Option<u64>,
-    /// Optional. This option declares the intention to construct a materialized
-    /// view that isn't refreshed incrementally.
-    #[prost(message, optional, tag = "6")]
-    pub allow_non_incremental_definition: ::core::option::Option<bool>,
-}
-/// Status of a materialized view.
-/// The last refresh timestamp status is omitted here, but is present in the
-/// MaterializedViewDefinition message.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MaterializedViewStatus {
-    /// Output only. Refresh watermark of materialized view. The base tables' data
-    /// were collected into the materialized view cache until this time.
-    #[prost(message, optional, tag = "1")]
-    pub refresh_watermark: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Error result of the last automatic refresh. If present,
-    /// indicates that the last automatic refresh was unsuccessful.
-    #[prost(message, optional, tag = "2")]
-    pub last_refresh_status: ::core::option::Option<ErrorProto>,
-}
-/// Information about base table and snapshot time of the snapshot.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SnapshotDefinition {
-    /// Required. Reference describing the ID of the table that was snapshot.
-    #[prost(message, optional, tag = "1")]
-    pub base_table_reference: ::core::option::Option<TableReference>,
-    /// Required. The time at which the base table was snapshot. This value is
-    /// reported in the JSON response using RFC3339 format.
-    #[prost(message, optional, tag = "2")]
-    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Information about base table and clone time of a table clone.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CloneDefinition {
-    /// Required. Reference describing the ID of the table that was cloned.
-    #[prost(message, optional, tag = "1")]
-    pub base_table_reference: ::core::option::Option<TableReference>,
-    /// Required. The time at which the base table was cloned. This value is
-    /// reported in the JSON response using RFC3339 format.
-    #[prost(message, optional, tag = "2")]
-    pub clone_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Streamingbuffer {
-    /// Output only. A lower-bound estimate of the number of bytes currently in
-    /// the streaming buffer.
-    #[prost(uint64, tag = "1")]
-    pub estimated_bytes: u64,
-    /// Output only. A lower-bound estimate of the number of rows currently in the
-    /// streaming buffer.
-    #[prost(uint64, tag = "2")]
-    pub estimated_rows: u64,
-    /// Output only. Contains the timestamp of the oldest entry in the streaming
-    /// buffer, in milliseconds since the epoch, if the streaming buffer is
-    /// available.
-    #[prost(fixed64, tag = "3")]
-    pub oldest_entry_time: u64,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Table {
-    /// The type of resource ID.
-    #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// Output only. A hash of this resource.
-    #[prost(string, tag = "2")]
-    pub etag: ::prost::alloc::string::String,
-    /// Output only. An opaque ID uniquely identifying the table.
-    #[prost(string, tag = "3")]
-    pub id: ::prost::alloc::string::String,
-    /// Output only. A URL that can be used to access this resource again.
-    #[prost(string, tag = "4")]
-    pub self_link: ::prost::alloc::string::String,
-    /// Required. Reference describing the ID of this table.
-    #[prost(message, optional, tag = "5")]
-    pub table_reference: ::core::option::Option<TableReference>,
-    /// Optional. A descriptive name for this table.
-    #[prost(message, optional, tag = "6")]
-    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. A user-friendly description of this table.
-    #[prost(message, optional, tag = "7")]
-    pub description: ::core::option::Option<::prost::alloc::string::String>,
-    /// The labels associated with this table. You can use these to organize and
-    /// group your tables. Label keys and values can be no longer than 63
-    /// characters, can only contain lowercase letters, numeric characters,
-    /// underscores and dashes. International characters are allowed. Label values
-    /// are optional. Label keys must start with a letter and each label in the
-    /// list must have a different key.
-    #[prost(btree_map = "string, string", tag = "8")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. Describes the schema of this table.
-    #[prost(message, optional, tag = "9")]
-    pub schema: ::core::option::Option<TableSchema>,
-    /// If specified, configures time-based partitioning for this table.
-    #[prost(message, optional, tag = "10")]
-    pub time_partitioning: ::core::option::Option<TimePartitioning>,
-    /// If specified, configures range partitioning for this table.
-    #[prost(message, optional, tag = "27")]
-    pub range_partitioning: ::core::option::Option<RangePartitioning>,
-    /// Clustering specification for the table. Must be specified with time-based
-    /// partitioning, data in the table will be first partitioned and subsequently
-    /// clustered.
-    #[prost(message, optional, tag = "23")]
-    pub clustering: ::core::option::Option<Clustering>,
-    /// Optional. If set to true, queries over this table require
-    /// a partition filter that can be used for partition elimination to be
-    /// specified.
-    #[prost(message, optional, tag = "28")]
-    pub require_partition_filter: ::core::option::Option<bool>,
-    /// Optional. The partition information for all table formats, including
-    /// managed partitioned tables, hive partitioned tables, iceberg partitioned,
-    /// and metastore partitioned tables. This field is only populated for
-    /// metastore partitioned tables. For other table formats, this is an output
-    /// only field.
-    #[prost(message, optional, tag = "51")]
-    pub partition_definition: ::core::option::Option<PartitioningDefinition>,
-    /// Output only. The size of this table in logical bytes, excluding any data in
-    /// the streaming buffer.
-    #[prost(message, optional, tag = "11")]
-    pub num_bytes: ::core::option::Option<i64>,
-    /// Output only. The physical size of this table in bytes. This includes
-    /// storage used for time travel.
-    #[prost(message, optional, tag = "26")]
-    pub num_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. The number of logical bytes in the table that are considered
-    /// "long-term storage".
-    #[prost(message, optional, tag = "12")]
-    pub num_long_term_bytes: ::core::option::Option<i64>,
-    /// Output only. The number of rows of data in this table, excluding any data
-    /// in the streaming buffer.
-    #[prost(message, optional, tag = "13")]
-    pub num_rows: ::core::option::Option<u64>,
-    /// Output only. The time when this table was created, in milliseconds since
-    /// the epoch.
-    #[prost(int64, tag = "14")]
-    pub creation_time: i64,
-    /// Optional. The time when this table expires, in milliseconds since the
-    /// epoch. If not present, the table will persist indefinitely. Expired tables
-    /// will be deleted and their storage reclaimed.  The defaultTableExpirationMs
-    /// property of the encapsulating dataset can be used to set a default
-    /// expirationTime on newly created tables.
-    #[prost(message, optional, tag = "15")]
-    pub expiration_time: ::core::option::Option<i64>,
-    /// Output only. The time when this table was last modified, in milliseconds
-    /// since the epoch.
-    #[prost(fixed64, tag = "16")]
-    pub last_modified_time: u64,
-    /// Output only. Describes the table type. The following values are supported:
-    ///
-    /// * `TABLE`: A normal BigQuery table.
-    /// * `VIEW`: A virtual table defined by a SQL query.
-    /// * `EXTERNAL`: A table that references data stored in an external storage
-    ///    system, such as Google Cloud Storage.
-    /// * `MATERIALIZED_VIEW`: A precomputed view defined by a SQL query.
-    /// * `SNAPSHOT`: An immutable BigQuery table that preserves the contents of a
-    ///    base table at a particular time. See additional information on
-    ///    [table snapshots](/bigquery/docs/table-snapshots-intro).
-    ///
-    /// The default value is `TABLE`.
-    #[prost(string, tag = "17")]
-    pub r#type: ::prost::alloc::string::String,
-    /// Optional. The view definition.
-    #[prost(message, optional, tag = "18")]
-    pub view: ::core::option::Option<ViewDefinition>,
-    /// Optional. The materialized view definition.
-    #[prost(message, optional, tag = "25")]
-    pub materialized_view: ::core::option::Option<MaterializedViewDefinition>,
-    /// Output only. The materialized view status.
-    #[prost(message, optional, tag = "42")]
-    pub materialized_view_status: ::core::option::Option<MaterializedViewStatus>,
-    /// Optional. Describes the data format, location, and other properties of
-    /// a table stored outside of BigQuery. By defining these properties, the data
-    /// source can then be queried as if it were a standard BigQuery table.
-    #[prost(message, optional, tag = "19")]
-    pub external_data_configuration: ::core::option::Option<ExternalDataConfiguration>,
-    /// Optional. Specifies the configuration of a BigLake managed table.
-    #[prost(message, optional, tag = "45")]
-    pub biglake_configuration: ::core::option::Option<BigLakeConfiguration>,
-    /// Output only. The geographic location where the table resides. This value
-    /// is inherited from the dataset.
-    #[prost(string, tag = "20")]
-    pub location: ::prost::alloc::string::String,
-    /// Output only. Contains information regarding this table's streaming buffer,
-    /// if one is present. This field will be absent if the table is not being
-    /// streamed to or if there is no data in the streaming buffer.
-    #[prost(message, optional, tag = "21")]
-    pub streaming_buffer: ::core::option::Option<Streamingbuffer>,
-    /// Custom encryption configuration (e.g., Cloud KMS keys).
-    #[prost(message, optional, tag = "22")]
-    pub encryption_configuration: ::core::option::Option<EncryptionConfiguration>,
-    /// Output only. Contains information about the snapshot. This value is set via
-    /// snapshot creation.
-    #[prost(message, optional, tag = "29")]
-    pub snapshot_definition: ::core::option::Option<SnapshotDefinition>,
-    /// Optional. Defines the default collation specification of new STRING fields
-    /// in the table. During table creation or update, if a STRING field is added
-    /// to this table without explicit collation specified, then the table inherits
-    /// the table default collation. A change to this field affects only fields
-    /// added afterwards, and does not alter the existing fields.
-    /// The following values are supported:
-    ///
-    /// * 'und:ci': undetermined locale, case insensitive.
-    /// * '': empty string. Default to case-sensitive behavior.
-    #[prost(message, optional, tag = "30")]
-    pub default_collation: ::core::option::Option<::prost::alloc::string::String>,
-    /// Optional. Defines the default rounding mode specification of new decimal
-    /// fields (NUMERIC OR BIGNUMERIC) in the table. During table creation or
-    /// update, if a decimal field is added to this table without an explicit
-    /// rounding mode specified, then the field inherits the table default
-    /// rounding mode. Changing this field doesn't affect existing fields.
-    #[prost(enumeration = "table_field_schema::RoundingMode", tag = "44")]
-    pub default_rounding_mode: i32,
-    /// Output only. Contains information about the clone. This value is set via
-    /// the clone operation.
-    #[prost(message, optional, tag = "31")]
-    pub clone_definition: ::core::option::Option<CloneDefinition>,
-    /// Output only. Number of physical bytes used by time travel storage (deleted
-    /// or changed data). This data is not kept in real time, and might be delayed
-    /// by a few seconds to a few minutes.
-    #[prost(message, optional, tag = "33")]
-    pub num_time_travel_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. Total number of logical bytes in the table or materialized
-    /// view.
-    #[prost(message, optional, tag = "34")]
-    pub num_total_logical_bytes: ::core::option::Option<i64>,
-    /// Output only. Number of logical bytes that are less than 90 days old.
-    #[prost(message, optional, tag = "35")]
-    pub num_active_logical_bytes: ::core::option::Option<i64>,
-    /// Output only. Number of logical bytes that are more than 90 days old.
-    #[prost(message, optional, tag = "36")]
-    pub num_long_term_logical_bytes: ::core::option::Option<i64>,
-    /// Output only. Number of physical bytes used by current live data storage.
-    /// This data is not kept in real time, and might be delayed by a few seconds
-    /// to a few minutes.
-    #[prost(message, optional, tag = "53")]
-    pub num_current_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. The physical size of this table in bytes. This also includes
-    /// storage used for time travel. This data is not kept in real time, and might
-    /// be delayed by a few seconds to a few minutes.
-    #[prost(message, optional, tag = "37")]
-    pub num_total_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. Number of physical bytes less than 90 days old. This data is
-    /// not kept in real time, and might be delayed by a few seconds to a few
-    /// minutes.
-    #[prost(message, optional, tag = "38")]
-    pub num_active_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. Number of physical bytes more than 90 days old.
-    /// This data is not kept in real time, and might be delayed by a few seconds
-    /// to a few minutes.
-    #[prost(message, optional, tag = "39")]
-    pub num_long_term_physical_bytes: ::core::option::Option<i64>,
-    /// Output only. The number of partitions present in the table or materialized
-    /// view. This data is not kept in real time, and might be delayed by a few
-    /// seconds to a few minutes.
-    #[prost(message, optional, tag = "40")]
-    pub num_partitions: ::core::option::Option<i64>,
-    /// Optional. The maximum staleness of data that could be returned when the
-    /// table (or stale MV) is queried. Staleness encoded as a string encoding
-    /// of sql IntervalValue type.
-    #[prost(string, tag = "41")]
-    pub max_staleness: ::prost::alloc::string::String,
-    /// Optional. Output only. Restriction config for table. If set, restrict
-    /// certain accesses on the table based on the config. See [Data
-    /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
-    /// details.
-    #[prost(message, optional, tag = "46")]
-    pub restrictions: ::core::option::Option<RestrictionConfig>,
-    /// Optional. Tables Primary Key and Foreign Key information
-    #[prost(message, optional, tag = "47")]
-    pub table_constraints: ::core::option::Option<TableConstraints>,
-    /// Optional. The [tags](/bigquery/docs/tags) attached to this table. Tag keys
-    /// are globally unique. Tag key is expected to be in the namespaced format,
-    /// for example "123456789012/environment" where 123456789012 is the ID of the
-    /// parent organization or project resource for this tag key. Tag value is
-    /// expected to be the short name, for example "Production". See [Tag
-    /// definitions](/iam/docs/tags-access-control#definitions) for more details.
-    #[prost(btree_map = "string, string", tag = "48")]
-    pub resource_tags: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. Table replication info for table created `AS REPLICA` DDL like:
-    /// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
-    #[prost(message, optional, tag = "49")]
-    pub table_replication_info: ::core::option::Option<TableReplicationInfo>,
-    /// Optional. Output only. Table references of all replicas currently active on
-    /// the table.
-    #[prost(message, repeated, tag = "50")]
-    pub replicas: ::prost::alloc::vec::Vec<TableReference>,
-    /// Optional. Options defining open source compatible table.
-    #[prost(message, optional, tag = "54")]
-    pub external_catalog_table_options: ::core::option::Option<
-        ExternalCatalogTableOptions,
-    >,
-}
-/// Request format for getting table metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetTableRequest {
-    /// Required. Project ID of the requested table
+pub struct ModelReference {
+    /// Required. The ID of the project containing this model.
     #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the requested table
+    /// Required. The ID of the dataset containing this model.
     #[prost(string, tag = "2")]
     pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Table ID of the requested table
+    /// Required. The ID of the model. The ID must contain only
+    /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
+    /// length is 1,024 characters.
     #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-    /// List of table schema fields to return (comma-separated).
-    /// If unspecified, all fields are returned.
-    /// A fieldMask cannot be used here because the fields will automatically be
-    /// converted from camelCase to snake_case and the conversion will fail if
-    /// there are underscores. Since these are fields in BigQuery table schemas,
-    /// underscores are allowed.
-    #[prost(string, tag = "4")]
-    pub selected_fields: ::prost::alloc::string::String,
-    /// Optional. Specifies the view that determines which table information is
-    /// returned. By default, basic table information and storage statistics
-    /// (STORAGE_STATS) are returned.
-    #[prost(enumeration = "get_table_request::TableMetadataView", tag = "5")]
-    pub view: i32,
-}
-/// Nested message and enum types in `GetTableRequest`.
-pub mod get_table_request {
-    /// TableMetadataView specifies which table information is returned.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum TableMetadataView {
-        /// The default value.
-        /// Default to the STORAGE_STATS view.
-        Unspecified = 0,
-        /// Includes basic table information including schema and
-        /// partitioning specification. This view does not include storage statistics
-        /// such as numRows or numBytes. This view is significantly more efficient
-        /// and should be used to support high query rates.
-        Basic = 1,
-        /// Includes all information in the BASIC view as well as storage statistics
-        /// (numBytes, numLongTermBytes, numRows and lastModifiedTime).
-        StorageStats = 2,
-        /// Includes all table information, including storage statistics.
-        /// It returns same information as STORAGE_STATS view, but may contain
-        /// additional information in the future.
-        Full = 3,
-    }
-    impl TableMetadataView {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                TableMetadataView::Unspecified => "TABLE_METADATA_VIEW_UNSPECIFIED",
-                TableMetadataView::Basic => "BASIC",
-                TableMetadataView::StorageStats => "STORAGE_STATS",
-                TableMetadataView::Full => "FULL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TABLE_METADATA_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
-                "BASIC" => Some(Self::Basic),
-                "STORAGE_STATS" => Some(Self::StorageStats),
-                "FULL" => Some(Self::Full),
-                _ => None,
-            }
-        }
-    }
-}
-/// Request format for inserting table metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InsertTableRequest {
-    /// Required. Project ID of the new table
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the new table
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. A tables resource to insert
-    #[prost(message, optional, tag = "4")]
-    pub table: ::core::option::Option<Table>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateOrPatchTableRequest {
-    /// Required. Project ID of the table to update
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the table to update
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Table ID of the table to update
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-    /// Required. A tables resource which will replace or patch the specified table
-    #[prost(message, optional, tag = "4")]
-    pub table: ::core::option::Option<Table>,
-    /// Optional. When true will autodetect schema, else will keep original schema.
-    #[prost(bool, tag = "5")]
-    pub autodetect_schema: bool,
-}
-/// Request format for deleting a table.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteTableRequest {
-    /// Required. Project ID of the table to delete
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the table to delete
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Table ID of the table to delete
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-}
-/// Request format for enumerating tables.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListTablesRequest {
-    /// Required. Project ID of the tables to list
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the tables to list
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// The maximum number of results to return in a single response page.
-    /// Leverage the page tokens to iterate through the entire collection.
-    #[prost(message, optional, tag = "3")]
-    pub max_results: ::core::option::Option<u32>,
-    /// Page token, returned by a previous call, to request the next page of
-    /// results
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Information about a logical view.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListFormatView {
-    /// True if view is defined in legacy SQL dialect,
-    /// false if in GoogleSQL.
-    #[prost(message, optional, tag = "1")]
-    pub use_legacy_sql: ::core::option::Option<bool>,
-    /// Specifices the privacy policy for the view.
-    #[prost(message, optional, tag = "2")]
-    pub privacy_policy: ::core::option::Option<PrivacyPolicy>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListFormatTable {
-    /// The resource type.
-    #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// An opaque ID of the table.
-    #[prost(string, tag = "2")]
-    pub id: ::prost::alloc::string::String,
-    /// A reference uniquely identifying table.
-    #[prost(message, optional, tag = "3")]
-    pub table_reference: ::core::option::Option<TableReference>,
-    /// The user-friendly name for this table.
-    #[prost(message, optional, tag = "4")]
-    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
-    /// The type of table.
-    #[prost(string, tag = "5")]
-    pub r#type: ::prost::alloc::string::String,
-    /// The time-based partitioning for this table.
-    #[prost(message, optional, tag = "6")]
-    pub time_partitioning: ::core::option::Option<TimePartitioning>,
-    /// The range partitioning for this table.
-    #[prost(message, optional, tag = "12")]
-    pub range_partitioning: ::core::option::Option<RangePartitioning>,
-    /// Clustering specification for this table, if configured.
-    #[prost(message, optional, tag = "11")]
-    pub clustering: ::core::option::Option<Clustering>,
-    /// The labels associated with this table. You can use these to organize
-    /// and group your tables.
-    #[prost(btree_map = "string, string", tag = "7")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Additional details for a view.
-    #[prost(message, optional, tag = "8")]
-    pub view: ::core::option::Option<ListFormatView>,
-    /// Output only. The time when this table was created, in milliseconds since
-    /// the epoch.
-    #[prost(int64, tag = "9")]
-    pub creation_time: i64,
-    /// The time when this table expires, in milliseconds since the
-    /// epoch. If not present, the table will persist indefinitely. Expired tables
-    /// will be deleted and their storage reclaimed.
-    #[prost(int64, tag = "10")]
-    pub expiration_time: i64,
-    /// Optional. If set to true, queries including this table must specify a
-    /// partition filter. This filter is used for partition elimination.
-    #[prost(message, optional, tag = "14")]
-    pub require_partition_filter: ::core::option::Option<bool>,
-}
-/// Partial projection of the metadata for a given table in a list response.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TableList {
-    /// The type of list.
-    #[prost(string, tag = "1")]
-    pub kind: ::prost::alloc::string::String,
-    /// A hash of this page of results.
-    #[prost(string, tag = "2")]
-    pub etag: ::prost::alloc::string::String,
-    /// A token to request the next page of results.
-    #[prost(string, tag = "3")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Tables in the requested dataset.
-    #[prost(message, repeated, tag = "4")]
-    pub tables: ::prost::alloc::vec::Vec<ListFormatTable>,
-    /// The total number of tables in the dataset.
-    #[prost(message, optional, tag = "5")]
-    pub total_items: ::core::option::Option<i32>,
-}
-/// Generated client implementations.
-pub mod table_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// This is an experimental RPC service definition for the BigQuery
-    /// Table Service.
-    ///
-    /// It should not be relied on for production use cases at this time.
-    #[derive(Debug, Clone)]
-    pub struct TableServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> TableServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> TableServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            TableServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Gets the specified table resource by table ID.
-        /// This method does not return the data in the table, it only returns the
-        /// table resource, which describes the structure of this table.
-        pub async fn get_table(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetTableRequest>,
-        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/GetTable",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("google.cloud.bigquery.v2.TableService", "GetTable"),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a new, empty table in the dataset.
-        pub async fn insert_table(
-            &mut self,
-            request: impl tonic::IntoRequest<super::InsertTableRequest>,
-        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/InsertTable",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.TableService",
-                        "InsertTable",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates information in an existing table. The update method replaces the
-        /// entire table resource, whereas the patch method only replaces fields that
-        /// are provided in the submitted table resource.
-        /// This method supports RFC5789 patch semantics.
-        pub async fn patch_table(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateOrPatchTableRequest>,
-        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/PatchTable",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.TableService",
-                        "PatchTable",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates information in an existing table. The update method replaces the
-        /// entire Table resource, whereas the patch method only replaces fields that
-        /// are provided in the submitted Table resource.
-        pub async fn update_table(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateOrPatchTableRequest>,
-        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/UpdateTable",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.TableService",
-                        "UpdateTable",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes the table specified by tableId from the dataset.
-        /// If the table contains data, all the data will be deleted.
-        pub async fn delete_table(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteTableRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/DeleteTable",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.TableService",
-                        "DeleteTable",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists all tables in the specified dataset. Requires the READER dataset
-        /// role.
-        pub async fn list_tables(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListTablesRequest>,
-        ) -> std::result::Result<tonic::Response<super::TableList>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.TableService/ListTables",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.TableService",
-                        "ListTables",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
+    pub model_id: ::prost::alloc::string::String,
 }
 /// The type of a struct parameter.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -4193,6 +2443,37 @@ pub struct QueryParameter {
     #[prost(message, optional, tag = "3")]
     pub parameter_value: ::core::option::Option<QueryParameterValue>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RangePartitioning {
+    /// Required. The name of the column to partition the table on. It must be a
+    /// top-level, INT64 column whose mode is NULLABLE or REQUIRED.
+    #[prost(string, tag = "1")]
+    pub field: ::prost::alloc::string::String,
+    /// Defines the ranges for range partitioning.
+    #[prost(message, optional, tag = "2")]
+    pub range: ::core::option::Option<range_partitioning::Range>,
+}
+/// Nested message and enum types in `RangePartitioning`.
+pub mod range_partitioning {
+    /// Defines the ranges for range partitioning.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Range {
+        /// Required. The start of range partitioning, inclusive. This field is an
+        /// INT64 value represented as a string.
+        #[prost(string, tag = "1")]
+        pub start: ::prost::alloc::string::String,
+        /// Required. The end of range partitioning, exclusive. This field is an
+        /// INT64 value represented as a string.
+        #[prost(string, tag = "2")]
+        pub end: ::prost::alloc::string::String,
+        /// Required. The width of each interval. This field is an INT64 value
+        /// represented as a string.
+        #[prost(string, tag = "3")]
+        pub interval: ::prost::alloc::string::String,
+    }
+}
 /// System variables given to a query.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -4206,6 +2487,27 @@ pub struct SystemVariables {
     /// Output only. Value for each system variable.
     #[prost(message, optional, tag = "2")]
     pub values: ::core::option::Option<::prost_types::Struct>,
+}
+///
+/// This is used for defining User Defined Function (UDF) resources only when
+/// using legacy SQL.  Users of GoogleSQL should leverage either DDL (e.g.
+/// CREATE \[TEMPORARY\] FUNCTION ... ) or the Routines API to define UDF
+/// resources.
+///
+/// For additional information on migrating, see:
+/// <https://cloud.google.com/bigquery/docs/reference/standard-sql/migrating-from-legacy-sql#differences_in_user-defined_javascript_functions>
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UserDefinedFunctionResource {
+    /// \[Pick one\] A code resource to load from a Google Cloud Storage URI
+    /// (gs://bucket/path).
+    #[prost(message, optional, tag = "1")]
+    pub resource_uri: ::core::option::Option<::prost::alloc::string::String>,
+    /// \[Pick one\] An inline resource that contains code for a user-defined
+    /// function (UDF). Providing a inline code resource is equivalent to providing
+    /// a URI for a file containing the same code.
+    #[prost(message, optional, tag = "2")]
+    pub inline_code: ::core::option::Option<::prost::alloc::string::String>,
 }
 /// Properties for the destination table.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -4441,7 +2743,7 @@ pub struct JobConfigurationQuery {
 }
 /// Options related to script execution.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ScriptOptions {
     /// Timeout period for each statement in a script.
     #[prost(message, optional, tag = "1")]
@@ -5037,7 +3339,7 @@ pub struct JobConfigurationExtract {
 pub mod job_configuration_extract {
     /// Options related to model extraction.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ModelExtractOptions {
         /// The 1-based ID of the trial to be exported from a hyperparameter tuning
         /// model. If not specified, the trial with id =
@@ -5103,28 +3405,6 @@ pub struct JobConfiguration {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-}
-/// A job reference is a fully qualified identifier for referring to a job.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct JobReference {
-    /// Required. The ID of the project containing this job.
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. The ID of the job. The ID must contain only letters (a-z, A-Z),
-    /// numbers (0-9), underscores (_), or dashes (-). The maximum length is 1,024
-    /// characters.
-    #[prost(string, tag = "2")]
-    pub job_id: ::prost::alloc::string::String,
-    /// Optional. The geographic location of the job. The default value is US.
-    ///
-    /// For more information about BigQuery locations, see:
-    /// <https://cloud.google.com/bigquery/docs/locations>
-    #[prost(message, optional, tag = "3")]
-    pub location: ::core::option::Option<::prost::alloc::string::String>,
-    /// This field should not be used.
-    #[prost(string, repeated, tag = "5")]
-    pub location_alternative: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Remote Model Info
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -5347,7 +3627,7 @@ pub struct Model {
 pub mod model {
     /// Enums for seasonal period.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct SeasonalPeriod {}
     /// Nested message and enum types in `SeasonalPeriod`.
     pub mod seasonal_period {
@@ -5413,7 +3693,7 @@ pub mod model {
     }
     /// Enums for kmeans model type.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct KmeansEnums {}
     /// Nested message and enum types in `KmeansEnums`.
     pub mod kmeans_enums {
@@ -5471,7 +3751,7 @@ pub mod model {
     }
     /// Enums for XGBoost model type.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct BoostedTreeOptionEnums {}
     /// Nested message and enum types in `BoostedTreeOptionEnums`.
     pub mod boosted_tree_option_enums {
@@ -5618,7 +3898,7 @@ pub mod model {
     }
     /// Enums for hyperparameter tuning.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct HparamTuningEnums {}
     /// Nested message and enum types in `HparamTuningEnums`.
     pub mod hparam_tuning_enums {
@@ -5747,7 +4027,7 @@ pub mod model {
     /// Evaluation metrics for regression and explicit feedback type matrix
     /// factorization models.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RegressionMetrics {
         /// Mean absolute error.
         #[prost(message, optional, tag = "1")]
@@ -5772,7 +4052,7 @@ pub mod model {
     /// metric is calculated globally by counting the total number of correctly
     /// predicted rows.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct AggregateClassificationMetrics {
         /// Precision is the fraction of actual positive predictions that had
         /// positive actual labels. For multiclass this is a macro-averaged
@@ -5830,7 +4110,7 @@ pub mod model {
     pub mod binary_classification_metrics {
         /// Confusion matrix for binary classification models.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct BinaryConfusionMatrix {
             /// Threshold value used when computing each of the following metric.
             #[prost(message, optional, tag = "1")]
@@ -6011,7 +4291,7 @@ pub mod model {
     /// Evaluation metrics used by weighted-ALS models specified by
     /// feedback_type=implicit.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RankingMetrics {
         /// Calculates a precision per user for all the items by ranking them and
         /// then averages all the precisions across all the users.
@@ -6099,7 +4379,7 @@ pub mod model {
     }
     /// Model evaluation metrics for dimensionality reduction models.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct DimensionalityReductionMetrics {
         /// Total percentage of variance explained by the selected principal
         /// components.
@@ -6164,7 +4444,7 @@ pub mod model {
     }
     /// Arima order, can be used for both non-seasonal and seasonal parts.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ArimaOrder {
         /// Order of the autoregressive part.
         #[prost(message, optional, tag = "1")]
@@ -6178,7 +4458,7 @@ pub mod model {
     }
     /// ARIMA model fitting metrics.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ArimaFittingMetrics {
         /// Log-likelihood.
         #[prost(message, optional, tag = "1")]
@@ -6223,7 +4503,7 @@ pub mod model {
     }
     /// Encoding methods for categorical features.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct CategoryEncodingMethod {}
     /// Nested message and enum types in `CategoryEncodingMethod`.
     pub mod category_encoding_method {
@@ -6277,7 +4557,7 @@ pub mod model {
     }
     /// PCA solver options.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct PcaSolverOptionEnums {}
     /// Nested message and enum types in `PcaSolverOptionEnums`.
     pub mod pca_solver_option_enums {
@@ -6331,7 +4611,7 @@ pub mod model {
     }
     /// Model registry options.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ModelRegistryOptionEnums {}
     /// Nested message and enum types in `ModelRegistryOptionEnums`.
     pub mod model_registry_option_enums {
@@ -6816,7 +5096,7 @@ pub mod model {
         pub mod iteration_result {
             /// Information about a single cluster for clustering model.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
             pub struct ClusterInfo {
                 /// Centroid id.
                 #[prost(int64, tag = "1")]
@@ -6928,7 +5208,7 @@ pub mod model {
             /// models, e.g., PCA. Ordered by explained_variance in the descending
             /// order.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
             pub struct PrincipalComponentInfo {
                 /// Id of the principal component.
                 #[prost(message, optional, tag = "1")]
@@ -6961,7 +5241,7 @@ pub mod model {
     pub mod double_hparam_search_space {
         /// Range of a double hyperparameter.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct DoubleRange {
             /// Min value of the double parameter.
             #[prost(message, optional, tag = "1")]
@@ -7002,7 +5282,7 @@ pub mod model {
     pub mod int_hparam_search_space {
         /// Range of an int hyperparameter.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct IntRange {
             /// Min value of the int parameter.
             #[prost(message, optional, tag = "1")]
@@ -8350,6 +6630,2720 @@ pub mod model_service_client {
         }
     }
 }
+/// Id path of a row access policy.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RowAccessPolicyReference {
+    /// Required. The ID of the project containing this row access policy.
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. The ID of the dataset containing this row access policy.
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. The ID of the table containing this row access policy.
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+    /// Required. The ID of the row access policy. The ID must contain only
+    /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
+    /// length is 256 characters.
+    #[prost(string, tag = "4")]
+    pub policy_id: ::prost::alloc::string::String,
+}
+/// Error details.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ErrorProto {
+    /// A short error code that summarizes the error.
+    #[prost(string, tag = "1")]
+    pub reason: ::prost::alloc::string::String,
+    /// Specifies where the error occurred, if present.
+    #[prost(string, tag = "2")]
+    pub location: ::prost::alloc::string::String,
+    /// Debugging information. This property is internal to Google and should not
+    /// be used.
+    #[prost(string, tag = "3")]
+    pub debug_info: ::prost::alloc::string::String,
+    /// A human-readable description of the error.
+    #[prost(string, tag = "4")]
+    pub message: ::prost::alloc::string::String,
+}
+/// Options defining open source compatible datasets living in the BigQuery
+/// catalog. Contains metadata of open source database, schema
+/// or namespace represented by the current dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalCatalogDatasetOptions {
+    /// Optional. A map of key value pairs defining the parameters and properties
+    /// of the open source schema. Maximum size of 2Mib.
+    #[prost(btree_map = "string, string", tag = "1")]
+    pub parameters: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. The storage location URI for all tables in the dataset.
+    /// Equivalent to hive metastore's database locationUri. Maximum length of 1024
+    /// characters.
+    #[prost(string, tag = "2")]
+    pub default_storage_location_uri: ::prost::alloc::string::String,
+}
+/// \[Preview\] Information related to sessions.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SessionInfo {
+    /// Output only. The id of the session.
+    #[prost(string, tag = "1")]
+    pub session_id: ::prost::alloc::string::String,
+}
+/// Configures the access a dataset defined in an external metadata storage.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalDatasetReference {
+    /// Required. External source that backs this dataset.
+    #[prost(string, tag = "2")]
+    pub external_source: ::prost::alloc::string::String,
+    /// Required. The connection id that is used to access the external_source.
+    ///
+    /// Format:
+    ///    projects/{project_id}/locations/{location_id}/connections/{connection_id}
+    #[prost(string, tag = "3")]
+    pub connection: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct RestrictionConfig {
+    /// Output only. Specifies the type of dataset/table restriction.
+    #[prost(enumeration = "restriction_config::RestrictionType", tag = "1")]
+    pub r#type: i32,
+}
+/// Nested message and enum types in `RestrictionConfig`.
+pub mod restriction_config {
+    /// RestrictionType specifies the type of dataset/table restriction.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum RestrictionType {
+        /// Should never be used.
+        Unspecified = 0,
+        /// Restrict data egress. See [Data
+        /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+        /// details.
+        RestrictedDataEgress = 1,
+    }
+    impl RestrictionType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                RestrictionType::Unspecified => "RESTRICTION_TYPE_UNSPECIFIED",
+                RestrictionType::RestrictedDataEgress => "RESTRICTED_DATA_EGRESS",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RESTRICTION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "RESTRICTED_DATA_EGRESS" => Some(Self::RestrictedDataEgress),
+                _ => None,
+            }
+        }
+    }
+}
+/// Grants all resources of particular types in a particular dataset read access
+/// to the current dataset.
+///
+/// Similar to how individually authorized views work, updates to any resource
+/// granted through its dataset (including creation of new resources) requires
+/// read permission to referenced resources, plus write permission to the
+/// authorizing dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DatasetAccessEntry {
+    /// The dataset this entry applies to
+    #[prost(message, optional, tag = "1")]
+    pub dataset: ::core::option::Option<DatasetReference>,
+    /// Which resources in the dataset this entry applies to. Currently, only
+    /// views are supported, but additional target types may be added in the
+    /// future.
+    #[prost(enumeration = "dataset_access_entry::TargetType", repeated, tag = "2")]
+    pub target_types: ::prost::alloc::vec::Vec<i32>,
+}
+/// Nested message and enum types in `DatasetAccessEntry`.
+pub mod dataset_access_entry {
+    /// Indicates the type of resources in a dataset that the entry applies to.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum TargetType {
+        /// Do not use. You must set a target type explicitly.
+        Unspecified = 0,
+        /// This entry applies to views in the dataset.
+        Views = 1,
+        /// This entry applies to routines in the dataset.
+        Routines = 2,
+    }
+    impl TargetType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TargetType::Unspecified => "TARGET_TYPE_UNSPECIFIED",
+                TargetType::Views => "VIEWS",
+                TargetType::Routines => "ROUTINES",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TARGET_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "VIEWS" => Some(Self::Views),
+                "ROUTINES" => Some(Self::Routines),
+                _ => None,
+            }
+        }
+    }
+}
+/// An object that defines dataset access for an entity.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Access {
+    /// An IAM role ID that should be granted to the user, group,
+    /// or domain specified in this access entry.
+    /// The following legacy mappings will be applied:
+    ///
+    /// * `OWNER`: `roles/bigquery.dataOwner`
+    /// * `WRITER`: `roles/bigquery.dataEditor`
+    /// * `READER`: `roles/bigquery.dataViewer`
+    ///
+    /// This field will accept any of the above formats, but will return only
+    /// the legacy format. For example, if you set this field to
+    /// "roles/bigquery.dataOwner", it will be returned back as "OWNER".
+    #[prost(string, tag = "1")]
+    pub role: ::prost::alloc::string::String,
+    /// \[Pick one\] An email address of a user to grant access to. For example:
+    /// fred@example.com. Maps to IAM policy member "user:EMAIL" or
+    /// "serviceAccount:EMAIL".
+    #[prost(string, tag = "2")]
+    pub user_by_email: ::prost::alloc::string::String,
+    /// \[Pick one\] An email address of a Google Group to grant access to.
+    /// Maps to IAM policy member "group:GROUP".
+    #[prost(string, tag = "3")]
+    pub group_by_email: ::prost::alloc::string::String,
+    /// \[Pick one\] A domain to grant access to. Any users signed in with the domain
+    /// specified will be granted the specified access. Example: "example.com".
+    /// Maps to IAM policy member "domain:DOMAIN".
+    #[prost(string, tag = "4")]
+    pub domain: ::prost::alloc::string::String,
+    /// \[Pick one\] A special group to grant access to. Possible values include:
+    ///
+    ///    * projectOwners: Owners of the enclosing project.
+    ///    * projectReaders: Readers of the enclosing project.
+    ///    * projectWriters: Writers of the enclosing project.
+    ///    * allAuthenticatedUsers: All authenticated BigQuery users.
+    ///
+    /// Maps to similarly-named IAM members.
+    #[prost(string, tag = "5")]
+    pub special_group: ::prost::alloc::string::String,
+    /// \[Pick one\] Some other type of member that appears in the IAM Policy but
+    /// isn't a user, group, domain, or special group.
+    #[prost(string, tag = "7")]
+    pub iam_member: ::prost::alloc::string::String,
+    /// \[Pick one\] A view from a different dataset to grant access to. Queries
+    /// executed against that view will have read access to views/tables/routines
+    /// in this dataset.
+    /// The role field is not required when this field is set. If that view is
+    /// updated by any user, access to the view needs to be granted again via an
+    /// update operation.
+    #[prost(message, optional, tag = "6")]
+    pub view: ::core::option::Option<TableReference>,
+    /// \[Pick one\] A routine from a different dataset to grant access to. Queries
+    /// executed against that routine will have read access to
+    /// views/tables/routines in this dataset. Only UDF is supported for now.
+    /// The role field is not required when this field is set. If that routine is
+    /// updated by any user, access to the routine needs to be granted again via
+    /// an update operation.
+    #[prost(message, optional, tag = "8")]
+    pub routine: ::core::option::Option<RoutineReference>,
+    /// \[Pick one\] A grant authorizing all resources of a particular type in a
+    /// particular dataset access to this dataset. Only views are supported for
+    /// now. The role field is not required when this field is set. If that dataset
+    /// is deleted and re-created, its access needs to be granted again via an
+    /// update operation.
+    #[prost(message, optional, tag = "9")]
+    pub dataset: ::core::option::Option<DatasetAccessEntry>,
+}
+/// Represents a BigQuery dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Dataset {
+    /// Output only. The resource type.
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// Output only. A hash of the resource.
+    #[prost(string, tag = "2")]
+    pub etag: ::prost::alloc::string::String,
+    /// Output only. The fully-qualified unique name of the dataset in the format
+    /// projectId:datasetId. The dataset name without the project name is given in
+    /// the datasetId field. When creating a new dataset, leave this field blank,
+    /// and instead specify the datasetId field.
+    #[prost(string, tag = "3")]
+    pub id: ::prost::alloc::string::String,
+    /// Output only. A URL that can be used to access the resource again. You can
+    /// use this URL in Get or Update requests to the resource.
+    #[prost(string, tag = "4")]
+    pub self_link: ::prost::alloc::string::String,
+    /// Required. A reference that identifies the dataset.
+    #[prost(message, optional, tag = "5")]
+    pub dataset_reference: ::core::option::Option<DatasetReference>,
+    /// Optional. A descriptive name for the dataset.
+    #[prost(message, optional, tag = "6")]
+    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. A user-friendly description of the dataset.
+    #[prost(message, optional, tag = "7")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. The default lifetime of all tables in the dataset, in
+    /// milliseconds. The minimum lifetime value is 3600000 milliseconds (one
+    /// hour). To clear an existing default expiration with a PATCH request, set to
+    /// 0. Once this property is set, all newly-created tables in the dataset will
+    /// have an expirationTime property set to the creation time plus the value in
+    /// this property, and changing the value will only affect new tables, not
+    /// existing ones. When the expirationTime for a given table is reached, that
+    /// table will be deleted automatically.
+    /// If a table's expirationTime is modified or removed before the table
+    /// expires, or if you provide an explicit expirationTime when creating a
+    /// table, that value takes precedence over the default expiration time
+    /// indicated by this property.
+    #[prost(message, optional, tag = "8")]
+    pub default_table_expiration_ms: ::core::option::Option<i64>,
+    /// This default partition expiration, expressed in milliseconds.
+    ///
+    /// When new time-partitioned tables are created in a dataset where this
+    /// property is set, the table will inherit this value, propagated as the
+    /// `TimePartitioning.expirationMs` property on the new table.  If you set
+    /// `TimePartitioning.expirationMs` explicitly when creating a table,
+    /// the `defaultPartitionExpirationMs` of the containing dataset is ignored.
+    ///
+    /// When creating a partitioned table, if `defaultPartitionExpirationMs`
+    /// is set, the `defaultTableExpirationMs` value is ignored and the table
+    /// will not be inherit a table expiration deadline.
+    #[prost(message, optional, tag = "14")]
+    pub default_partition_expiration_ms: ::core::option::Option<i64>,
+    /// The labels associated with this dataset. You can use these
+    /// to organize and group your datasets.
+    /// You can set this property when inserting or updating a dataset.
+    /// See [Creating and Updating Dataset
+    /// Labels](<https://cloud.google.com/bigquery/docs/creating-managing-labels#creating_and_updating_dataset_labels>)
+    /// for more information.
+    #[prost(btree_map = "string, string", tag = "9")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. An array of objects that define dataset access for one or more
+    /// entities. You can set this property when inserting or updating a dataset in
+    /// order to control who is allowed to access the data. If unspecified at
+    /// dataset creation time, BigQuery adds default dataset access for the
+    /// following entities: access.specialGroup: projectReaders; access.role:
+    /// READER; access.specialGroup: projectWriters; access.role: WRITER;
+    /// access.specialGroup: projectOwners; access.role: OWNER;
+    /// access.userByEmail: \[dataset creator email\]; access.role: OWNER;
+    /// If you patch a dataset, then this field is overwritten by the patched
+    /// dataset's access field. To add entities, you must supply the entire
+    /// existing access array in addition to any new entities that you want to add.
+    #[prost(message, repeated, tag = "10")]
+    pub access: ::prost::alloc::vec::Vec<Access>,
+    /// Output only. The time when this dataset was created, in milliseconds since
+    /// the epoch.
+    #[prost(int64, tag = "11")]
+    pub creation_time: i64,
+    /// Output only. The date when this dataset was last modified, in milliseconds
+    /// since the epoch.
+    #[prost(int64, tag = "12")]
+    pub last_modified_time: i64,
+    /// The geographic location where the dataset should reside. See
+    /// <https://cloud.google.com/bigquery/docs/locations> for supported
+    /// locations.
+    #[prost(string, tag = "13")]
+    pub location: ::prost::alloc::string::String,
+    /// The default encryption key for all tables in the dataset.
+    /// After this property is set, the encryption key of all newly-created tables
+    /// in the dataset is set to this value unless the table creation request or
+    /// query explicitly overrides the key.
+    #[prost(message, optional, tag = "16")]
+    pub default_encryption_configuration: ::core::option::Option<
+        EncryptionConfiguration,
+    >,
+    /// Output only. Reserved for future use.
+    #[prost(message, optional, tag = "17")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+    /// Output only. Reserved for future use.
+    #[prost(message, optional, tag = "31")]
+    pub satisfies_pzi: ::core::option::Option<bool>,
+    /// Output only. Same as `type` in `ListFormatDataset`.
+    /// The type of the dataset, one of:
+    ///
+    /// * DEFAULT - only accessible by owner and authorized accounts,
+    /// * PUBLIC - accessible by everyone,
+    /// * LINKED - linked dataset,
+    /// * EXTERNAL - dataset with definition in external metadata catalog.
+    #[prost(string, tag = "18")]
+    pub r#type: ::prost::alloc::string::String,
+    /// Optional. The source dataset reference when the dataset is of type LINKED.
+    /// For all other dataset types it is not set. This field cannot be updated
+    /// once it is set. Any attempt to update this field using Update and Patch API
+    /// Operations will be ignored.
+    #[prost(message, optional, tag = "19")]
+    pub linked_dataset_source: ::core::option::Option<LinkedDatasetSource>,
+    /// Output only. Metadata about the LinkedDataset. Filled out when the dataset
+    /// type is LINKED.
+    #[prost(message, optional, tag = "29")]
+    pub linked_dataset_metadata: ::core::option::Option<LinkedDatasetMetadata>,
+    /// Optional. Reference to a read-only external dataset defined in data
+    /// catalogs outside of BigQuery. Filled out when the dataset type is EXTERNAL.
+    #[prost(message, optional, tag = "20")]
+    pub external_dataset_reference: ::core::option::Option<ExternalDatasetReference>,
+    /// Optional. Options defining open source compatible datasets living in the
+    /// BigQuery catalog. Contains metadata of open source database, schema or
+    /// namespace represented by the current dataset.
+    #[prost(message, optional, tag = "32")]
+    pub external_catalog_dataset_options: ::core::option::Option<
+        ExternalCatalogDatasetOptions,
+    >,
+    /// Optional. TRUE if the dataset and its table names are case-insensitive,
+    /// otherwise FALSE. By default, this is FALSE, which means the dataset and its
+    /// table names are case-sensitive. This field does not affect routine
+    /// references.
+    #[prost(message, optional, tag = "21")]
+    pub is_case_insensitive: ::core::option::Option<bool>,
+    /// Optional. Defines the default collation specification of future tables
+    /// created in the dataset. If a table is created in this dataset without
+    /// table-level default collation, then the table inherits the dataset default
+    /// collation, which is applied to the string fields that do not have explicit
+    /// collation specified. A change to this field affects only tables created
+    /// afterwards, and does not alter the existing tables.
+    /// The following values are supported:
+    ///
+    /// * 'und:ci': undetermined locale, case insensitive.
+    /// * '': empty string. Default to case-sensitive behavior.
+    #[prost(message, optional, tag = "22")]
+    pub default_collation: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. Defines the default rounding mode specification of new tables
+    /// created within this dataset. During table creation, if this field is
+    /// specified, the table within this dataset will inherit the default rounding
+    /// mode of the dataset. Setting the default rounding mode on a table overrides
+    /// this option. Existing tables in the dataset are unaffected.
+    /// If columns are defined during that table creation,
+    /// they will immediately inherit the table's default rounding mode,
+    /// unless otherwise specified.
+    #[prost(enumeration = "table_field_schema::RoundingMode", tag = "26")]
+    pub default_rounding_mode: i32,
+    /// Optional. Defines the time travel window in hours. The value can be from 48
+    /// to 168 hours (2 to 7 days). The default value is 168 hours if this is not
+    /// set.
+    #[prost(message, optional, tag = "23")]
+    pub max_time_travel_hours: ::core::option::Option<i64>,
+    /// Output only. Tags for the dataset. To provide tags as inputs, use the
+    /// `resourceTags` field.
+    #[deprecated]
+    #[prost(message, repeated, tag = "24")]
+    pub tags: ::prost::alloc::vec::Vec<GcpTag>,
+    /// Optional. Updates storage_billing_model for the dataset.
+    #[prost(enumeration = "dataset::StorageBillingModel", tag = "25")]
+    pub storage_billing_model: i32,
+    /// Optional. Output only. Restriction config for all tables and dataset. If
+    /// set, restrict certain accesses on the dataset and all its tables based on
+    /// the config. See [Data
+    /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+    /// details.
+    #[prost(message, optional, tag = "27")]
+    pub restrictions: ::core::option::Option<RestrictionConfig>,
+    /// Optional. The [tags](/bigquery/docs/tags) attached to this dataset. Tag
+    /// keys are globally unique. Tag key is expected to be in the namespaced
+    /// format, for example "123456789012/environment" where 123456789012 is the ID
+    /// of the parent organization or project resource for this tag key. Tag value
+    /// is expected to be the short name, for example "Production". See [Tag
+    /// definitions](/iam/docs/tags-access-control#definitions) for more details.
+    #[prost(btree_map = "string, string", tag = "30")]
+    pub resource_tags: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+/// Nested message and enum types in `Dataset`.
+pub mod dataset {
+    /// Indicates the billing model that will be applied to the dataset.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum StorageBillingModel {
+        /// Value not set.
+        Unspecified = 0,
+        /// Billing for logical bytes.
+        Logical = 1,
+        /// Billing for physical bytes.
+        Physical = 2,
+    }
+    impl StorageBillingModel {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                StorageBillingModel::Unspecified => "STORAGE_BILLING_MODEL_UNSPECIFIED",
+                StorageBillingModel::Logical => "LOGICAL",
+                StorageBillingModel::Physical => "PHYSICAL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STORAGE_BILLING_MODEL_UNSPECIFIED" => Some(Self::Unspecified),
+                "LOGICAL" => Some(Self::Logical),
+                "PHYSICAL" => Some(Self::Physical),
+                _ => None,
+            }
+        }
+    }
+}
+/// A global tag managed by Resource Manager.
+/// <https://cloud.google.com/iam/docs/tags-access-control#definitions>
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GcpTag {
+    /// Required. The namespaced friendly name of the tag key, e.g.
+    /// "12345/environment" where 12345 is org id.
+    #[prost(string, tag = "1")]
+    pub tag_key: ::prost::alloc::string::String,
+    /// Required. The friendly short name of the tag value, e.g. "production".
+    #[prost(string, tag = "2")]
+    pub tag_value: ::prost::alloc::string::String,
+}
+/// A dataset source type which refers to another BigQuery dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LinkedDatasetSource {
+    /// The source dataset reference contains project numbers and not project ids.
+    #[prost(message, optional, tag = "1")]
+    pub source_dataset: ::core::option::Option<DatasetReference>,
+}
+/// Metadata about the Linked Dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct LinkedDatasetMetadata {
+    /// Output only. Specifies whether Linked Dataset is currently in a linked
+    /// state or not.
+    #[prost(enumeration = "linked_dataset_metadata::LinkState", tag = "1")]
+    pub link_state: i32,
+}
+/// Nested message and enum types in `LinkedDatasetMetadata`.
+pub mod linked_dataset_metadata {
+    /// Specifies whether Linked Dataset is currently in a linked state or not.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum LinkState {
+        /// The default value.
+        /// Default to the LINKED state.
+        Unspecified = 0,
+        /// Normal Linked Dataset state. Data is queryable via the Linked Dataset.
+        Linked = 1,
+        /// Data publisher or owner has unlinked this Linked Dataset. It means you
+        /// can no longer query or see the data in the Linked Dataset.
+        Unlinked = 2,
+    }
+    impl LinkState {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                LinkState::Unspecified => "LINK_STATE_UNSPECIFIED",
+                LinkState::Linked => "LINKED",
+                LinkState::Unlinked => "UNLINKED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "LINK_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "LINKED" => Some(Self::Linked),
+                "UNLINKED" => Some(Self::Unlinked),
+                _ => None,
+            }
+        }
+    }
+}
+/// Request format for getting information about a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetDatasetRequest {
+    /// Required. Project ID of the requested dataset
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the requested dataset
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Optional. Specifies the view that determines which dataset information is
+    /// returned. By default, metadata and ACL information are returned.
+    #[prost(enumeration = "get_dataset_request::DatasetView", tag = "3")]
+    pub dataset_view: i32,
+}
+/// Nested message and enum types in `GetDatasetRequest`.
+pub mod get_dataset_request {
+    /// DatasetView specifies which dataset information is returned.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum DatasetView {
+        /// The default value.
+        /// Default to the FULL view.
+        Unspecified = 0,
+        /// Includes metadata information for the dataset, such as location,
+        /// etag, lastModifiedTime, etc.
+        Metadata = 1,
+        /// Includes ACL information for the dataset, which defines dataset access
+        /// for one or more entities.
+        Acl = 2,
+        /// Includes both dataset metadata and ACL information.
+        Full = 3,
+    }
+    impl DatasetView {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                DatasetView::Unspecified => "DATASET_VIEW_UNSPECIFIED",
+                DatasetView::Metadata => "METADATA",
+                DatasetView::Acl => "ACL",
+                DatasetView::Full => "FULL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DATASET_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
+                "METADATA" => Some(Self::Metadata),
+                "ACL" => Some(Self::Acl),
+                "FULL" => Some(Self::Full),
+                _ => None,
+            }
+        }
+    }
+}
+/// Request format for inserting a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InsertDatasetRequest {
+    /// Required. Project ID of the new dataset
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Datasets resource to use for the new dataset
+    #[prost(message, optional, tag = "2")]
+    pub dataset: ::core::option::Option<Dataset>,
+}
+/// Message for updating or patching a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateOrPatchDatasetRequest {
+    /// Required. Project ID of the dataset being updated
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the dataset being updated
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Datasets resource which will replace or patch the specified
+    /// dataset.
+    #[prost(message, optional, tag = "3")]
+    pub dataset: ::core::option::Option<Dataset>,
+}
+/// Request format for deleting a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteDatasetRequest {
+    /// Required. Project ID of the dataset being deleted
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of dataset being deleted
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// If True, delete all the tables in the dataset.
+    /// If False and the dataset contains tables, the request will fail.
+    /// Default is False
+    #[prost(bool, tag = "3")]
+    pub delete_contents: bool,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListDatasetsRequest {
+    /// Required. Project ID of the datasets to be listed
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// The maximum number of results to return in a single response page.
+    /// Leverage the page tokens to iterate through the entire collection.
+    #[prost(message, optional, tag = "2")]
+    pub max_results: ::core::option::Option<u32>,
+    /// Page token, returned by a previous call, to request the next page of
+    /// results
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Whether to list all datasets, including hidden ones
+    #[prost(bool, tag = "4")]
+    pub all: bool,
+    /// An expression for filtering the results of the request by label.
+    /// The syntax is `labels.<name>\[:<value>\]`.
+    /// Multiple filters can be ANDed together by connecting with a space.
+    /// Example: `labels.department:receiving labels.active`.
+    /// See [Filtering datasets using
+    /// labels](<https://cloud.google.com/bigquery/docs/filtering-labels#filtering_datasets_using_labels>)
+    /// for details.
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// A dataset resource with only a subset of fields, to be returned in a list of
+/// datasets.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListFormatDataset {
+    /// The resource type.
+    /// This property always returns the value "bigquery#dataset"
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// The fully-qualified, unique, opaque ID of the dataset.
+    #[prost(string, tag = "2")]
+    pub id: ::prost::alloc::string::String,
+    /// The dataset reference.
+    /// Use this property to access specific parts of the dataset's ID, such as
+    /// project ID or dataset ID.
+    #[prost(message, optional, tag = "3")]
+    pub dataset_reference: ::core::option::Option<DatasetReference>,
+    /// The labels associated with this dataset.
+    /// You can use these to organize and group your datasets.
+    #[prost(btree_map = "string, string", tag = "4")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// An alternate name for the dataset.  The friendly name is purely
+    /// decorative in nature.
+    #[prost(message, optional, tag = "5")]
+    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
+    /// The geographic location where the dataset resides.
+    #[prost(string, tag = "6")]
+    pub location: ::prost::alloc::string::String,
+}
+/// Response format for a page of results when listing datasets.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DatasetList {
+    /// Output only. The resource type.
+    /// This property always returns the value "bigquery#datasetList"
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// Output only. A hash value of the results page. You can use this property to
+    /// determine if the page has changed since the last request.
+    #[prost(string, tag = "2")]
+    pub etag: ::prost::alloc::string::String,
+    /// A token that can be used to request the next results page. This property is
+    /// omitted on the final results page.
+    #[prost(string, tag = "3")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// An array of the dataset resources in the project.
+    /// Each resource contains basic information.
+    /// For full information about a particular dataset resource, use the Datasets:
+    /// get method. This property is omitted when there are no datasets in the
+    /// project.
+    #[prost(message, repeated, tag = "4")]
+    pub datasets: ::prost::alloc::vec::Vec<ListFormatDataset>,
+    /// A list of skipped locations that were unreachable. For more information
+    /// about BigQuery locations, see:
+    /// <https://cloud.google.com/bigquery/docs/locations.> Example: "europe-west5"
+    #[prost(string, repeated, tag = "5")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Request format for undeleting a dataset.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UndeleteDatasetRequest {
+    /// Required. Project ID of the dataset to be undeleted
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of dataset being deleted
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Optional. The exact time when the dataset was deleted. If not specified,
+    /// the most recently deleted version is undeleted. Undeleting a dataset
+    /// using deletion time is not supported.
+    #[prost(message, optional, tag = "3")]
+    pub deletion_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Generated client implementations.
+pub mod dataset_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// This is an experimental RPC service definition for the BigQuery
+    /// Dataset Service.
+    ///
+    /// It should not be relied on for production use cases at this time.
+    #[derive(Debug, Clone)]
+    pub struct DatasetServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> DatasetServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> DatasetServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            DatasetServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Returns the dataset specified by datasetID.
+        pub async fn get_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/GetDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "GetDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a new empty dataset.
+        pub async fn insert_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::InsertDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/InsertDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "InsertDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates information in an existing dataset. The update method replaces the
+        /// entire dataset resource, whereas the patch method only replaces fields that
+        /// are provided in the submitted dataset resource.
+        /// This method supports RFC5789 patch semantics.
+        pub async fn patch_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateOrPatchDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/PatchDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "PatchDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates information in an existing dataset. The update method replaces the
+        /// entire dataset resource, whereas the patch method only replaces fields that
+        /// are provided in the submitted dataset resource.
+        pub async fn update_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateOrPatchDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/UpdateDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "UpdateDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes the dataset specified by the datasetId value. Before you can delete
+        /// a dataset, you must delete all its tables, either manually or by specifying
+        /// deleteContents. Immediately after deletion, you can create another dataset
+        /// with the same name.
+        pub async fn delete_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/DeleteDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "DeleteDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists all datasets in the specified project to which the user has been
+        /// granted the READER dataset role.
+        pub async fn list_datasets(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListDatasetsRequest>,
+        ) -> std::result::Result<tonic::Response<super::DatasetList>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/ListDatasets",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "ListDatasets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Undeletes a dataset which is within time travel window based on datasetId.
+        /// If a time is specified, the dataset version deleted at that time is
+        /// undeleted, else the last live version is undeleted.
+        pub async fn undelete_dataset(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UndeleteDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.DatasetService/UndeleteDataset",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.DatasetService",
+                        "UndeleteDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct JobStatus {
+    /// Output only. Final error result of the job. If present, indicates that the
+    /// job has completed and was unsuccessful.
+    #[prost(message, optional, tag = "1")]
+    pub error_result: ::core::option::Option<ErrorProto>,
+    /// Output only. The first errors encountered during the running of the job.
+    /// The final message includes the number of errors that caused the process to
+    /// stop. Errors here do not necessarily mean that the job has not completed or
+    /// was unsuccessful.
+    #[prost(message, repeated, tag = "2")]
+    pub errors: ::prost::alloc::vec::Vec<ErrorProto>,
+    /// Output only. Running state of the job.  Valid states include 'PENDING',
+    /// 'RUNNING', and 'DONE'.
+    #[prost(string, tag = "3")]
+    pub state: ::prost::alloc::string::String,
+}
+/// Configuration for BigLake managed tables.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigLakeConfiguration {
+    /// Required. The connection specifying the credentials to be used to read and
+    /// write to external storage, such as Cloud Storage. The connection_id can
+    /// have the form `{project}.{location}.{connection_id}` or
+    /// `projects/{project}/locations/{location}/connections/{connection_id}".
+    #[prost(string, tag = "1")]
+    pub connection_id: ::prost::alloc::string::String,
+    /// Required. The fully qualified location prefix of the external folder where
+    /// table data is stored. The '*' wildcard character is not allowed. The URI
+    /// should be in the format `gs://bucket/path_to_table/`
+    #[prost(string, tag = "2")]
+    pub storage_uri: ::prost::alloc::string::String,
+    /// Required. The file format the table data is stored in.
+    #[prost(enumeration = "big_lake_configuration::FileFormat", tag = "3")]
+    pub file_format: i32,
+    /// Required. The table format the metadata only snapshots are stored in.
+    #[prost(enumeration = "big_lake_configuration::TableFormat", tag = "4")]
+    pub table_format: i32,
+}
+/// Nested message and enum types in `BigLakeConfiguration`.
+pub mod big_lake_configuration {
+    /// Supported file formats for BigLake tables.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum FileFormat {
+        /// Default Value.
+        Unspecified = 0,
+        /// Apache Parquet format.
+        Parquet = 1,
+    }
+    impl FileFormat {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                FileFormat::Unspecified => "FILE_FORMAT_UNSPECIFIED",
+                FileFormat::Parquet => "PARQUET",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "FILE_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "PARQUET" => Some(Self::Parquet),
+                _ => None,
+            }
+        }
+    }
+    /// Supported table formats for BigLake tables.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum TableFormat {
+        /// Default Value.
+        Unspecified = 0,
+        /// Apache Iceberg format.
+        Iceberg = 1,
+    }
+    impl TableFormat {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TableFormat::Unspecified => "TABLE_FORMAT_UNSPECIFIED",
+                TableFormat::Iceberg => "ICEBERG",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TABLE_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "ICEBERG" => Some(Self::Iceberg),
+                _ => None,
+            }
+        }
+    }
+}
+/// Reason about why a Job was created from a
+/// [`jobs.query`](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query>)
+/// method when used with `JOB_CREATION_OPTIONAL` Job creation mode.
+///
+/// For
+/// [`jobs.insert`](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/insert>)
+/// method calls it will always be `REQUESTED`.
+///
+/// [Preview](/products/#product-launch-stages)
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct JobCreationReason {
+    /// Output only. Specifies the high level reason why a Job was created.
+    #[prost(enumeration = "job_creation_reason::Code", tag = "1")]
+    pub code: i32,
+}
+/// Nested message and enum types in `JobCreationReason`.
+pub mod job_creation_reason {
+    /// Indicates the high level reason why a job was created.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Code {
+        /// Reason is not specified.
+        Unspecified = 0,
+        /// Job creation was requested.
+        Requested = 1,
+        /// The query request ran beyond a system defined timeout specified by the
+        /// [timeoutMs field in the
+        /// QueryRequest](<https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#queryrequest>).
+        /// As a result it was considered a long running operation for which a job
+        /// was created.
+        LongRunning = 2,
+        /// The results from the query cannot fit in the response.
+        LargeResults = 3,
+        /// BigQuery has determined that the query needs to be executed as a Job.
+        Other = 4,
+    }
+    impl Code {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Code::Unspecified => "CODE_UNSPECIFIED",
+                Code::Requested => "REQUESTED",
+                Code::LongRunning => "LONG_RUNNING",
+                Code::LargeResults => "LARGE_RESULTS",
+                Code::Other => "OTHER",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "REQUESTED" => Some(Self::Requested),
+                "LONG_RUNNING" => Some(Self::LongRunning),
+                "LARGE_RESULTS" => Some(Self::LargeResults),
+                "OTHER" => Some(Self::Other),
+                _ => None,
+            }
+        }
+    }
+}
+/// Metadata about open source compatible table. The fields contained in
+/// these options correspond to hive metastore's table level properties.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalCatalogTableOptions {
+    /// Optional. A map of key value pairs defining the parameters and properties
+    /// of the open source table. Corresponds with hive meta store table
+    /// parameters. Maximum size of 4Mib.
+    #[prost(btree_map = "string, string", tag = "1")]
+    pub parameters: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. A storage descriptor containing information about the physical
+    /// storage of this table.
+    #[prost(message, optional, tag = "2")]
+    pub storage_descriptor: ::core::option::Option<StorageDescriptor>,
+    /// Optional. The connection specifying the credentials to be used to read
+    /// external storage, such as Azure Blob, Cloud Storage, or S3. The connection
+    /// is needed to read the open source table from BigQuery Engine. The
+    /// connection_id can have the form
+    /// `<project_id>.<location_id>.<connection_id>` or
+    /// `projects/<project_id>/locations/<location_id>/connections/<connection_id>`.
+    #[prost(string, tag = "3")]
+    pub connection_id: ::prost::alloc::string::String,
+}
+/// Contains information about how a table's data is stored and accessed by open
+/// source query engines.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StorageDescriptor {
+    /// Optional. The physical location of the table
+    /// (e.g. 'gs://spark-dataproc-data/pangea-data/case_sensitive/' or
+    /// 'gs://spark-dataproc-data/pangea-data/*').
+    /// The maximum length is 2056 bytes.
+    #[prost(string, tag = "1")]
+    pub location_uri: ::prost::alloc::string::String,
+    /// Optional. Specifies the fully qualified class name of the InputFormat
+    /// (e.g. "org.apache.hadoop.hive.ql.io.orc.OrcInputFormat").
+    /// The maximum length is 128 characters.
+    #[prost(string, tag = "2")]
+    pub input_format: ::prost::alloc::string::String,
+    /// Optional. Specifies the fully qualified class name of the OutputFormat
+    /// (e.g. "org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat").
+    /// The maximum length is 128 characters.
+    #[prost(string, tag = "3")]
+    pub output_format: ::prost::alloc::string::String,
+    /// Optional. Serializer and deserializer information.
+    #[prost(message, optional, tag = "4")]
+    pub serde_info: ::core::option::Option<SerDeInfo>,
+}
+/// Serializer and deserializer information.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SerDeInfo {
+    /// Optional. Name of the SerDe.
+    /// The maximum length is 256 characters.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. Specifies a fully-qualified class name of the serialization
+    /// library that is responsible for the translation of data between table
+    /// representation and the underlying low-level input and output format
+    /// structures. The maximum length is 256 characters.
+    #[prost(string, tag = "2")]
+    pub serialization_library: ::prost::alloc::string::String,
+    /// Optional. Key-value pairs that define the initialization parameters for the
+    /// serialization library.
+    /// Maximum size 10 Kib.
+    #[prost(btree_map = "string, string", tag = "3")]
+    pub parameters: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+/// BigQuery-specific metadata about a location. This will be set on
+/// google.cloud.location.Location.metadata in Cloud Location API
+/// responses.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LocationMetadata {
+    /// The legacy BigQuery location ID, e.g. “EU” for the “europe” location.
+    /// This is for any API consumers that need the legacy “US” and “EU” locations.
+    #[prost(string, tag = "1")]
+    pub legacy_location_id: ::prost::alloc::string::String,
+}
+/// The partitioning information, which includes managed table, external table
+/// and metastore partitioned table partition information.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PartitioningDefinition {
+    /// Optional. Details about each partitioning column. This field is output only
+    /// for all partitioning types other than metastore partitioned tables.
+    /// BigQuery native tables only support 1 partitioning column. Other table
+    /// types may support 0, 1 or more partitioning columns.
+    /// For metastore partitioned tables, the order must match the definition order
+    /// in the Hive Metastore, where it must match the physical layout of the
+    /// table. For example,
+    ///
+    /// CREATE TABLE a_table(id BIGINT, name STRING)
+    /// PARTITIONED BY (city STRING, state STRING).
+    ///
+    /// In this case the values must be \['city', 'state'\] in that order.
+    #[prost(message, repeated, tag = "1")]
+    pub partitioned_column: ::prost::alloc::vec::Vec<PartitionedColumn>,
+}
+/// The partitioning column information.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PartitionedColumn {
+    /// Required. The name of the partition column.
+    #[prost(string, optional, tag = "1")]
+    pub field: ::core::option::Option<::prost::alloc::string::String>,
+}
+/// Represents privacy policy associated with "aggregation threshold" method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AggregationThresholdPolicy {
+    /// Optional. The threshold for the "aggregation threshold" policy.
+    #[prost(int64, optional, tag = "1")]
+    pub threshold: ::core::option::Option<i64>,
+    /// Optional. The privacy unit column(s) associated with this policy.
+    /// For now, only one column per data source object (table, view) is allowed as
+    /// a privacy unit column.
+    /// Representing as a repeated field in metadata for extensibility to
+    /// multiple columns in future.
+    /// Duplicates and Repeated struct fields are not allowed.
+    /// For nested fields, use dot notation ("outer.inner")
+    #[prost(string, repeated, tag = "2")]
+    pub privacy_unit_columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Represents privacy policy associated with "differential privacy" method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DifferentialPrivacyPolicy {
+    /// Optional. The maximum epsilon value that a query can consume. If the
+    /// subscriber specifies epsilon as a parameter in a SELECT query, it must be
+    /// less than or equal to this value. The epsilon parameter controls the amount
+    /// of noise that is added to the groups — a higher epsilon means less noise.
+    #[prost(double, optional, tag = "1")]
+    pub max_epsilon_per_query: ::core::option::Option<f64>,
+    /// Optional. The delta value that is used per query. Delta represents the
+    /// probability that any row will fail to be epsilon differentially private.
+    /// Indicates the risk associated with exposing aggregate rows in the result of
+    /// a query.
+    #[prost(double, optional, tag = "2")]
+    pub delta_per_query: ::core::option::Option<f64>,
+    /// Optional. The maximum groups contributed value that is used per query.
+    /// Represents the maximum number of groups to which each protected entity can
+    /// contribute. Changing this value does not improve or worsen privacy. The
+    /// best value for accuracy and utility depends on the query and data.
+    #[prost(int64, optional, tag = "3")]
+    pub max_groups_contributed: ::core::option::Option<i64>,
+    /// Optional. The privacy unit column associated with this policy. Differential
+    /// privacy policies can only have one privacy unit column per data source
+    /// object (table, view).
+    #[prost(string, optional, tag = "4")]
+    pub privacy_unit_column: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. The total epsilon budget for all queries against the
+    /// privacy-protected view. Each subscriber query against this view charges the
+    /// amount of epsilon they request in their query. If there is sufficient
+    /// budget, then the subscriber query attempts to complete. It might still fail
+    /// due to other reasons, in which case the charge is refunded. If there is
+    /// insufficient budget the query is rejected. There might be multiple charge
+    /// attempts if a single query references multiple views. In this case there
+    /// must be sufficient budget for all charges or the query is rejected and
+    /// charges are refunded in best effort. The budget does not have a refresh
+    /// policy and can only be updated via ALTER VIEW or circumvented by creating a
+    /// new view that can be queried with a fresh budget.
+    #[prost(double, optional, tag = "5")]
+    pub epsilon_budget: ::core::option::Option<f64>,
+    /// Optional. The total delta budget for all queries against the
+    /// privacy-protected view. Each subscriber query against this view charges the
+    /// amount of delta that is pre-defined by the contributor through the privacy
+    /// policy delta_per_query field. If there is sufficient budget, then the
+    /// subscriber query attempts to complete. It might still fail due to other
+    /// reasons, in which case the charge is refunded. If there is insufficient
+    /// budget the query is rejected. There might be multiple charge attempts if a
+    /// single query references multiple views. In this case there must be
+    /// sufficient budget for all charges or the query is rejected and charges are
+    /// refunded in best effort. The budget does not have a refresh policy and can
+    /// only be updated via ALTER VIEW or circumvented by creating a new view that
+    /// can be queried with a fresh budget.
+    #[prost(double, optional, tag = "6")]
+    pub delta_budget: ::core::option::Option<f64>,
+    /// Output only. The epsilon budget remaining. If budget is exhausted, no more
+    /// queries are allowed. Note that the budget for queries that are in progress
+    /// is deducted before the query executes. If the query fails or is cancelled
+    /// then the budget is refunded. In this case the amount of budget remaining
+    /// can increase.
+    #[prost(double, optional, tag = "7")]
+    pub epsilon_budget_remaining: ::core::option::Option<f64>,
+    /// Output only. The delta budget remaining. If budget is exhausted, no more
+    /// queries are allowed. Note that the budget for queries that are in progress
+    /// is deducted before the query executes. If the query fails or is cancelled
+    /// then the budget is refunded. In this case the amount of budget remaining
+    /// can increase.
+    #[prost(double, optional, tag = "8")]
+    pub delta_budget_remaining: ::core::option::Option<f64>,
+}
+/// Represents privacy policy associated with "join restrictions". Join
+/// restriction gives data providers the ability to enforce joins on the
+/// 'join_allowed_columns' when data is queried from a privacy protected view.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct JoinRestrictionPolicy {
+    /// Optional. Specifies if a join is required or not on queries for the view.
+    /// Default is JOIN_CONDITION_UNSPECIFIED.
+    #[prost(enumeration = "join_restriction_policy::JoinCondition", optional, tag = "1")]
+    pub join_condition: ::core::option::Option<i32>,
+    /// Optional. The only columns that joins are allowed on.
+    /// This field is must be specified for join_conditions JOIN_ANY and JOIN_ALL
+    /// and it cannot be set for JOIN_BLOCKED.
+    #[prost(string, repeated, tag = "2")]
+    pub join_allowed_columns: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Nested message and enum types in `JoinRestrictionPolicy`.
+pub mod join_restriction_policy {
+    /// Enum for Join Restrictions policy.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum JoinCondition {
+        /// A join is neither required nor restricted on any column. Default value.
+        Unspecified = 0,
+        /// A join is required on at least one of the specified columns.
+        JoinAny = 1,
+        /// A join is required on all specified columns.
+        JoinAll = 2,
+        /// A join is not required, but if present it is only permitted on
+        /// 'join_allowed_columns'
+        JoinNotRequired = 3,
+        /// Joins are blocked for all queries.
+        JoinBlocked = 4,
+    }
+    impl JoinCondition {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                JoinCondition::Unspecified => "JOIN_CONDITION_UNSPECIFIED",
+                JoinCondition::JoinAny => "JOIN_ANY",
+                JoinCondition::JoinAll => "JOIN_ALL",
+                JoinCondition::JoinNotRequired => "JOIN_NOT_REQUIRED",
+                JoinCondition::JoinBlocked => "JOIN_BLOCKED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "JOIN_CONDITION_UNSPECIFIED" => Some(Self::Unspecified),
+                "JOIN_ANY" => Some(Self::JoinAny),
+                "JOIN_ALL" => Some(Self::JoinAll),
+                "JOIN_NOT_REQUIRED" => Some(Self::JoinNotRequired),
+                "JOIN_BLOCKED" => Some(Self::JoinBlocked),
+                _ => None,
+            }
+        }
+    }
+}
+/// Represents privacy policy that contains the privacy requirements specified by
+/// the data owner. Currently, this is only supported on views.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PrivacyPolicy {
+    /// Optional. Join restriction policy is outside of the one of policies, since
+    /// this policy can be set along with other policies. This policy gives data
+    /// providers the ability to enforce joins on the 'join_allowed_columns' when
+    /// data is queried from a privacy protected view.
+    #[prost(message, optional, tag = "1")]
+    pub join_restriction_policy: ::core::option::Option<JoinRestrictionPolicy>,
+    /// Privacy policy associated with this requirement specification. Only one of
+    /// the privacy methods is allowed per data source object.
+    #[prost(oneof = "privacy_policy::PrivacyPolicy", tags = "2, 3")]
+    pub privacy_policy: ::core::option::Option<privacy_policy::PrivacyPolicy>,
+}
+/// Nested message and enum types in `PrivacyPolicy`.
+pub mod privacy_policy {
+    /// Privacy policy associated with this requirement specification. Only one of
+    /// the privacy methods is allowed per data source object.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum PrivacyPolicy {
+        /// Optional. Policy used for aggregation thresholds.
+        #[prost(message, tag = "2")]
+        AggregationThresholdPolicy(super::AggregationThresholdPolicy),
+        /// Optional. Policy used for differential privacy.
+        #[prost(message, tag = "3")]
+        DifferentialPrivacyPolicy(super::DifferentialPrivacyPolicy),
+    }
+}
+/// Replication info of a table created using `AS REPLICA` DDL like:
+/// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TableReplicationInfo {
+    /// Required. Source table reference that is replicated.
+    #[prost(message, optional, tag = "1")]
+    pub source_table: ::core::option::Option<TableReference>,
+    /// Optional. Specifies the interval at which the source table is polled for
+    /// updates.
+    /// It's Optional. If not specified, default replication interval would be
+    /// applied.
+    #[prost(int64, tag = "2")]
+    pub replication_interval_ms: i64,
+    /// Optional. Output only. If source is a materialized view, this field
+    /// signifies the last refresh time of the source.
+    #[prost(int64, tag = "3")]
+    pub replicated_source_last_refresh_time: i64,
+    /// Optional. Output only. Replication status of configured replication.
+    #[prost(enumeration = "table_replication_info::ReplicationStatus", tag = "4")]
+    pub replication_status: i32,
+    /// Optional. Output only. Replication error that will permanently stopped
+    /// table replication.
+    #[prost(message, optional, tag = "5")]
+    pub replication_error: ::core::option::Option<ErrorProto>,
+}
+/// Nested message and enum types in `TableReplicationInfo`.
+pub mod table_replication_info {
+    /// Replication status of the table created using `AS REPLICA` like:
+    /// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ReplicationStatus {
+        /// Default value.
+        Unspecified = 0,
+        /// Replication is Active with no errors.
+        Active = 1,
+        /// Source object is deleted.
+        SourceDeleted = 2,
+        /// Source revoked replication permissions.
+        PermissionDenied = 3,
+        /// Source configuration doesn’t allow replication.
+        UnsupportedConfiguration = 4,
+    }
+    impl ReplicationStatus {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                ReplicationStatus::Unspecified => "REPLICATION_STATUS_UNSPECIFIED",
+                ReplicationStatus::Active => "ACTIVE",
+                ReplicationStatus::SourceDeleted => "SOURCE_DELETED",
+                ReplicationStatus::PermissionDenied => "PERMISSION_DENIED",
+                ReplicationStatus::UnsupportedConfiguration => {
+                    "UNSUPPORTED_CONFIGURATION"
+                }
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REPLICATION_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "SOURCE_DELETED" => Some(Self::SourceDeleted),
+                "PERMISSION_DENIED" => Some(Self::PermissionDenied),
+                "UNSUPPORTED_CONFIGURATION" => Some(Self::UnsupportedConfiguration),
+                _ => None,
+            }
+        }
+    }
+}
+/// Describes the definition of a logical view.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ViewDefinition {
+    /// Required. A query that BigQuery executes when the view is referenced.
+    #[prost(string, tag = "1")]
+    pub query: ::prost::alloc::string::String,
+    /// Describes user-defined function resources used in the query.
+    #[prost(message, repeated, tag = "2")]
+    pub user_defined_function_resources: ::prost::alloc::vec::Vec<
+        UserDefinedFunctionResource,
+    >,
+    /// Specifies whether to use BigQuery's legacy SQL for this view.
+    /// The default value is true. If set to false, the view will use
+    /// BigQuery's GoogleSQL:
+    /// <https://cloud.google.com/bigquery/sql-reference/>
+    ///
+    /// Queries and views that reference this view must use the same flag value.
+    /// A wrapper is used here because the default value is True.
+    #[prost(message, optional, tag = "3")]
+    pub use_legacy_sql: ::core::option::Option<bool>,
+    /// True if the column names are explicitly specified. For example by using the
+    /// 'CREATE VIEW v(c1, c2) AS ...' syntax.
+    /// Can only be set for GoogleSQL views.
+    #[prost(bool, tag = "4")]
+    pub use_explicit_column_names: bool,
+    /// Optional. Specifices the privacy policy for the view.
+    #[prost(message, optional, tag = "5")]
+    pub privacy_policy: ::core::option::Option<PrivacyPolicy>,
+    /// Optional. Foreign view representations.
+    #[prost(message, repeated, tag = "6")]
+    pub foreign_definitions: ::prost::alloc::vec::Vec<ForeignViewDefinition>,
+}
+/// A view can be represented in multiple ways. Each representation has its own
+/// dialect. This message stores the metadata required for these representations.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ForeignViewDefinition {
+    /// Required. The query that defines the view.
+    #[prost(string, tag = "1")]
+    pub query: ::prost::alloc::string::String,
+    /// Optional. Represents the dialect of the query.
+    #[prost(string, tag = "7")]
+    pub dialect: ::prost::alloc::string::String,
+}
+/// Definition and configuration of a materialized view.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MaterializedViewDefinition {
+    /// Required. A query whose results are persisted.
+    #[prost(string, tag = "1")]
+    pub query: ::prost::alloc::string::String,
+    /// Output only. The time when this materialized view was last refreshed, in
+    /// milliseconds since the epoch.
+    #[prost(int64, tag = "2")]
+    pub last_refresh_time: i64,
+    /// Optional. Enable automatic refresh of the materialized view when the base
+    /// table is updated. The default value is "true".
+    #[prost(message, optional, tag = "3")]
+    pub enable_refresh: ::core::option::Option<bool>,
+    /// Optional. The maximum frequency at which this materialized view will be
+    /// refreshed. The default value is "1800000" (30 minutes).
+    #[prost(message, optional, tag = "4")]
+    pub refresh_interval_ms: ::core::option::Option<u64>,
+    /// Optional. This option declares the intention to construct a materialized
+    /// view that isn't refreshed incrementally.
+    #[prost(message, optional, tag = "6")]
+    pub allow_non_incremental_definition: ::core::option::Option<bool>,
+}
+/// Status of a materialized view.
+/// The last refresh timestamp status is omitted here, but is present in the
+/// MaterializedViewDefinition message.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MaterializedViewStatus {
+    /// Output only. Refresh watermark of materialized view. The base tables' data
+    /// were collected into the materialized view cache until this time.
+    #[prost(message, optional, tag = "1")]
+    pub refresh_watermark: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Error result of the last automatic refresh. If present,
+    /// indicates that the last automatic refresh was unsuccessful.
+    #[prost(message, optional, tag = "2")]
+    pub last_refresh_status: ::core::option::Option<ErrorProto>,
+}
+/// Information about base table and snapshot time of the snapshot.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SnapshotDefinition {
+    /// Required. Reference describing the ID of the table that was snapshot.
+    #[prost(message, optional, tag = "1")]
+    pub base_table_reference: ::core::option::Option<TableReference>,
+    /// Required. The time at which the base table was snapshot. This value is
+    /// reported in the JSON response using RFC3339 format.
+    #[prost(message, optional, tag = "2")]
+    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Information about base table and clone time of a table clone.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CloneDefinition {
+    /// Required. Reference describing the ID of the table that was cloned.
+    #[prost(message, optional, tag = "1")]
+    pub base_table_reference: ::core::option::Option<TableReference>,
+    /// Required. The time at which the base table was cloned. This value is
+    /// reported in the JSON response using RFC3339 format.
+    #[prost(message, optional, tag = "2")]
+    pub clone_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct Streamingbuffer {
+    /// Output only. A lower-bound estimate of the number of bytes currently in
+    /// the streaming buffer.
+    #[prost(uint64, tag = "1")]
+    pub estimated_bytes: u64,
+    /// Output only. A lower-bound estimate of the number of rows currently in the
+    /// streaming buffer.
+    #[prost(uint64, tag = "2")]
+    pub estimated_rows: u64,
+    /// Output only. Contains the timestamp of the oldest entry in the streaming
+    /// buffer, in milliseconds since the epoch, if the streaming buffer is
+    /// available.
+    #[prost(fixed64, tag = "3")]
+    pub oldest_entry_time: u64,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Table {
+    /// The type of resource ID.
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// Output only. A hash of this resource.
+    #[prost(string, tag = "2")]
+    pub etag: ::prost::alloc::string::String,
+    /// Output only. An opaque ID uniquely identifying the table.
+    #[prost(string, tag = "3")]
+    pub id: ::prost::alloc::string::String,
+    /// Output only. A URL that can be used to access this resource again.
+    #[prost(string, tag = "4")]
+    pub self_link: ::prost::alloc::string::String,
+    /// Required. Reference describing the ID of this table.
+    #[prost(message, optional, tag = "5")]
+    pub table_reference: ::core::option::Option<TableReference>,
+    /// Optional. A descriptive name for this table.
+    #[prost(message, optional, tag = "6")]
+    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. A user-friendly description of this table.
+    #[prost(message, optional, tag = "7")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+    /// The labels associated with this table. You can use these to organize and
+    /// group your tables. Label keys and values can be no longer than 63
+    /// characters, can only contain lowercase letters, numeric characters,
+    /// underscores and dashes. International characters are allowed. Label values
+    /// are optional. Label keys must start with a letter and each label in the
+    /// list must have a different key.
+    #[prost(btree_map = "string, string", tag = "8")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. Describes the schema of this table.
+    #[prost(message, optional, tag = "9")]
+    pub schema: ::core::option::Option<TableSchema>,
+    /// If specified, configures time-based partitioning for this table.
+    #[prost(message, optional, tag = "10")]
+    pub time_partitioning: ::core::option::Option<TimePartitioning>,
+    /// If specified, configures range partitioning for this table.
+    #[prost(message, optional, tag = "27")]
+    pub range_partitioning: ::core::option::Option<RangePartitioning>,
+    /// Clustering specification for the table. Must be specified with time-based
+    /// partitioning, data in the table will be first partitioned and subsequently
+    /// clustered.
+    #[prost(message, optional, tag = "23")]
+    pub clustering: ::core::option::Option<Clustering>,
+    /// Optional. If set to true, queries over this table require
+    /// a partition filter that can be used for partition elimination to be
+    /// specified.
+    #[prost(message, optional, tag = "28")]
+    pub require_partition_filter: ::core::option::Option<bool>,
+    /// Optional. The partition information for all table formats, including
+    /// managed partitioned tables, hive partitioned tables, iceberg partitioned,
+    /// and metastore partitioned tables. This field is only populated for
+    /// metastore partitioned tables. For other table formats, this is an output
+    /// only field.
+    #[prost(message, optional, tag = "51")]
+    pub partition_definition: ::core::option::Option<PartitioningDefinition>,
+    /// Output only. The size of this table in logical bytes, excluding any data in
+    /// the streaming buffer.
+    #[prost(message, optional, tag = "11")]
+    pub num_bytes: ::core::option::Option<i64>,
+    /// Output only. The physical size of this table in bytes. This includes
+    /// storage used for time travel.
+    #[prost(message, optional, tag = "26")]
+    pub num_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. The number of logical bytes in the table that are considered
+    /// "long-term storage".
+    #[prost(message, optional, tag = "12")]
+    pub num_long_term_bytes: ::core::option::Option<i64>,
+    /// Output only. The number of rows of data in this table, excluding any data
+    /// in the streaming buffer.
+    #[prost(message, optional, tag = "13")]
+    pub num_rows: ::core::option::Option<u64>,
+    /// Output only. The time when this table was created, in milliseconds since
+    /// the epoch.
+    #[prost(int64, tag = "14")]
+    pub creation_time: i64,
+    /// Optional. The time when this table expires, in milliseconds since the
+    /// epoch. If not present, the table will persist indefinitely. Expired tables
+    /// will be deleted and their storage reclaimed.  The defaultTableExpirationMs
+    /// property of the encapsulating dataset can be used to set a default
+    /// expirationTime on newly created tables.
+    #[prost(message, optional, tag = "15")]
+    pub expiration_time: ::core::option::Option<i64>,
+    /// Output only. The time when this table was last modified, in milliseconds
+    /// since the epoch.
+    #[prost(fixed64, tag = "16")]
+    pub last_modified_time: u64,
+    /// Output only. Describes the table type. The following values are supported:
+    ///
+    /// * `TABLE`: A normal BigQuery table.
+    /// * `VIEW`: A virtual table defined by a SQL query.
+    /// * `EXTERNAL`: A table that references data stored in an external storage
+    ///    system, such as Google Cloud Storage.
+    /// * `MATERIALIZED_VIEW`: A precomputed view defined by a SQL query.
+    /// * `SNAPSHOT`: An immutable BigQuery table that preserves the contents of a
+    ///    base table at a particular time. See additional information on
+    ///    [table snapshots](/bigquery/docs/table-snapshots-intro).
+    ///
+    /// The default value is `TABLE`.
+    #[prost(string, tag = "17")]
+    pub r#type: ::prost::alloc::string::String,
+    /// Optional. The view definition.
+    #[prost(message, optional, tag = "18")]
+    pub view: ::core::option::Option<ViewDefinition>,
+    /// Optional. The materialized view definition.
+    #[prost(message, optional, tag = "25")]
+    pub materialized_view: ::core::option::Option<MaterializedViewDefinition>,
+    /// Output only. The materialized view status.
+    #[prost(message, optional, tag = "42")]
+    pub materialized_view_status: ::core::option::Option<MaterializedViewStatus>,
+    /// Optional. Describes the data format, location, and other properties of
+    /// a table stored outside of BigQuery. By defining these properties, the data
+    /// source can then be queried as if it were a standard BigQuery table.
+    #[prost(message, optional, tag = "19")]
+    pub external_data_configuration: ::core::option::Option<ExternalDataConfiguration>,
+    /// Optional. Specifies the configuration of a BigLake managed table.
+    #[prost(message, optional, tag = "45")]
+    pub biglake_configuration: ::core::option::Option<BigLakeConfiguration>,
+    /// Output only. The geographic location where the table resides. This value
+    /// is inherited from the dataset.
+    #[prost(string, tag = "20")]
+    pub location: ::prost::alloc::string::String,
+    /// Output only. Contains information regarding this table's streaming buffer,
+    /// if one is present. This field will be absent if the table is not being
+    /// streamed to or if there is no data in the streaming buffer.
+    #[prost(message, optional, tag = "21")]
+    pub streaming_buffer: ::core::option::Option<Streamingbuffer>,
+    /// Custom encryption configuration (e.g., Cloud KMS keys).
+    #[prost(message, optional, tag = "22")]
+    pub encryption_configuration: ::core::option::Option<EncryptionConfiguration>,
+    /// Output only. Contains information about the snapshot. This value is set via
+    /// snapshot creation.
+    #[prost(message, optional, tag = "29")]
+    pub snapshot_definition: ::core::option::Option<SnapshotDefinition>,
+    /// Optional. Defines the default collation specification of new STRING fields
+    /// in the table. During table creation or update, if a STRING field is added
+    /// to this table without explicit collation specified, then the table inherits
+    /// the table default collation. A change to this field affects only fields
+    /// added afterwards, and does not alter the existing fields.
+    /// The following values are supported:
+    ///
+    /// * 'und:ci': undetermined locale, case insensitive.
+    /// * '': empty string. Default to case-sensitive behavior.
+    #[prost(message, optional, tag = "30")]
+    pub default_collation: ::core::option::Option<::prost::alloc::string::String>,
+    /// Optional. Defines the default rounding mode specification of new decimal
+    /// fields (NUMERIC OR BIGNUMERIC) in the table. During table creation or
+    /// update, if a decimal field is added to this table without an explicit
+    /// rounding mode specified, then the field inherits the table default
+    /// rounding mode. Changing this field doesn't affect existing fields.
+    #[prost(enumeration = "table_field_schema::RoundingMode", tag = "44")]
+    pub default_rounding_mode: i32,
+    /// Output only. Contains information about the clone. This value is set via
+    /// the clone operation.
+    #[prost(message, optional, tag = "31")]
+    pub clone_definition: ::core::option::Option<CloneDefinition>,
+    /// Output only. Number of physical bytes used by time travel storage (deleted
+    /// or changed data). This data is not kept in real time, and might be delayed
+    /// by a few seconds to a few minutes.
+    #[prost(message, optional, tag = "33")]
+    pub num_time_travel_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. Total number of logical bytes in the table or materialized
+    /// view.
+    #[prost(message, optional, tag = "34")]
+    pub num_total_logical_bytes: ::core::option::Option<i64>,
+    /// Output only. Number of logical bytes that are less than 90 days old.
+    #[prost(message, optional, tag = "35")]
+    pub num_active_logical_bytes: ::core::option::Option<i64>,
+    /// Output only. Number of logical bytes that are more than 90 days old.
+    #[prost(message, optional, tag = "36")]
+    pub num_long_term_logical_bytes: ::core::option::Option<i64>,
+    /// Output only. Number of physical bytes used by current live data storage.
+    /// This data is not kept in real time, and might be delayed by a few seconds
+    /// to a few minutes.
+    #[prost(message, optional, tag = "53")]
+    pub num_current_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. The physical size of this table in bytes. This also includes
+    /// storage used for time travel. This data is not kept in real time, and might
+    /// be delayed by a few seconds to a few minutes.
+    #[prost(message, optional, tag = "37")]
+    pub num_total_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. Number of physical bytes less than 90 days old. This data is
+    /// not kept in real time, and might be delayed by a few seconds to a few
+    /// minutes.
+    #[prost(message, optional, tag = "38")]
+    pub num_active_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. Number of physical bytes more than 90 days old.
+    /// This data is not kept in real time, and might be delayed by a few seconds
+    /// to a few minutes.
+    #[prost(message, optional, tag = "39")]
+    pub num_long_term_physical_bytes: ::core::option::Option<i64>,
+    /// Output only. The number of partitions present in the table or materialized
+    /// view. This data is not kept in real time, and might be delayed by a few
+    /// seconds to a few minutes.
+    #[prost(message, optional, tag = "40")]
+    pub num_partitions: ::core::option::Option<i64>,
+    /// Optional. The maximum staleness of data that could be returned when the
+    /// table (or stale MV) is queried. Staleness encoded as a string encoding
+    /// of sql IntervalValue type.
+    #[prost(string, tag = "41")]
+    pub max_staleness: ::prost::alloc::string::String,
+    /// Optional. Output only. Restriction config for table. If set, restrict
+    /// certain accesses on the table based on the config. See [Data
+    /// egress](/bigquery/docs/analytics-hub-introduction#data_egress) for more
+    /// details.
+    #[prost(message, optional, tag = "46")]
+    pub restrictions: ::core::option::Option<RestrictionConfig>,
+    /// Optional. Tables Primary Key and Foreign Key information
+    #[prost(message, optional, tag = "47")]
+    pub table_constraints: ::core::option::Option<TableConstraints>,
+    /// Optional. The [tags](/bigquery/docs/tags) attached to this table. Tag keys
+    /// are globally unique. Tag key is expected to be in the namespaced format,
+    /// for example "123456789012/environment" where 123456789012 is the ID of the
+    /// parent organization or project resource for this tag key. Tag value is
+    /// expected to be the short name, for example "Production". See [Tag
+    /// definitions](/iam/docs/tags-access-control#definitions) for more details.
+    #[prost(btree_map = "string, string", tag = "48")]
+    pub resource_tags: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. Table replication info for table created `AS REPLICA` DDL like:
+    /// `CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv`
+    #[prost(message, optional, tag = "49")]
+    pub table_replication_info: ::core::option::Option<TableReplicationInfo>,
+    /// Optional. Output only. Table references of all replicas currently active on
+    /// the table.
+    #[prost(message, repeated, tag = "50")]
+    pub replicas: ::prost::alloc::vec::Vec<TableReference>,
+    /// Optional. Options defining open source compatible table.
+    #[prost(message, optional, tag = "54")]
+    pub external_catalog_table_options: ::core::option::Option<
+        ExternalCatalogTableOptions,
+    >,
+}
+/// Request format for getting table metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetTableRequest {
+    /// Required. Project ID of the requested table
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the requested table
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Table ID of the requested table
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+    /// List of table schema fields to return (comma-separated).
+    /// If unspecified, all fields are returned.
+    /// A fieldMask cannot be used here because the fields will automatically be
+    /// converted from camelCase to snake_case and the conversion will fail if
+    /// there are underscores. Since these are fields in BigQuery table schemas,
+    /// underscores are allowed.
+    #[prost(string, tag = "4")]
+    pub selected_fields: ::prost::alloc::string::String,
+    /// Optional. Specifies the view that determines which table information is
+    /// returned. By default, basic table information and storage statistics
+    /// (STORAGE_STATS) are returned.
+    #[prost(enumeration = "get_table_request::TableMetadataView", tag = "5")]
+    pub view: i32,
+}
+/// Nested message and enum types in `GetTableRequest`.
+pub mod get_table_request {
+    /// TableMetadataView specifies which table information is returned.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum TableMetadataView {
+        /// The default value.
+        /// Default to the STORAGE_STATS view.
+        Unspecified = 0,
+        /// Includes basic table information including schema and
+        /// partitioning specification. This view does not include storage statistics
+        /// such as numRows or numBytes. This view is significantly more efficient
+        /// and should be used to support high query rates.
+        Basic = 1,
+        /// Includes all information in the BASIC view as well as storage statistics
+        /// (numBytes, numLongTermBytes, numRows and lastModifiedTime).
+        StorageStats = 2,
+        /// Includes all table information, including storage statistics.
+        /// It returns same information as STORAGE_STATS view, but may contain
+        /// additional information in the future.
+        Full = 3,
+    }
+    impl TableMetadataView {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TableMetadataView::Unspecified => "TABLE_METADATA_VIEW_UNSPECIFIED",
+                TableMetadataView::Basic => "BASIC",
+                TableMetadataView::StorageStats => "STORAGE_STATS",
+                TableMetadataView::Full => "FULL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TABLE_METADATA_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
+                "BASIC" => Some(Self::Basic),
+                "STORAGE_STATS" => Some(Self::StorageStats),
+                "FULL" => Some(Self::Full),
+                _ => None,
+            }
+        }
+    }
+}
+/// Request format for inserting table metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InsertTableRequest {
+    /// Required. Project ID of the new table
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the new table
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. A tables resource to insert
+    #[prost(message, optional, tag = "4")]
+    pub table: ::core::option::Option<Table>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateOrPatchTableRequest {
+    /// Required. Project ID of the table to update
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the table to update
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Table ID of the table to update
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+    /// Required. A tables resource which will replace or patch the specified table
+    #[prost(message, optional, tag = "4")]
+    pub table: ::core::option::Option<Table>,
+    /// Optional. When true will autodetect schema, else will keep original schema.
+    #[prost(bool, tag = "5")]
+    pub autodetect_schema: bool,
+}
+/// Request format for deleting a table.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteTableRequest {
+    /// Required. Project ID of the table to delete
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the table to delete
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Table ID of the table to delete
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+}
+/// Request format for enumerating tables.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListTablesRequest {
+    /// Required. Project ID of the tables to list
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of the tables to list
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// The maximum number of results to return in a single response page.
+    /// Leverage the page tokens to iterate through the entire collection.
+    #[prost(message, optional, tag = "3")]
+    pub max_results: ::core::option::Option<u32>,
+    /// Page token, returned by a previous call, to request the next page of
+    /// results
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Information about a logical view.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListFormatView {
+    /// True if view is defined in legacy SQL dialect,
+    /// false if in GoogleSQL.
+    #[prost(message, optional, tag = "1")]
+    pub use_legacy_sql: ::core::option::Option<bool>,
+    /// Specifices the privacy policy for the view.
+    #[prost(message, optional, tag = "2")]
+    pub privacy_policy: ::core::option::Option<PrivacyPolicy>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListFormatTable {
+    /// The resource type.
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// An opaque ID of the table.
+    #[prost(string, tag = "2")]
+    pub id: ::prost::alloc::string::String,
+    /// A reference uniquely identifying table.
+    #[prost(message, optional, tag = "3")]
+    pub table_reference: ::core::option::Option<TableReference>,
+    /// The user-friendly name for this table.
+    #[prost(message, optional, tag = "4")]
+    pub friendly_name: ::core::option::Option<::prost::alloc::string::String>,
+    /// The type of table.
+    #[prost(string, tag = "5")]
+    pub r#type: ::prost::alloc::string::String,
+    /// The time-based partitioning for this table.
+    #[prost(message, optional, tag = "6")]
+    pub time_partitioning: ::core::option::Option<TimePartitioning>,
+    /// The range partitioning for this table.
+    #[prost(message, optional, tag = "12")]
+    pub range_partitioning: ::core::option::Option<RangePartitioning>,
+    /// Clustering specification for this table, if configured.
+    #[prost(message, optional, tag = "11")]
+    pub clustering: ::core::option::Option<Clustering>,
+    /// The labels associated with this table. You can use these to organize
+    /// and group your tables.
+    #[prost(btree_map = "string, string", tag = "7")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Additional details for a view.
+    #[prost(message, optional, tag = "8")]
+    pub view: ::core::option::Option<ListFormatView>,
+    /// Output only. The time when this table was created, in milliseconds since
+    /// the epoch.
+    #[prost(int64, tag = "9")]
+    pub creation_time: i64,
+    /// The time when this table expires, in milliseconds since the
+    /// epoch. If not present, the table will persist indefinitely. Expired tables
+    /// will be deleted and their storage reclaimed.
+    #[prost(int64, tag = "10")]
+    pub expiration_time: i64,
+    /// Optional. If set to true, queries including this table must specify a
+    /// partition filter. This filter is used for partition elimination.
+    #[prost(message, optional, tag = "14")]
+    pub require_partition_filter: ::core::option::Option<bool>,
+}
+/// Partial projection of the metadata for a given table in a list response.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TableList {
+    /// The type of list.
+    #[prost(string, tag = "1")]
+    pub kind: ::prost::alloc::string::String,
+    /// A hash of this page of results.
+    #[prost(string, tag = "2")]
+    pub etag: ::prost::alloc::string::String,
+    /// A token to request the next page of results.
+    #[prost(string, tag = "3")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Tables in the requested dataset.
+    #[prost(message, repeated, tag = "4")]
+    pub tables: ::prost::alloc::vec::Vec<ListFormatTable>,
+    /// The total number of tables in the dataset.
+    #[prost(message, optional, tag = "5")]
+    pub total_items: ::core::option::Option<i32>,
+}
+/// Generated client implementations.
+pub mod table_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// This is an experimental RPC service definition for the BigQuery
+    /// Table Service.
+    ///
+    /// It should not be relied on for production use cases at this time.
+    #[derive(Debug, Clone)]
+    pub struct TableServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> TableServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> TableServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            TableServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Gets the specified table resource by table ID.
+        /// This method does not return the data in the table, it only returns the
+        /// table resource, which describes the structure of this table.
+        pub async fn get_table(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/GetTable",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.bigquery.v2.TableService", "GetTable"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a new, empty table in the dataset.
+        pub async fn insert_table(
+            &mut self,
+            request: impl tonic::IntoRequest<super::InsertTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/InsertTable",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.TableService",
+                        "InsertTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates information in an existing table. The update method replaces the
+        /// entire table resource, whereas the patch method only replaces fields that
+        /// are provided in the submitted table resource.
+        /// This method supports RFC5789 patch semantics.
+        pub async fn patch_table(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateOrPatchTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/PatchTable",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.TableService",
+                        "PatchTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates information in an existing table. The update method replaces the
+        /// entire Table resource, whereas the patch method only replaces fields that
+        /// are provided in the submitted Table resource.
+        pub async fn update_table(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateOrPatchTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/UpdateTable",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.TableService",
+                        "UpdateTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes the table specified by tableId from the dataset.
+        /// If the table contains data, all the data will be deleted.
+        pub async fn delete_table(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteTableRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/DeleteTable",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.TableService",
+                        "DeleteTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists all tables in the specified dataset. Requires the READER dataset
+        /// role.
+        pub async fn list_tables(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListTablesRequest>,
+        ) -> std::result::Result<tonic::Response<super::TableList>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.TableService/ListTables",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.TableService",
+                        "ListTables",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// A job reference is a fully qualified identifier for referring to a job.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct JobReference {
+    /// Required. The ID of the project containing this job.
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. The ID of the job. The ID must contain only letters (a-z, A-Z),
+    /// numbers (0-9), underscores (_), or dashes (-). The maximum length is 1,024
+    /// characters.
+    #[prost(string, tag = "2")]
+    pub job_id: ::prost::alloc::string::String,
+    /// Optional. The geographic location of the job. The default value is US.
+    ///
+    /// For more information about BigQuery locations, see:
+    /// <https://cloud.google.com/bigquery/docs/locations>
+    #[prost(message, optional, tag = "3")]
+    pub location: ::core::option::Option<::prost::alloc::string::String>,
+    /// This field should not be used.
+    #[prost(string, repeated, tag = "5")]
+    pub location_alternative: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Request message for the ListRowAccessPolicies method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListRowAccessPoliciesRequest {
+    /// Required. Project ID of the row access policies to list.
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// Required. Dataset ID of row access policies to list.
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// Required. Table ID of the table to list row access policies.
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+    /// Page token, returned by a previous call, to request the next page of
+    /// results.
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+    /// The maximum number of results to return in a single response page. Leverage
+    /// the page tokens to iterate through the entire collection.
+    #[prost(int32, tag = "5")]
+    pub page_size: i32,
+}
+/// Response message for the ListRowAccessPolicies method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListRowAccessPoliciesResponse {
+    /// Row access policies on the requested table.
+    #[prost(message, repeated, tag = "1")]
+    pub row_access_policies: ::prost::alloc::vec::Vec<RowAccessPolicy>,
+    /// A token to request the next page of results.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Represents access on a subset of rows on the specified table, defined by its
+/// filter predicate. Access to the subset of rows is controlled by its IAM
+/// policy.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RowAccessPolicy {
+    /// Output only. A hash of this resource.
+    #[prost(string, tag = "1")]
+    pub etag: ::prost::alloc::string::String,
+    /// Required. Reference describing the ID of this row access policy.
+    #[prost(message, optional, tag = "2")]
+    pub row_access_policy_reference: ::core::option::Option<RowAccessPolicyReference>,
+    /// Required. A SQL boolean expression that represents the rows defined by this
+    /// row access policy, similar to the boolean expression in a WHERE clause of a
+    /// SELECT query on a table.
+    /// References to other tables, routines, and temporary functions are not
+    /// supported.
+    ///
+    /// Examples: region="EU"
+    ///            date_field = CAST('2019-9-27' as DATE)
+    ///            nullable_field is not NULL
+    ///            numeric_field BETWEEN 1.0 AND 5.0
+    #[prost(string, tag = "3")]
+    pub filter_predicate: ::prost::alloc::string::String,
+    /// Output only. The time when this row access policy was created, in
+    /// milliseconds since the epoch.
+    #[prost(message, optional, tag = "4")]
+    pub creation_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The time when this row access policy was last modified, in
+    /// milliseconds since the epoch.
+    #[prost(message, optional, tag = "5")]
+    pub last_modified_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Generated client implementations.
+pub mod row_access_policy_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Service for interacting with row access policies.
+    #[derive(Debug, Clone)]
+    pub struct RowAccessPolicyServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> RowAccessPolicyServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> RowAccessPolicyServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            RowAccessPolicyServiceClient::new(
+                InterceptedService::new(inner, interceptor),
+            )
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Lists all row access policies on the specified table.
+        pub async fn list_row_access_policies(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListRowAccessPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRowAccessPoliciesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.v2.RowAccessPolicyService/ListRowAccessPolicies",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.v2.RowAccessPolicyService",
+                        "ListRowAccessPolicies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
 /// An operation within a stage.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -8510,7 +9504,7 @@ pub mod explain_query_stage {
 }
 /// Summary of the state of query execution at a given time.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryTimelineSample {
     /// Milliseconds elapsed since the start of query execution.
     #[prost(message, optional, tag = "1")]
@@ -8570,7 +9564,7 @@ pub struct ExternalServiceCost {
 /// Statistics for the EXPORT DATA statement as part of Query Job. EXTRACT
 /// JOB statistics are populated in JobStatistics4.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ExportDataStatistics {
     /// Number of destination files generated in case of EXPORT DATA
     /// statement only.
@@ -9109,7 +10103,7 @@ pub struct QueryInfo {
 }
 /// Statistics for a LOAD query.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct LoadQueryStatistics {
     /// Output only. Number of source files in a LOAD query.
     #[prost(message, optional, tag = "1")]
@@ -9463,7 +10457,7 @@ pub struct JobStatistics4 {
 }
 /// Statistics for a copy job.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CopyJobStatistics {
     /// Output only. Number of rows copied to the destination table.
     #[prost(message, optional, tag = "1")]
@@ -9646,7 +10640,7 @@ pub mod script_statistics {
 }
 /// Statistics for row-level security.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct RowLevelSecurityStatistics {
     /// Whether any accessed data was protected by row access policies.
     #[prost(bool, tag = "1")]
@@ -9654,7 +10648,7 @@ pub struct RowLevelSecurityStatistics {
 }
 /// Statistics for data-masking.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DataMaskingStatistics {
     /// Whether any accessed data was protected by the data masking.
     #[prost(bool, tag = "1")]
@@ -9743,6 +10737,10 @@ pub struct JobStatistics {
     /// job.
     #[prost(int64, tag = "22")]
     pub final_execution_duration_ms: i64,
+    /// Output only. Name of edition corresponding to the reservation for this job
+    /// at the time of this update.
+    #[prost(enumeration = "ReservationEdition", tag = "24")]
+    pub edition: i32,
 }
 /// Nested message and enum types in `JobStatistics`.
 pub mod job_statistics {
@@ -9757,7 +10755,7 @@ pub mod job_statistics {
 }
 /// Detailed statistics for DML statements
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DmlStats {
     /// Output only. Number of inserted Rows. Populated by DML INSERT and MERGE
     /// statements
@@ -9797,7 +10795,7 @@ pub struct PerformanceInsights {
 /// Performance insights compared to the previous executions for a specific
 /// stage.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StagePerformanceChangeInsight {
     /// Output only. The stage id that the insight mapped to.
     #[prost(int64, tag = "1")]
@@ -9808,7 +10806,7 @@ pub struct StagePerformanceChangeInsight {
 }
 /// Details about the input data change insight.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct InputDataChange {
     /// Output only. Records read difference percentage compared to a previous run.
     #[prost(float, tag = "1")]
@@ -9840,7 +10838,7 @@ pub struct StagePerformanceStandaloneInsight {
 }
 /// High cardinality join detailed information.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct HighCardinalityJoin {
     /// Output only. Count of left input rows.
     #[prost(int64, tag = "1")]
@@ -9867,7 +10865,7 @@ pub struct PartitionSkew {
 pub mod partition_skew {
     /// Details about source stages which produce skewed data.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct SkewSource {
         /// Output only. Stage id of the skew source stage.
         #[prost(int64, tag = "1")]
@@ -10173,6 +11171,45 @@ pub struct MetadataCacheStatistics {
     #[prost(message, repeated, tag = "1")]
     pub table_metadata_cache_usage: ::prost::alloc::vec::Vec<TableMetadataCacheUsage>,
 }
+/// The type of editions.
+/// Different features and behaviors are provided to different editions
+/// Capacity commitments and reservations are linked to editions.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ReservationEdition {
+    /// Default value, which will be treated as ENTERPRISE.
+    Unspecified = 0,
+    /// Standard edition.
+    Standard = 1,
+    /// Enterprise edition.
+    Enterprise = 2,
+    /// Enterprise plus edition.
+    EnterprisePlus = 3,
+}
+impl ReservationEdition {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            ReservationEdition::Unspecified => "RESERVATION_EDITION_UNSPECIFIED",
+            ReservationEdition::Standard => "STANDARD",
+            ReservationEdition::Enterprise => "ENTERPRISE",
+            ReservationEdition::EnterprisePlus => "ENTERPRISE_PLUS",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "RESERVATION_EDITION_UNSPECIFIED" => Some(Self::Unspecified),
+            "STANDARD" => Some(Self::Standard),
+            "ENTERPRISE" => Some(Self::Enterprise),
+            "ENTERPRISE_PLUS" => Some(Self::EnterprisePlus),
+            _ => None,
+        }
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Job {
@@ -10210,10 +11247,8 @@ pub struct Job {
     /// Only present for APIs that support third-party identities.
     #[prost(string, tag = "13")]
     pub principal_subject: ::prost::alloc::string::String,
-    /// Output only. If set, it provides the reason why a Job was created.
-    /// If not set, it should be treated as the default: REQUESTED.
-    ///
-    /// This feature is not yet available. Jobs will always be created.
+    /// Output only. The reason why a Job was created.
+    /// [Preview](/products/#product-launch-stages)
     #[prost(message, optional, tag = "14")]
     pub job_creation_reason: ::core::option::Option<JobCreationReason>,
 }
@@ -10748,17 +11783,13 @@ pub struct QueryRequest {
     /// Optional. If not set, jobs are always required.
     ///
     /// If set, the query request will follow the behavior described
-    /// JobCreationMode.
-    ///
-    /// This feature is not yet available. Jobs will always be created.
+    /// JobCreationMode. [Preview](/products/#product-launch-stages)
     #[prost(enumeration = "query_request::JobCreationMode", tag = "22")]
     pub job_creation_mode: i32,
 }
 /// Nested message and enum types in `QueryRequest`.
 pub mod query_request {
     /// Job Creation Mode provides different options on job creation.
-    ///
-    /// This feature is not yet available. Jobs will always be created.
     #[derive(
         Clone,
         Copy,
@@ -10821,25 +11852,20 @@ pub struct QueryResponse {
     /// GetQueryResults can be used to read the results once the query has
     /// completed. Since this API only returns the first page of results,
     /// subsequent pages can be fetched via the same mechanism (GetQueryResults).
+    ///
+    /// If job_creation_mode was set to `JOB_CREATION_OPTIONAL` and the query
+    /// completes without creating a job, this field will be empty.
     #[prost(message, optional, tag = "3")]
     pub job_reference: ::core::option::Option<JobReference>,
-    /// Optional. Only relevant when a job_reference is present in the response.
-    /// If job_reference is not present it will always be unset. When job_reference
-    /// is present, this field should be interpreted as follows:
+    /// Optional. The reason why a Job was created.
     ///
-    /// If set, it will provide the reason of why a Job was created.
-    ///
-    /// If not set, it should be treated as the default: REQUESTED.
-    ///
-    /// This feature is not yet available. Jobs will always be created.
+    /// Only relevant when a job_reference is present in the response.
+    /// If job_reference is not present it will always be unset.
+    /// [Preview](/products/#product-launch-stages)
     #[prost(message, optional, tag = "15")]
     pub job_creation_reason: ::core::option::Option<JobCreationReason>,
-    /// Query ID for the completed query.
-    ///
-    /// This ID will be auto-generated.
-    ///
-    /// This field is not yet available and it is currently not guaranteed to be
-    /// populated.
+    /// Auto-generated ID for the query.
+    /// [Preview](/products/#product-launch-stages)
     #[prost(string, tag = "14")]
     pub query_id: ::prost::alloc::string::String,
     /// The total number of rows in the complete query result set, which can be
@@ -11299,975 +12325,6 @@ pub mod project_service_client {
                     GrpcMethod::new(
                         "google.cloud.bigquery.v2.ProjectService",
                         "GetServiceAccount",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// A user-defined function or a stored procedure.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Routine {
-    /// Output only. A hash of this resource.
-    #[prost(string, tag = "1")]
-    pub etag: ::prost::alloc::string::String,
-    /// Required. Reference describing the ID of this routine.
-    #[prost(message, optional, tag = "2")]
-    pub routine_reference: ::core::option::Option<RoutineReference>,
-    /// Required. The type of routine.
-    #[prost(enumeration = "routine::RoutineType", tag = "3")]
-    pub routine_type: i32,
-    /// Output only. The time when this routine was created, in milliseconds since
-    /// the epoch.
-    #[prost(int64, tag = "4")]
-    pub creation_time: i64,
-    /// Output only. The time when this routine was last modified, in milliseconds
-    /// since the epoch.
-    #[prost(int64, tag = "5")]
-    pub last_modified_time: i64,
-    /// Optional. Defaults to "SQL" if remote_function_options field is absent, not
-    /// set otherwise.
-    #[prost(enumeration = "routine::Language", tag = "6")]
-    pub language: i32,
-    /// Optional.
-    #[prost(message, repeated, tag = "7")]
-    pub arguments: ::prost::alloc::vec::Vec<routine::Argument>,
-    /// Optional if language = "SQL"; required otherwise.
-    /// Cannot be set if routine_type = "TABLE_VALUED_FUNCTION".
-    ///
-    /// If absent, the return type is inferred from definition_body at query time
-    /// in each query that references this routine. If present, then the evaluated
-    /// result will be cast to the specified returned type at query time.
-    ///
-    /// For example, for the functions created with the following statements:
-    ///
-    /// * `CREATE FUNCTION Add(x FLOAT64, y FLOAT64) RETURNS FLOAT64 AS (x + y);`
-    ///
-    /// * `CREATE FUNCTION Increment(x FLOAT64) AS (Add(x, 1));`
-    ///
-    /// * `CREATE FUNCTION Decrement(x FLOAT64) RETURNS FLOAT64 AS (Add(x, -1));`
-    ///
-    /// The return_type is `{type_kind: "FLOAT64"}` for `Add` and `Decrement`, and
-    /// is absent for `Increment` (inferred as FLOAT64 at query time).
-    ///
-    /// Suppose the function `Add` is replaced by
-    ///    `CREATE OR REPLACE FUNCTION Add(x INT64, y INT64) AS (x + y);`
-    ///
-    /// Then the inferred return type of `Increment` is automatically changed to
-    /// INT64 at query time, while the return type of `Decrement` remains FLOAT64.
-    #[prost(message, optional, tag = "10")]
-    pub return_type: ::core::option::Option<StandardSqlDataType>,
-    /// Optional. Can be set only if routine_type = "TABLE_VALUED_FUNCTION".
-    ///
-    /// If absent, the return table type is inferred from definition_body at query
-    /// time in each query that references this routine. If present, then the
-    /// columns in the evaluated table result will be cast to match the column
-    /// types specified in return table type, at query time.
-    #[prost(message, optional, tag = "13")]
-    pub return_table_type: ::core::option::Option<StandardSqlTableType>,
-    /// Optional. If language = "JAVASCRIPT", this field stores the path of the
-    /// imported JAVASCRIPT libraries.
-    #[prost(string, repeated, tag = "8")]
-    pub imported_libraries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Required. The body of the routine.
-    ///
-    /// For functions, this is the expression in the AS clause.
-    ///
-    /// If language=SQL, it is the substring inside (but excluding) the
-    /// parentheses. For example, for the function created with the following
-    /// statement:
-    ///
-    /// `CREATE FUNCTION JoinLines(x string, y string) as (concat(x, "\n", y))`
-    ///
-    /// The definition_body is `concat(x, "\n", y)` (\n is not replaced with
-    /// linebreak).
-    ///
-    /// If language=JAVASCRIPT, it is the evaluated string in the AS clause.
-    /// For example, for the function created with the following statement:
-    ///
-    /// `CREATE FUNCTION f() RETURNS STRING LANGUAGE js AS 'return "\n";\n'`
-    ///
-    /// The definition_body is
-    ///
-    /// `return "\n";\n`
-    ///
-    /// Note that both \n are replaced with linebreaks.
-    #[prost(string, tag = "9")]
-    pub definition_body: ::prost::alloc::string::String,
-    /// Optional. The description of the routine, if defined.
-    #[prost(string, tag = "11")]
-    pub description: ::prost::alloc::string::String,
-    /// Optional. The determinism level of the JavaScript UDF, if defined.
-    #[prost(enumeration = "routine::DeterminismLevel", tag = "12")]
-    pub determinism_level: i32,
-    /// Optional. The security mode of the routine, if defined. If not defined, the
-    /// security mode is automatically determined from the routine's configuration.
-    #[prost(enumeration = "routine::SecurityMode", tag = "18")]
-    pub security_mode: i32,
-    /// Optional. Use this option to catch many common errors. Error checking is
-    /// not exhaustive, and successfully creating a procedure doesn't guarantee
-    /// that the procedure will successfully execute at runtime. If `strictMode` is
-    /// set to `TRUE`, the procedure body is further checked for errors such as
-    /// non-existent tables or columns. The `CREATE PROCEDURE` statement fails if
-    /// the body fails any of these checks.
-    ///
-    /// If `strictMode` is set to `FALSE`, the procedure body is checked only for
-    /// syntax. For procedures that invoke themselves recursively, specify
-    /// `strictMode=FALSE` to avoid non-existent procedure errors during
-    /// validation.
-    ///
-    /// Default value is `TRUE`.
-    #[prost(message, optional, tag = "14")]
-    pub strict_mode: ::core::option::Option<bool>,
-    /// Optional. Remote function specific options.
-    #[prost(message, optional, tag = "15")]
-    pub remote_function_options: ::core::option::Option<routine::RemoteFunctionOptions>,
-    /// Optional. Spark specific options.
-    #[prost(message, optional, tag = "16")]
-    pub spark_options: ::core::option::Option<SparkOptions>,
-    /// Optional. If set to `DATA_MASKING`, the function is validated and made
-    /// available as a masking function. For more information, see [Create custom
-    /// masking
-    /// routines](<https://cloud.google.com/bigquery/docs/user-defined-functions#custom-mask>).
-    #[prost(enumeration = "routine::DataGovernanceType", tag = "17")]
-    pub data_governance_type: i32,
-}
-/// Nested message and enum types in `Routine`.
-pub mod routine {
-    /// Input/output argument of a function or a stored procedure.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Argument {
-        /// Optional. The name of this argument. Can be absent for function return
-        /// argument.
-        #[prost(string, tag = "1")]
-        pub name: ::prost::alloc::string::String,
-        /// Optional. Defaults to FIXED_TYPE.
-        #[prost(enumeration = "argument::ArgumentKind", tag = "2")]
-        pub argument_kind: i32,
-        /// Optional. Specifies whether the argument is input or output.
-        /// Can be set for procedures only.
-        #[prost(enumeration = "argument::Mode", tag = "3")]
-        pub mode: i32,
-        /// Required unless argument_kind = ANY_TYPE.
-        #[prost(message, optional, tag = "4")]
-        pub data_type: ::core::option::Option<super::StandardSqlDataType>,
-        /// Optional. Whether the argument is an aggregate function parameter.
-        /// Must be Unset for routine types other than AGGREGATE_FUNCTION.
-        /// For AGGREGATE_FUNCTION, if set to false, it is equivalent to adding "NOT
-        /// AGGREGATE" clause in DDL; Otherwise, it is equivalent to omitting "NOT
-        /// AGGREGATE" clause in DDL.
-        #[prost(message, optional, tag = "6")]
-        pub is_aggregate: ::core::option::Option<bool>,
-    }
-    /// Nested message and enum types in `Argument`.
-    pub mod argument {
-        /// Represents the kind of a given argument.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum ArgumentKind {
-            /// Default value.
-            Unspecified = 0,
-            /// The argument is a variable with fully specified type, which can be a
-            /// struct or an array, but not a table.
-            FixedType = 1,
-            /// The argument is any type, including struct or array, but not a table.
-            /// To be added: FIXED_TABLE, ANY_TABLE
-            AnyType = 2,
-        }
-        impl ArgumentKind {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    ArgumentKind::Unspecified => "ARGUMENT_KIND_UNSPECIFIED",
-                    ArgumentKind::FixedType => "FIXED_TYPE",
-                    ArgumentKind::AnyType => "ANY_TYPE",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "ARGUMENT_KIND_UNSPECIFIED" => Some(Self::Unspecified),
-                    "FIXED_TYPE" => Some(Self::FixedType),
-                    "ANY_TYPE" => Some(Self::AnyType),
-                    _ => None,
-                }
-            }
-        }
-        /// The input/output mode of the argument.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum Mode {
-            /// Default value.
-            Unspecified = 0,
-            /// The argument is input-only.
-            In = 1,
-            /// The argument is output-only.
-            Out = 2,
-            /// The argument is both an input and an output.
-            Inout = 3,
-        }
-        impl Mode {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Mode::Unspecified => "MODE_UNSPECIFIED",
-                    Mode::In => "IN",
-                    Mode::Out => "OUT",
-                    Mode::Inout => "INOUT",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "MODE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "IN" => Some(Self::In),
-                    "OUT" => Some(Self::Out),
-                    "INOUT" => Some(Self::Inout),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// Options for a remote user-defined function.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct RemoteFunctionOptions {
-        /// Endpoint of the user-provided remote service, e.g.
-        /// ```<https://us-east1-my_gcf_project.cloudfunctions.net/remote_add```>
-        #[prost(string, tag = "1")]
-        pub endpoint: ::prost::alloc::string::String,
-        /// Fully qualified name of the user-provided connection object which holds
-        /// the authentication information to send requests to the remote service.
-        /// Format:
-        /// ```"projects/{projectId}/locations/{locationId}/connections/{connectionId}"```
-        #[prost(string, tag = "2")]
-        pub connection: ::prost::alloc::string::String,
-        /// User-defined context as a set of key/value pairs, which will be sent as
-        /// function invocation context together with batched arguments in the
-        /// requests to the remote service. The total number of bytes of keys and
-        /// values must be less than 8KB.
-        #[prost(btree_map = "string, string", tag = "3")]
-        pub user_defined_context: ::prost::alloc::collections::BTreeMap<
-            ::prost::alloc::string::String,
-            ::prost::alloc::string::String,
-        >,
-        /// Max number of rows in each batch sent to the remote service.
-        /// If absent or if 0, BigQuery dynamically decides the number of rows in a
-        /// batch.
-        #[prost(int64, tag = "4")]
-        pub max_batching_rows: i64,
-    }
-    /// The fine-grained type of the routine.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum RoutineType {
-        /// Default value.
-        Unspecified = 0,
-        /// Non-built-in persistent scalar function.
-        ScalarFunction = 1,
-        /// Stored procedure.
-        Procedure = 2,
-        /// Non-built-in persistent TVF.
-        TableValuedFunction = 3,
-        /// Non-built-in persistent aggregate function.
-        AggregateFunction = 4,
-    }
-    impl RoutineType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                RoutineType::Unspecified => "ROUTINE_TYPE_UNSPECIFIED",
-                RoutineType::ScalarFunction => "SCALAR_FUNCTION",
-                RoutineType::Procedure => "PROCEDURE",
-                RoutineType::TableValuedFunction => "TABLE_VALUED_FUNCTION",
-                RoutineType::AggregateFunction => "AGGREGATE_FUNCTION",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ROUTINE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "SCALAR_FUNCTION" => Some(Self::ScalarFunction),
-                "PROCEDURE" => Some(Self::Procedure),
-                "TABLE_VALUED_FUNCTION" => Some(Self::TableValuedFunction),
-                "AGGREGATE_FUNCTION" => Some(Self::AggregateFunction),
-                _ => None,
-            }
-        }
-    }
-    /// The language of the routine.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Language {
-        /// Default value.
-        Unspecified = 0,
-        /// SQL language.
-        Sql = 1,
-        /// JavaScript language.
-        Javascript = 2,
-        /// Python language.
-        Python = 3,
-        /// Java language.
-        Java = 4,
-        /// Scala language.
-        Scala = 5,
-    }
-    impl Language {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Language::Unspecified => "LANGUAGE_UNSPECIFIED",
-                Language::Sql => "SQL",
-                Language::Javascript => "JAVASCRIPT",
-                Language::Python => "PYTHON",
-                Language::Java => "JAVA",
-                Language::Scala => "SCALA",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "LANGUAGE_UNSPECIFIED" => Some(Self::Unspecified),
-                "SQL" => Some(Self::Sql),
-                "JAVASCRIPT" => Some(Self::Javascript),
-                "PYTHON" => Some(Self::Python),
-                "JAVA" => Some(Self::Java),
-                "SCALA" => Some(Self::Scala),
-                _ => None,
-            }
-        }
-    }
-    /// JavaScript UDF determinism levels.
-    ///
-    /// If all JavaScript UDFs are DETERMINISTIC, the query result is
-    /// potentially cachable (see below). If any JavaScript UDF is
-    /// NOT_DETERMINISTIC, the query result is not cacheable.
-    ///
-    /// Even if a JavaScript UDF is deterministic, many other factors can prevent
-    /// usage of cached query results. Example factors include but not limited to:
-    /// DDL/DML, non-deterministic SQL function calls, update of referenced
-    /// tables/views/UDFs or imported JavaScript libraries.
-    ///
-    /// SQL UDFs cannot have determinism specified. Their determinism is
-    /// automatically determined.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum DeterminismLevel {
-        /// The determinism of the UDF is unspecified.
-        Unspecified = 0,
-        /// The UDF is deterministic, meaning that 2 function calls with the same
-        /// inputs always produce the same result, even across 2 query runs.
-        Deterministic = 1,
-        /// The UDF is not deterministic.
-        NotDeterministic = 2,
-    }
-    impl DeterminismLevel {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                DeterminismLevel::Unspecified => "DETERMINISM_LEVEL_UNSPECIFIED",
-                DeterminismLevel::Deterministic => "DETERMINISTIC",
-                DeterminismLevel::NotDeterministic => "NOT_DETERMINISTIC",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DETERMINISM_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
-                "DETERMINISTIC" => Some(Self::Deterministic),
-                "NOT_DETERMINISTIC" => Some(Self::NotDeterministic),
-                _ => None,
-            }
-        }
-    }
-    /// Security mode.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum SecurityMode {
-        /// The security mode of the routine is unspecified.
-        Unspecified = 0,
-        /// The routine is to be executed with the privileges of the user who
-        /// defines it.
-        Definer = 1,
-        /// The routine is to be executed with the privileges of the user who
-        /// invokes it.
-        Invoker = 2,
-    }
-    impl SecurityMode {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                SecurityMode::Unspecified => "SECURITY_MODE_UNSPECIFIED",
-                SecurityMode::Definer => "DEFINER",
-                SecurityMode::Invoker => "INVOKER",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "SECURITY_MODE_UNSPECIFIED" => Some(Self::Unspecified),
-                "DEFINER" => Some(Self::Definer),
-                "INVOKER" => Some(Self::Invoker),
-                _ => None,
-            }
-        }
-    }
-    /// Data governance type values. Only supports `DATA_MASKING`.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum DataGovernanceType {
-        /// The data governance type is unspecified.
-        Unspecified = 0,
-        /// The data governance type is data masking.
-        DataMasking = 1,
-    }
-    impl DataGovernanceType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                DataGovernanceType::Unspecified => "DATA_GOVERNANCE_TYPE_UNSPECIFIED",
-                DataGovernanceType::DataMasking => "DATA_MASKING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DATA_GOVERNANCE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "DATA_MASKING" => Some(Self::DataMasking),
-                _ => None,
-            }
-        }
-    }
-}
-/// Options for a user-defined Spark routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SparkOptions {
-    /// Fully qualified name of the user-provided Spark connection object. Format:
-    /// ```"projects/{project_id}/locations/{location_id}/connections/{connection_id}"```
-    #[prost(string, tag = "1")]
-    pub connection: ::prost::alloc::string::String,
-    /// Runtime version. If not specified, the default runtime version is used.
-    #[prost(string, tag = "2")]
-    pub runtime_version: ::prost::alloc::string::String,
-    /// Custom container image for the runtime environment.
-    #[prost(string, tag = "3")]
-    pub container_image: ::prost::alloc::string::String,
-    /// Configuration properties as a set of key/value pairs, which will be passed
-    /// on to the Spark application. For more information, see
-    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>) and the
-    /// [procedure option
-    /// list](<https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#procedure_option_list>).
-    #[prost(btree_map = "string, string", tag = "4")]
-    pub properties: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// The main file/jar URI of the Spark application. Exactly one of the
-    /// definition_body field and the main_file_uri field must be set for Python.
-    /// Exactly one of main_class and main_file_uri field
-    /// should be set for Java/Scala language type.
-    #[prost(string, tag = "5")]
-    pub main_file_uri: ::prost::alloc::string::String,
-    /// Python files to be placed on the PYTHONPATH for PySpark application.
-    /// Supported file types: `.py`, `.egg`, and `.zip`. For more information
-    /// about Apache Spark, see
-    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
-    #[prost(string, repeated, tag = "6")]
-    pub py_file_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// JARs to include on the driver and executor CLASSPATH.
-    /// For more information about Apache Spark, see
-    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
-    #[prost(string, repeated, tag = "7")]
-    pub jar_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Files to be placed in the working directory of each executor.
-    /// For more information about Apache Spark, see
-    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
-    #[prost(string, repeated, tag = "8")]
-    pub file_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Archive files to be extracted into the working directory of each executor.
-    /// For more information about Apache Spark, see
-    /// [Apache Spark](<https://spark.apache.org/docs/latest/index.html>).
-    #[prost(string, repeated, tag = "9")]
-    pub archive_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The fully qualified name of a class in jar_uris, for example,
-    /// com.example.wordcount. Exactly one of main_class and main_jar_uri field
-    ///   should be set for Java/Scala language type.
-    #[prost(string, tag = "10")]
-    pub main_class: ::prost::alloc::string::String,
-}
-/// Describes the format for getting information about a routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRoutineRequest {
-    /// Required. Project ID of the requested routine
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the requested routine
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Routine ID of the requested routine
-    #[prost(string, tag = "3")]
-    pub routine_id: ::prost::alloc::string::String,
-    /// If set, only the Routine fields in the field mask are returned in the
-    /// response. If unset, all Routine fields are returned.
-    #[prost(message, optional, tag = "4")]
-    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Describes the format for inserting a routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InsertRoutineRequest {
-    /// Required. Project ID of the new routine
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the new routine
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. A routine resource to insert
-    #[prost(message, optional, tag = "3")]
-    pub routine: ::core::option::Option<Routine>,
-}
-/// Describes the format for updating a routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateRoutineRequest {
-    /// Required. Project ID of the routine to update
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the routine to update
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Routine ID of the routine to update
-    #[prost(string, tag = "3")]
-    pub routine_id: ::prost::alloc::string::String,
-    /// Required. A routine resource which will replace the specified routine
-    #[prost(message, optional, tag = "4")]
-    pub routine: ::core::option::Option<Routine>,
-}
-/// Describes the format for the partial update (patch) of a routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PatchRoutineRequest {
-    /// Required. Project ID of the routine to update
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the routine to update
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Routine ID of the routine to update
-    #[prost(string, tag = "3")]
-    pub routine_id: ::prost::alloc::string::String,
-    /// Required. A routine resource which will be used to partially
-    /// update the specified routine
-    #[prost(message, optional, tag = "4")]
-    pub routine: ::core::option::Option<Routine>,
-    /// Only the Routine fields in the field mask are updated
-    /// by the given routine. Repeated routine fields will be fully replaced
-    /// if contained in the field mask.
-    #[prost(message, optional, tag = "5")]
-    pub field_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Describes the format for deleting a routine.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteRoutineRequest {
-    /// Required. Project ID of the routine to delete
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the routine to delete
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// Required. Routine ID of the routine to delete
-    #[prost(string, tag = "3")]
-    pub routine_id: ::prost::alloc::string::String,
-}
-/// Describes the format for listing routines.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListRoutinesRequest {
-    /// Required. Project ID of the routines to list
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// Required. Dataset ID of the routines to list
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// The maximum number of results to return in a single response page.
-    /// Leverage the page tokens to iterate through the entire collection.
-    #[prost(message, optional, tag = "3")]
-    pub max_results: ::core::option::Option<u32>,
-    /// Page token, returned by a previous call, to request the next page of
-    /// results
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-    /// If set, then only the Routine fields in the field mask, as well as
-    /// project_id, dataset_id and routine_id, are returned in the response.
-    /// If unset, then the following Routine fields are returned:
-    /// etag, project_id, dataset_id, routine_id, routine_type, creation_time,
-    /// last_modified_time, and language.
-    #[prost(message, optional, tag = "5")]
-    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// If set, then only the Routines matching this filter are returned.
-    /// The supported format is `routineType:{RoutineType}`, where `{RoutineType}`
-    /// is a RoutineType enum. For example: `routineType:SCALAR_FUNCTION`.
-    #[prost(string, tag = "6")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// Describes the format of a single result page when listing routines.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListRoutinesResponse {
-    /// Routines in the requested dataset. Unless read_mask is set in the request,
-    /// only the following fields are populated:
-    /// etag, project_id, dataset_id, routine_id, routine_type, creation_time,
-    /// last_modified_time, language, and remote_function_options.
-    #[prost(message, repeated, tag = "1")]
-    pub routines: ::prost::alloc::vec::Vec<Routine>,
-    /// A token to request the next page of results.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod routine_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// This is an experimental RPC service definition for the BigQuery
-    /// Routine Service.
-    ///
-    /// It should not be relied on for production use cases at this time.
-    #[derive(Debug, Clone)]
-    pub struct RoutineServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> RoutineServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> RoutineServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            RoutineServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Gets the specified routine resource by routine ID.
-        pub async fn get_routine(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetRoutineRequest>,
-        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/GetRoutine",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "GetRoutine",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a new routine in the dataset.
-        pub async fn insert_routine(
-            &mut self,
-            request: impl tonic::IntoRequest<super::InsertRoutineRequest>,
-        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/InsertRoutine",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "InsertRoutine",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates information in an existing routine. The update method replaces the
-        /// entire Routine resource.
-        pub async fn update_routine(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateRoutineRequest>,
-        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/UpdateRoutine",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "UpdateRoutine",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Patches information in an existing routine. The patch method does a partial
-        /// update to an existing Routine resource.
-        pub async fn patch_routine(
-            &mut self,
-            request: impl tonic::IntoRequest<super::PatchRoutineRequest>,
-        ) -> std::result::Result<tonic::Response<super::Routine>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/PatchRoutine",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "PatchRoutine",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes the routine specified by routineId from the dataset.
-        pub async fn delete_routine(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteRoutineRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/DeleteRoutine",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "DeleteRoutine",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists all routines in the specified dataset. Requires the READER dataset
-        /// role.
-        pub async fn list_routines(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListRoutinesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListRoutinesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.v2.RoutineService/ListRoutines",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.v2.RoutineService",
-                        "ListRoutines",
                     ),
                 );
             self.inner.unary(req, path, codec).await

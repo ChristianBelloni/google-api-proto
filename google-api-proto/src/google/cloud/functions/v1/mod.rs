@@ -241,12 +241,12 @@ pub struct CloudFunction {
     /// field is only supported for Firebase function deployments.
     #[prost(string, tag = "31")]
     pub source_token: ::prost::alloc::string::String,
-    /// User managed repository created in Artifact Registry optionally with a
-    /// customer managed encryption key. If specified, deployments will use
-    /// Artifact Registry. If unspecified and the deployment is eligible to use
-    /// Artifact Registry, GCF will create and use a repository named
-    /// 'gcf-artifacts' for every deployed region. This is the repository to which
-    /// the function docker image will be pushed after it is built by Cloud Build.
+    /// User-managed repository created in Artifact Registry to which the
+    /// function's Docker image will be pushed after it is built by Cloud Build.
+    /// May optionally be encrypted with a customer-managed encryption key (CMEK).
+    /// If unspecified and `docker_registry` is not explicitly set to
+    /// `CONTAINER_REGISTRY`, GCF will create and use a default Artifact Registry
+    /// repository named 'gcf-artifacts' in the region.
     ///
     /// It must match the pattern
     /// `projects/{project}/locations/{location}/repositories/{repository}`.
@@ -263,13 +263,18 @@ pub struct CloudFunction {
     /// unspecified or set to `ARTIFACT_REGISTRY`.
     #[prost(enumeration = "cloud_function::DockerRegistry", tag = "35")]
     pub docker_registry: i32,
+    /// A service account the user provides for use with Cloud Build. The format of
+    /// this field is
+    /// `projects/{projectId}/serviceAccounts/{serviceAccountEmail}`.
+    #[prost(string, tag = "43")]
+    pub build_service_account: ::prost::alloc::string::String,
     /// The location of the function source code.
     #[prost(oneof = "cloud_function::SourceCode", tags = "3, 4, 16")]
     pub source_code: ::core::option::Option<cloud_function::SourceCode>,
     /// An event that triggers the function.
     #[prost(oneof = "cloud_function::Trigger", tags = "5, 6")]
     pub trigger: ::core::option::Option<cloud_function::Trigger>,
-    /// Runtime update policy can be one of the following.
+    /// This controls when security patches are applied to the runtime environment.
     #[prost(oneof = "cloud_function::RuntimeUpdatePolicy", tags = "40, 41")]
     pub runtime_update_policy: ::core::option::Option<
         cloud_function::RuntimeUpdatePolicy,
@@ -280,13 +285,13 @@ pub mod cloud_function {
     /// Security patches are applied automatically to the runtime without requiring
     /// the function to be redeployed.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct AutomaticUpdatePolicy {}
     /// Security patches are only applied when a function is redeployed.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct OnDeployUpdatePolicy {
-        /// Output only. contains the runtime version which was used during latest
+        /// Output only. Contains the runtime version which was used during latest
         /// function deployment.
         #[prost(string, tag = "1")]
         pub runtime_version: ::prost::alloc::string::String,
@@ -472,14 +477,12 @@ pub mod cloud_function {
         #[prost(message, tag = "6")]
         EventTrigger(super::EventTrigger),
     }
-    /// Runtime update policy can be one of the following.
+    /// This controls when security patches are applied to the runtime environment.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum RuntimeUpdatePolicy {
-        /// See the comment next to this message for more details.
         #[prost(message, tag = "40")]
         AutomaticUpdatePolicy(AutomaticUpdatePolicy),
-        /// See the comment next to this message for more details.
         #[prost(message, tag = "41")]
         OnDeployUpdatePolicy(OnDeployUpdatePolicy),
     }
@@ -501,7 +504,8 @@ pub struct SourceRepository {
     /// To refer to a specific fixed alias (tag):
     /// `<https://source.developers.google.com/projects/*/repos/*/fixed-aliases/*/paths/*`>
     ///
-    /// You may omit `paths/*` if you want to use the main directory.
+    /// You may omit `paths/*` if you want to use the main directory. The function
+    /// response may add an empty `/paths/` to the URL.
     #[prost(string, tag = "1")]
     pub url: ::prost::alloc::string::String,
     /// Output only. The URL pointing to the hosted repository where the function
@@ -514,7 +518,7 @@ pub struct SourceRepository {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HttpsTrigger {
-    /// Output only. The deployed URL for the function.
+    /// Output only. The deployed url for the function.
     #[prost(string, tag = "1")]
     pub url: ::prost::alloc::string::String,
     /// The security level for the function.
@@ -631,7 +635,7 @@ pub struct EventTrigger {
 /// Describes the policy in case of function's execution failure.
 /// If empty, then defaults to ignoring failures (i.e. not retrying them).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct FailurePolicy {
     /// Defines the action taken in case of a function execution failure.
     #[prost(oneof = "failure_policy::Action", tags = "1")]
@@ -645,11 +649,11 @@ pub mod failure_policy {
     /// (capped at 10 seconds).
     /// Retried execution is charged as any other execution.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Retry {}
     /// Defines the action taken in case of a function execution failure.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Action {
         /// If specified, then the function will be retried in case of a failure.
         #[prost(message, tag = "1")]

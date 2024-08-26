@@ -60,7 +60,7 @@ pub mod index {
     pub mod index_field {
         /// The index configuration to support vector search operations
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct VectorConfig {
             /// Required. The vector dimension this configuration applies to.
             ///
@@ -77,11 +77,11 @@ pub mod index {
             /// An index that stores vectors in a flat data structure, and supports
             /// exhaustive search.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
             pub struct FlatIndex {}
             /// The type of index used.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
             pub enum Type {
                 /// Indicates the vector index is a flat index.
                 #[prost(message, tag = "2")]
@@ -172,7 +172,7 @@ pub mod index {
         }
         /// How the field value is indexed.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
         pub enum ValueMode {
             /// Indicates that this field supports ordering by the specified order or
             /// comparing using =, !=, <, <=, >, >=.
@@ -344,392 +344,72 @@ pub mod index {
         }
     }
 }
-/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
-/// results from
-/// [FirestoreAdmin.CreateIndex][google.firestore.admin.v1.FirestoreAdmin.CreateIndex].
+/// A backup schedule for a Cloud Firestore Database.
+///
+/// This resource is owned by the database it is backing up, and is deleted along
+/// with the database. The actual backups are not though.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct IndexOperationMetadata {
-    /// The time this operation started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time this operation completed. Will be unset if operation still in
-    /// progress.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The index resource that this operation is acting on. For example:
-    /// `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
-    #[prost(string, tag = "3")]
-    pub index: ::prost::alloc::string::String,
-    /// The state of the operation.
-    #[prost(enumeration = "OperationState", tag = "4")]
-    pub state: i32,
-    /// The progress, in documents, of this operation.
-    #[prost(message, optional, tag = "5")]
-    pub progress_documents: ::core::option::Option<Progress>,
-    /// The progress, in bytes, of this operation.
-    #[prost(message, optional, tag = "6")]
-    pub progress_bytes: ::core::option::Option<Progress>,
-}
-/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
-/// results from
-/// [FirestoreAdmin.UpdateField][google.firestore.admin.v1.FirestoreAdmin.UpdateField].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FieldOperationMetadata {
-    /// The time this operation started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time this operation completed. Will be unset if operation still in
-    /// progress.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The field resource that this operation is acting on. For example:
-    /// `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}`
-    #[prost(string, tag = "3")]
-    pub field: ::prost::alloc::string::String,
-    /// A list of
-    /// [IndexConfigDelta][google.firestore.admin.v1.FieldOperationMetadata.IndexConfigDelta],
-    /// which describe the intent of this operation.
-    #[prost(message, repeated, tag = "4")]
-    pub index_config_deltas: ::prost::alloc::vec::Vec<
-        field_operation_metadata::IndexConfigDelta,
-    >,
-    /// The state of the operation.
-    #[prost(enumeration = "OperationState", tag = "5")]
-    pub state: i32,
-    /// The progress, in documents, of this operation.
-    #[prost(message, optional, tag = "6")]
-    pub progress_documents: ::core::option::Option<Progress>,
-    /// The progress, in bytes, of this operation.
-    #[prost(message, optional, tag = "7")]
-    pub progress_bytes: ::core::option::Option<Progress>,
-    /// Describes the deltas of TTL configuration.
-    #[prost(message, optional, tag = "8")]
-    pub ttl_config_delta: ::core::option::Option<
-        field_operation_metadata::TtlConfigDelta,
-    >,
-}
-/// Nested message and enum types in `FieldOperationMetadata`.
-pub mod field_operation_metadata {
-    /// Information about an index configuration change.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct IndexConfigDelta {
-        /// Specifies how the index is changing.
-        #[prost(enumeration = "index_config_delta::ChangeType", tag = "1")]
-        pub change_type: i32,
-        /// The index being changed.
-        #[prost(message, optional, tag = "2")]
-        pub index: ::core::option::Option<super::Index>,
-    }
-    /// Nested message and enum types in `IndexConfigDelta`.
-    pub mod index_config_delta {
-        /// Specifies how the index is changing.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum ChangeType {
-            /// The type of change is not specified or known.
-            Unspecified = 0,
-            /// The single field index is being added.
-            Add = 1,
-            /// The single field index is being removed.
-            Remove = 2,
-        }
-        impl ChangeType {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    ChangeType::Unspecified => "CHANGE_TYPE_UNSPECIFIED",
-                    ChangeType::Add => "ADD",
-                    ChangeType::Remove => "REMOVE",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "ADD" => Some(Self::Add),
-                    "REMOVE" => Some(Self::Remove),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// Information about a TTL configuration change.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct TtlConfigDelta {
-        /// Specifies how the TTL configuration is changing.
-        #[prost(enumeration = "ttl_config_delta::ChangeType", tag = "1")]
-        pub change_type: i32,
-    }
-    /// Nested message and enum types in `TtlConfigDelta`.
-    pub mod ttl_config_delta {
-        /// Specifies how the TTL config is changing.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum ChangeType {
-            /// The type of change is not specified or known.
-            Unspecified = 0,
-            /// The TTL config is being added.
-            Add = 1,
-            /// The TTL config is being removed.
-            Remove = 2,
-        }
-        impl ChangeType {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    ChangeType::Unspecified => "CHANGE_TYPE_UNSPECIFIED",
-                    ChangeType::Add => "ADD",
-                    ChangeType::Remove => "REMOVE",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "ADD" => Some(Self::Add),
-                    "REMOVE" => Some(Self::Remove),
-                    _ => None,
-                }
-            }
-        }
-    }
-}
-/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
-/// results from
-/// [FirestoreAdmin.ExportDocuments][google.firestore.admin.v1.FirestoreAdmin.ExportDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDocumentsMetadata {
-    /// The time this operation started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time this operation completed. Will be unset if operation still in
-    /// progress.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The state of the export operation.
-    #[prost(enumeration = "OperationState", tag = "3")]
-    pub operation_state: i32,
-    /// The progress, in documents, of this operation.
-    #[prost(message, optional, tag = "4")]
-    pub progress_documents: ::core::option::Option<Progress>,
-    /// The progress, in bytes, of this operation.
-    #[prost(message, optional, tag = "5")]
-    pub progress_bytes: ::core::option::Option<Progress>,
-    /// Which collection ids are being exported.
-    #[prost(string, repeated, tag = "6")]
-    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Where the documents are being exported to.
-    #[prost(string, tag = "7")]
-    pub output_uri_prefix: ::prost::alloc::string::String,
-    /// Which namespace ids are being exported.
-    #[prost(string, repeated, tag = "8")]
-    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The timestamp that corresponds to the version of the database that is being
-    /// exported. If unspecified, there are no guarantees about the consistency of
-    /// the documents being exported.
-    #[prost(message, optional, tag = "9")]
-    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
-/// results from
-/// [FirestoreAdmin.ImportDocuments][google.firestore.admin.v1.FirestoreAdmin.ImportDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportDocumentsMetadata {
-    /// The time this operation started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time this operation completed. Will be unset if operation still in
-    /// progress.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The state of the import operation.
-    #[prost(enumeration = "OperationState", tag = "3")]
-    pub operation_state: i32,
-    /// The progress, in documents, of this operation.
-    #[prost(message, optional, tag = "4")]
-    pub progress_documents: ::core::option::Option<Progress>,
-    /// The progress, in bytes, of this operation.
-    #[prost(message, optional, tag = "5")]
-    pub progress_bytes: ::core::option::Option<Progress>,
-    /// Which collection ids are being imported.
-    #[prost(string, repeated, tag = "6")]
-    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The location of the documents being imported.
-    #[prost(string, tag = "7")]
-    pub input_uri_prefix: ::prost::alloc::string::String,
-    /// Which namespace ids are being imported.
-    #[prost(string, repeated, tag = "8")]
-    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
-/// results from
-/// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BulkDeleteDocumentsMetadata {
-    /// The time this operation started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time this operation completed. Will be unset if operation still in
-    /// progress.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The state of the operation.
-    #[prost(enumeration = "OperationState", tag = "3")]
-    pub operation_state: i32,
-    /// The progress, in documents, of this operation.
-    #[prost(message, optional, tag = "4")]
-    pub progress_documents: ::core::option::Option<Progress>,
-    /// The progress, in bytes, of this operation.
-    #[prost(message, optional, tag = "5")]
-    pub progress_bytes: ::core::option::Option<Progress>,
-    /// The ids of the collection groups that are being deleted.
-    #[prost(string, repeated, tag = "6")]
-    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Which namespace ids are being deleted.
-    #[prost(string, repeated, tag = "7")]
-    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The timestamp that corresponds to the version of the database that is being
-    /// read to get the list of documents to delete. This time can also be used as
-    /// the timestamp of PITR in case of disaster recovery (subject to PITR window
-    /// limit).
-    #[prost(message, optional, tag = "8")]
-    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Returned in the [google.longrunning.Operation][google.longrunning.Operation]
-/// response field.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDocumentsResponse {
-    /// Location of the output files. This can be used to begin an import
-    /// into Cloud Firestore (this project or another project) after the operation
-    /// completes successfully.
-    #[prost(string, tag = "1")]
-    pub output_uri_prefix: ::prost::alloc::string::String,
-}
-/// Metadata for the [long-running operation][google.longrunning.Operation] from
-/// the [RestoreDatabase][google.firestore.admin.v1.RestoreDatabase] request.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RestoreDatabaseMetadata {
-    /// The time the restore was started.
-    #[prost(message, optional, tag = "1")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time the restore finished, unset for ongoing restores.
-    #[prost(message, optional, tag = "2")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The operation state of the restore.
-    #[prost(enumeration = "OperationState", tag = "3")]
-    pub operation_state: i32,
-    /// The name of the database being restored to.
-    #[prost(string, tag = "4")]
-    pub database: ::prost::alloc::string::String,
-    /// The name of the backup restoring from.
-    #[prost(string, tag = "5")]
-    pub backup: ::prost::alloc::string::String,
-    /// How far along the restore is as an estimated percentage of remaining time.
-    #[prost(message, optional, tag = "8")]
-    pub progress_percentage: ::core::option::Option<Progress>,
-}
-/// Describes the progress of the operation.
-/// Unit of work is generic and must be interpreted based on where
-/// [Progress][google.firestore.admin.v1.Progress] is used.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Progress {
-    /// The amount of work estimated.
-    #[prost(int64, tag = "1")]
-    pub estimated_work: i64,
-    /// The amount of work completed.
-    #[prost(int64, tag = "2")]
-    pub completed_work: i64,
-}
-/// Describes the state of the operation.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum OperationState {
-    /// Unspecified.
-    Unspecified = 0,
-    /// Request is being prepared for processing.
-    Initializing = 1,
-    /// Request is actively being processed.
-    Processing = 2,
-    /// Request is in the process of being cancelled after user called
-    /// google.longrunning.Operations.CancelOperation on the operation.
-    Cancelling = 3,
-    /// Request has been processed and is in its finalization stage.
-    Finalizing = 4,
-    /// Request has completed successfully.
-    Successful = 5,
-    /// Request has finished being processed, but encountered an error.
-    Failed = 6,
-    /// Request has finished being cancelled after user called
-    /// google.longrunning.Operations.CancelOperation.
-    Cancelled = 7,
-}
-impl OperationState {
-    /// String value of the enum field names used in the ProtoBuf definition.
+pub struct BackupSchedule {
+    /// Output only. The unique backup schedule identifier across all locations and
+    /// databases for the given project.
     ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            OperationState::Unspecified => "OPERATION_STATE_UNSPECIFIED",
-            OperationState::Initializing => "INITIALIZING",
-            OperationState::Processing => "PROCESSING",
-            OperationState::Cancelling => "CANCELLING",
-            OperationState::Finalizing => "FINALIZING",
-            OperationState::Successful => "SUCCESSFUL",
-            OperationState::Failed => "FAILED",
-            OperationState::Cancelled => "CANCELLED",
-        }
+    /// This will be auto-assigned.
+    ///
+    /// Format is
+    /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. The timestamp at which this backup schedule was created and
+    /// effective since.
+    ///
+    /// No backups will be created for this schedule before this time.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The timestamp at which this backup schedule was most recently
+    /// updated. When a backup schedule is first created, this is the same as
+    /// create_time.
+    #[prost(message, optional, tag = "10")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// At what relative time in the future, compared to its creation time,
+    /// the backup should be deleted, e.g. keep backups for 7 days.
+    #[prost(message, optional, tag = "6")]
+    pub retention: ::core::option::Option<::prost_types::Duration>,
+    /// A oneof field to represent when backups will be taken.
+    #[prost(oneof = "backup_schedule::Recurrence", tags = "7, 8")]
+    pub recurrence: ::core::option::Option<backup_schedule::Recurrence>,
+}
+/// Nested message and enum types in `BackupSchedule`.
+pub mod backup_schedule {
+    /// A oneof field to represent when backups will be taken.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum Recurrence {
+        /// For a schedule that runs daily.
+        #[prost(message, tag = "7")]
+        DailyRecurrence(super::DailyRecurrence),
+        /// For a schedule that runs weekly on a specific day.
+        #[prost(message, tag = "8")]
+        WeeklyRecurrence(super::WeeklyRecurrence),
     }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "OPERATION_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-            "INITIALIZING" => Some(Self::Initializing),
-            "PROCESSING" => Some(Self::Processing),
-            "CANCELLING" => Some(Self::Cancelling),
-            "FINALIZING" => Some(Self::Finalizing),
-            "SUCCESSFUL" => Some(Self::Successful),
-            "FAILED" => Some(Self::Failed),
-            "CANCELLED" => Some(Self::Cancelled),
-            _ => None,
-        }
-    }
+}
+/// Represents a recurring schedule that runs at a specific time every day.
+///
+/// The time zone is UTC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DailyRecurrence {}
+/// Represents a recurring schedule that runs on a specified day of the week.
+///
+/// The time zone is UTC.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct WeeklyRecurrence {
+    /// The day of week to run.
+    ///
+    /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
+    #[prost(enumeration = "super::super::super::r#type::DayOfWeek", tag = "2")]
+    pub day: i32,
 }
 /// A Backup of a Cloud Firestore Database.
 ///
@@ -773,7 +453,7 @@ pub struct Backup {
 pub mod backup {
     /// Backup specific statistics.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Stats {
         /// Output only. Summation of the size of all documents and index entries in
         /// the backup, measured in bytes.
@@ -1266,7 +946,7 @@ pub mod field {
     /// other data type or leaving the field absent will disable expiration for the
     /// individual document.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct TtlConfig {
         /// Output only. The state of the TTL configuration.
         #[prost(enumeration = "ttl_config::State", tag = "1")]
@@ -1330,72 +1010,392 @@ pub mod field {
         }
     }
 }
-/// A backup schedule for a Cloud Firestore Database.
-///
-/// This resource is owned by the database it is backing up, and is deleted along
-/// with the database. The actual backups are not though.
+/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
+/// results from
+/// [FirestoreAdmin.CreateIndex][google.firestore.admin.v1.FirestoreAdmin.CreateIndex].
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BackupSchedule {
-    /// Output only. The unique backup schedule identifier across all locations and
-    /// databases for the given project.
-    ///
-    /// This will be auto-assigned.
-    ///
-    /// Format is
-    /// `projects/{project}/databases/{database}/backupSchedules/{backup_schedule}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The timestamp at which this backup schedule was created and
-    /// effective since.
-    ///
-    /// No backups will be created for this schedule before this time.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The timestamp at which this backup schedule was most recently
-    /// updated. When a backup schedule is first created, this is the same as
-    /// create_time.
-    #[prost(message, optional, tag = "10")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// At what relative time in the future, compared to its creation time,
-    /// the backup should be deleted, e.g. keep backups for 7 days.
+pub struct IndexOperationMetadata {
+    /// The time this operation started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time this operation completed. Will be unset if operation still in
+    /// progress.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The index resource that this operation is acting on. For example:
+    /// `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}`
+    #[prost(string, tag = "3")]
+    pub index: ::prost::alloc::string::String,
+    /// The state of the operation.
+    #[prost(enumeration = "OperationState", tag = "4")]
+    pub state: i32,
+    /// The progress, in documents, of this operation.
+    #[prost(message, optional, tag = "5")]
+    pub progress_documents: ::core::option::Option<Progress>,
+    /// The progress, in bytes, of this operation.
     #[prost(message, optional, tag = "6")]
-    pub retention: ::core::option::Option<::prost_types::Duration>,
-    /// A oneof field to represent when backups will be taken.
-    #[prost(oneof = "backup_schedule::Recurrence", tags = "7, 8")]
-    pub recurrence: ::core::option::Option<backup_schedule::Recurrence>,
+    pub progress_bytes: ::core::option::Option<Progress>,
 }
-/// Nested message and enum types in `BackupSchedule`.
-pub mod backup_schedule {
-    /// A oneof field to represent when backups will be taken.
+/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
+/// results from
+/// [FirestoreAdmin.UpdateField][google.firestore.admin.v1.FirestoreAdmin.UpdateField].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FieldOperationMetadata {
+    /// The time this operation started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time this operation completed. Will be unset if operation still in
+    /// progress.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The field resource that this operation is acting on. For example:
+    /// `projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_path}`
+    #[prost(string, tag = "3")]
+    pub field: ::prost::alloc::string::String,
+    /// A list of
+    /// [IndexConfigDelta][google.firestore.admin.v1.FieldOperationMetadata.IndexConfigDelta],
+    /// which describe the intent of this operation.
+    #[prost(message, repeated, tag = "4")]
+    pub index_config_deltas: ::prost::alloc::vec::Vec<
+        field_operation_metadata::IndexConfigDelta,
+    >,
+    /// The state of the operation.
+    #[prost(enumeration = "OperationState", tag = "5")]
+    pub state: i32,
+    /// The progress, in documents, of this operation.
+    #[prost(message, optional, tag = "6")]
+    pub progress_documents: ::core::option::Option<Progress>,
+    /// The progress, in bytes, of this operation.
+    #[prost(message, optional, tag = "7")]
+    pub progress_bytes: ::core::option::Option<Progress>,
+    /// Describes the deltas of TTL configuration.
+    #[prost(message, optional, tag = "8")]
+    pub ttl_config_delta: ::core::option::Option<
+        field_operation_metadata::TtlConfigDelta,
+    >,
+}
+/// Nested message and enum types in `FieldOperationMetadata`.
+pub mod field_operation_metadata {
+    /// Information about an index configuration change.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Recurrence {
-        /// For a schedule that runs daily.
-        #[prost(message, tag = "7")]
-        DailyRecurrence(super::DailyRecurrence),
-        /// For a schedule that runs weekly on a specific day.
-        #[prost(message, tag = "8")]
-        WeeklyRecurrence(super::WeeklyRecurrence),
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct IndexConfigDelta {
+        /// Specifies how the index is changing.
+        #[prost(enumeration = "index_config_delta::ChangeType", tag = "1")]
+        pub change_type: i32,
+        /// The index being changed.
+        #[prost(message, optional, tag = "2")]
+        pub index: ::core::option::Option<super::Index>,
+    }
+    /// Nested message and enum types in `IndexConfigDelta`.
+    pub mod index_config_delta {
+        /// Specifies how the index is changing.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ChangeType {
+            /// The type of change is not specified or known.
+            Unspecified = 0,
+            /// The single field index is being added.
+            Add = 1,
+            /// The single field index is being removed.
+            Remove = 2,
+        }
+        impl ChangeType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    ChangeType::Unspecified => "CHANGE_TYPE_UNSPECIFIED",
+                    ChangeType::Add => "ADD",
+                    ChangeType::Remove => "REMOVE",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "ADD" => Some(Self::Add),
+                    "REMOVE" => Some(Self::Remove),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// Information about a TTL configuration change.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct TtlConfigDelta {
+        /// Specifies how the TTL configuration is changing.
+        #[prost(enumeration = "ttl_config_delta::ChangeType", tag = "1")]
+        pub change_type: i32,
+    }
+    /// Nested message and enum types in `TtlConfigDelta`.
+    pub mod ttl_config_delta {
+        /// Specifies how the TTL config is changing.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ChangeType {
+            /// The type of change is not specified or known.
+            Unspecified = 0,
+            /// The TTL config is being added.
+            Add = 1,
+            /// The TTL config is being removed.
+            Remove = 2,
+        }
+        impl ChangeType {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    ChangeType::Unspecified => "CHANGE_TYPE_UNSPECIFIED",
+                    ChangeType::Add => "ADD",
+                    ChangeType::Remove => "REMOVE",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "ADD" => Some(Self::Add),
+                    "REMOVE" => Some(Self::Remove),
+                    _ => None,
+                }
+            }
+        }
     }
 }
-/// Represents a recurring schedule that runs at a specific time every day.
-///
-/// The time zone is UTC.
+/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
+/// results from
+/// [FirestoreAdmin.ExportDocuments][google.firestore.admin.v1.FirestoreAdmin.ExportDocuments].
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DailyRecurrence {}
-/// Represents a recurring schedule that runs on a specified day of the week.
-///
-/// The time zone is UTC.
+pub struct ExportDocumentsMetadata {
+    /// The time this operation started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time this operation completed. Will be unset if operation still in
+    /// progress.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The state of the export operation.
+    #[prost(enumeration = "OperationState", tag = "3")]
+    pub operation_state: i32,
+    /// The progress, in documents, of this operation.
+    #[prost(message, optional, tag = "4")]
+    pub progress_documents: ::core::option::Option<Progress>,
+    /// The progress, in bytes, of this operation.
+    #[prost(message, optional, tag = "5")]
+    pub progress_bytes: ::core::option::Option<Progress>,
+    /// Which collection ids are being exported.
+    #[prost(string, repeated, tag = "6")]
+    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Where the documents are being exported to.
+    #[prost(string, tag = "7")]
+    pub output_uri_prefix: ::prost::alloc::string::String,
+    /// Which namespace ids are being exported.
+    #[prost(string, repeated, tag = "8")]
+    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The timestamp that corresponds to the version of the database that is being
+    /// exported. If unspecified, there are no guarantees about the consistency of
+    /// the documents being exported.
+    #[prost(message, optional, tag = "9")]
+    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
+/// results from
+/// [FirestoreAdmin.ImportDocuments][google.firestore.admin.v1.FirestoreAdmin.ImportDocuments].
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct WeeklyRecurrence {
-    /// The day of week to run.
+pub struct ImportDocumentsMetadata {
+    /// The time this operation started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time this operation completed. Will be unset if operation still in
+    /// progress.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The state of the import operation.
+    #[prost(enumeration = "OperationState", tag = "3")]
+    pub operation_state: i32,
+    /// The progress, in documents, of this operation.
+    #[prost(message, optional, tag = "4")]
+    pub progress_documents: ::core::option::Option<Progress>,
+    /// The progress, in bytes, of this operation.
+    #[prost(message, optional, tag = "5")]
+    pub progress_bytes: ::core::option::Option<Progress>,
+    /// Which collection ids are being imported.
+    #[prost(string, repeated, tag = "6")]
+    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The location of the documents being imported.
+    #[prost(string, tag = "7")]
+    pub input_uri_prefix: ::prost::alloc::string::String,
+    /// Which namespace ids are being imported.
+    #[prost(string, repeated, tag = "8")]
+    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
+/// results from
+/// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BulkDeleteDocumentsMetadata {
+    /// The time this operation started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time this operation completed. Will be unset if operation still in
+    /// progress.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The state of the operation.
+    #[prost(enumeration = "OperationState", tag = "3")]
+    pub operation_state: i32,
+    /// The progress, in documents, of this operation.
+    #[prost(message, optional, tag = "4")]
+    pub progress_documents: ::core::option::Option<Progress>,
+    /// The progress, in bytes, of this operation.
+    #[prost(message, optional, tag = "5")]
+    pub progress_bytes: ::core::option::Option<Progress>,
+    /// The ids of the collection groups that are being deleted.
+    #[prost(string, repeated, tag = "6")]
+    pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Which namespace ids are being deleted.
+    #[prost(string, repeated, tag = "7")]
+    pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The timestamp that corresponds to the version of the database that is being
+    /// read to get the list of documents to delete. This time can also be used as
+    /// the timestamp of PITR in case of disaster recovery (subject to PITR window
+    /// limit).
+    #[prost(message, optional, tag = "8")]
+    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Returned in the [google.longrunning.Operation][google.longrunning.Operation]
+/// response field.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportDocumentsResponse {
+    /// Location of the output files. This can be used to begin an import
+    /// into Cloud Firestore (this project or another project) after the operation
+    /// completes successfully.
+    #[prost(string, tag = "1")]
+    pub output_uri_prefix: ::prost::alloc::string::String,
+}
+/// Metadata for the [long-running operation][google.longrunning.Operation] from
+/// the [RestoreDatabase][google.firestore.admin.v1.RestoreDatabase] request.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RestoreDatabaseMetadata {
+    /// The time the restore was started.
+    #[prost(message, optional, tag = "1")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time the restore finished, unset for ongoing restores.
+    #[prost(message, optional, tag = "2")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The operation state of the restore.
+    #[prost(enumeration = "OperationState", tag = "3")]
+    pub operation_state: i32,
+    /// The name of the database being restored to.
+    #[prost(string, tag = "4")]
+    pub database: ::prost::alloc::string::String,
+    /// The name of the backup restoring from.
+    #[prost(string, tag = "5")]
+    pub backup: ::prost::alloc::string::String,
+    /// How far along the restore is as an estimated percentage of remaining time.
+    #[prost(message, optional, tag = "8")]
+    pub progress_percentage: ::core::option::Option<Progress>,
+}
+/// Describes the progress of the operation.
+/// Unit of work is generic and must be interpreted based on where
+/// [Progress][google.firestore.admin.v1.Progress] is used.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct Progress {
+    /// The amount of work estimated.
+    #[prost(int64, tag = "1")]
+    pub estimated_work: i64,
+    /// The amount of work completed.
+    #[prost(int64, tag = "2")]
+    pub completed_work: i64,
+}
+/// Describes the state of the operation.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum OperationState {
+    /// Unspecified.
+    Unspecified = 0,
+    /// Request is being prepared for processing.
+    Initializing = 1,
+    /// Request is actively being processed.
+    Processing = 2,
+    /// Request is in the process of being cancelled after user called
+    /// google.longrunning.Operations.CancelOperation on the operation.
+    Cancelling = 3,
+    /// Request has been processed and is in its finalization stage.
+    Finalizing = 4,
+    /// Request has completed successfully.
+    Successful = 5,
+    /// Request has finished being processed, but encountered an error.
+    Failed = 6,
+    /// Request has finished being cancelled after user called
+    /// google.longrunning.Operations.CancelOperation.
+    Cancelled = 7,
+}
+impl OperationState {
+    /// String value of the enum field names used in the ProtoBuf definition.
     ///
-    /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
-    #[prost(enumeration = "super::super::super::r#type::DayOfWeek", tag = "2")]
-    pub day: i32,
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            OperationState::Unspecified => "OPERATION_STATE_UNSPECIFIED",
+            OperationState::Initializing => "INITIALIZING",
+            OperationState::Processing => "PROCESSING",
+            OperationState::Cancelling => "CANCELLING",
+            OperationState::Finalizing => "FINALIZING",
+            OperationState::Successful => "SUCCESSFUL",
+            OperationState::Failed => "FAILED",
+            OperationState::Cancelled => "CANCELLED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "OPERATION_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+            "INITIALIZING" => Some(Self::Initializing),
+            "PROCESSING" => Some(Self::Processing),
+            "CANCELLING" => Some(Self::Cancelling),
+            "FINALIZING" => Some(Self::Finalizing),
+            "SUCCESSFUL" => Some(Self::Successful),
+            "FAILED" => Some(Self::Failed),
+            "CANCELLED" => Some(Self::Cancelled),
+            _ => None,
+        }
+    }
 }
 /// A request to list the Firestore Databases in all locations for a project.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1434,7 +1434,7 @@ pub struct CreateDatabaseRequest {
 }
 /// Metadata related to the create database operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateDatabaseMetadata {}
 /// The list of databases for a project.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1479,7 +1479,7 @@ pub struct UpdateDatabaseRequest {
 }
 /// Metadata related to the update database operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateDatabaseMetadata {}
 /// The request for
 /// [FirestoreAdmin.DeleteDatabase][google.firestore.admin.v1.FirestoreAdmin.DeleteDatabase].
@@ -1498,7 +1498,7 @@ pub struct DeleteDatabaseRequest {
 }
 /// Metadata related to the delete database operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteDatabaseMetadata {}
 /// The request for
 /// [FirestoreAdmin.CreateBackupSchedule][google.firestore.admin.v1.FirestoreAdmin.CreateBackupSchedule].
@@ -1808,7 +1808,7 @@ pub struct BulkDeleteDocumentsRequest {
 /// The response for
 /// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct BulkDeleteDocumentsResponse {}
 /// The request for
 /// [FirestoreAdmin.GetBackup][google.firestore.admin.v1.FirestoreAdmin.GetBackup].
@@ -2777,5 +2777,5 @@ pub mod firestore_admin_client {
 /// The metadata message for
 /// [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct LocationMetadata {}

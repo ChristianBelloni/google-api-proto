@@ -39,6 +39,7 @@ pub mod reservation;
 #[cfg(
     any(
         feature = "google-cloud-bigquery-storage-v1",
+        feature = "google-cloud-bigquery-storage-v1alpha",
         feature = "google-cloud-bigquery-storage-v1beta1",
         feature = "google-cloud-bigquery-storage-v1beta2",
     )

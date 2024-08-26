@@ -52,127 +52,97 @@ impl Type {
         }
     }
 }
-/// Payload proto for "clouddeploy.googleapis.com/rollout_update"
-/// Platform Log event that describes the rollout update event.
+/// Payload proto for "clouddeploy.googleapis.com/rollout_notification"
+/// Platform Log event that describes the failure to send rollout status change
+/// Pub/Sub notification.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RolloutUpdateEvent {
-    /// Debug message for when a rollout update event occurs.
-    #[prost(string, tag = "6")]
-    pub message: ::prost::alloc::string::String,
-    /// Unique identifier of the pipeline.
+pub struct RolloutNotificationEvent {
+    /// Debug message for when a notification fails to send.
     #[prost(string, tag = "1")]
-    pub pipeline_uid: ::prost::alloc::string::String,
-    /// Unique identifier of the release.
+    pub message: ::prost::alloc::string::String,
+    /// Unique identifier of the `DeliveryPipeline`.
     #[prost(string, tag = "2")]
+    pub pipeline_uid: ::prost::alloc::string::String,
+    /// Unique identifier of the `Release`.
+    #[prost(string, tag = "3")]
     pub release_uid: ::prost::alloc::string::String,
     /// The name of the `Release`.
-    #[prost(string, tag = "8")]
+    #[prost(string, tag = "7")]
     pub release: ::prost::alloc::string::String,
-    /// The name of the rollout.
-    /// rollout_uid is not in this log message because we write some of these log
-    /// messages at rollout creation time, before we've generated the uid.
-    #[prost(string, tag = "3")]
-    pub rollout: ::prost::alloc::string::String,
-    /// ID of the target.
+    /// Unique identifier of the `Rollout`.
+    #[prost(string, tag = "8")]
+    pub rollout_uid: ::prost::alloc::string::String,
+    /// The name of the `Rollout`.
     #[prost(string, tag = "4")]
+    pub rollout: ::prost::alloc::string::String,
+    /// ID of the `Target` that the rollout is deployed to.
+    #[prost(string, tag = "6")]
     pub target_id: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a rollout update event.
-    #[prost(enumeration = "Type", tag = "7")]
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "5")]
     pub r#type: i32,
-    /// The type of the rollout update.
-    #[prost(enumeration = "rollout_update_event::RolloutUpdateType", tag = "5")]
-    pub rollout_update_type: i32,
 }
-/// Nested message and enum types in `RolloutUpdateEvent`.
-pub mod rollout_update_event {
-    /// RolloutUpdateType indicates the type of the rollout update.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum RolloutUpdateType {
-        /// Rollout update type unspecified.
-        Unspecified = 0,
-        /// rollout state updated to pending.
-        Pending = 1,
-        /// Rollout state updated to pending release.
-        PendingRelease = 2,
-        /// Rollout state updated to in progress.
-        InProgress = 3,
-        /// Rollout state updated to cancelling.
-        Cancelling = 4,
-        /// Rollout state updated to cancelled.
-        Cancelled = 5,
-        /// Rollout state updated to halted.
-        Halted = 6,
-        /// Rollout state updated to succeeded.
-        Succeeded = 7,
-        /// Rollout state updated to failed.
-        Failed = 8,
-        /// Rollout requires approval.
-        ApprovalRequired = 9,
-        /// Rollout has been approved.
-        Approved = 10,
-        /// Rollout has been rejected.
-        Rejected = 11,
-        /// Rollout requires advance to the next phase.
-        AdvanceRequired = 12,
-        /// Rollout has been advanced.
-        Advanced = 13,
-    }
-    impl RolloutUpdateType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                RolloutUpdateType::Unspecified => "ROLLOUT_UPDATE_TYPE_UNSPECIFIED",
-                RolloutUpdateType::Pending => "PENDING",
-                RolloutUpdateType::PendingRelease => "PENDING_RELEASE",
-                RolloutUpdateType::InProgress => "IN_PROGRESS",
-                RolloutUpdateType::Cancelling => "CANCELLING",
-                RolloutUpdateType::Cancelled => "CANCELLED",
-                RolloutUpdateType::Halted => "HALTED",
-                RolloutUpdateType::Succeeded => "SUCCEEDED",
-                RolloutUpdateType::Failed => "FAILED",
-                RolloutUpdateType::ApprovalRequired => "APPROVAL_REQUIRED",
-                RolloutUpdateType::Approved => "APPROVED",
-                RolloutUpdateType::Rejected => "REJECTED",
-                RolloutUpdateType::AdvanceRequired => "ADVANCE_REQUIRED",
-                RolloutUpdateType::Advanced => "ADVANCED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ROLLOUT_UPDATE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "PENDING" => Some(Self::Pending),
-                "PENDING_RELEASE" => Some(Self::PendingRelease),
-                "IN_PROGRESS" => Some(Self::InProgress),
-                "CANCELLING" => Some(Self::Cancelling),
-                "CANCELLED" => Some(Self::Cancelled),
-                "HALTED" => Some(Self::Halted),
-                "SUCCEEDED" => Some(Self::Succeeded),
-                "FAILED" => Some(Self::Failed),
-                "APPROVAL_REQUIRED" => Some(Self::ApprovalRequired),
-                "APPROVED" => Some(Self::Approved),
-                "REJECTED" => Some(Self::Rejected),
-                "ADVANCE_REQUIRED" => Some(Self::AdvanceRequired),
-                "ADVANCED" => Some(Self::Advanced),
-                _ => None,
-            }
-        }
-    }
+/// Payload proto for "clouddeploy.googleapis.com/deploypolicy_notification".
+/// Platform Log event that describes the failure to send a pub/sub notification
+/// when there is a DeployPolicy status change.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeployPolicyNotificationEvent {
+    /// Debug message for when a deploy policy fails to send a pub/sub
+    /// notification.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// The name of the `DeployPolicy`.
+    #[prost(string, tag = "2")]
+    pub deploy_policy: ::prost::alloc::string::String,
+    /// Unique identifier of the deploy policy.
+    #[prost(string, tag = "3")]
+    pub deploy_policy_uid: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "4")]
+    pub r#type: i32,
+}
+/// Payload proto for "clouddeploy.googleapis.com/release_notification"
+/// Platform Log event that describes the failure to send release status change
+/// Pub/Sub notification.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReleaseNotificationEvent {
+    /// Debug message for when a notification fails to send.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// Unique identifier of the `DeliveryPipeline`.
+    #[prost(string, tag = "4")]
+    pub pipeline_uid: ::prost::alloc::string::String,
+    /// Unique identifier of the `Release`.
+    #[prost(string, tag = "5")]
+    pub release_uid: ::prost::alloc::string::String,
+    /// The name of the `Release`.
+    #[prost(string, tag = "2")]
+    pub release: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "3")]
+    pub r#type: i32,
+}
+/// Payload proto for "clouddeploy.googleapis.com/customtargettype_notification"
+/// Platform Log event that describes the failure to send a custom target type
+/// status change Pub/Sub notification.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CustomTargetTypeNotificationEvent {
+    /// Debug message for when a notification fails to send.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// Unique identifier of the `CustomTargetType`.
+    #[prost(string, tag = "4")]
+    pub custom_target_type_uid: ::prost::alloc::string::String,
+    /// The name of the `CustomTargetType`.
+    #[prost(string, tag = "2")]
+    pub custom_target_type: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "3")]
+    pub r#type: i32,
 }
 /// A `DeliveryPipeline` resource in the Cloud Deploy API.
 ///
@@ -395,6 +365,8 @@ pub struct CanaryDeployment {
     /// Required. The percentage based deployments that will occur as a part of a
     /// `Rollout`. List is expected in ascending order and each integer n is
     /// 0 <= n < 100.
+    /// If the GatewayServiceMesh is configured for Kubernetes, then the range for
+    /// n is 0 <= n <= 100.
     #[prost(int32, repeated, packed = "false", tag = "1")]
     pub percentages: ::prost::alloc::vec::Vec<i32>,
     /// Whether to run verify tests after each percentage deployment.
@@ -489,6 +461,10 @@ pub mod kubernetes_config {
         /// cutback time.
         #[prost(message, optional, tag = "5")]
         pub stable_cutback_duration: ::core::option::Option<::prost_types::Duration>,
+        /// Optional. The label to use when selecting Pods for the Deployment and
+        /// Service resources. This label must already be present in both resources.
+        #[prost(string, tag = "6")]
+        pub pod_selector_label: ::prost::alloc::string::String,
     }
     /// Information about the Kubernetes Service networking configuration.
     #[allow(clippy::derive_partial_eq_without_eq)]
@@ -507,6 +483,10 @@ pub mod kubernetes_config {
         /// Deployment has on the cluster.
         #[prost(bool, tag = "3")]
         pub disable_pod_overprovisioning: bool,
+        /// Optional. The label to use when selecting Pods for the Deployment
+        /// resource. This label must already be present in the Deployment.
+        #[prost(string, tag = "4")]
+        pub pod_selector_label: ::prost::alloc::string::String,
     }
     /// The service definition configuration.
     #[allow(clippy::derive_partial_eq_without_eq)]
@@ -569,7 +549,7 @@ pub mod runtime_config {
 /// PipelineReadyCondition contains information around the status of the
 /// Pipeline.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct PipelineReadyCondition {
     /// True if the Pipeline is in a valid state. Otherwise at least one condition
     /// in `PipelineCondition` is in an invalid state. Iterate over those
@@ -683,9 +663,8 @@ pub struct GetDeliveryPipelineRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateDeliveryPipelineRequest {
-    /// Required. The parent collection in which the `DeliveryPipeline` should be
-    /// created. Format should be
-    /// `projects/{project_id}/locations/{location_name}`.
+    /// Required. The parent collection in which the `DeliveryPipeline` must be
+    /// created. The format is `projects/{project_id}/locations/{location_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. ID of the `DeliveryPipeline`.
@@ -718,11 +697,11 @@ pub struct CreateDeliveryPipelineRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateDeliveryPipelineRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// `DeliveryPipeline` resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it's in the mask. If the
-    /// user doesn't provide a mask then all fields are overwritten.
+    /// Required. Field mask is used to specify the fields to be overwritten by the
+    /// update in the `DeliveryPipeline` resource. The fields specified in the
+    /// update_mask are relative to the resource, not the full request. A field
+    /// will be overwritten if it's in the mask. If the user doesn't provide a mask
+    /// then all fields are overwritten.
     #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Required. The `DeliveryPipeline` to update.
@@ -756,7 +735,7 @@ pub struct UpdateDeliveryPipelineRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteDeliveryPipelineRequest {
-    /// Required. The name of the `DeliveryPipeline` to delete. Format should be
+    /// Required. The name of the `DeliveryPipeline` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -810,8 +789,8 @@ pub struct RollbackTargetConfig {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RollbackTargetRequest {
-    /// Required. The `DeliveryPipeline` for which the rollback `Rollout` should be
-    /// created. Format should be
+    /// Required. The `DeliveryPipeline` for which the rollback `Rollout` must be
+    /// created. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1119,6 +1098,11 @@ pub struct GkeCluster {
     /// cluster](<https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept>).
     #[prost(bool, tag = "2")]
     pub internal_ip: bool,
+    /// Optional. If set, used to configure a
+    /// [proxy](<https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#proxy>)
+    /// to the Kubernetes server.
+    #[prost(string, tag = "3")]
+    pub proxy_url: ::prost::alloc::string::String,
 }
 /// Information specifying an Anthos Cluster.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1214,8 +1198,8 @@ pub struct GetTargetRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTargetRequest {
-    /// Required. The parent collection in which the `Target` should be created.
-    /// Format should be
+    /// Required. The parent collection in which the `Target` must be created.
+    /// The format is
     /// `projects/{project_id}/locations/{location_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -1249,11 +1233,11 @@ pub struct CreateTargetRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTargetRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// Target resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it's in the mask. If the
-    /// user doesn't provide a mask then all fields are overwritten.
+    /// Required. Field mask is used to specify the fields to be overwritten by the
+    /// update in the `Target` resource. The fields specified in the update_mask
+    /// are relative to the resource, not the full request. A field will be
+    /// overwritten if it's in the mask. If the user doesn't provide a mask then
+    /// all fields are overwritten.
     #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Required. The `Target` to update.
@@ -1287,7 +1271,7 @@ pub struct UpdateTargetRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTargetRequest {
-    /// Required. The name of the `Target` to delete. Format should be
+    /// Required. The name of the `Target` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1544,9 +1528,8 @@ pub struct GetCustomTargetTypeRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateCustomTargetTypeRequest {
-    /// Required. The parent collection in which the `CustomTargetType` should be
-    /// created. Format should be
-    /// `projects/{project_id}/locations/{location_name}`.
+    /// Required. The parent collection in which the `CustomTargetType` must be
+    /// created. The format is `projects/{project_id}/locations/{location_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. ID of the `CustomTargetType`.
@@ -1579,11 +1562,11 @@ pub struct CreateCustomTargetTypeRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateCustomTargetTypeRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// `CustomTargetType` resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it's in the mask. If the
-    /// user doesn't provide a mask then all fields are overwritten.
+    /// Required. Field mask is used to specify the fields to be overwritten by the
+    /// update in the `CustomTargetType` resource. The fields specified in the
+    /// update_mask are relative to the resource, not the full request. A field
+    /// will be overwritten if it's in the mask. If the user doesn't provide a mask
+    /// then all fields are overwritten.
     #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Required. The `CustomTargetType` to update.
@@ -1656,9 +1639,9 @@ pub struct DeleteCustomTargetTypeRequest {
 pub struct TargetAttribute {
     /// ID of the `Target`. The value of this field could be one of the
     /// following:
-    /// * The last segment of a target name. It only needs the ID to determine
-    /// which target is being referred to
-    /// * "*", all targets in a location.
+    ///
+    /// * The last segment of a target name
+    /// * "*", all targets in a location
     #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
     /// Target labels.
@@ -1945,7 +1928,7 @@ pub mod release {
     /// Release. If a release is not ready, you cannot create a rollout with the
     /// release.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ReleaseReadyCondition {
         /// True if the Release is in a valid state. Otherwise at least one condition
         /// in `ReleaseCondition` is in an invalid state. Iterate over those
@@ -1957,7 +1940,7 @@ pub mod release {
     /// SkaffoldSupportedCondition contains information about when support for the
     /// release's version of Skaffold ends.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct SkaffoldSupportedCondition {
         /// True if the version of Skaffold used by this release is supported.
         #[prost(bool, tag = "1")]
@@ -1976,7 +1959,7 @@ pub mod release {
     }
     /// ReleaseCondition contains all conditions relevant to a Release.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ReleaseCondition {
         /// Details around the Releases's overall status.
         #[prost(message, optional, tag = "1")]
@@ -2189,8 +2172,8 @@ pub struct GetReleaseRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateReleaseRequest {
-    /// Required. The parent collection in which the `Release` should be created.
-    /// Format should be
+    /// Required. The parent collection in which the `Release` is created.
+    /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -2600,17 +2583,17 @@ pub struct CustomTargetDeployMetadata {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutomationRolloutMetadata {
-    /// Output only. The ID of the AutomationRun initiated by a promote release
+    /// Output only. The name of the AutomationRun initiated by a promote release
     /// rule.
     #[prost(string, tag = "1")]
     pub promote_automation_run: ::prost::alloc::string::String,
-    /// Output only. The IDs of the AutomationRuns initiated by an advance rollout
-    /// rule.
+    /// Output only. The names of the AutomationRuns initiated by an advance
+    /// rollout rule.
     #[prost(string, repeated, tag = "2")]
     pub advance_automation_runs: ::prost::alloc::vec::Vec<
         ::prost::alloc::string::String,
     >,
-    /// Output only. The IDs of the AutomationRuns initiated by a repair rollout
+    /// Output only. The names of the AutomationRuns initiated by a repair rollout
     /// rule.
     #[prost(string, repeated, tag = "3")]
     pub repair_automation_runs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -2863,11 +2846,11 @@ pub mod job {
 }
 /// A deploy Job.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeployJob {}
 /// A verify Job.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VerifyJob {}
 /// A predeploy Job.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2887,11 +2870,11 @@ pub struct PostdeployJob {
 }
 /// A createChildRollout Job.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateChildRolloutJob {}
 /// An advanceChildRollout Job.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AdvanceChildRolloutJob {}
 /// ListRolloutsRequest is the request object used by `ListRollouts`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2950,8 +2933,8 @@ pub struct GetRolloutRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateRolloutRequest {
-    /// Required. The parent collection in which the `Rollout` should be created.
-    /// Format should be
+    /// Required. The parent collection in which the `Rollout` must be created.
+    /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -3029,7 +3012,7 @@ pub struct ApproveRolloutRequest {
 }
 /// The response object from `ApproveRollout`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ApproveRolloutResponse {}
 /// The request object used by `AdvanceRollout`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3045,7 +3028,7 @@ pub struct AdvanceRolloutRequest {
 }
 /// The response object from `AdvanceRollout`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AdvanceRolloutResponse {}
 /// The request object used by `CancelRollout`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3058,7 +3041,7 @@ pub struct CancelRolloutRequest {
 }
 /// The response object from `CancelRollout`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CancelRolloutResponse {}
 /// The request object used by `IgnoreJob`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3077,7 +3060,7 @@ pub struct IgnoreJobRequest {
 }
 /// The response object from `IgnoreJob`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct IgnoreJobResponse {}
 /// RetryJobRequest is the request object used by `RetryJob`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3096,7 +3079,7 @@ pub struct RetryJobRequest {
 }
 /// The response object from 'RetryJob'.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct RetryJobResponse {}
 /// The request object used by `AbandonRelease`.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3109,7 +3092,7 @@ pub struct AbandonReleaseRequest {
 }
 /// The response object for `AbandonRelease`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AbandonReleaseResponse {}
 /// A `JobRun` resource in the Cloud Deploy API.
 ///
@@ -3653,7 +3636,7 @@ pub struct TerminateJobRunRequest {
 }
 /// The response object from `TerminateJobRun`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TerminateJobRunResponse {}
 /// Service-wide configuration.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3819,8 +3802,8 @@ pub mod automation_rule {
         RepairRolloutRule(super::RepairRolloutRule),
     }
 }
-/// `PromoteRelease` rule will automatically promote a release from the current
-/// target to a specified target.
+/// The `PromoteRelease` rule will automatically promote a release from the
+/// current target to a specified target.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PromoteReleaseRule {
@@ -3837,10 +3820,8 @@ pub struct PromoteReleaseRule {
     /// deploying. If unspecified, default it to the next stage in the promotion
     /// flow. The value of this field could be one of the following:
     ///
-    /// * The last segment of a target name. It only needs the ID to determine
-    /// if the target is one of the stages in the promotion sequence defined
-    /// in the pipeline.
-    /// * "@next", the next target in the promotion sequence.
+    /// * The last segment of a target name
+    /// * "@next", the next target in the promotion sequence
     #[prost(string, tag = "7")]
     pub destination_target_id: ::prost::alloc::string::String,
     /// Output only. Information around the state of the Automation rule.
@@ -3885,14 +3866,6 @@ pub struct RepairRolloutRule {
     /// `[a-z](\[a-z0-9-\]{0,61}\[a-z0-9\])?`.
     #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
-    /// Optional. Phases within which jobs are subject to automatic repair actions
-    /// on failure. Proceeds only after phase name matched any one in the list, or
-    /// for all phases if unspecified. This value must consist of lower-case
-    /// letters, numbers, and hyphens, start with a letter and end with a letter or
-    /// a number, and have a max length of 63 characters. In other words, it must
-    /// match the following regex: `^[a-z](\[a-z0-9-\]{0,61}\[a-z0-9\])?$`.
-    #[prost(string, repeated, tag = "2")]
-    pub source_phases: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. Jobs to repair. Proceeds only after job name matched any one in
     /// the list, or for all jobs if unspecified or empty. The phase that includes
     /// the job must match the phase ID specified in `source_phase`. This value
@@ -3902,60 +3875,9 @@ pub struct RepairRolloutRule {
     /// `^[a-z](\[a-z0-9-\]{0,61}\[a-z0-9\])?$`.
     #[prost(string, repeated, tag = "3")]
     pub jobs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Required. Defines the types of automatic repair actions for failed jobs.
-    #[prost(message, repeated, tag = "4")]
-    pub repair_modes: ::prost::alloc::vec::Vec<RepairMode>,
     /// Output only. Information around the state of the 'Automation' rule.
     #[prost(message, optional, tag = "6")]
     pub condition: ::core::option::Option<AutomationRuleCondition>,
-}
-/// Configuration of the repair action.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RepairMode {
-    /// The repair action to perform.
-    #[prost(oneof = "repair_mode::Mode", tags = "1, 2")]
-    pub mode: ::core::option::Option<repair_mode::Mode>,
-}
-/// Nested message and enum types in `RepairMode`.
-pub mod repair_mode {
-    /// The repair action to perform.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Mode {
-        /// Optional. Retries a failed job.
-        #[prost(message, tag = "1")]
-        Retry(super::Retry),
-        /// Optional. Rolls back a `Rollout`.
-        #[prost(message, tag = "2")]
-        Rollback(super::Rollback),
-    }
-}
-/// Retries the failed job.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Retry {
-    /// Required. Total number of retries. Retry is skipped if set to 0; The
-    /// minimum value is 1, and the maximum value is 10.
-    #[prost(int64, tag = "1")]
-    pub attempts: i64,
-    /// Optional. How long to wait for the first retry. Default is 0, and the
-    /// maximum value is 14d.
-    #[prost(message, optional, tag = "2")]
-    pub wait: ::core::option::Option<::prost_types::Duration>,
-    /// Optional. The pattern of how wait time will be increased. Default is
-    /// linear. Backoff mode will be ignored if `wait` is 0.
-    #[prost(enumeration = "BackoffMode", tag = "3")]
-    pub backoff_mode: i32,
-}
-/// Rolls back a `Rollout`.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Rollback {
-    /// Optional. The starting phase ID for the `Rollout`. If unspecified, the
-    /// `Rollout` will start in the stable phase.
-    #[prost(string, tag = "1")]
-    pub destination_phase: ::prost::alloc::string::String,
 }
 /// `AutomationRuleCondition` contains conditions relevant to an
 /// `Automation` rule.
@@ -3970,8 +3892,8 @@ pub struct AutomationRuleCondition {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateAutomationRequest {
-    /// Required. The parent collection in which the `Automation` should be
-    /// created. Format should be
+    /// Required. The parent collection in which the `Automation` must be created.
+    /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -4005,11 +3927,11 @@ pub struct CreateAutomationRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateAutomationRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// `Automation` resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it's in the mask. If the
-    /// user doesn't provide a mask then all fields are overwritten.
+    /// Required. Field mask is used to specify the fields to be overwritten by the
+    /// update in the `Automation` resource. The fields specified in the
+    /// update_mask are relative to the resource, not the full request. A field
+    /// will be overwritten if it's in the mask. If the user doesn't provide a mask
+    /// then all fields are overwritten.
     #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Required. The `Automation` to update.
@@ -4043,7 +3965,7 @@ pub struct UpdateAutomationRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteAutomationRequest {
-    /// Required. The name of the `Automation` to delete. Format should be
+    /// Required. The name of the `Automation` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -4220,6 +4142,8 @@ pub mod automation_run {
         InProgress = 4,
         /// The `AutomationRun` is pending.
         Pending = 5,
+        /// The `AutomationRun` was aborted.
+        Aborted = 6,
     }
     impl State {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -4234,6 +4158,7 @@ pub mod automation_run {
                 State::Failed => "FAILED",
                 State::InProgress => "IN_PROGRESS",
                 State::Pending => "PENDING",
+                State::Aborted => "ABORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4245,6 +4170,7 @@ pub mod automation_run {
                 "FAILED" => Some(Self::Failed),
                 "IN_PROGRESS" => Some(Self::InProgress),
                 "PENDING" => Some(Self::Pending),
+                "ABORTED" => Some(Self::Aborted),
                 _ => None,
             }
         }
@@ -4307,24 +4233,30 @@ pub struct RepairRolloutOperation {
     /// Output only. The name of the rollout that initiates the `AutomationRun`.
     #[prost(string, tag = "1")]
     pub rollout: ::prost::alloc::string::String,
-    /// Output only. The index of the current repair action in the repair sequence.
-    #[prost(int64, tag = "2")]
-    pub current_repair_mode_index: i64,
     /// Output only. Records of the repair attempts. Each repair phase may have
     /// multiple retry attempts or single rollback attempt.
     #[prost(message, repeated, tag = "3")]
     pub repair_phases: ::prost::alloc::vec::Vec<RepairPhase>,
+    /// Output only. The phase ID of the phase that includes the job being
+    /// repaired.
+    #[prost(string, tag = "4")]
+    pub phase_id: ::prost::alloc::string::String,
+    /// Output only. The job ID for the Job to repair.
+    #[prost(string, tag = "5")]
+    pub job_id: ::prost::alloc::string::String,
 }
 /// RepairPhase tracks the repair attempts that have been made for
-/// each `RepairMode` specified in the `Automation` resource.
+/// each `RepairPhaseConfig` specified in the `Automation` resource.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RepairPhase {
+    /// The `RepairPhase` type and the information for that type.
     #[prost(oneof = "repair_phase::RepairPhase", tags = "1, 2")]
     pub repair_phase: ::core::option::Option<repair_phase::RepairPhase>,
 }
 /// Nested message and enum types in `RepairPhase`.
 pub mod repair_phase {
+    /// The `RepairPhase` type and the information for that type.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum RepairPhase {
@@ -4348,12 +4280,6 @@ pub struct RetryPhase {
     /// calculated.
     #[prost(enumeration = "BackoffMode", tag = "2")]
     pub backoff_mode: i32,
-    /// Output only. The phase ID of the phase that includes the job being retried.
-    #[prost(string, tag = "3")]
-    pub phase_id: ::prost::alloc::string::String,
-    /// Output only. The job ID for the Job to retry.
-    #[prost(string, tag = "4")]
-    pub job_id: ::prost::alloc::string::String,
     /// Output only. Detail of a retry action.
     #[prost(message, repeated, tag = "5")]
     pub attempts: ::prost::alloc::vec::Vec<RetryAttempt>,
@@ -4457,7 +4383,7 @@ pub struct CancelAutomationRunRequest {
 }
 /// The response object from `CancelAutomationRun`.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CancelAutomationRunResponse {}
 /// The support state of a specific Skaffold version.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -4547,8 +4473,8 @@ pub enum RepairState {
     InProgress = 4,
     /// The `repair` action is pending.
     Pending = 5,
-    /// The `repair` action was skipped.
-    Skipped = 6,
+    /// The `repair` action was aborted.
+    Aborted = 7,
 }
 impl RepairState {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -4563,7 +4489,7 @@ impl RepairState {
             RepairState::Failed => "REPAIR_STATE_FAILED",
             RepairState::InProgress => "REPAIR_STATE_IN_PROGRESS",
             RepairState::Pending => "REPAIR_STATE_PENDING",
-            RepairState::Skipped => "REPAIR_STATE_SKIPPED",
+            RepairState::Aborted => "REPAIR_STATE_ABORTED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4575,7 +4501,7 @@ impl RepairState {
             "REPAIR_STATE_FAILED" => Some(Self::Failed),
             "REPAIR_STATE_IN_PROGRESS" => Some(Self::InProgress),
             "REPAIR_STATE_PENDING" => Some(Self::Pending),
-            "REPAIR_STATE_SKIPPED" => Some(Self::Skipped),
+            "REPAIR_STATE_ABORTED" => Some(Self::Aborted),
             _ => None,
         }
     }
@@ -5838,6 +5764,75 @@ pub mod cloud_deploy_client {
         }
     }
 }
+/// Payload proto for "clouddeploy.googleapis.com/deliverypipeline_notification"
+/// Platform Log event that describes the failure to send delivery pipeline
+/// status change Pub/Sub notification.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeliveryPipelineNotificationEvent {
+    /// Debug message for when a notification fails to send.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// Unique identifier of the `DeliveryPipeline`.
+    #[prost(string, tag = "4")]
+    pub pipeline_uid: ::prost::alloc::string::String,
+    /// The name of the `Delivery Pipeline`.
+    #[prost(string, tag = "2")]
+    pub delivery_pipeline: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "3")]
+    pub r#type: i32,
+}
+/// Payload proto for "clouddeploy.googleapis.com/target_notification"
+/// Platform Log event that describes the failure to send target status change
+/// Pub/Sub notification.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TargetNotificationEvent {
+    /// Debug message for when a notification fails to send.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// The name of the `Target`.
+    #[prost(string, tag = "2")]
+    pub target: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "3")]
+    pub r#type: i32,
+}
+/// Payload proto for "clouddeploy.googleapis.com/jobrun_notification"
+/// Platform Log event that describes the failure to send JobRun resource update
+/// Pub/Sub notification.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct JobRunNotificationEvent {
+    /// Debug message for when a notification fails to send.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// The name of the `JobRun`.
+    #[prost(string, tag = "2")]
+    pub job_run: ::prost::alloc::string::String,
+    /// Unique identifier of the `DeliveryPipeline`.
+    #[prost(string, tag = "3")]
+    pub pipeline_uid: ::prost::alloc::string::String,
+    /// Unique identifier of the `Release`.
+    #[prost(string, tag = "4")]
+    pub release_uid: ::prost::alloc::string::String,
+    /// The name of the `Release`.
+    #[prost(string, tag = "8")]
+    pub release: ::prost::alloc::string::String,
+    /// Unique identifier of the `Rollout`.
+    #[prost(string, tag = "5")]
+    pub rollout_uid: ::prost::alloc::string::String,
+    /// The name of the `Rollout`.
+    #[prost(string, tag = "9")]
+    pub rollout: ::prost::alloc::string::String,
+    /// ID of the `Target`.
+    #[prost(string, tag = "6")]
+    pub target_id: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a Pub/Sub failure.
+    #[prost(enumeration = "Type", tag = "7")]
+    pub r#type: i32,
+}
 /// Payload proto for "clouddeploy.googleapis.com/release_render"
 /// Platform Log event that describes the render status change.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -5862,21 +5857,127 @@ pub struct ReleaseRenderEvent {
     #[prost(enumeration = "release::RenderState", tag = "3")]
     pub release_render_state: i32,
 }
-/// Payload proto for "clouddeploy.googleapis.com/target_notification"
-/// Platform Log event that describes the failure to send target status change
-/// Pub/Sub notification.
+/// Payload proto for "clouddeploy.googleapis.com/rollout_update"
+/// Platform Log event that describes the rollout update event.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TargetNotificationEvent {
-    /// Debug message for when a notification fails to send.
-    #[prost(string, tag = "1")]
+pub struct RolloutUpdateEvent {
+    /// Debug message for when a rollout update event occurs.
+    #[prost(string, tag = "6")]
     pub message: ::prost::alloc::string::String,
-    /// The name of the `Target`.
+    /// Unique identifier of the pipeline.
+    #[prost(string, tag = "1")]
+    pub pipeline_uid: ::prost::alloc::string::String,
+    /// Unique identifier of the release.
     #[prost(string, tag = "2")]
-    pub target: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a Pub/Sub failure.
-    #[prost(enumeration = "Type", tag = "3")]
+    pub release_uid: ::prost::alloc::string::String,
+    /// The name of the `Release`.
+    #[prost(string, tag = "8")]
+    pub release: ::prost::alloc::string::String,
+    /// The name of the rollout.
+    /// rollout_uid is not in this log message because we write some of these log
+    /// messages at rollout creation time, before we've generated the uid.
+    #[prost(string, tag = "3")]
+    pub rollout: ::prost::alloc::string::String,
+    /// ID of the target.
+    #[prost(string, tag = "4")]
+    pub target_id: ::prost::alloc::string::String,
+    /// Type of this notification, e.g. for a rollout update event.
+    #[prost(enumeration = "Type", tag = "7")]
     pub r#type: i32,
+    /// The type of the rollout update.
+    #[prost(enumeration = "rollout_update_event::RolloutUpdateType", tag = "5")]
+    pub rollout_update_type: i32,
+}
+/// Nested message and enum types in `RolloutUpdateEvent`.
+pub mod rollout_update_event {
+    /// RolloutUpdateType indicates the type of the rollout update.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum RolloutUpdateType {
+        /// Rollout update type unspecified.
+        Unspecified = 0,
+        /// rollout state updated to pending.
+        Pending = 1,
+        /// Rollout state updated to pending release.
+        PendingRelease = 2,
+        /// Rollout state updated to in progress.
+        InProgress = 3,
+        /// Rollout state updated to cancelling.
+        Cancelling = 4,
+        /// Rollout state updated to cancelled.
+        Cancelled = 5,
+        /// Rollout state updated to halted.
+        Halted = 6,
+        /// Rollout state updated to succeeded.
+        Succeeded = 7,
+        /// Rollout state updated to failed.
+        Failed = 8,
+        /// Rollout requires approval.
+        ApprovalRequired = 9,
+        /// Rollout has been approved.
+        Approved = 10,
+        /// Rollout has been rejected.
+        Rejected = 11,
+        /// Rollout requires advance to the next phase.
+        AdvanceRequired = 12,
+        /// Rollout has been advanced.
+        Advanced = 13,
+    }
+    impl RolloutUpdateType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                RolloutUpdateType::Unspecified => "ROLLOUT_UPDATE_TYPE_UNSPECIFIED",
+                RolloutUpdateType::Pending => "PENDING",
+                RolloutUpdateType::PendingRelease => "PENDING_RELEASE",
+                RolloutUpdateType::InProgress => "IN_PROGRESS",
+                RolloutUpdateType::Cancelling => "CANCELLING",
+                RolloutUpdateType::Cancelled => "CANCELLED",
+                RolloutUpdateType::Halted => "HALTED",
+                RolloutUpdateType::Succeeded => "SUCCEEDED",
+                RolloutUpdateType::Failed => "FAILED",
+                RolloutUpdateType::ApprovalRequired => "APPROVAL_REQUIRED",
+                RolloutUpdateType::Approved => "APPROVED",
+                RolloutUpdateType::Rejected => "REJECTED",
+                RolloutUpdateType::AdvanceRequired => "ADVANCE_REQUIRED",
+                RolloutUpdateType::Advanced => "ADVANCED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ROLLOUT_UPDATE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PENDING" => Some(Self::Pending),
+                "PENDING_RELEASE" => Some(Self::PendingRelease),
+                "IN_PROGRESS" => Some(Self::InProgress),
+                "CANCELLING" => Some(Self::Cancelling),
+                "CANCELLED" => Some(Self::Cancelled),
+                "HALTED" => Some(Self::Halted),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "APPROVAL_REQUIRED" => Some(Self::ApprovalRequired),
+                "APPROVED" => Some(Self::Approved),
+                "REJECTED" => Some(Self::Rejected),
+                "ADVANCE_REQUIRED" => Some(Self::AdvanceRequired),
+                "ADVANCED" => Some(Self::Advanced),
+                _ => None,
+            }
+        }
+    }
 }
 /// Payload proto for "clouddeploy.googleapis.com/automation_run"
 /// Platform Log event that describes the AutomationRun related events.
@@ -5923,111 +6024,5 @@ pub struct AutomationEvent {
     pub pipeline_uid: ::prost::alloc::string::String,
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[prost(enumeration = "Type", tag = "4")]
-    pub r#type: i32,
-}
-/// Payload proto for "clouddeploy.googleapis.com/jobrun_notification"
-/// Platform Log event that describes the failure to send JobRun resource update
-/// Pub/Sub notification.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct JobRunNotificationEvent {
-    /// Debug message for when a notification fails to send.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    /// The name of the `JobRun`.
-    #[prost(string, tag = "2")]
-    pub job_run: ::prost::alloc::string::String,
-    /// Unique identifier of the `DeliveryPipeline`.
-    #[prost(string, tag = "3")]
-    pub pipeline_uid: ::prost::alloc::string::String,
-    /// Unique identifier of the `Release`.
-    #[prost(string, tag = "4")]
-    pub release_uid: ::prost::alloc::string::String,
-    /// The name of the `Release`.
-    #[prost(string, tag = "8")]
-    pub release: ::prost::alloc::string::String,
-    /// Unique identifier of the `Rollout`.
-    #[prost(string, tag = "5")]
-    pub rollout_uid: ::prost::alloc::string::String,
-    /// The name of the `Rollout`.
-    #[prost(string, tag = "9")]
-    pub rollout: ::prost::alloc::string::String,
-    /// ID of the `Target`.
-    #[prost(string, tag = "6")]
-    pub target_id: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a Pub/Sub failure.
-    #[prost(enumeration = "Type", tag = "7")]
-    pub r#type: i32,
-}
-/// Payload proto for "clouddeploy.googleapis.com/rollout_notification"
-/// Platform Log event that describes the failure to send rollout status change
-/// Pub/Sub notification.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RolloutNotificationEvent {
-    /// Debug message for when a notification fails to send.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    /// Unique identifier of the `DeliveryPipeline`.
-    #[prost(string, tag = "2")]
-    pub pipeline_uid: ::prost::alloc::string::String,
-    /// Unique identifier of the `Release`.
-    #[prost(string, tag = "3")]
-    pub release_uid: ::prost::alloc::string::String,
-    /// The name of the `Release`.
-    #[prost(string, tag = "7")]
-    pub release: ::prost::alloc::string::String,
-    /// Unique identifier of the `Rollout`.
-    #[prost(string, tag = "8")]
-    pub rollout_uid: ::prost::alloc::string::String,
-    /// The name of the `Rollout`.
-    #[prost(string, tag = "4")]
-    pub rollout: ::prost::alloc::string::String,
-    /// ID of the `Target` that the rollout is deployed to.
-    #[prost(string, tag = "6")]
-    pub target_id: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a Pub/Sub failure.
-    #[prost(enumeration = "Type", tag = "5")]
-    pub r#type: i32,
-}
-/// Payload proto for "clouddeploy.googleapis.com/deliverypipeline_notification"
-/// Platform Log event that describes the failure to send delivery pipeline
-/// status change Pub/Sub notification.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeliveryPipelineNotificationEvent {
-    /// Debug message for when a notification fails to send.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    /// Unique identifier of the `DeliveryPipeline`.
-    #[prost(string, tag = "4")]
-    pub pipeline_uid: ::prost::alloc::string::String,
-    /// The name of the `Delivery Pipeline`.
-    #[prost(string, tag = "2")]
-    pub delivery_pipeline: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a Pub/Sub failure.
-    #[prost(enumeration = "Type", tag = "3")]
-    pub r#type: i32,
-}
-/// Payload proto for "clouddeploy.googleapis.com/release_notification"
-/// Platform Log event that describes the failure to send release status change
-/// Pub/Sub notification.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ReleaseNotificationEvent {
-    /// Debug message for when a notification fails to send.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    /// Unique identifier of the `DeliveryPipeline`.
-    #[prost(string, tag = "4")]
-    pub pipeline_uid: ::prost::alloc::string::String,
-    /// Unique identifier of the `Release`.
-    #[prost(string, tag = "5")]
-    pub release_uid: ::prost::alloc::string::String,
-    /// The name of the `Release`.
-    #[prost(string, tag = "2")]
-    pub release: ::prost::alloc::string::String,
-    /// Type of this notification, e.g. for a Pub/Sub failure.
-    #[prost(enumeration = "Type", tag = "3")]
     pub r#type: i32,
 }

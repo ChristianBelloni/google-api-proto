@@ -114,7 +114,7 @@ pub struct ContainerImage {
 /// Engine](<https://cloud.google.com/compute/docs/gpus/#gpus-list>) to find a
 /// valid combination.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct AcceleratorConfig {
     /// Optional. Type of this accelerator.
     #[prost(enumeration = "accelerator_config::AcceleratorType", tag = "1")]
@@ -207,7 +207,7 @@ pub mod accelerator_config {
 /// features](<https://cloud.google.com/compute/docs/instances/modifying-shielded-vm>).
 /// Not all combinations are valid.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ShieldedInstanceConfig {
     /// Optional. Defines whether the VM instance has Secure Boot enabled.
     ///
@@ -450,42 +450,6 @@ impl DiskType {
             _ => None,
         }
     }
-}
-/// Defines flags that are used to run the diagnostic tool
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DiagnosticConfig {
-    /// Required. User Cloud Storage bucket location (REQUIRED).
-    /// Must be formatted with path prefix (`gs://$GCS_BUCKET`).
-    ///
-    /// Permissions:
-    /// User Managed Notebooks:
-    /// - storage.buckets.writer: Must be given to the project's service account
-    ///    attached to VM.
-    /// Google Managed Notebooks:
-    /// - storage.buckets.writer: Must be given to the project's service account or
-    ///    user credentials attached to VM depending on authentication mode.
-    ///
-    /// Cloud Storage bucket Log file will be written to
-    /// `gs://$GCS_BUCKET/$RELATIVE_PATH/$VM_DATE_$TIME.tar.gz`
-    #[prost(string, tag = "1")]
-    pub gcs_bucket: ::prost::alloc::string::String,
-    /// Optional. Defines the relative storage path in the Cloud Storage bucket
-    /// where the diagnostic logs will be written: Default path will be the root
-    /// directory of the Cloud Storage bucket
-    /// (`gs://$GCS_BUCKET/$DATE_$TIME.tar.gz`) Example of full path where Log file
-    /// will be written: `gs://$GCS_BUCKET/$RELATIVE_PATH/`
-    #[prost(string, tag = "2")]
-    pub relative_path: ::prost::alloc::string::String,
-    /// Optional. Enables flag to repair service for instance
-    #[prost(bool, tag = "3")]
-    pub enable_repair_flag: bool,
-    /// Optional. Enables flag to capture packets from the instance for 30 seconds
-    #[prost(bool, tag = "4")]
-    pub enable_packet_capture_flag: bool,
-    /// Optional. Enables flag to copy all `/home/jupyter` folder contents
-    #[prost(bool, tag = "5")]
-    pub enable_copy_home_files_flag: bool,
 }
 /// The entry of VM image upgrade history.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -808,6 +772,125 @@ impl HealthState {
             _ => None,
         }
     }
+}
+/// The definition of an Event for a managed / semi-managed notebook instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Event {
+    /// Optional. Event report time.
+    #[prost(message, optional, tag = "1")]
+    pub report_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Optional. Event type.
+    #[prost(enumeration = "event::EventType", tag = "2")]
+    pub r#type: i32,
+    /// Optional. Event details. This field is used to pass event information.
+    #[prost(btree_map = "string, string", tag = "3")]
+    pub details: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+/// Nested message and enum types in `Event`.
+pub mod event {
+    /// The definition of the event types.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum EventType {
+        /// Event is not specified.
+        Unspecified = 0,
+        /// The instance / runtime is idle
+        Idle = 1,
+        /// The instance / runtime is available.
+        /// This event indicates that instance / runtime underlying compute is
+        /// operational.
+        Heartbeat = 2,
+        /// The instance / runtime health is available.
+        /// This event indicates that instance / runtime health information.
+        Health = 3,
+        /// The instance / runtime is available.
+        /// This event allows instance / runtime to send Host maintenance
+        /// information to Control Plane.
+        /// <https://cloud.google.com/compute/docs/gpus/gpu-host-maintenance>
+        Maintenance = 4,
+        /// The instance / runtime is available.
+        /// This event indicates that the instance had metadata that needs to be
+        /// modified.
+        MetadataChange = 5,
+    }
+    impl EventType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+                EventType::Idle => "IDLE",
+                EventType::Heartbeat => "HEARTBEAT",
+                EventType::Health => "HEALTH",
+                EventType::Maintenance => "MAINTENANCE",
+                EventType::MetadataChange => "METADATA_CHANGE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "EVENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "IDLE" => Some(Self::Idle),
+                "HEARTBEAT" => Some(Self::Heartbeat),
+                "HEALTH" => Some(Self::Health),
+                "MAINTENANCE" => Some(Self::Maintenance),
+                "METADATA_CHANGE" => Some(Self::MetadataChange),
+                _ => None,
+            }
+        }
+    }
+}
+/// Defines flags that are used to run the diagnostic tool
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DiagnosticConfig {
+    /// Required. User Cloud Storage bucket location (REQUIRED).
+    /// Must be formatted with path prefix (`gs://$GCS_BUCKET`).
+    ///
+    /// Permissions:
+    /// User Managed Notebooks:
+    /// - storage.buckets.writer: Must be given to the project's service account
+    ///    attached to VM.
+    /// Google Managed Notebooks:
+    /// - storage.buckets.writer: Must be given to the project's service account or
+    ///    user credentials attached to VM depending on authentication mode.
+    ///
+    /// Cloud Storage bucket Log file will be written to
+    /// `gs://$GCS_BUCKET/$RELATIVE_PATH/$VM_DATE_$TIME.tar.gz`
+    #[prost(string, tag = "1")]
+    pub gcs_bucket: ::prost::alloc::string::String,
+    /// Optional. Defines the relative storage path in the Cloud Storage bucket
+    /// where the diagnostic logs will be written: Default path will be the root
+    /// directory of the Cloud Storage bucket
+    /// (`gs://$GCS_BUCKET/$DATE_$TIME.tar.gz`) Example of full path where Log file
+    /// will be written: `gs://$GCS_BUCKET/$RELATIVE_PATH/`
+    #[prost(string, tag = "2")]
+    pub relative_path: ::prost::alloc::string::String,
+    /// Optional. Enables flag to repair service for instance
+    #[prost(bool, tag = "3")]
+    pub enable_repair_flag: bool,
+    /// Optional. Enables flag to capture packets from the instance for 30 seconds
+    #[prost(bool, tag = "4")]
+    pub enable_packet_capture_flag: bool,
+    /// Optional. Enables flag to copy all `/home/jupyter` folder contents
+    #[prost(bool, tag = "5")]
+    pub enable_copy_home_files_flag: bool,
 }
 /// Represents the metadata of the long-running operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1474,89 +1557,6 @@ pub mod notebook_service_client {
                     ),
                 );
             self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// The definition of an Event for a managed / semi-managed notebook instance.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Event {
-    /// Optional. Event report time.
-    #[prost(message, optional, tag = "1")]
-    pub report_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Optional. Event type.
-    #[prost(enumeration = "event::EventType", tag = "2")]
-    pub r#type: i32,
-    /// Optional. Event details. This field is used to pass event information.
-    #[prost(btree_map = "string, string", tag = "3")]
-    pub details: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-}
-/// Nested message and enum types in `Event`.
-pub mod event {
-    /// The definition of the event types.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum EventType {
-        /// Event is not specified.
-        Unspecified = 0,
-        /// The instance / runtime is idle
-        Idle = 1,
-        /// The instance / runtime is available.
-        /// This event indicates that instance / runtime underlying compute is
-        /// operational.
-        Heartbeat = 2,
-        /// The instance / runtime health is available.
-        /// This event indicates that instance / runtime health information.
-        Health = 3,
-        /// The instance / runtime is available.
-        /// This event allows instance / runtime to send Host maintenance
-        /// information to Control Plane.
-        /// <https://cloud.google.com/compute/docs/gpus/gpu-host-maintenance>
-        Maintenance = 4,
-        /// The instance / runtime is available.
-        /// This event indicates that the instance had metadata that needs to be
-        /// modified.
-        MetadataChange = 5,
-    }
-    impl EventType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-                EventType::Idle => "IDLE",
-                EventType::Heartbeat => "HEARTBEAT",
-                EventType::Health => "HEALTH",
-                EventType::Maintenance => "MAINTENANCE",
-                EventType::MetadataChange => "METADATA_CHANGE",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "EVENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "IDLE" => Some(Self::Idle),
-                "HEARTBEAT" => Some(Self::Heartbeat),
-                "HEALTH" => Some(Self::Health),
-                "MAINTENANCE" => Some(Self::Maintenance),
-                "METADATA_CHANGE" => Some(Self::MetadataChange),
-                _ => None,
-            }
         }
     }
 }

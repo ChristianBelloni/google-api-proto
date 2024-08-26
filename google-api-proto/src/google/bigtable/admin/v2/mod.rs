@@ -2,7 +2,7 @@
 /// Encapsulates progress related information for a Cloud Bigtable long
 /// running operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
@@ -49,40 +49,598 @@ impl StorageType {
         }
     }
 }
+/// A collection of Bigtable [Tables][google.bigtable.admin.v2.Table] and
+/// the resources that serve them.
+/// All tables in an instance are served from all
+/// [Clusters][google.bigtable.admin.v2.Cluster] in the instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Instance {
+    /// The unique name of the instance. Values are of the form
+    /// `projects/{project}/instances/[a-z][a-z0-9\\-]+\[a-z0-9\]`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The descriptive name for this instance as it appears in UIs.
+    /// Can be changed at any time, but should be kept globally unique
+    /// to avoid confusion.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// (`OutputOnly`)
+    /// The current state of the instance.
+    #[prost(enumeration = "instance::State", tag = "3")]
+    pub state: i32,
+    /// The type of the instance. Defaults to `PRODUCTION`.
+    #[prost(enumeration = "instance::Type", tag = "4")]
+    pub r#type: i32,
+    /// Labels are a flexible and lightweight mechanism for organizing cloud
+    /// resources into groups that reflect a customer's organizational needs and
+    /// deployment strategies. They can be used to filter resources and aggregate
+    /// metrics.
+    ///
+    /// * Label keys must be between 1 and 63 characters long and must conform to
+    ///    the regular expression: `[\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}`.
+    /// * Label values must be between 0 and 63 characters long and must conform to
+    ///    the regular expression: `\[\p{Ll}\p{Lo}\p{N}_-\]{0,63}`.
+    /// * No more than 64 labels can be associated with a given resource.
+    /// * Keys and values must both be under 128 bytes.
+    #[prost(btree_map = "string, string", tag = "5")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Output only. A server-assigned timestamp representing when this Instance
+    /// was created. For instances created before this field was added (August
+    /// 2021), this value is `seconds: 0, nanos: 1`.
+    #[prost(message, optional, tag = "7")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Reserved for future use.
+    #[prost(bool, optional, tag = "8")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+}
+/// Nested message and enum types in `Instance`.
+pub mod instance {
+    /// Possible states of an instance.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// The state of the instance could not be determined.
+        NotKnown = 0,
+        /// The instance has been successfully created and can serve requests
+        /// to its tables.
+        Ready = 1,
+        /// The instance is currently being created, and may be destroyed
+        /// if the creation process encounters an error.
+        Creating = 2,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::NotKnown => "STATE_NOT_KNOWN",
+                State::Ready => "READY",
+                State::Creating => "CREATING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_NOT_KNOWN" => Some(Self::NotKnown),
+                "READY" => Some(Self::Ready),
+                "CREATING" => Some(Self::Creating),
+                _ => None,
+            }
+        }
+    }
+    /// The type of the instance.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Type {
+        /// The type of the instance is unspecified. If set when creating an
+        /// instance, a `PRODUCTION` instance will be created. If set when updating
+        /// an instance, the type will be left unchanged.
+        Unspecified = 0,
+        /// An instance meant for production use. `serve_nodes` must be set
+        /// on the cluster.
+        Production = 1,
+        /// DEPRECATED: Prefer PRODUCTION for all use cases, as it no longer enforces
+        /// a higher minimum node count than DEVELOPMENT.
+        Development = 2,
+    }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Type::Unspecified => "TYPE_UNSPECIFIED",
+                Type::Production => "PRODUCTION",
+                Type::Development => "DEVELOPMENT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PRODUCTION" => Some(Self::Production),
+                "DEVELOPMENT" => Some(Self::Development),
+                _ => None,
+            }
+        }
+    }
+}
+/// The Autoscaling targets for a Cluster. These determine the recommended nodes.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AutoscalingTargets {
+    /// The cpu utilization that the Autoscaler should be trying to achieve.
+    /// This number is on a scale from 0 (no utilization) to
+    /// 100 (total utilization), and is limited between 10 and 80, otherwise it
+    /// will return INVALID_ARGUMENT error.
+    #[prost(int32, tag = "2")]
+    pub cpu_utilization_percent: i32,
+    /// The storage utilization that the Autoscaler should be trying to achieve.
+    /// This number is limited between 2560 (2.5TiB) and 5120 (5TiB) for a SSD
+    /// cluster and between 8192 (8TiB) and 16384 (16TiB) for an HDD cluster,
+    /// otherwise it will return INVALID_ARGUMENT error. If this value is set to 0,
+    /// it will be treated as if it were set to the default value: 2560 for SSD,
+    /// 8192 for HDD.
+    #[prost(int32, tag = "3")]
+    pub storage_utilization_gib_per_node: i32,
+}
+/// Limits for the number of nodes a Cluster can autoscale up/down to.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct AutoscalingLimits {
+    /// Required. Minimum number of nodes to scale down to.
+    #[prost(int32, tag = "1")]
+    pub min_serve_nodes: i32,
+    /// Required. Maximum number of nodes to scale up to.
+    #[prost(int32, tag = "2")]
+    pub max_serve_nodes: i32,
+}
+/// A resizable group of nodes in a particular cloud location, capable
+/// of serving all [Tables][google.bigtable.admin.v2.Table] in the parent
+/// [Instance][google.bigtable.admin.v2.Instance].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Cluster {
+    /// The unique name of the cluster. Values are of the form
+    /// `projects/{project}/instances/{instance}/clusters/[a-z][-a-z0-9]*`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Immutable. The location where this cluster's nodes and storage reside. For
+    /// best performance, clients should be located as close as possible to this
+    /// cluster. Currently only zones are supported, so values should be of the
+    /// form `projects/{project}/locations/{zone}`.
+    #[prost(string, tag = "2")]
+    pub location: ::prost::alloc::string::String,
+    /// Output only. The current state of the cluster.
+    #[prost(enumeration = "cluster::State", tag = "3")]
+    pub state: i32,
+    /// The number of nodes allocated to this cluster. More nodes enable higher
+    /// throughput and more consistent performance.
+    #[prost(int32, tag = "4")]
+    pub serve_nodes: i32,
+    /// Immutable. The type of storage used by this cluster to serve its
+    /// parent instance's tables, unless explicitly overridden.
+    #[prost(enumeration = "StorageType", tag = "5")]
+    pub default_storage_type: i32,
+    /// Immutable. The encryption configuration for CMEK-protected clusters.
+    #[prost(message, optional, tag = "6")]
+    pub encryption_config: ::core::option::Option<cluster::EncryptionConfig>,
+    #[prost(oneof = "cluster::Config", tags = "7")]
+    pub config: ::core::option::Option<cluster::Config>,
+}
+/// Nested message and enum types in `Cluster`.
+pub mod cluster {
+    /// Autoscaling config for a cluster.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct ClusterAutoscalingConfig {
+        /// Required. Autoscaling limits for this cluster.
+        #[prost(message, optional, tag = "1")]
+        pub autoscaling_limits: ::core::option::Option<super::AutoscalingLimits>,
+        /// Required. Autoscaling targets for this cluster.
+        #[prost(message, optional, tag = "2")]
+        pub autoscaling_targets: ::core::option::Option<super::AutoscalingTargets>,
+    }
+    /// Configuration for a cluster.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct ClusterConfig {
+        /// Autoscaling configuration for this cluster.
+        #[prost(message, optional, tag = "1")]
+        pub cluster_autoscaling_config: ::core::option::Option<ClusterAutoscalingConfig>,
+    }
+    /// Cloud Key Management Service (Cloud KMS) settings for a CMEK-protected
+    /// cluster.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct EncryptionConfig {
+        /// Describes the Cloud KMS encryption key that will be used to protect the
+        /// destination Bigtable cluster. The requirements for this key are:
+        ///   1) The Cloud Bigtable service account associated with the project that
+        ///   contains this cluster must be granted the
+        ///   `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
+        ///   2) Only regional keys can be used and the region of the CMEK key must
+        ///   match the region of the cluster.
+        ///   3) All clusters within an instance must use the same CMEK key.
+        /// Values are of the form
+        /// `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
+        #[prost(string, tag = "1")]
+        pub kms_key_name: ::prost::alloc::string::String,
+    }
+    /// Possible states of a cluster.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// The state of the cluster could not be determined.
+        NotKnown = 0,
+        /// The cluster has been successfully created and is ready to serve requests.
+        Ready = 1,
+        /// The cluster is currently being created, and may be destroyed
+        /// if the creation process encounters an error.
+        /// A cluster may not be able to serve requests while being created.
+        Creating = 2,
+        /// The cluster is currently being resized, and may revert to its previous
+        /// node count if the process encounters an error.
+        /// A cluster is still capable of serving requests while being resized,
+        /// but may exhibit performance as if its number of allocated nodes is
+        /// between the starting and requested states.
+        Resizing = 3,
+        /// The cluster has no backing nodes. The data (tables) still
+        /// exist, but no operations can be performed on the cluster.
+        Disabled = 4,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::NotKnown => "STATE_NOT_KNOWN",
+                State::Ready => "READY",
+                State::Creating => "CREATING",
+                State::Resizing => "RESIZING",
+                State::Disabled => "DISABLED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_NOT_KNOWN" => Some(Self::NotKnown),
+                "READY" => Some(Self::Ready),
+                "CREATING" => Some(Self::Creating),
+                "RESIZING" => Some(Self::Resizing),
+                "DISABLED" => Some(Self::Disabled),
+                _ => None,
+            }
+        }
+    }
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum Config {
+        /// Configuration for this cluster.
+        #[prost(message, tag = "7")]
+        ClusterConfig(ClusterConfig),
+    }
+}
+/// A configuration object describing how Cloud Bigtable should treat traffic
+/// from a particular end user application.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AppProfile {
+    /// The unique name of the app profile. Values are of the form
+    /// `projects/{project}/instances/{instance}/appProfiles/[_a-zA-Z0-9][-_.a-zA-Z0-9]*`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Strongly validated etag for optimistic concurrency control. Preserve the
+    /// value returned from `GetAppProfile` when calling `UpdateAppProfile` to
+    /// fail the request if there has been a modification in the mean time. The
+    /// `update_mask` of the request need not include `etag` for this protection
+    /// to apply.
+    /// See [Wikipedia](<https://en.wikipedia.org/wiki/HTTP_ETag>) and
+    /// [RFC 7232](<https://tools.ietf.org/html/rfc7232#section-2.3>) for more
+    /// details.
+    #[prost(string, tag = "2")]
+    pub etag: ::prost::alloc::string::String,
+    /// Long form description of the use case for this AppProfile.
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    /// The routing policy for all read/write requests that use this app profile.
+    /// A value must be explicitly set.
+    #[prost(oneof = "app_profile::RoutingPolicy", tags = "5, 6")]
+    pub routing_policy: ::core::option::Option<app_profile::RoutingPolicy>,
+    /// Options for isolating this app profile's traffic from other use cases.
+    #[prost(oneof = "app_profile::Isolation", tags = "7, 11, 10")]
+    pub isolation: ::core::option::Option<app_profile::Isolation>,
+}
+/// Nested message and enum types in `AppProfile`.
+pub mod app_profile {
+    /// Read/write requests are routed to the nearest cluster in the instance, and
+    /// will fail over to the nearest cluster that is available in the event of
+    /// transient errors or delays. Clusters in a region are considered
+    /// equidistant. Choosing this option sacrifices read-your-writes consistency
+    /// to improve availability.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct MultiClusterRoutingUseAny {
+        /// The set of clusters to route to. The order is ignored; clusters will be
+        /// tried in order of distance. If left empty, all clusters are eligible.
+        #[prost(string, repeated, tag = "1")]
+        pub cluster_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    }
+    /// Unconditionally routes all read/write requests to a specific cluster.
+    /// This option preserves read-your-writes consistency but does not improve
+    /// availability.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct SingleClusterRouting {
+        /// The cluster to which read/write requests should be routed.
+        #[prost(string, tag = "1")]
+        pub cluster_id: ::prost::alloc::string::String,
+        /// Whether or not `CheckAndMutateRow` and `ReadModifyWriteRow` requests are
+        /// allowed by this app profile. It is unsafe to send these requests to
+        /// the same table/row/column in multiple clusters.
+        #[prost(bool, tag = "2")]
+        pub allow_transactional_writes: bool,
+    }
+    /// Standard options for isolating this app profile's traffic from other use
+    /// cases.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct StandardIsolation {
+        /// The priority of requests sent using this app profile.
+        #[prost(enumeration = "Priority", tag = "1")]
+        pub priority: i32,
+    }
+    /// Data Boost is a serverless compute capability that lets you run
+    /// high-throughput read jobs on your Bigtable data, without impacting the
+    /// performance of the clusters that handle your application traffic.
+    /// Currently, Data Boost exclusively supports read-only use-cases with
+    /// single-cluster routing.
+    ///
+    /// Data Boost reads are only guaranteed to see the results of writes that
+    /// were written at least 30 minutes ago. This means newly written values may
+    /// not become visible for up to 30m, and also means that old values may
+    /// remain visible for up to 30m after being deleted or overwritten. To
+    /// mitigate the staleness of the data, users may either wait 30m, or use
+    /// CheckConsistency.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct DataBoostIsolationReadOnly {
+        /// The Compute Billing Owner for this Data Boost App Profile.
+        #[prost(
+            enumeration = "data_boost_isolation_read_only::ComputeBillingOwner",
+            optional,
+            tag = "1"
+        )]
+        pub compute_billing_owner: ::core::option::Option<i32>,
+    }
+    /// Nested message and enum types in `DataBoostIsolationReadOnly`.
+    pub mod data_boost_isolation_read_only {
+        /// Compute Billing Owner specifies how usage should be accounted when using
+        /// Data Boost. Compute Billing Owner also configures which Cloud Project is
+        /// charged for relevant quota.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ComputeBillingOwner {
+            /// Unspecified value.
+            Unspecified = 0,
+            /// The host Cloud Project containing the targeted Bigtable Instance /
+            /// Table pays for compute.
+            HostPays = 1,
+        }
+        impl ComputeBillingOwner {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    ComputeBillingOwner::Unspecified => {
+                        "COMPUTE_BILLING_OWNER_UNSPECIFIED"
+                    }
+                    ComputeBillingOwner::HostPays => "HOST_PAYS",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "COMPUTE_BILLING_OWNER_UNSPECIFIED" => Some(Self::Unspecified),
+                    "HOST_PAYS" => Some(Self::HostPays),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// Possible priorities for an app profile. Note that higher priority writes
+    /// can sometimes queue behind lower priority writes to the same tablet, as
+    /// writes must be strictly sequenced in the durability log.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Priority {
+        /// Default value. Mapped to PRIORITY_HIGH (the legacy behavior) on creation.
+        Unspecified = 0,
+        Low = 1,
+        Medium = 2,
+        High = 3,
+    }
+    impl Priority {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Priority::Unspecified => "PRIORITY_UNSPECIFIED",
+                Priority::Low => "PRIORITY_LOW",
+                Priority::Medium => "PRIORITY_MEDIUM",
+                Priority::High => "PRIORITY_HIGH",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PRIORITY_UNSPECIFIED" => Some(Self::Unspecified),
+                "PRIORITY_LOW" => Some(Self::Low),
+                "PRIORITY_MEDIUM" => Some(Self::Medium),
+                "PRIORITY_HIGH" => Some(Self::High),
+                _ => None,
+            }
+        }
+    }
+    /// The routing policy for all read/write requests that use this app profile.
+    /// A value must be explicitly set.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum RoutingPolicy {
+        /// Use a multi-cluster routing policy.
+        #[prost(message, tag = "5")]
+        MultiClusterRoutingUseAny(MultiClusterRoutingUseAny),
+        /// Use a single-cluster routing policy.
+        #[prost(message, tag = "6")]
+        SingleClusterRouting(SingleClusterRouting),
+    }
+    /// Options for isolating this app profile's traffic from other use cases.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum Isolation {
+        /// This field has been deprecated in favor of `standard_isolation.priority`.
+        /// If you set this field, `standard_isolation.priority` will be set instead.
+        ///
+        /// The priority of requests sent using this app profile.
+        #[prost(enumeration = "Priority", tag = "7")]
+        Priority(i32),
+        /// The standard options used for isolating this app profile's traffic from
+        /// other use cases.
+        #[prost(message, tag = "11")]
+        StandardIsolation(StandardIsolation),
+        /// Specifies that this app profile is intended for read-only usage via the
+        /// Data Boost feature.
+        #[prost(message, tag = "10")]
+        DataBoostIsolationReadOnly(DataBoostIsolationReadOnly),
+    }
+}
+/// A tablet is a defined by a start and end key and is explained in
+/// <https://cloud.google.com/bigtable/docs/overview#architecture> and
+/// <https://cloud.google.com/bigtable/docs/performance#optimization.>
+/// A Hot tablet is a tablet that exhibits high average cpu usage during the time
+/// interval from start time to end time.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct HotTablet {
+    /// The unique name of the hot tablet. Values are of the form
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}/hotTablets/\[a-zA-Z0-9_-\]*`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Name of the table that contains the tablet. Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/[_a-zA-Z0-9][-_.a-zA-Z0-9]*`.
+    #[prost(string, tag = "2")]
+    pub table_name: ::prost::alloc::string::String,
+    /// Output only. The start time of the hot tablet.
+    #[prost(message, optional, tag = "3")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The end time of the hot tablet.
+    #[prost(message, optional, tag = "4")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Tablet Start Key (inclusive).
+    #[prost(string, tag = "5")]
+    pub start_key: ::prost::alloc::string::String,
+    /// Tablet End Key (inclusive).
+    #[prost(string, tag = "6")]
+    pub end_key: ::prost::alloc::string::String,
+    /// Output only. The average CPU usage spent by a node on this tablet over the
+    /// start_time to end_time time range. The percentage is the amount of CPU used
+    /// by the node to serve the tablet, from 0% (tablet was not interacted with)
+    /// to 100% (the node spent all cycles serving the hot tablet).
+    #[prost(float, tag = "7")]
+    pub node_cpu_usage_percent: f32,
+}
 /// `Type` represents the type of data that is written to, read from, or stored
 /// in Bigtable. It is heavily based on the GoogleSQL standard to help maintain
 /// familiarity and consistency across products and features.
 ///
 /// For compatibility with Bigtable's existing untyped APIs, each `Type` includes
 /// an `Encoding` which describes how to convert to/from the underlying data.
-/// This might involve composing a series of steps into an "encoding chain," for
-/// example to convert from INT64 -> STRING -> raw bytes. In most cases, a "link"
-/// in the encoding chain will be based an on existing GoogleSQL conversion
-/// function like `CAST`.
 ///
-/// Each link in the encoding chain also defines the following properties:
-///   * Natural sort: Does the encoded value sort consistently with the original
-///     typed value? Note that Bigtable will always sort data based on the raw
-///     encoded value, *not* the decoded type.
+/// Each encoding also defines the following properties:
+///
+///   * Order-preserving: Does the encoded value sort consistently with the
+///     original typed value? Note that Bigtable will always sort data based on
+///     the raw encoded value, *not* the decoded type.
 ///      - Example: BYTES values sort in the same order as their raw encodings.
-///      - Counterexample: Encoding INT64 to a fixed-width STRING does *not*
-///        preserve sort order when dealing with negative numbers.
-///        INT64(1) > INT64(-1), but STRING("-00001") > STRING("00001).
-///      - The overall encoding chain has this property if *every* link does.
+///      - Counterexample: Encoding INT64 as a fixed-width decimal string does
+///        *not* preserve sort order when dealing with negative numbers.
+///        `INT64(1) > INT64(-1)`, but `STRING("-00001") > STRING("00001)`.
 ///   * Self-delimiting: If we concatenate two encoded values, can we always tell
 ///     where the first one ends and the second one begins?
 ///      - Example: If we encode INT64s to fixed-width STRINGs, the first value
 ///        will always contain exactly N digits, possibly preceded by a sign.
 ///      - Counterexample: If we concatenate two UTF-8 encoded STRINGs, we have
 ///        no way to tell where the first one ends.
-///      - The overall encoding chain has this property if *any* link does.
 ///   * Compatibility: Which other systems have matching encoding schemes? For
 ///     example, does this encoding have a GoogleSQL equivalent? HBase? Java?
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Type {
     /// The kind of type that this represents.
-    #[prost(oneof = "r#type::Kind", tags = "1, 2, 5, 6")]
+    #[prost(oneof = "r#type::Kind", tags = "1, 2, 5, 12, 9, 8, 10, 11, 6, 7, 3, 4")]
     pub kind: ::core::option::Option<r#type::Kind>,
 }
 /// Nested message and enum types in `Type`.
@@ -90,7 +648,7 @@ pub mod r#type {
     /// Bytes
     /// Values of type `Bytes` are stored in `Value.bytes_value`.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Bytes {
         /// The encoding to use when converting to/from lower level types.
         #[prost(message, optional, tag = "1")]
@@ -100,7 +658,7 @@ pub mod r#type {
     pub mod bytes {
         /// Rules used to convert to/from lower level types.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct Encoding {
             /// Which encoding to use.
             #[prost(oneof = "encoding::Encoding", tags = "1")]
@@ -109,15 +667,15 @@ pub mod r#type {
         /// Nested message and enum types in `Encoding`.
         pub mod encoding {
             /// Leaves the value "as-is"
-            /// * Natural sort? Yes
+            /// * Order-preserving? Yes
             /// * Self-delimiting? No
             /// * Compatibility? N/A
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
             pub struct Raw {}
             /// Which encoding to use.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
             pub enum Encoding {
                 /// Use `Raw` encoding.
                 #[prost(message, tag = "1")]
@@ -128,7 +686,7 @@ pub mod r#type {
     /// String
     /// Values of type `String` are stored in `Value.string_value`.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct String {
         /// The encoding to use when converting to/from lower level types.
         #[prost(message, optional, tag = "1")]
@@ -138,38 +696,45 @@ pub mod r#type {
     pub mod string {
         /// Rules used to convert to/from lower level types.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct Encoding {
             /// Which encoding to use.
-            #[prost(oneof = "encoding::Encoding", tags = "1")]
+            #[prost(oneof = "encoding::Encoding", tags = "1, 2")]
             pub encoding: ::core::option::Option<encoding::Encoding>,
         }
         /// Nested message and enum types in `Encoding`.
         pub mod encoding {
+            /// Deprecated: prefer the equivalent `Utf8Bytes`.
+            #[allow(clippy::derive_partial_eq_without_eq)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+            pub struct Utf8Raw {}
             /// UTF-8 encoding
-            /// * Natural sort? No (ASCII characters only)
+            /// * Order-preserving? Yes (code point order)
             /// * Self-delimiting? No
             /// * Compatibility?
             ///     - BigQuery Federation `TEXT` encoding
             ///     - HBase `Bytes.toBytes`
             ///     - Java `String#getBytes(StandardCharsets.UTF_8)`
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
-            pub struct Utf8Raw {}
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+            pub struct Utf8Bytes {}
             /// Which encoding to use.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
             pub enum Encoding {
-                /// Use `Utf8Raw` encoding.
+                /// Deprecated: if set, converts to an empty `utf8_bytes`.
                 #[prost(message, tag = "1")]
                 Utf8Raw(Utf8Raw),
+                /// Use `Utf8Bytes` encoding.
+                #[prost(message, tag = "2")]
+                Utf8Bytes(Utf8Bytes),
             }
         }
     }
     /// Int64
     /// Values of type `Int64` are stored in `Value.int_value`.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Int64 {
         /// The encoding to use when converting to/from lower level types.
         #[prost(message, optional, tag = "1")]
@@ -179,7 +744,7 @@ pub mod r#type {
     pub mod int64 {
         /// Rules used to convert to/from lower level types.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct Encoding {
             /// Which encoding to use.
             #[prost(oneof = "encoding::Encoding", tags = "1")]
@@ -189,28 +754,108 @@ pub mod r#type {
         pub mod encoding {
             /// Encodes the value as an 8-byte big endian twos complement `Bytes`
             /// value.
-            /// * Natural sort? No (positive values only)
+            /// * Order-preserving? No (positive values only)
             /// * Self-delimiting? Yes
             /// * Compatibility?
             ///     - BigQuery Federation `BINARY` encoding
             ///     - HBase `Bytes.toBytes`
             ///     - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Message)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Message)]
             pub struct BigEndianBytes {
-                /// The underlying `Bytes` type, which may be able to encode further.
+                /// Deprecated: ignored if set.
                 #[prost(message, optional, tag = "1")]
                 pub bytes_type: ::core::option::Option<super::super::Bytes>,
             }
             /// Which encoding to use.
             #[allow(clippy::derive_partial_eq_without_eq)]
-            #[derive(Clone, PartialEq, ::prost::Oneof)]
+            #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
             pub enum Encoding {
                 /// Use `BigEndianBytes` encoding.
                 #[prost(message, tag = "1")]
                 BigEndianBytes(BigEndianBytes),
             }
         }
+    }
+    /// bool
+    /// Values of type `Bool` are stored in `Value.bool_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Bool {}
+    /// Float32
+    /// Values of type `Float32` are stored in `Value.float_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Float32 {}
+    /// Float64
+    /// Values of type `Float64` are stored in `Value.float_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Float64 {}
+    /// Timestamp
+    /// Values of type `Timestamp` are stored in `Value.timestamp_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Timestamp {}
+    /// Date
+    /// Values of type `Date` are stored in `Value.date_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Date {}
+    /// A structured data value, consisting of fields which map to dynamically
+    /// typed values.
+    /// Values of type `Struct` are stored in `Value.array_value` where entries are
+    /// in the same order and number as `field_types`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Struct {
+        /// The names and types of the fields in this struct.
+        #[prost(message, repeated, tag = "1")]
+        pub fields: ::prost::alloc::vec::Vec<r#struct::Field>,
+    }
+    /// Nested message and enum types in `Struct`.
+    pub mod r#struct {
+        /// A struct field and its type.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct Field {
+            /// The field name (optional). Fields without a `field_name` are considered
+            /// anonymous and cannot be referenced by name.
+            #[prost(string, tag = "1")]
+            pub field_name: ::prost::alloc::string::String,
+            /// The type of values in this field.
+            #[prost(message, optional, tag = "2")]
+            pub r#type: ::core::option::Option<super::super::Type>,
+        }
+    }
+    /// An ordered list of elements of a given type.
+    /// Values of type `Array` are stored in `Value.array_value`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Array {
+        /// The type of the elements in the array. This must not be `Array`.
+        #[prost(message, optional, boxed, tag = "1")]
+        pub element_type: ::core::option::Option<
+            ::prost::alloc::boxed::Box<super::Type>,
+        >,
+    }
+    /// A mapping of keys to values of a given type.
+    /// Values of type `Map` are stored in a `Value.array_value` where each entry
+    /// is another `Value.array_value` with two elements (the key and the value,
+    /// in that order).
+    /// Normally encoded Map values won't have repeated keys, however, clients are
+    /// expected to handle the case in which they do. If the same key appears
+    /// multiple times, the _last_ value takes precedence.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Map {
+        /// The type of a map key.
+        /// Only `Bytes`, `String`, and `Int64` are allowed as key types.
+        #[prost(message, optional, boxed, tag = "1")]
+        pub key_type: ::core::option::Option<::prost::alloc::boxed::Box<super::Type>>,
+        /// The type of the values in a map.
+        #[prost(message, optional, boxed, tag = "2")]
+        pub value_type: ::core::option::Option<::prost::alloc::boxed::Box<super::Type>>,
     }
     /// A value that combines incremental updates into a summarized value.
     ///
@@ -231,7 +876,7 @@ pub mod r#type {
         #[prost(message, optional, boxed, tag = "2")]
         pub state_type: ::core::option::Option<::prost::alloc::boxed::Box<super::Type>>,
         /// Which aggregator function to use. The configured types must match.
-        #[prost(oneof = "aggregate::Aggregator", tags = "4")]
+        #[prost(oneof = "aggregate::Aggregator", tags = "4, 5, 6, 7")]
         pub aggregator: ::core::option::Option<aggregate::Aggregator>,
     }
     /// Nested message and enum types in `Aggregate`.
@@ -240,15 +885,46 @@ pub mod r#type {
         /// Allowed input: `Int64`
         /// State: same as input
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct Sum {}
+        /// Computes the max of the input values.
+        /// Allowed input: `Int64`
+        /// State: same as input
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct Max {}
+        /// Computes the min of the input values.
+        /// Allowed input: `Int64`
+        /// State: same as input
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct Min {}
+        /// Computes an approximate unique count over the input values. When using
+        /// raw data as input, be careful to use a consistent encoding. Otherwise
+        /// the same value encoded differently could count more than once, or two
+        /// distinct values could count as identical.
+        /// Input: Any, or omit for Raw
+        /// State: TBD
+        /// Special state conversions: `Int64` (the unique count estimate)
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct HyperLogLogPlusPlusUniqueCount {}
         /// Which aggregator function to use. The configured types must match.
         #[allow(clippy::derive_partial_eq_without_eq)]
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
         pub enum Aggregator {
             /// Sum aggregator.
             #[prost(message, tag = "4")]
             Sum(Sum),
+            /// HyperLogLogPlusPlusUniqueCount aggregator.
+            #[prost(message, tag = "5")]
+            HllppUniqueCount(HyperLogLogPlusPlusUniqueCount),
+            /// Max aggregator.
+            #[prost(message, tag = "6")]
+            Max(Max),
+            /// Min aggregator.
+            #[prost(message, tag = "7")]
+            Min(Min),
         }
     }
     /// The kind of type that this represents.
@@ -264,9 +940,33 @@ pub mod r#type {
         /// Int64
         #[prost(message, tag = "5")]
         Int64Type(Int64),
+        /// Float32
+        #[prost(message, tag = "12")]
+        Float32Type(Float32),
+        /// Float64
+        #[prost(message, tag = "9")]
+        Float64Type(Float64),
+        /// Bool
+        #[prost(message, tag = "8")]
+        BoolType(Bool),
+        /// Timestamp
+        #[prost(message, tag = "10")]
+        TimestampType(Timestamp),
+        /// Date
+        #[prost(message, tag = "11")]
+        DateType(Date),
         /// Aggregate
         #[prost(message, tag = "6")]
         AggregateType(::prost::alloc::boxed::Box<Aggregate>),
+        /// Struct
+        #[prost(message, tag = "7")]
+        StructType(Struct),
+        /// Array
+        #[prost(message, tag = "3")]
+        ArrayType(::prost::alloc::boxed::Box<Array>),
+        /// Map
+        #[prost(message, tag = "4")]
+        MapType(::prost::alloc::boxed::Box<Map>),
     }
 }
 /// Information about a table restore.
@@ -294,7 +994,7 @@ pub mod restore_info {
 }
 /// Change stream configuration.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ChangeStreamConfig {
     /// How long the change stream should be retained. Change stream data older
     /// than the retention period will not be returned when reading the change
@@ -444,7 +1144,7 @@ pub mod table {
     }
     /// Defines an automated backup policy for a table
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct AutomatedBackupPolicy {
         /// Required. How long the automated backups should be retained. The only
         /// supported value at this time is 3 days.
@@ -553,7 +1253,7 @@ pub mod table {
         }
     }
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum AutomatedBackupConfig {
         /// If specified, automated backups are enabled for this table.
         /// Otherwise, automated backups are disabled.
@@ -933,14 +1633,17 @@ pub struct Backup {
     pub source_table: ::prost::alloc::string::String,
     /// Output only. Name of the backup from which this backup was copied. If a
     /// backup is not created by copying a backup, this field will be empty. Values
-    /// are of the form: projects/<project>/instances/<instance>/backups/<backup>.
+    /// are of the form:
+    /// projects/<project>/instances/<instance>/clusters/<cluster>/backups/<backup>
     #[prost(string, tag = "10")]
     pub source_backup: ::prost::alloc::string::String,
-    /// Required. The expiration time of the backup, with microseconds
-    /// granularity that must be at least 6 hours and at most 90 days
-    /// from the time the request is received. Once the `expire_time`
-    /// has passed, Cloud Bigtable will delete the backup and free the
-    /// resources used by the backup.
+    /// Required. The expiration time of the backup.
+    /// When creating a backup or updating its `expire_time`, the value must be
+    /// greater than the backup creation time by:
+    /// - At least 6 hours
+    /// - At most 90 days
+    ///
+    /// Once the `expire_time` has passed, Cloud Bigtable will delete the backup.
     #[prost(message, optional, tag = "3")]
     pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. `start_time` is the time that the backup was started
@@ -963,6 +1666,19 @@ pub struct Backup {
     /// Output only. The encryption information for the backup.
     #[prost(message, optional, tag = "9")]
     pub encryption_info: ::core::option::Option<EncryptionInfo>,
+    /// Indicates the backup type of the backup.
+    #[prost(enumeration = "backup::BackupType", tag = "11")]
+    pub backup_type: i32,
+    /// The time at which the hot backup will be converted to a standard backup.
+    /// Once the `hot_to_standard_time` has passed, Cloud Bigtable will convert the
+    /// hot backup to a standard backup. This value must be greater than the backup
+    /// creation time by:
+    /// - At least 24 hours
+    ///
+    /// This field only applies for hot backups. When creating or updating a
+    /// standard backup, attempting to set this field will fail the request.
+    #[prost(message, optional, tag = "12")]
+    pub hot_to_standard_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `Backup`.
 pub mod backup {
@@ -1010,6 +1726,54 @@ pub mod backup {
             }
         }
     }
+    /// The type of the backup.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum BackupType {
+        /// Not specified.
+        Unspecified = 0,
+        /// The default type for Cloud Bigtable managed backups. Supported for
+        /// backups created in both HDD and SSD instances. Requires optimization when
+        /// restored to a table in an SSD instance.
+        Standard = 1,
+        /// A backup type with faster restore to SSD performance. Only supported for
+        /// backups created in SSD instances. A new SSD table restored from a hot
+        /// backup reaches production performance more quickly than a standard
+        /// backup.
+        Hot = 2,
+    }
+    impl BackupType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                BackupType::Unspecified => "BACKUP_TYPE_UNSPECIFIED",
+                BackupType::Standard => "STANDARD",
+                BackupType::Hot => "HOT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "BACKUP_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "STANDARD" => Some(Self::Standard),
+                "HOT" => Some(Self::Hot),
+                _ => None,
+            }
+        }
+    }
 }
 /// Information about a backup.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1031,7 +1795,8 @@ pub struct BackupInfo {
     pub source_table: ::prost::alloc::string::String,
     /// Output only. Name of the backup from which this backup was copied. If a
     /// backup is not created by copying a backup, this field will be empty. Values
-    /// are of the form: projects/<project>/instances/<instance>/backups/<backup>.
+    /// are of the form:
+    /// projects/<project>/instances/<instance>/clusters/<cluster>/backups/<backup>
     #[prost(string, tag = "10")]
     pub source_backup: ::prost::alloc::string::String,
 }
@@ -1492,7 +2257,7 @@ pub mod check_consistency_request {
     /// Which type of read needs to consistently observe which type of write?
     /// Default: `standard_read_remote_writes`
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Mode {
         /// Checks that reads using an app profile with `StandardIsolation` can
         /// see all writes committed before the token was created, even if the
@@ -1509,17 +2274,17 @@ pub mod check_consistency_request {
 /// Checks that all writes before the consistency token was generated are
 /// replicated in every cluster and readable.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StandardReadRemoteWrites {}
 /// Checks that all writes before the consistency token was generated in the same
 /// cluster are readable by Databoost.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DataBoostReadLocalWrites {}
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency][google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CheckConsistencyResponse {
     /// True only if the token is consistent. A token is consistent if replication
     /// has caught up with the restrictions specified in the request.
@@ -1861,7 +2626,7 @@ pub struct ListBackupsResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CopyBackupRequest {
     /// Required. The name of the destination cluster that will contain the backup
-    /// copy. The cluster must already exists. Values are of the form:
+    /// copy. The cluster must already exist. Values are of the form:
     /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -2933,7 +3698,7 @@ pub mod bigtable_table_admin_client {
         /// returned table [long-running operation][google.longrunning.Operation] can
         /// be used to track the progress of the operation, and to cancel it.  The
         /// [metadata][google.longrunning.Operation.metadata] field type is
-        /// [RestoreTableMetadata][google.bigtable.admin.RestoreTableMetadata].  The
+        /// [RestoreTableMetadata][google.bigtable.admin.v2.RestoreTableMetadata].  The
         /// [response][google.longrunning.Operation.response] type is
         /// [Table][google.bigtable.admin.v2.Table], if successful.
         pub async fn restore_table(
@@ -3104,569 +3869,6 @@ pub mod bigtable_table_admin_client {
             self.inner.unary(req, path, codec).await
         }
     }
-}
-/// A collection of Bigtable [Tables][google.bigtable.admin.v2.Table] and
-/// the resources that serve them.
-/// All tables in an instance are served from all
-/// [Clusters][google.bigtable.admin.v2.Cluster] in the instance.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Instance {
-    /// The unique name of the instance. Values are of the form
-    /// `projects/{project}/instances/[a-z][a-z0-9\\-]+\[a-z0-9\]`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The descriptive name for this instance as it appears in UIs.
-    /// Can be changed at any time, but should be kept globally unique
-    /// to avoid confusion.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// (`OutputOnly`)
-    /// The current state of the instance.
-    #[prost(enumeration = "instance::State", tag = "3")]
-    pub state: i32,
-    /// The type of the instance. Defaults to `PRODUCTION`.
-    #[prost(enumeration = "instance::Type", tag = "4")]
-    pub r#type: i32,
-    /// Labels are a flexible and lightweight mechanism for organizing cloud
-    /// resources into groups that reflect a customer's organizational needs and
-    /// deployment strategies. They can be used to filter resources and aggregate
-    /// metrics.
-    ///
-    /// * Label keys must be between 1 and 63 characters long and must conform to
-    ///    the regular expression: `[\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}`.
-    /// * Label values must be between 0 and 63 characters long and must conform to
-    ///    the regular expression: `\[\p{Ll}\p{Lo}\p{N}_-\]{0,63}`.
-    /// * No more than 64 labels can be associated with a given resource.
-    /// * Keys and values must both be under 128 bytes.
-    #[prost(btree_map = "string, string", tag = "5")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. A server-assigned timestamp representing when this Instance
-    /// was created. For instances created before this field was added (August
-    /// 2021), this value is `seconds: 0, nanos: 1`.
-    #[prost(message, optional, tag = "7")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Reserved for future use.
-    #[prost(bool, optional, tag = "8")]
-    pub satisfies_pzs: ::core::option::Option<bool>,
-}
-/// Nested message and enum types in `Instance`.
-pub mod instance {
-    /// Possible states of an instance.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// The state of the instance could not be determined.
-        NotKnown = 0,
-        /// The instance has been successfully created and can serve requests
-        /// to its tables.
-        Ready = 1,
-        /// The instance is currently being created, and may be destroyed
-        /// if the creation process encounters an error.
-        Creating = 2,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::NotKnown => "STATE_NOT_KNOWN",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_NOT_KNOWN" => Some(Self::NotKnown),
-                "READY" => Some(Self::Ready),
-                "CREATING" => Some(Self::Creating),
-                _ => None,
-            }
-        }
-    }
-    /// The type of the instance.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Type {
-        /// The type of the instance is unspecified. If set when creating an
-        /// instance, a `PRODUCTION` instance will be created. If set when updating
-        /// an instance, the type will be left unchanged.
-        Unspecified = 0,
-        /// An instance meant for production use. `serve_nodes` must be set
-        /// on the cluster.
-        Production = 1,
-        /// DEPRECATED: Prefer PRODUCTION for all use cases, as it no longer enforces
-        /// a higher minimum node count than DEVELOPMENT.
-        Development = 2,
-    }
-    impl Type {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Production => "PRODUCTION",
-                Type::Development => "DEVELOPMENT",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "PRODUCTION" => Some(Self::Production),
-                "DEVELOPMENT" => Some(Self::Development),
-                _ => None,
-            }
-        }
-    }
-}
-/// The Autoscaling targets for a Cluster. These determine the recommended nodes.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AutoscalingTargets {
-    /// The cpu utilization that the Autoscaler should be trying to achieve.
-    /// This number is on a scale from 0 (no utilization) to
-    /// 100 (total utilization), and is limited between 10 and 80, otherwise it
-    /// will return INVALID_ARGUMENT error.
-    #[prost(int32, tag = "2")]
-    pub cpu_utilization_percent: i32,
-    /// The storage utilization that the Autoscaler should be trying to achieve.
-    /// This number is limited between 2560 (2.5TiB) and 5120 (5TiB) for a SSD
-    /// cluster and between 8192 (8TiB) and 16384 (16TiB) for an HDD cluster,
-    /// otherwise it will return INVALID_ARGUMENT error. If this value is set to 0,
-    /// it will be treated as if it were set to the default value: 2560 for SSD,
-    /// 8192 for HDD.
-    #[prost(int32, tag = "3")]
-    pub storage_utilization_gib_per_node: i32,
-}
-/// Limits for the number of nodes a Cluster can autoscale up/down to.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AutoscalingLimits {
-    /// Required. Minimum number of nodes to scale down to.
-    #[prost(int32, tag = "1")]
-    pub min_serve_nodes: i32,
-    /// Required. Maximum number of nodes to scale up to.
-    #[prost(int32, tag = "2")]
-    pub max_serve_nodes: i32,
-}
-/// A resizable group of nodes in a particular cloud location, capable
-/// of serving all [Tables][google.bigtable.admin.v2.Table] in the parent
-/// [Instance][google.bigtable.admin.v2.Instance].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Cluster {
-    /// The unique name of the cluster. Values are of the form
-    /// `projects/{project}/instances/{instance}/clusters/[a-z][-a-z0-9]*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Immutable. The location where this cluster's nodes and storage reside. For
-    /// best performance, clients should be located as close as possible to this
-    /// cluster. Currently only zones are supported, so values should be of the
-    /// form `projects/{project}/locations/{zone}`.
-    #[prost(string, tag = "2")]
-    pub location: ::prost::alloc::string::String,
-    /// Output only. The current state of the cluster.
-    #[prost(enumeration = "cluster::State", tag = "3")]
-    pub state: i32,
-    /// The number of nodes allocated to this cluster. More nodes enable higher
-    /// throughput and more consistent performance.
-    #[prost(int32, tag = "4")]
-    pub serve_nodes: i32,
-    /// Immutable. The type of storage used by this cluster to serve its
-    /// parent instance's tables, unless explicitly overridden.
-    #[prost(enumeration = "StorageType", tag = "5")]
-    pub default_storage_type: i32,
-    /// Immutable. The encryption configuration for CMEK-protected clusters.
-    #[prost(message, optional, tag = "6")]
-    pub encryption_config: ::core::option::Option<cluster::EncryptionConfig>,
-    #[prost(oneof = "cluster::Config", tags = "7")]
-    pub config: ::core::option::Option<cluster::Config>,
-}
-/// Nested message and enum types in `Cluster`.
-pub mod cluster {
-    /// Autoscaling config for a cluster.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ClusterAutoscalingConfig {
-        /// Required. Autoscaling limits for this cluster.
-        #[prost(message, optional, tag = "1")]
-        pub autoscaling_limits: ::core::option::Option<super::AutoscalingLimits>,
-        /// Required. Autoscaling targets for this cluster.
-        #[prost(message, optional, tag = "2")]
-        pub autoscaling_targets: ::core::option::Option<super::AutoscalingTargets>,
-    }
-    /// Configuration for a cluster.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ClusterConfig {
-        /// Autoscaling configuration for this cluster.
-        #[prost(message, optional, tag = "1")]
-        pub cluster_autoscaling_config: ::core::option::Option<ClusterAutoscalingConfig>,
-    }
-    /// Cloud Key Management Service (Cloud KMS) settings for a CMEK-protected
-    /// cluster.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct EncryptionConfig {
-        /// Describes the Cloud KMS encryption key that will be used to protect the
-        /// destination Bigtable cluster. The requirements for this key are:
-        ///   1) The Cloud Bigtable service account associated with the project that
-        ///   contains this cluster must be granted the
-        ///   `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
-        ///   2) Only regional keys can be used and the region of the CMEK key must
-        ///   match the region of the cluster.
-        ///   3) All clusters within an instance must use the same CMEK key.
-        /// Values are of the form
-        /// `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
-        #[prost(string, tag = "1")]
-        pub kms_key_name: ::prost::alloc::string::String,
-    }
-    /// Possible states of a cluster.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// The state of the cluster could not be determined.
-        NotKnown = 0,
-        /// The cluster has been successfully created and is ready to serve requests.
-        Ready = 1,
-        /// The cluster is currently being created, and may be destroyed
-        /// if the creation process encounters an error.
-        /// A cluster may not be able to serve requests while being created.
-        Creating = 2,
-        /// The cluster is currently being resized, and may revert to its previous
-        /// node count if the process encounters an error.
-        /// A cluster is still capable of serving requests while being resized,
-        /// but may exhibit performance as if its number of allocated nodes is
-        /// between the starting and requested states.
-        Resizing = 3,
-        /// The cluster has no backing nodes. The data (tables) still
-        /// exist, but no operations can be performed on the cluster.
-        Disabled = 4,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::NotKnown => "STATE_NOT_KNOWN",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Resizing => "RESIZING",
-                State::Disabled => "DISABLED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_NOT_KNOWN" => Some(Self::NotKnown),
-                "READY" => Some(Self::Ready),
-                "CREATING" => Some(Self::Creating),
-                "RESIZING" => Some(Self::Resizing),
-                "DISABLED" => Some(Self::Disabled),
-                _ => None,
-            }
-        }
-    }
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Config {
-        /// Configuration for this cluster.
-        #[prost(message, tag = "7")]
-        ClusterConfig(ClusterConfig),
-    }
-}
-/// A configuration object describing how Cloud Bigtable should treat traffic
-/// from a particular end user application.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AppProfile {
-    /// The unique name of the app profile. Values are of the form
-    /// `projects/{project}/instances/{instance}/appProfiles/[_a-zA-Z0-9][-_.a-zA-Z0-9]*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Strongly validated etag for optimistic concurrency control. Preserve the
-    /// value returned from `GetAppProfile` when calling `UpdateAppProfile` to
-    /// fail the request if there has been a modification in the mean time. The
-    /// `update_mask` of the request need not include `etag` for this protection
-    /// to apply.
-    /// See [Wikipedia](<https://en.wikipedia.org/wiki/HTTP_ETag>) and
-    /// [RFC 7232](<https://tools.ietf.org/html/rfc7232#section-2.3>) for more
-    /// details.
-    #[prost(string, tag = "2")]
-    pub etag: ::prost::alloc::string::String,
-    /// Long form description of the use case for this AppProfile.
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-    /// The routing policy for all read/write requests that use this app profile.
-    /// A value must be explicitly set.
-    #[prost(oneof = "app_profile::RoutingPolicy", tags = "5, 6")]
-    pub routing_policy: ::core::option::Option<app_profile::RoutingPolicy>,
-    /// Options for isolating this app profile's traffic from other use cases.
-    #[prost(oneof = "app_profile::Isolation", tags = "7, 11, 10")]
-    pub isolation: ::core::option::Option<app_profile::Isolation>,
-}
-/// Nested message and enum types in `AppProfile`.
-pub mod app_profile {
-    /// Read/write requests are routed to the nearest cluster in the instance, and
-    /// will fail over to the nearest cluster that is available in the event of
-    /// transient errors or delays. Clusters in a region are considered
-    /// equidistant. Choosing this option sacrifices read-your-writes consistency
-    /// to improve availability.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct MultiClusterRoutingUseAny {
-        /// The set of clusters to route to. The order is ignored; clusters will be
-        /// tried in order of distance. If left empty, all clusters are eligible.
-        #[prost(string, repeated, tag = "1")]
-        pub cluster_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    }
-    /// Unconditionally routes all read/write requests to a specific cluster.
-    /// This option preserves read-your-writes consistency but does not improve
-    /// availability.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct SingleClusterRouting {
-        /// The cluster to which read/write requests should be routed.
-        #[prost(string, tag = "1")]
-        pub cluster_id: ::prost::alloc::string::String,
-        /// Whether or not `CheckAndMutateRow` and `ReadModifyWriteRow` requests are
-        /// allowed by this app profile. It is unsafe to send these requests to
-        /// the same table/row/column in multiple clusters.
-        #[prost(bool, tag = "2")]
-        pub allow_transactional_writes: bool,
-    }
-    /// Standard options for isolating this app profile's traffic from other use
-    /// cases.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct StandardIsolation {
-        /// The priority of requests sent using this app profile.
-        #[prost(enumeration = "Priority", tag = "1")]
-        pub priority: i32,
-    }
-    /// Data Boost is a serverless compute capability that lets you run
-    /// high-throughput read jobs on your Bigtable data, without impacting the
-    /// performance of the clusters that handle your application traffic.
-    /// Currently, Data Boost exclusively supports read-only use-cases with
-    /// single-cluster routing.
-    ///
-    /// Data Boost reads are only guaranteed to see the results of writes that
-    /// were written at least 30 minutes ago. This means newly written values may
-    /// not become visible for up to 30m, and also means that old values may
-    /// remain visible for up to 30m after being deleted or overwritten. To
-    /// mitigate the staleness of the data, users may either wait 30m, or use
-    /// CheckConsistency.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct DataBoostIsolationReadOnly {
-        /// The Compute Billing Owner for this Data Boost App Profile.
-        #[prost(
-            enumeration = "data_boost_isolation_read_only::ComputeBillingOwner",
-            optional,
-            tag = "1"
-        )]
-        pub compute_billing_owner: ::core::option::Option<i32>,
-    }
-    /// Nested message and enum types in `DataBoostIsolationReadOnly`.
-    pub mod data_boost_isolation_read_only {
-        /// Compute Billing Owner specifies how usage should be accounted when using
-        /// Data Boost. Compute Billing Owner also configures which Cloud Project is
-        /// charged for relevant quota.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum ComputeBillingOwner {
-            /// Unspecified value.
-            Unspecified = 0,
-            /// The host Cloud Project containing the targeted Bigtable Instance /
-            /// Table pays for compute.
-            HostPays = 1,
-        }
-        impl ComputeBillingOwner {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    ComputeBillingOwner::Unspecified => {
-                        "COMPUTE_BILLING_OWNER_UNSPECIFIED"
-                    }
-                    ComputeBillingOwner::HostPays => "HOST_PAYS",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "COMPUTE_BILLING_OWNER_UNSPECIFIED" => Some(Self::Unspecified),
-                    "HOST_PAYS" => Some(Self::HostPays),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// Possible priorities for an app profile. Note that higher priority writes
-    /// can sometimes queue behind lower priority writes to the same tablet, as
-    /// writes must be strictly sequenced in the durability log.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Priority {
-        /// Default value. Mapped to PRIORITY_HIGH (the legacy behavior) on creation.
-        Unspecified = 0,
-        Low = 1,
-        Medium = 2,
-        High = 3,
-    }
-    impl Priority {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Priority::Unspecified => "PRIORITY_UNSPECIFIED",
-                Priority::Low => "PRIORITY_LOW",
-                Priority::Medium => "PRIORITY_MEDIUM",
-                Priority::High => "PRIORITY_HIGH",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "PRIORITY_UNSPECIFIED" => Some(Self::Unspecified),
-                "PRIORITY_LOW" => Some(Self::Low),
-                "PRIORITY_MEDIUM" => Some(Self::Medium),
-                "PRIORITY_HIGH" => Some(Self::High),
-                _ => None,
-            }
-        }
-    }
-    /// The routing policy for all read/write requests that use this app profile.
-    /// A value must be explicitly set.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum RoutingPolicy {
-        /// Use a multi-cluster routing policy.
-        #[prost(message, tag = "5")]
-        MultiClusterRoutingUseAny(MultiClusterRoutingUseAny),
-        /// Use a single-cluster routing policy.
-        #[prost(message, tag = "6")]
-        SingleClusterRouting(SingleClusterRouting),
-    }
-    /// Options for isolating this app profile's traffic from other use cases.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Isolation {
-        /// This field has been deprecated in favor of `standard_isolation.priority`.
-        /// If you set this field, `standard_isolation.priority` will be set instead.
-        ///
-        /// The priority of requests sent using this app profile.
-        #[prost(enumeration = "Priority", tag = "7")]
-        Priority(i32),
-        /// The standard options used for isolating this app profile's traffic from
-        /// other use cases.
-        #[prost(message, tag = "11")]
-        StandardIsolation(StandardIsolation),
-        /// Specifies that this app profile is intended for read-only usage via the
-        /// Data Boost feature.
-        #[prost(message, tag = "10")]
-        DataBoostIsolationReadOnly(DataBoostIsolationReadOnly),
-    }
-}
-/// A tablet is a defined by a start and end key and is explained in
-/// <https://cloud.google.com/bigtable/docs/overview#architecture> and
-/// <https://cloud.google.com/bigtable/docs/performance#optimization.>
-/// A Hot tablet is a tablet that exhibits high average cpu usage during the time
-/// interval from start time to end time.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct HotTablet {
-    /// The unique name of the hot tablet. Values are of the form
-    /// `projects/{project}/instances/{instance}/clusters/{cluster}/hotTablets/\[a-zA-Z0-9_-\]*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Name of the table that contains the tablet. Values are of the form
-    /// `projects/{project}/instances/{instance}/tables/[_a-zA-Z0-9][-_.a-zA-Z0-9]*`.
-    #[prost(string, tag = "2")]
-    pub table_name: ::prost::alloc::string::String,
-    /// Output only. The start time of the hot tablet.
-    #[prost(message, optional, tag = "3")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The end time of the hot tablet.
-    #[prost(message, optional, tag = "4")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Tablet Start Key (inclusive).
-    #[prost(string, tag = "5")]
-    pub start_key: ::prost::alloc::string::String,
-    /// Tablet End Key (inclusive).
-    #[prost(string, tag = "6")]
-    pub end_key: ::prost::alloc::string::String,
-    /// Output only. The average CPU usage spent by a node on this tablet over the
-    /// start_time to end_time time range. The percentage is the amount of CPU used
-    /// by the node to serve the tablet, from 0% (tablet was not interacted with)
-    /// to 100% (the node spent all cycles serving the hot tablet).
-    #[prost(float, tag = "7")]
-    pub node_cpu_usage_percent: f32,
 }
 /// Request message for BigtableInstanceAdmin.CreateInstance.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -3885,7 +4087,7 @@ pub struct CreateClusterMetadata {
 pub mod create_cluster_metadata {
     /// Progress info for copying a table's data to the new cluster.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct TableProgress {
         /// Estimate of the size of the table to be copied.
         #[prost(int64, tag = "2")]
@@ -4098,7 +4300,7 @@ pub struct DeleteAppProfileRequest {
 }
 /// The metadata for the Operation returned by UpdateAppProfile.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateAppProfileMetadata {}
 /// Request message for BigtableInstanceAdmin.ListHotTablets.
 #[allow(clippy::derive_partial_eq_without_eq)]

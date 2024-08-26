@@ -123,6 +123,75 @@ pub mod custom_config {
         }
     }
 }
+/// Message for Security Health Analytics built-in detector.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityHealthAnalyticsModule {
+    /// Required. The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED.
+    #[prost(string, tag = "1")]
+    pub module_name: ::prost::alloc::string::String,
+    /// The state of enablement for the module at its level of the resource
+    /// hierarchy.
+    #[prost(enumeration = "EnablementState", tag = "2")]
+    pub module_enablement_state: i32,
+}
+/// Message for SHA Custom Module
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityHealthAnalyticsCustomModule {
+    /// Output only. Immutable. The id of the custom module.
+    /// The id is server-generated and is not user settable.
+    /// It will be a numeric id containing 1-20 digits.
+    #[prost(string, tag = "1")]
+    pub id: ::prost::alloc::string::String,
+    /// Optional. The display name of the Security Health Analytics custom module.
+    /// This display name becomes the finding category for all findings that are
+    /// returned by this custom module. The display name must be between 1 and
+    /// 128 characters, start with a lowercase letter, and contain alphanumeric
+    /// characters or underscores only.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Required. custom module details
+    #[prost(message, optional, tag = "3")]
+    pub config: ::core::option::Option<CustomConfig>,
+    /// The state of enablement for the module at its level of the resource
+    /// hierarchy.
+    #[prost(enumeration = "EnablementState", tag = "4")]
+    pub module_enablement_state: i32,
+}
+/// Possible enablement states of a service or module.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum EnablementState {
+    /// Default value. This value is unused.
+    Unspecified = 0,
+    /// State is enabled.
+    Enabled = 1,
+    /// State is disabled.
+    Disabled = 2,
+}
+impl EnablementState {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+            EnablementState::Enabled => "ENABLED",
+            EnablementState::Disabled => "DISABLED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "ENABLEMENT_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+            "ENABLED" => Some(Self::Enabled),
+            "DISABLED" => Some(Self::Disabled),
+            _ => None,
+        }
+    }
+}
 /// A rule used to express this policy.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -370,75 +439,6 @@ pub struct OrgPolicyConstraintCustom {
     /// Required. Org Policyspec rules.
     #[prost(message, repeated, tag = "2")]
     pub policy_rules: ::prost::alloc::vec::Vec<PolicyRule>,
-}
-/// Message for Security Health Analytics built-in detector.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SecurityHealthAnalyticsModule {
-    /// Required. The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED.
-    #[prost(string, tag = "1")]
-    pub module_name: ::prost::alloc::string::String,
-    /// The state of enablement for the module at its level of the resource
-    /// hierarchy.
-    #[prost(enumeration = "EnablementState", tag = "2")]
-    pub module_enablement_state: i32,
-}
-/// Message for SHA Custom Module
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SecurityHealthAnalyticsCustomModule {
-    /// Output only. Immutable. The id of the custom module.
-    /// The id is server-generated and is not user settable.
-    /// It will be a numeric id containing 1-20 digits.
-    #[prost(string, tag = "1")]
-    pub id: ::prost::alloc::string::String,
-    /// Optional. The display name of the Security Health Analytics custom module.
-    /// This display name becomes the finding category for all findings that are
-    /// returned by this custom module. The display name must be between 1 and
-    /// 128 characters, start with a lowercase letter, and contain alphanumeric
-    /// characters or underscores only.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// Required. custom module details
-    #[prost(message, optional, tag = "3")]
-    pub config: ::core::option::Option<CustomConfig>,
-    /// The state of enablement for the module at its level of the resource
-    /// hierarchy.
-    #[prost(enumeration = "EnablementState", tag = "4")]
-    pub module_enablement_state: i32,
-}
-/// Possible enablement states of a service or module.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum EnablementState {
-    /// Default value. This value is unused.
-    Unspecified = 0,
-    /// State is enabled.
-    Enabled = 1,
-    /// State is disabled.
-    Disabled = 2,
-}
-impl EnablementState {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-            EnablementState::Enabled => "ENABLED",
-            EnablementState::Disabled => "DISABLED",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "ENABLEMENT_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-            "ENABLED" => Some(Self::Enabled),
-            "DISABLED" => Some(Self::Disabled),
-            _ => None,
-        }
-    }
 }
 /// Represents the metadata of the long-running operation.
 #[allow(clippy::derive_partial_eq_without_eq)]
