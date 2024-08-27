@@ -1145,8 +1145,8 @@ pub mod live_video_analytics_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -1171,7 +1171,7 @@ pub mod live_video_analytics_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             LiveVideoAnalyticsClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -1772,8 +1772,8 @@ pub mod prediction_service_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -1798,7 +1798,7 @@ pub mod prediction_service_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             PredictionServiceClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -3088,11 +3088,11 @@ pub mod analyze_asset_metadata {
         pub enum State {
             /// The default process state should never happen.
             Unspecified = 0,
-            /// The feature is in progress.
+            /// The ml model analysis is in progress.
             InProgress = 1,
-            /// The process is successfully done.
+            /// The ml model analysis is successfully done.
             Succeeded = 2,
-            /// The process failed.
+            /// The ml model analysis failed.
             Failed = 3,
         }
         impl State {
@@ -3791,6 +3791,16 @@ pub struct Index {
     /// Index of IMAGE corpus can have multiple deployed indexes.
     #[prost(message, repeated, tag = "8")]
     pub deployed_indexes: ::prost::alloc::vec::Vec<DeployedIndexReference>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Separation enabled via an Org Policy constraint. It is set to true
+    /// when the index is a valid zone separated index and false if it isn't.
+    #[prost(bool, optional, tag = "11")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Isolation enabled via an Org Policy constraint. It is set to true when
+    /// the index is a valid zone isolated index and false if it isn't.
+    #[prost(bool, optional, tag = "12")]
+    pub satisfies_pzi: ::core::option::Option<bool>,
     /// Specifies how assets are selected for this index. Default to
     /// entire_corpus if unspecified. Behavior in UpdateIndex: if update_mask
     /// includes one of the asset_filter field paths, the index will be rebuilt
@@ -3898,6 +3908,16 @@ pub struct Corpus {
     /// Default search capability setting on corpus level.
     #[prost(message, optional, tag = "8")]
     pub search_capability_setting: ::core::option::Option<SearchCapabilitySetting>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Separation enabled via an Org Policy constraint. It is set to true
+    /// when the corpus is a valid zone separated corpus and false if it isn't.
+    #[prost(bool, optional, tag = "11")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Isolation enabled via an Org Policy constraint. It is set to true when
+    /// the corpus is a valid zone isolated corpus and false if it isn't.
+    #[prost(bool, optional, tag = "12")]
+    pub satisfies_pzi: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `Corpus`.
 pub mod corpus {
@@ -4765,6 +4785,23 @@ pub struct ImportAssetsMetadata {
     /// The metadata of the operation.
     #[prost(message, optional, tag = "1")]
     pub metadata: ::core::option::Option<OperationMetadata>,
+    /// The importing status including partial failures, if the implementation can
+    /// provide such information during the progress of the ImportAssets.
+    #[prost(message, optional, tag = "2")]
+    pub status: ::core::option::Option<BatchOperationStatus>,
+}
+/// The batch operation status.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct BatchOperationStatus {
+    /// The count of assets (together with their annotations if any) successfully
+    /// ingested.
+    #[prost(int32, tag = "1")]
+    pub success_count: i32,
+    /// The count of assets failed to ingested; it might be due to the annotation
+    /// ingestion error.
+    #[prost(int32, tag = "2")]
+    pub failure_count: i32,
 }
 /// The response message for ImportAssets LRO.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -4932,6 +4969,18 @@ pub struct IndexEndpoint {
     /// Output only. Update timestamp.
     #[prost(message, optional, tag = "8")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Separation enabled via an Org Policy constraint. It is set to true
+    /// when the index endpoint is a valid zone separated index endpoint and false
+    /// if it isn't.
+    #[prost(bool, optional, tag = "10")]
+    pub satisfies_pzs: ::core::option::Option<bool>,
+    /// Output only. This boolean field is only set for projects that have Physical
+    /// Zone Isolation enabled via an Org Policy constraint. It is set to true when
+    /// the index endpoint is a valid zone isolated index endpoint and false if it
+    /// isn't.
+    #[prost(bool, optional, tag = "11")]
+    pub satisfies_pzi: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `IndexEndpoint`.
 pub mod index_endpoint {
@@ -5967,10 +6016,13 @@ pub struct SearchResultItem {
     /// The matched asset segment.
     #[prost(message, optional, tag = "5")]
     pub segment: ::core::option::Option<partition::TemporalPartition>,
-    /// Relevance of this `SearchResultItem` to user search request.
-    /// Currently available only in Image Warehouse, and by default represents
-    /// cosine similarity.  In the future can be other measures such as "dot
-    /// product" or "topicality" requested in the search request.
+    /// Available to IMAGE corpus types.
+    /// Relevance of this `SearchResultItem` to user search query (text query or
+    /// image query).
+    /// By default this represents cosine similarity between the query and the
+    /// retrieved media content. The value is in the range of \[-1, 1\].
+    /// Note that search ranking is not only decided by this relevance score,
+    /// but also other factors such as the match of annotations.
     #[prost(double, tag = "6")]
     pub relevance: f64,
     /// Search result annotations specified by result_annotation_keys in search
@@ -6264,8 +6316,8 @@ pub mod warehouse_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -6290,7 +6342,7 @@ pub mod warehouse_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             WarehouseClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -7268,6 +7320,7 @@ pub mod warehouse_client {
                 );
             self.inner.streaming(req, path, codec).await
         }
+        /// Supported by STREAM_VIDEO corpus type.
         /// Generates clips for downloading. The api takes in a time range, and
         /// generates a clip of the first content available after start_time and
         /// before end_time, which may overflow beyond these bounds.
@@ -8798,8 +8851,8 @@ pub mod streams_service_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -8824,7 +8877,7 @@ pub mod streams_service_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             StreamsServiceClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -12320,8 +12373,8 @@ pub mod app_platform_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -12346,7 +12399,7 @@ pub mod app_platform_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             AppPlatformClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -13234,8 +13287,8 @@ pub mod health_check_service_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -13260,7 +13313,7 @@ pub mod health_check_service_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             HealthCheckServiceClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -13802,8 +13855,8 @@ pub mod streaming_service_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -13828,7 +13881,7 @@ pub mod streaming_service_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             StreamingServiceClient::new(InterceptedService::new(inner, interceptor))
         }
