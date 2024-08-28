@@ -5818,6 +5818,9 @@ pub mod release_channel {
         /// Clusters subscribed to STABLE receive versions that are known to be
         /// stable and reliable in production.
         Stable = 3,
+        /// Clusters subscribed to EXTENDED receive extended support and availability
+        /// for versions which are known to be stable and reliable in production.
+        Extended = 4,
     }
     impl Channel {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -5830,6 +5833,7 @@ pub mod release_channel {
                 Channel::Rapid => "RAPID",
                 Channel::Regular => "REGULAR",
                 Channel::Stable => "STABLE",
+                Channel::Extended => "EXTENDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5839,6 +5843,7 @@ pub mod release_channel {
                 "RAPID" => Some(Self::Rapid),
                 "REGULAR" => Some(Self::Regular),
                 "STABLE" => Some(Self::Stable),
+                "EXTENDED" => Some(Self::Extended),
                 _ => None,
             }
         }

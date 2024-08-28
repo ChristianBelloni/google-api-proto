@@ -17543,6 +17543,12 @@ pub struct Scheduling {
     /// `Scheduling.restart_job_on_worker_restart` to false.
     #[prost(bool, tag = "5")]
     pub disable_retries: bool,
+    /// Optional. This is the maximum duration that a job will wait for the
+    /// requested resources to be provisioned if the scheduling strategy is set to
+    /// \[Strategy.DWS_FLEX_START\].
+    /// If set to 0, the job will wait indefinitely. The default is 24 hours.
+    #[prost(message, optional, tag = "6")]
+    pub max_wait_duration: ::core::option::Option<::prost_types::Duration>,
 }
 /// Nested message and enum types in `Scheduling`.
 pub mod scheduling {
