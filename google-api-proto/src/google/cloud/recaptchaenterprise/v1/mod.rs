@@ -3,7 +3,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateAssessmentRequest {
-    /// Required. The name of the project in which the assessment will be created,
+    /// Required. The name of the project in which the assessment is created,
     /// in the format `projects/{project}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -191,7 +191,7 @@ pub struct AnnotateAssessmentRequest {
     /// `projects/{project}/assessments/{assessment}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-    /// Optional. The annotation that will be assigned to the Event. This field can
+    /// Optional. The annotation that is assigned to the Event. This field can
     /// be left empty to provide reasons that apply to an event without concluding
     /// whether the event is legitimate or fraudulent.
     #[prost(enumeration = "annotate_assessment_request::Annotation", tag = "2")]
@@ -645,7 +645,7 @@ pub struct Event {
     #[prost(bytes = "bytes", tag = "6")]
     pub hashed_account_id: ::prost::bytes::Bytes,
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
-    /// token. If enabled, `site_key` must reference an Express site key.
+    /// token. If enabled, `site_key` must reference an express key.
     #[prost(bool, tag = "14")]
     pub express: bool,
     /// Optional. The URI resource the user requested that triggered an assessment.
@@ -663,12 +663,12 @@ pub struct Event {
     #[prost(string, repeated, tag = "11")]
     pub headers: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. Flag for enabling firewall policy config assessment.
-    /// If this flag is enabled, the firewall policy will be evaluated and a
-    /// suggested firewall action will be returned in the response.
+    /// If this flag is enabled, the firewall policy is evaluated and a
+    /// suggested firewall action is returned in the response.
     #[prost(bool, tag = "12")]
     pub firewall_policy_evaluation: bool,
     /// Optional. Data describing a payment transaction to be assessed. Sending
-    /// this data enables reCAPTCHA Enterprise Fraud Prevention and the
+    /// this data enables reCAPTCHA Fraud Prevention and the
     /// FraudPreventionAssessment component in the response.
     #[prost(message, optional, tag = "13")]
     pub transaction_data: ::core::option::Option<TransactionData>,
@@ -1427,7 +1427,7 @@ pub mod account_defender_assessment {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateKeyRequest {
-    /// Required. The name of the project in which the key will be created, in the
+    /// Required. The name of the project in which the key is created, in the
     /// format `projects/{project}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -1439,7 +1439,7 @@ pub struct CreateKeyRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListKeysRequest {
-    /// Required. The name of the project that contains the keys that will be
+    /// Required. The name of the project that contains the keys that are
     /// listed, in the format `projects/{project}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -1490,7 +1490,7 @@ pub struct UpdateKeyRequest {
     #[prost(message, optional, tag = "1")]
     pub key: ::core::option::Option<Key>,
     /// Optional. The mask to control which fields of the key get updated. If the
-    /// mask is not present, all fields will be updated.
+    /// mask is not present, all fields are updated.
     #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
@@ -1561,7 +1561,7 @@ pub struct UpdateFirewallPolicyRequest {
     #[prost(message, optional, tag = "1")]
     pub firewall_policy: ::core::option::Option<FirewallPolicy>,
     /// Optional. The mask to control which fields of the policy get updated. If
-    /// the mask is not present, all fields will be updated.
+    /// the mask is not present, all fields are updated.
     #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
@@ -1630,11 +1630,11 @@ pub struct Metrics {
     /// Inclusive start time aligned to a day (UTC).
     #[prost(message, optional, tag = "1")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Metrics will be continuous and in order by dates, and in the granularity
+    /// Metrics are continuous and in order by dates, and in the granularity
     /// of day. All Key types should have score-based data.
     #[prost(message, repeated, tag = "2")]
     pub score_metrics: ::prost::alloc::vec::Vec<ScoreMetrics>,
-    /// Metrics will be continuous and in order by dates, and in the granularity
+    /// Metrics are continuous and in order by dates, and in the granularity
     /// of day. Only challenge-based keys (CHECKBOX, INVISIBLE), will have
     /// challenge-based data.
     #[prost(message, repeated, tag = "3")]
@@ -1701,7 +1701,7 @@ pub mod key {
         /// Settings for keys that can be used by iOS apps.
         #[prost(message, tag = "5")]
         IosSettings(super::IosKeySettings),
-        /// Settings for keys that can be used by reCAPTCHA Express.
+        /// Settings specific to keys that can be used for reCAPTCHA Express.
         #[prost(message, tag = "11")]
         ExpressSettings(super::ExpressKeySettings),
     }
@@ -2008,13 +2008,13 @@ pub struct ChallengeMetrics {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FirewallPolicyAssessment {
-    /// Output only. If the processing of a policy config fails, an error will be
-    /// populated and the firewall_policy will be left empty.
+    /// Output only. If the processing of a policy config fails, an error is
+    /// populated and the firewall_policy is left empty.
     #[prost(message, optional, tag = "5")]
     pub error: ::core::option::Option<super::super::super::rpc::Status>,
     /// Output only. The policy that matched the request. If more than one policy
     /// may match, this is the first match. If no policy matches the incoming
-    /// request, the policy field will be left empty.
+    /// request, the policy field is left empty.
     #[prost(message, optional, tag = "8")]
     pub firewall_policy: ::core::option::Option<FirewallPolicy>,
 }
@@ -2856,7 +2856,7 @@ pub mod recaptcha_enterprise_service_client {
         /// Adds an IP override to a key. The following restrictions hold:
         /// * The maximum number of IP overrides per key is 100.
         /// * For any conflict (such as IP already exists or IP part of an existing
-        ///   IP range), an error will be returned.
+        ///   IP range), an error is returned.
         pub async fn add_ip_override(
             &mut self,
             request: impl tonic::IntoRequest<super::AddIpOverrideRequest>,

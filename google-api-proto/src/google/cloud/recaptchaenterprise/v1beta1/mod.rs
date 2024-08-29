@@ -3,7 +3,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateAssessmentRequest {
-    /// Required. The name of the project in which the assessment will be created,
+    /// Required. The name of the project in which the assessment is created,
     /// in the format `projects/{project_number}`.
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -191,7 +191,7 @@ pub struct AnnotateAssessmentRequest {
     /// `projects/{project_number}/assessments/{assessment_id}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-    /// Optional. The annotation that will be assigned to the Event. This field can
+    /// Optional. The annotation that is assigned to the Event. This field can
     /// be left empty to provide reasons that apply to an event without concluding
     /// whether the event is legitimate or fraudulent.
     #[prost(enumeration = "annotate_assessment_request::Annotation", tag = "2")]
