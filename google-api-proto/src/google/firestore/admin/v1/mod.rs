@@ -12,11 +12,11 @@ pub struct Index {
     pub name: ::prost::alloc::string::String,
     /// Indexes with a collection query scope specified allow queries
     /// against a collection that is the child of a specific document, specified at
-    /// query time, and that has the same collection id.
+    /// query time, and that has the same collection ID.
     ///
     /// Indexes with a collection group query scope specified allow queries against
     /// all collections descended from a specific document, specified at query
-    /// time, and that have the same collection id as this index.
+    /// time, and that have the same collection ID as this index.
     #[prost(enumeration = "index::QueryScope", tag = "2")]
     pub query_scope: i32,
     /// The API scope supported by this index.
@@ -206,10 +206,10 @@ pub mod index {
         Unspecified = 0,
         /// Indexes with a collection query scope specified allow queries
         /// against a collection that is the child of a specific document, specified
-        /// at query time, and that has the collection id specified by the index.
+        /// at query time, and that has the collection ID specified by the index.
         Collection = 1,
         /// Indexes with a collection group query scope specified allow queries
-        /// against all collections that has the collection id specified by the
+        /// against all collections that has the collection ID specified by the
         /// index.
         CollectionGroup = 2,
         /// Include all the collections's ancestor in the index. Only available for
@@ -373,6 +373,8 @@ pub struct BackupSchedule {
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// At what relative time in the future, compared to its creation time,
     /// the backup should be deleted, e.g. keep backups for 7 days.
+    ///
+    /// The maximum supported retention period is 14 weeks.
     #[prost(message, optional, tag = "6")]
     pub retention: ::core::option::Option<::prost_types::Duration>,
     /// A oneof field to represent when backups will be taken.
@@ -393,7 +395,7 @@ pub mod backup_schedule {
         WeeklyRecurrence(super::WeeklyRecurrence),
     }
 }
-/// Represents a recurring schedule that runs at a specific time every day.
+/// Represents a recurring schedule that runs every day.
 ///
 /// The time zone is UTC.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -867,7 +869,7 @@ pub mod database {
 /// Represents a single field in the database.
 ///
 /// Fields are grouped by their "Collection Group", which represent all
-/// collections in the database with the same id.
+/// collections in the database with the same ID.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Field {
@@ -1212,13 +1214,13 @@ pub struct ExportDocumentsMetadata {
     /// The progress, in bytes, of this operation.
     #[prost(message, optional, tag = "5")]
     pub progress_bytes: ::core::option::Option<Progress>,
-    /// Which collection ids are being exported.
+    /// Which collection IDs are being exported.
     #[prost(string, repeated, tag = "6")]
     pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Where the documents are being exported to.
     #[prost(string, tag = "7")]
     pub output_uri_prefix: ::prost::alloc::string::String,
-    /// Which namespace ids are being exported.
+    /// Which namespace IDs are being exported.
     #[prost(string, repeated, tag = "8")]
     pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// The timestamp that corresponds to the version of the database that is being
@@ -1249,13 +1251,13 @@ pub struct ImportDocumentsMetadata {
     /// The progress, in bytes, of this operation.
     #[prost(message, optional, tag = "5")]
     pub progress_bytes: ::core::option::Option<Progress>,
-    /// Which collection ids are being imported.
+    /// Which collection IDs are being imported.
     #[prost(string, repeated, tag = "6")]
     pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// The location of the documents being imported.
     #[prost(string, tag = "7")]
     pub input_uri_prefix: ::prost::alloc::string::String,
-    /// Which namespace ids are being imported.
+    /// Which namespace IDs are being imported.
     #[prost(string, repeated, tag = "8")]
     pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
@@ -1281,10 +1283,10 @@ pub struct BulkDeleteDocumentsMetadata {
     /// The progress, in bytes, of this operation.
     #[prost(message, optional, tag = "5")]
     pub progress_bytes: ::core::option::Option<Progress>,
-    /// The ids of the collection groups that are being deleted.
+    /// The IDs of the collection groups that are being deleted.
     #[prost(string, repeated, tag = "6")]
     pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Which namespace ids are being deleted.
+    /// Which namespace IDs are being deleted.
     #[prost(string, repeated, tag = "7")]
     pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// The timestamp that corresponds to the version of the database that is being
