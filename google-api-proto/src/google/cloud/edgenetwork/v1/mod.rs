@@ -123,9 +123,9 @@ pub mod subnet {
         /// treated as mixed bonding where the VLAN will have both bonded and
         /// non-bonded connectivity to machines.
         Unspecified = 0,
-        /// Single homed.
-        Bonded = 1,
         /// Multi homed.
+        Bonded = 1,
+        /// Single homed.
         NonBonded = 2,
     }
     impl BondingType {

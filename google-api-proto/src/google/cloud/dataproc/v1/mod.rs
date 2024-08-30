@@ -4826,6 +4826,10 @@ pub struct DiagnoseClusterRequest {
     /// staging bucket will be used.
     #[prost(string, tag = "4")]
     pub tarball_gcs_dir: ::prost::alloc::string::String,
+    /// Optional. (Optional) The access type to the diagnostic tarball. If not
+    /// specified, falls back to default access of the bucket
+    #[prost(enumeration = "diagnose_cluster_request::TarballAccess", tag = "5")]
+    pub tarball_access: i32,
     /// Optional. Time interval in which diagnosis should be carried out on the
     /// cluster.
     #[prost(message, optional, tag = "6")]
@@ -4840,6 +4844,54 @@ pub struct DiagnoseClusterRequest {
     /// performed.
     #[prost(string, repeated, tag = "11")]
     pub yarn_application_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Nested message and enum types in `DiagnoseClusterRequest`.
+pub mod diagnose_cluster_request {
+    /// Defines who has access to the diagnostic tarball
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum TarballAccess {
+        /// Tarball Access unspecified. Falls back to default access of the bucket
+        Unspecified = 0,
+        /// Google Cloud Support group has read access to the
+        /// diagnostic tarball
+        GoogleCloudSupport = 1,
+        /// Google Cloud Dataproc Diagnose service account has read access to the
+        /// diagnostic tarball
+        GoogleDataprocDiagnose = 2,
+    }
+    impl TarballAccess {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TarballAccess::Unspecified => "TARBALL_ACCESS_UNSPECIFIED",
+                TarballAccess::GoogleCloudSupport => "GOOGLE_CLOUD_SUPPORT",
+                TarballAccess::GoogleDataprocDiagnose => "GOOGLE_DATAPROC_DIAGNOSE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TARBALL_ACCESS_UNSPECIFIED" => Some(Self::Unspecified),
+                "GOOGLE_CLOUD_SUPPORT" => Some(Self::GoogleCloudSupport),
+                "GOOGLE_DATAPROC_DIAGNOSE" => Some(Self::GoogleDataprocDiagnose),
+                _ => None,
+            }
+        }
+    }
 }
 /// The location of diagnostic output.
 #[allow(clippy::derive_partial_eq_without_eq)]

@@ -2344,8 +2344,12 @@ pub mod feature {
 }
 /// The generic reusable api auth config.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct ApiAuth {}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ApiAuth {
+    /// The auth config.
+    #[prost(oneof = "api_auth::AuthConfig", tags = "1")]
+    pub auth_config: ::core::option::Option<api_auth::AuthConfig>,
+}
 /// Nested message and enum types in `ApiAuth`.
 pub mod api_auth {
     /// The API secret.
@@ -2356,6 +2360,14 @@ pub mod api_auth {
         /// e.g. projects/{project}/secrets/{secret}/versions/{version}
         #[prost(string, tag = "1")]
         pub api_key_secret_version: ::prost::alloc::string::String,
+    }
+    /// The auth config.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum AuthConfig {
+        /// The API secret.
+        #[prost(message, tag = "1")]
+        ApiKeyConfig(ApiKeyConfig),
     }
 }
 /// The storage details for Avro input content.
@@ -19668,6 +19680,9 @@ pub struct RagQuery {
     /// Optional. The number of contexts to retrieve.
     #[prost(int32, tag = "2")]
     pub similarity_top_k: i32,
+    /// Optional. Configurations for hybrid search results ranking.
+    #[prost(message, optional, tag = "4")]
+    pub ranking: ::core::option::Option<rag_query::Ranking>,
     /// The query to retrieve contexts.
     /// Currently only text query is supported.
     #[prost(oneof = "rag_query::Query", tags = "1")]
@@ -19675,6 +19690,17 @@ pub struct RagQuery {
 }
 /// Nested message and enum types in `RagQuery`.
 pub mod rag_query {
+    /// Configurations for hybrid search results ranking.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Ranking {
+        /// Optional. Alpha value controls the weight between dense and sparse vector
+        /// search results. The range is \[0, 1\], while 0 means sparse vector search
+        /// only and 1 means dense vector search only. The default value is 0.5 which
+        /// balances sparse and dense vector search equally.
+        #[prost(float, optional, tag = "1")]
+        pub alpha: ::core::option::Option<f32>,
+    }
     /// The query to retrieve contexts.
     /// Currently only text query is supported.
     #[allow(clippy::derive_partial_eq_without_eq)]
@@ -19773,9 +19799,14 @@ pub mod rag_contexts {
         /// The text chunk.
         #[prost(string, tag = "2")]
         pub text: ::prost::alloc::string::String,
-        /// The distance between the query vector and the context text vector.
+        /// The distance between the query dense embedding vector and the context
+        /// text vector.
         #[prost(double, tag = "3")]
         pub distance: f64,
+        /// The distance between the query sparse embedding vector and the context
+        /// text vector.
+        #[prost(double, tag = "4")]
+        pub sparse_distance: f64,
     }
 }
 /// Response message for
@@ -30740,7 +30771,7 @@ pub mod event {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RagEmbeddingModelConfig {
     /// The model config to use.
-    #[prost(oneof = "rag_embedding_model_config::ModelConfig", tags = "1")]
+    #[prost(oneof = "rag_embedding_model_config::ModelConfig", tags = "1, 2")]
     pub model_config: ::core::option::Option<rag_embedding_model_config::ModelConfig>,
 }
 /// Nested message and enum types in `RagEmbeddingModelConfig`.
@@ -30767,6 +30798,59 @@ pub mod rag_embedding_model_config {
         #[prost(string, tag = "3")]
         pub model_version_id: ::prost::alloc::string::String,
     }
+    /// Configuration for sparse emebdding generation.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct SparseEmbeddingConfig {
+        /// The model to use for sparse embedding generation.
+        #[prost(oneof = "sparse_embedding_config::Model", tags = "1")]
+        pub model: ::core::option::Option<sparse_embedding_config::Model>,
+    }
+    /// Nested message and enum types in `SparseEmbeddingConfig`.
+    pub mod sparse_embedding_config {
+        /// Message for BM25 parameters.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct Bm25 {
+            /// Optional. Use multilingual tokenizer if set to true.
+            #[prost(bool, tag = "1")]
+            pub multilingual: bool,
+            /// Optional. The parameter to control term frequency saturation. It
+            /// determines the scaling between the matching term frequency and final
+            /// score. k1 is in the range of \[1.2, 3\]. The default value is 1.2.
+            #[prost(float, optional, tag = "2")]
+            pub k1: ::core::option::Option<f32>,
+            /// Optional. The parameter to control document length normalization. It
+            /// determines how much the document length affects the final score. b is
+            /// in the range of \[0, 1\]. The default value is 0.75.
+            #[prost(float, optional, tag = "3")]
+            pub b: ::core::option::Option<f32>,
+        }
+        /// The model to use for sparse embedding generation.
+        #[allow(clippy::derive_partial_eq_without_eq)]
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+        pub enum Model {
+            /// Use BM25 scoring algorithm.
+            #[prost(message, tag = "1")]
+            Bm25(Bm25),
+        }
+    }
+    /// Config for hybrid search.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct HybridSearchConfig {
+        /// Optional. The configuration for sparse embedding generation. This field
+        /// is optional the default behavior depends on the vector database choice on
+        /// the RagCorpus.
+        #[prost(message, optional, tag = "1")]
+        pub sparse_embedding_config: ::core::option::Option<SparseEmbeddingConfig>,
+        /// Required. The Vertex AI Prediction Endpoint that hosts the embedding
+        /// model for dense embedding generations.
+        #[prost(message, optional, tag = "2")]
+        pub dense_embedding_model_prediction_endpoint: ::core::option::Option<
+            VertexPredictionEndpoint,
+        >,
+    }
     /// The model config to use.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
@@ -30775,8 +30859,188 @@ pub mod rag_embedding_model_config {
         /// or an endpoint that is hosting a 1P fine-tuned text embedding model.
         /// Endpoints hosting non-1P fine-tuned text embedding models are
         /// currently not supported.
+        /// This is used for dense vector search.
         #[prost(message, tag = "1")]
         VertexPredictionEndpoint(VertexPredictionEndpoint),
+        /// Configuration for hybrid search.
+        #[prost(message, tag = "2")]
+        HybridSearchConfig(HybridSearchConfig),
+    }
+}
+/// Config for the Vector DB to use for RAG.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RagVectorDbConfig {
+    /// Authentication config for the chosen Vector DB.
+    #[prost(message, optional, tag = "5")]
+    pub api_auth: ::core::option::Option<ApiAuth>,
+    /// The config for the Vector DB.
+    #[prost(oneof = "rag_vector_db_config::VectorDb", tags = "1, 2, 4")]
+    pub vector_db: ::core::option::Option<rag_vector_db_config::VectorDb>,
+}
+/// Nested message and enum types in `RagVectorDbConfig`.
+pub mod rag_vector_db_config {
+    /// The config for the default RAG-managed Vector DB.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct RagManagedDb {}
+    /// The config for the Weaviate.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Weaviate {
+        /// Weaviate DB instance HTTP endpoint. e.g. 34.56.78.90:8080
+        /// Vertex RAG only supports HTTP connection to Weaviate.
+        /// This value cannot be changed after it's set.
+        #[prost(string, tag = "1")]
+        pub http_endpoint: ::prost::alloc::string::String,
+        /// The corresponding collection this corpus maps to.
+        /// This value cannot be changed after it's set.
+        #[prost(string, tag = "2")]
+        pub collection_name: ::prost::alloc::string::String,
+    }
+    /// The config for the Vertex Feature Store.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct VertexFeatureStore {
+        /// The resource name of the FeatureView.
+        /// Format:
+        /// `projects/{project}/locations/{location}/featureOnlineStores/{feature_online_store}/featureViews/{feature_view}`
+        #[prost(string, tag = "1")]
+        pub feature_view_resource_name: ::prost::alloc::string::String,
+    }
+    /// The config for the Vector DB.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum VectorDb {
+        /// The config for the RAG-managed Vector DB.
+        #[prost(message, tag = "1")]
+        RagManagedDb(RagManagedDb),
+        /// The config for the Weaviate.
+        #[prost(message, tag = "2")]
+        Weaviate(Weaviate),
+        /// The config for the Vertex Feature Store.
+        #[prost(message, tag = "4")]
+        VertexFeatureStore(VertexFeatureStore),
+    }
+}
+/// RagFile status.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileStatus {
+    /// Output only. RagFile state.
+    #[prost(enumeration = "file_status::State", tag = "1")]
+    pub state: i32,
+    /// Output only. Only when the `state` field is ERROR.
+    #[prost(string, tag = "2")]
+    pub error_status: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `FileStatus`.
+pub mod file_status {
+    /// RagFile state.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// RagFile state is unspecified.
+        Unspecified = 0,
+        /// RagFile resource has been created and indexed successfully.
+        Active = 1,
+        /// RagFile resource is in a problematic state.
+        /// See `error_message` field for details.
+        Error = 2,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::Unspecified => "STATE_UNSPECIFIED",
+                State::Active => "ACTIVE",
+                State::Error => "ERROR",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "ERROR" => Some(Self::Error),
+                _ => None,
+            }
+        }
+    }
+}
+/// RagCorpus status.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CorpusStatus {
+    /// Output only. RagCorpus life state.
+    #[prost(enumeration = "corpus_status::State", tag = "1")]
+    pub state: i32,
+    /// Output only. Only when the `state` field is ERROR.
+    #[prost(string, tag = "2")]
+    pub error_status: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `CorpusStatus`.
+pub mod corpus_status {
+    /// RagCorpus life state.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// This state is not supposed to happen.
+        Unknown = 0,
+        /// RagCorpus resource entry is initialized, but hasn't done validation.
+        Initialized = 1,
+        /// RagCorpus is provisioned successfully and is ready to serve.
+        Active = 2,
+        /// RagCorpus is in a problematic situation.
+        /// See `error_message` field for details.
+        Error = 3,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::Unknown => "UNKNOWN",
+                State::Initialized => "INITIALIZED",
+                State::Active => "ACTIVE",
+                State::Error => "ERROR",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "UNKNOWN" => Some(Self::Unknown),
+                "INITIALIZED" => Some(Self::Initialized),
+                "ACTIVE" => Some(Self::Active),
+                "ERROR" => Some(Self::Error),
+                _ => None,
+            }
+        }
     }
 }
 /// A RagCorpus is a RagFile container and a project can have multiple
@@ -30798,12 +31062,18 @@ pub struct RagCorpus {
     /// Optional. Immutable. The embedding model config of the RagCorpus.
     #[prost(message, optional, tag = "6")]
     pub rag_embedding_model_config: ::core::option::Option<RagEmbeddingModelConfig>,
+    /// Optional. Immutable. The Vector DB config of the RagCorpus.
+    #[prost(message, optional, tag = "7")]
+    pub rag_vector_db_config: ::core::option::Option<RagVectorDbConfig>,
     /// Output only. Timestamp when this RagCorpus was created.
     #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Timestamp when this RagCorpus was last updated.
     #[prost(message, optional, tag = "5")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. RagCorpus state.
+    #[prost(message, optional, tag = "8")]
+    pub corpus_status: ::core::option::Option<CorpusStatus>,
 }
 /// A RagFile contains user data for chunking, embedding and indexing.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -30832,6 +31102,9 @@ pub struct RagFile {
     /// Output only. Timestamp when this RagFile was last updated.
     #[prost(message, optional, tag = "7")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. State of the RagFile.
+    #[prost(message, optional, tag = "13")]
+    pub file_status: ::core::option::Option<FileStatus>,
     /// The origin location of the RagFile if it is imported from Google Cloud
     /// Storage or Google Drive.
     #[prost(oneof = "rag_file::RagFileSource", tags = "8, 9, 10, 11, 12")]
@@ -31078,11 +31351,13 @@ pub struct UploadRagFileRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UploadRagFileResponse {
+    /// The result of the upload.
     #[prost(oneof = "upload_rag_file_response::Result", tags = "1, 4")]
     pub result: ::core::option::Option<upload_rag_file_response::Result>,
 }
 /// Nested message and enum types in `UploadRagFileResponse`.
 pub mod upload_rag_file_response {
+    /// The result of the upload.
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Result {
@@ -31189,6 +31464,24 @@ pub struct DeleteRagFileRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateRagCorpusOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+}
+/// Request message for
+/// [VertexRagDataService.UpdateRagCorpus][google.cloud.aiplatform.v1beta1.VertexRagDataService.UpdateRagCorpus].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateRagCorpusRequest {
+    /// Required. The RagCorpus which replaces the resource on the server.
+    #[prost(message, optional, tag = "1")]
+    pub rag_corpus: ::core::option::Option<RagCorpus>,
+}
+/// Runtime operation information for
+/// [VertexRagDataService.UpdateRagCorpus][google.cloud.aiplatform.v1beta1.VertexRagDataService.UpdateRagCorpus].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateRagCorpusOperationMetadata {
     /// The operation generic information.
     #[prost(message, optional, tag = "1")]
     pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
@@ -31315,6 +31608,37 @@ pub mod vertex_rag_data_service_client {
                     GrpcMethod::new(
                         "google.cloud.aiplatform.v1beta1.VertexRagDataService",
                         "CreateRagCorpus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates a RagCorpus.
+        pub async fn update_rag_corpus(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateRagCorpusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1beta1.VertexRagDataService/UpdateRagCorpus",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1beta1.VertexRagDataService",
+                        "UpdateRagCorpus",
                     ),
                 );
             self.inner.unary(req, path, codec).await
