@@ -8865,6 +8865,1574 @@ pub mod deployment_resource_pool_service_client {
         }
     }
 }
+/// NotebookExecutionJob represents an instance of a notebook execution.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotebookExecutionJob {
+    /// Output only. The resource name of this NotebookExecutionJob. Format:
+    /// `projects/{project_id}/locations/{location}/notebookExecutionJobs/{job_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The display name of the NotebookExecutionJob. The name can be up to 128
+    /// characters long and can consist of any UTF-8 characters.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Max running time of the execution job in seconds (default 86400s / 24 hrs).
+    #[prost(message, optional, tag = "5")]
+    pub execution_timeout: ::core::option::Option<::prost_types::Duration>,
+    /// Output only. The Schedule resource name if this job is triggered by one.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/schedules/{schedule_id}`
+    #[prost(string, tag = "6")]
+    pub schedule_resource_name: ::prost::alloc::string::String,
+    /// Output only. The state of the NotebookExecutionJob.
+    #[prost(enumeration = "JobState", tag = "10")]
+    pub job_state: i32,
+    /// Output only. Populated when the NotebookExecutionJob is completed. When
+    /// there is an error during notebook execution, the error details are
+    /// populated.
+    #[prost(message, optional, tag = "11")]
+    pub status: ::core::option::Option<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when this NotebookExecutionJob was created.
+    #[prost(message, optional, tag = "12")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this NotebookExecutionJob was most recently
+    /// updated.
+    #[prost(message, optional, tag = "13")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The labels with user-defined metadata to organize NotebookExecutionJobs.
+    ///
+    /// Label keys and values can be no longer than 64 characters
+    /// (Unicode codepoints), can only contain lowercase letters, numeric
+    /// characters, underscores and dashes. International characters are allowed.
+    ///
+    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
+    /// System reserved label keys are prefixed with "aiplatform.googleapis.com/"
+    /// and are immutable.
+    #[prost(btree_map = "string, string", tag = "19")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Customer-managed encryption key spec for the notebook execution job.
+    /// This field is auto-populated if the
+    /// [NotebookService.NotebookRuntimeTemplate][] has an encryption spec.
+    #[prost(message, optional, tag = "22")]
+    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
+    /// The input notebook.
+    #[prost(oneof = "notebook_execution_job::NotebookSource", tags = "3, 4, 17")]
+    pub notebook_source: ::core::option::Option<notebook_execution_job::NotebookSource>,
+    /// The compute config to use for an execution job.
+    #[prost(oneof = "notebook_execution_job::EnvironmentSpec", tags = "14")]
+    pub environment_spec: ::core::option::Option<
+        notebook_execution_job::EnvironmentSpec,
+    >,
+    /// The location to store the notebook execution result.
+    #[prost(oneof = "notebook_execution_job::ExecutionSink", tags = "8")]
+    pub execution_sink: ::core::option::Option<notebook_execution_job::ExecutionSink>,
+    /// The identity to run the execution as.
+    #[prost(oneof = "notebook_execution_job::ExecutionIdentity", tags = "9, 18")]
+    pub execution_identity: ::core::option::Option<
+        notebook_execution_job::ExecutionIdentity,
+    >,
+}
+/// Nested message and enum types in `NotebookExecutionJob`.
+pub mod notebook_execution_job {
+    /// The Dataform Repository containing the input notebook.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct DataformRepositorySource {
+        /// The resource name of the Dataform Repository. Format:
+        /// `projects/{project_id}/locations/{location}/repositories/{repository_id}`
+        #[prost(string, tag = "1")]
+        pub dataform_repository_resource_name: ::prost::alloc::string::String,
+        /// The commit SHA to read repository with. If unset, the file will be read
+        /// at HEAD.
+        #[prost(string, tag = "2")]
+        pub commit_sha: ::prost::alloc::string::String,
+    }
+    /// The Cloud Storage uri for the input notebook.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct GcsNotebookSource {
+        /// The Cloud Storage uri pointing to the ipynb file. Format:
+        /// `gs://bucket/notebook_file.ipynb`
+        #[prost(string, tag = "1")]
+        pub uri: ::prost::alloc::string::String,
+        /// The version of the Cloud Storage object to read. If unset, the current
+        /// version of the object is read. See
+        /// <https://cloud.google.com/storage/docs/metadata#generation-number.>
+        #[prost(string, tag = "2")]
+        pub generation: ::prost::alloc::string::String,
+    }
+    /// The content of the input notebook in ipynb format.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct DirectNotebookSource {
+        /// The base64-encoded contents of the input notebook file.
+        #[prost(bytes = "bytes", tag = "1")]
+        pub content: ::prost::bytes::Bytes,
+    }
+    /// The input notebook.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum NotebookSource {
+        /// The Dataform Repository pointing to a single file notebook repository.
+        #[prost(message, tag = "3")]
+        DataformRepositorySource(DataformRepositorySource),
+        /// The Cloud Storage url pointing to the ipynb file. Format:
+        /// `gs://bucket/notebook_file.ipynb`
+        #[prost(message, tag = "4")]
+        GcsNotebookSource(GcsNotebookSource),
+        /// The contents of an input notebook file.
+        #[prost(message, tag = "17")]
+        DirectNotebookSource(DirectNotebookSource),
+    }
+    /// The compute config to use for an execution job.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum EnvironmentSpec {
+        /// The NotebookRuntimeTemplate to source compute configuration from.
+        #[prost(string, tag = "14")]
+        NotebookRuntimeTemplateResourceName(::prost::alloc::string::String),
+    }
+    /// The location to store the notebook execution result.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum ExecutionSink {
+        /// The Cloud Storage location to upload the result to. Format:
+        /// `gs://bucket-name`
+        #[prost(string, tag = "8")]
+        GcsOutputUri(::prost::alloc::string::String),
+    }
+    /// The identity to run the execution as.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum ExecutionIdentity {
+        /// The user email to run the execution as. Only supported by Colab runtimes.
+        #[prost(string, tag = "9")]
+        ExecutionUser(::prost::alloc::string::String),
+        /// The service account to run the execution as.
+        #[prost(string, tag = "18")]
+        ServiceAccount(::prost::alloc::string::String),
+    }
+}
+/// Network spec.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NetworkSpec {
+    /// Whether to enable public internet access. Default false.
+    #[prost(bool, tag = "1")]
+    pub enable_internet_access: bool,
+    /// The full name of the Google Compute Engine
+    /// [network](<https://cloud.google.com//compute/docs/networks-and-firewalls#networks>)
+    #[prost(string, tag = "2")]
+    pub network: ::prost::alloc::string::String,
+    /// The name of the subnet that this instance is in.
+    /// Format:
+    /// `projects/{project_id_or_number}/regions/{region}/subnetworks/{subnetwork_id}`
+    #[prost(string, tag = "3")]
+    pub subnetwork: ::prost::alloc::string::String,
+}
+/// The euc configuration of NotebookRuntimeTemplate.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct NotebookEucConfig {
+    /// Input only. Whether EUC is disabled in this NotebookRuntimeTemplate.
+    /// In proto3, the default value of a boolean is false. In this way, by default
+    /// EUC will be enabled for NotebookRuntimeTemplate.
+    #[prost(bool, tag = "1")]
+    pub euc_disabled: bool,
+    /// Output only. Whether ActAs check is bypassed for service account attached
+    /// to the VM. If false, we need ActAs check for the default Compute Engine
+    /// Service account. When a Runtime is created, a VM is allocated using Default
+    /// Compute Engine Service Account. Any user requesting to use this Runtime
+    /// requires Service Account User (ActAs) permission over this SA. If true,
+    /// Runtime owner is using EUC and does not require the above permission as VM
+    /// no longer use default Compute Engine SA, but a P4SA.
+    #[prost(bool, tag = "2")]
+    pub bypass_actas_check: bool,
+}
+/// The idle shutdown configuration of NotebookRuntimeTemplate, which contains
+/// the idle_timeout as required field.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct NotebookIdleShutdownConfig {
+    /// Required. Duration is accurate to the second. In Notebook, Idle Timeout is
+    /// accurate to minute so the range of idle_timeout (second) is: 10 * 60 ~ 1440
+    /// * 60.
+    #[prost(message, optional, tag = "1")]
+    pub idle_timeout: ::core::option::Option<::prost_types::Duration>,
+    /// Whether Idle Shutdown is disabled in this NotebookRuntimeTemplate.
+    #[prost(bool, tag = "2")]
+    pub idle_shutdown_disabled: bool,
+}
+/// Points to a NotebookRuntimeTemplateRef.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotebookRuntimeTemplateRef {
+    /// Immutable. A resource name of the NotebookRuntimeTemplate.
+    #[prost(string, tag = "1")]
+    pub notebook_runtime_template: ::prost::alloc::string::String,
+}
+/// A template that specifies runtime configurations such as machine type,
+/// runtime version, network configurations, etc.
+/// Multiple runtimes can be created from a runtime template.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotebookRuntimeTemplate {
+    /// The resource name of the NotebookRuntimeTemplate.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The display name of the NotebookRuntimeTemplate.
+    /// The name can be up to 128 characters long and can consist of any UTF-8
+    /// characters.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// The description of the NotebookRuntimeTemplate.
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. The default template to use if not specified.
+    #[prost(bool, tag = "4")]
+    pub is_default: bool,
+    /// Optional. Immutable. The specification of a single machine for the
+    /// template.
+    #[prost(message, optional, tag = "5")]
+    pub machine_spec: ::core::option::Option<MachineSpec>,
+    /// Optional. The specification of [persistent
+    /// disk][<https://cloud.google.com/compute/docs/disks/persistent-disks]>
+    /// attached to the runtime as data disk storage.
+    #[prost(message, optional, tag = "8")]
+    pub data_persistent_disk_spec: ::core::option::Option<PersistentDiskSpec>,
+    /// Optional. Network spec.
+    #[prost(message, optional, tag = "12")]
+    pub network_spec: ::core::option::Option<NetworkSpec>,
+    /// The service account that the runtime workload runs as.
+    /// You can use any service account within the same project, but you
+    /// must have the service account user permission to use the instance.
+    ///
+    /// If not specified, the [Compute Engine default service
+    /// account](<https://cloud.google.com/compute/docs/access/service-accounts#default_service_account>)
+    /// is used.
+    #[prost(string, tag = "13")]
+    pub service_account: ::prost::alloc::string::String,
+    /// Used to perform consistent read-modify-write updates. If not set, a blind
+    /// "overwrite" update happens.
+    #[prost(string, tag = "14")]
+    pub etag: ::prost::alloc::string::String,
+    /// The labels with user-defined metadata to organize the
+    /// NotebookRuntimeTemplates.
+    ///
+    /// Label keys and values can be no longer than 64 characters
+    /// (Unicode codepoints), can only contain lowercase letters, numeric
+    /// characters, underscores and dashes. International characters are allowed.
+    ///
+    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
+    #[prost(btree_map = "string, string", tag = "15")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// The idle shutdown configuration of NotebookRuntimeTemplate. This config
+    /// will only be set when idle shutdown is enabled.
+    #[prost(message, optional, tag = "17")]
+    pub idle_shutdown_config: ::core::option::Option<NotebookIdleShutdownConfig>,
+    /// EUC configuration of the NotebookRuntimeTemplate.
+    #[prost(message, optional, tag = "18")]
+    pub euc_config: ::core::option::Option<NotebookEucConfig>,
+    /// Output only. Timestamp when this NotebookRuntimeTemplate was created.
+    #[prost(message, optional, tag = "10")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this NotebookRuntimeTemplate was most recently
+    /// updated.
+    #[prost(message, optional, tag = "11")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Optional. Immutable. The type of the notebook runtime template.
+    #[prost(enumeration = "NotebookRuntimeType", tag = "19")]
+    pub notebook_runtime_type: i32,
+    /// Optional. Immutable. Runtime Shielded VM spec.
+    #[prost(message, optional, tag = "20")]
+    pub shielded_vm_config: ::core::option::Option<ShieldedVmConfig>,
+    /// Optional. The Compute Engine tags to add to runtime (see [Tagging
+    /// instances](<https://cloud.google.com/vpc/docs/add-remove-network-tags>)).
+    #[prost(string, repeated, tag = "21")]
+    pub network_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Customer-managed encryption key spec for the notebook runtime.
+    #[prost(message, optional, tag = "23")]
+    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
+}
+/// A runtime is a virtual machine allocated to a particular user for a
+/// particular Notebook file on temporary basis with lifetime limited to 24
+/// hours.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NotebookRuntime {
+    /// Output only. The resource name of the NotebookRuntime.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The user email of the NotebookRuntime.
+    #[prost(string, tag = "2")]
+    pub runtime_user: ::prost::alloc::string::String,
+    /// Output only. The pointer to NotebookRuntimeTemplate this NotebookRuntime is
+    /// created from.
+    #[prost(message, optional, tag = "3")]
+    pub notebook_runtime_template_ref: ::core::option::Option<
+        NotebookRuntimeTemplateRef,
+    >,
+    /// Output only. The proxy endpoint used to access the NotebookRuntime.
+    #[prost(string, tag = "5")]
+    pub proxy_uri: ::prost::alloc::string::String,
+    /// Output only. Timestamp when this NotebookRuntime was created.
+    #[prost(message, optional, tag = "6")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this NotebookRuntime was most recently updated.
+    #[prost(message, optional, tag = "7")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The health state of the NotebookRuntime.
+    #[prost(enumeration = "notebook_runtime::HealthState", tag = "8")]
+    pub health_state: i32,
+    /// Required. The display name of the NotebookRuntime.
+    /// The name can be up to 128 characters long and can consist of any UTF-8
+    /// characters.
+    #[prost(string, tag = "10")]
+    pub display_name: ::prost::alloc::string::String,
+    /// The description of the NotebookRuntime.
+    #[prost(string, tag = "11")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. The service account that the NotebookRuntime workload runs as.
+    #[prost(string, tag = "13")]
+    pub service_account: ::prost::alloc::string::String,
+    /// Output only. The runtime (instance) state of the NotebookRuntime.
+    #[prost(enumeration = "notebook_runtime::RuntimeState", tag = "14")]
+    pub runtime_state: i32,
+    /// Output only. Whether NotebookRuntime is upgradable.
+    #[prost(bool, tag = "15")]
+    pub is_upgradable: bool,
+    /// The labels with user-defined metadata to organize your
+    /// NotebookRuntime.
+    ///
+    /// Label keys and values can be no longer than 64 characters
+    /// (Unicode codepoints), can only contain lowercase letters, numeric
+    /// characters, underscores and dashes. International characters are allowed.
+    /// No more than 64 user labels can be associated with one NotebookRuntime
+    /// (System labels are excluded).
+    ///
+    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
+    /// System reserved label keys are prefixed with "aiplatform.googleapis.com/"
+    /// and are immutable. Following system labels exist for NotebookRuntime:
+    ///
+    /// * "aiplatform.googleapis.com/notebook_runtime_gce_instance_id": output
+    /// only, its value is the Compute Engine instance id.
+    /// * "aiplatform.googleapis.com/colab_enterprise_entry_service": its value is
+    /// either "bigquery" or "vertex"; if absent, it should be "vertex". This is to
+    /// describe the entry service, either BigQuery or Vertex.
+    #[prost(btree_map = "string, string", tag = "16")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Output only. Timestamp when this NotebookRuntime will be expired:
+    /// 1. System Predefined NotebookRuntime: 24 hours after creation. After
+    /// expiration, system predifined runtime will be deleted.
+    /// 2. User created NotebookRuntime: 6 months after last upgrade. After
+    /// expiration, user created runtime will be stopped and allowed for upgrade.
+    #[prost(message, optional, tag = "17")]
+    pub expiration_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The VM os image version of NotebookRuntime.
+    #[prost(string, tag = "18")]
+    pub version: ::prost::alloc::string::String,
+    /// Output only. The type of the notebook runtime.
+    #[prost(enumeration = "NotebookRuntimeType", tag = "19")]
+    pub notebook_runtime_type: i32,
+    /// Output only. The idle shutdown configuration of the notebook runtime.
+    #[prost(message, optional, tag = "23")]
+    pub idle_shutdown_config: ::core::option::Option<NotebookIdleShutdownConfig>,
+    /// Optional. The Compute Engine tags to add to runtime (see [Tagging
+    /// instances](<https://cloud.google.com/vpc/docs/add-remove-network-tags>)).
+    #[prost(string, repeated, tag = "25")]
+    pub network_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Output only. Customer-managed encryption key spec for the notebook runtime.
+    #[prost(message, optional, tag = "28")]
+    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
+    /// Output only. Reserved for future use.
+    #[prost(bool, tag = "29")]
+    pub satisfies_pzs: bool,
+    /// Output only. Reserved for future use.
+    #[prost(bool, tag = "30")]
+    pub satisfies_pzi: bool,
+}
+/// Nested message and enum types in `NotebookRuntime`.
+pub mod notebook_runtime {
+    /// The substate of the NotebookRuntime to display health information.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum HealthState {
+        /// Unspecified health state.
+        Unspecified = 0,
+        /// NotebookRuntime is in healthy state. Applies to ACTIVE state.
+        Healthy = 1,
+        /// NotebookRuntime is in unhealthy state. Applies to ACTIVE state.
+        Unhealthy = 2,
+    }
+    impl HealthState {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                HealthState::Unspecified => "HEALTH_STATE_UNSPECIFIED",
+                HealthState::Healthy => "HEALTHY",
+                HealthState::Unhealthy => "UNHEALTHY",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "HEALTH_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "HEALTHY" => Some(Self::Healthy),
+                "UNHEALTHY" => Some(Self::Unhealthy),
+                _ => None,
+            }
+        }
+    }
+    /// The substate of the NotebookRuntime to display state of runtime.
+    /// The resource of NotebookRuntime is in ACTIVE state for these sub state.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum RuntimeState {
+        /// Unspecified runtime state.
+        Unspecified = 0,
+        /// NotebookRuntime is in running state.
+        Running = 1,
+        /// NotebookRuntime is in starting state.
+        BeingStarted = 2,
+        /// NotebookRuntime is in stopping state.
+        BeingStopped = 3,
+        /// NotebookRuntime is in stopped state.
+        Stopped = 4,
+        /// NotebookRuntime is in upgrading state. It is in the middle of upgrading
+        /// process.
+        BeingUpgraded = 5,
+        /// NotebookRuntime was unable to start/stop properly.
+        Error = 100,
+        /// NotebookRuntime is in invalid state. Cannot be recovered.
+        Invalid = 101,
+    }
+    impl RuntimeState {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                RuntimeState::Unspecified => "RUNTIME_STATE_UNSPECIFIED",
+                RuntimeState::Running => "RUNNING",
+                RuntimeState::BeingStarted => "BEING_STARTED",
+                RuntimeState::BeingStopped => "BEING_STOPPED",
+                RuntimeState::Stopped => "STOPPED",
+                RuntimeState::BeingUpgraded => "BEING_UPGRADED",
+                RuntimeState::Error => "ERROR",
+                RuntimeState::Invalid => "INVALID",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RUNTIME_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "RUNNING" => Some(Self::Running),
+                "BEING_STARTED" => Some(Self::BeingStarted),
+                "BEING_STOPPED" => Some(Self::BeingStopped),
+                "STOPPED" => Some(Self::Stopped),
+                "BEING_UPGRADED" => Some(Self::BeingUpgraded),
+                "ERROR" => Some(Self::Error),
+                "INVALID" => Some(Self::Invalid),
+                _ => None,
+            }
+        }
+    }
+}
+/// Represents a notebook runtime type.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum NotebookRuntimeType {
+    /// Unspecified notebook runtime type, NotebookRuntimeType will default to
+    /// USER_DEFINED.
+    Unspecified = 0,
+    /// runtime or template with coustomized configurations from user.
+    UserDefined = 1,
+    /// runtime or template with system defined configurations.
+    OneClick = 2,
+}
+impl NotebookRuntimeType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            NotebookRuntimeType::Unspecified => "NOTEBOOK_RUNTIME_TYPE_UNSPECIFIED",
+            NotebookRuntimeType::UserDefined => "USER_DEFINED",
+            NotebookRuntimeType::OneClick => "ONE_CLICK",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "NOTEBOOK_RUNTIME_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "USER_DEFINED" => Some(Self::UserDefined),
+            "ONE_CLICK" => Some(Self::OneClick),
+            _ => None,
+        }
+    }
+}
+/// Request message for
+/// [NotebookService.CreateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.CreateNotebookRuntimeTemplate].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateNotebookRuntimeTemplateRequest {
+    /// Required. The resource name of the Location to create the
+    /// NotebookRuntimeTemplate. Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The NotebookRuntimeTemplate to create.
+    #[prost(message, optional, tag = "2")]
+    pub notebook_runtime_template: ::core::option::Option<NotebookRuntimeTemplate>,
+    /// Optional. User specified ID for the notebook runtime template.
+    #[prost(string, tag = "3")]
+    pub notebook_runtime_template_id: ::prost::alloc::string::String,
+}
+/// Metadata information for
+/// [NotebookService.CreateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.CreateNotebookRuntimeTemplate].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateNotebookRuntimeTemplateOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+}
+/// Request message for
+/// [NotebookService.GetNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.GetNotebookRuntimeTemplate]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetNotebookRuntimeTemplateRequest {
+    /// Required. The name of the NotebookRuntimeTemplate resource.
+    /// Format:
+    /// `projects/{project}/locations/{location}/notebookRuntimeTemplates/{notebook_runtime_template}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookRuntimeTemplatesRequest {
+    /// Required. The resource name of the Location from which to list the
+    /// NotebookRuntimeTemplates.
+    /// Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. An expression for filtering the results of the request. For field
+    /// names both snake_case and camelCase are supported.
+    ///
+    ///    * `notebookRuntimeTemplate` supports = and !=. `notebookRuntimeTemplate`
+    ///      represents the NotebookRuntimeTemplate ID,
+    ///      i.e. the last segment of the NotebookRuntimeTemplate's \[resource name\]
+    ///      \[google.cloud.aiplatform.v1.NotebookRuntimeTemplate.name\].
+    ///    * `display_name` supports = and !=
+    ///    * `labels` supports general map functions that is:
+    ///      * `labels.key=value` - key:value equality
+    ///      * `labels.key:* or labels:key - key existence
+    ///      * A key including a space must be quoted. `labels."a key"`.
+    ///    * `notebookRuntimeType` supports = and !=. notebookRuntimeType enum:
+    ///    \[USER_DEFINED, ONE_CLICK\].
+    ///
+    /// Some examples:
+    ///
+    ///    * `notebookRuntimeTemplate=notebookRuntimeTemplate123`
+    ///    * `displayName="myDisplayName"`
+    ///    * `labels.myKey="myValue"`
+    ///    * `notebookRuntimeType=USER_DEFINED`
+    #[prost(string, tag = "2")]
+    pub filter: ::prost::alloc::string::String,
+    /// Optional. The standard list page size.
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
+    /// Optional. The standard list page token.
+    /// Typically obtained via
+    /// [ListNotebookRuntimeTemplatesResponse.next_page_token][google.cloud.aiplatform.v1.ListNotebookRuntimeTemplatesResponse.next_page_token]
+    /// of the previous
+    /// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates]
+    /// call.
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Optional. Mask specifying which fields to read.
+    #[prost(message, optional, tag = "5")]
+    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending. Supported fields:
+    ///
+    ///    * `display_name`
+    ///    * `create_time`
+    ///    * `update_time`
+    ///
+    /// Example: `display_name, create_time desc`.
+    #[prost(string, tag = "6")]
+    pub order_by: ::prost::alloc::string::String,
+}
+/// Response message for
+/// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookRuntimeTemplatesResponse {
+    /// List of NotebookRuntimeTemplates in the requested page.
+    #[prost(message, repeated, tag = "1")]
+    pub notebook_runtime_templates: ::prost::alloc::vec::Vec<NotebookRuntimeTemplate>,
+    /// A token to retrieve next page of results.
+    /// Pass to
+    /// [ListNotebookRuntimeTemplatesRequest.page_token][google.cloud.aiplatform.v1.ListNotebookRuntimeTemplatesRequest.page_token]
+    /// to obtain that page.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.DeleteNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.DeleteNotebookRuntimeTemplate].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteNotebookRuntimeTemplateRequest {
+    /// Required. The name of the NotebookRuntimeTemplate resource to be deleted.
+    /// Format:
+    /// `projects/{project}/locations/{location}/notebookRuntimeTemplates/{notebook_runtime_template}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.UpdateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.UpdateNotebookRuntimeTemplate].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateNotebookRuntimeTemplateRequest {
+    /// Required. The NotebookRuntimeTemplate to update.
+    #[prost(message, optional, tag = "1")]
+    pub notebook_runtime_template: ::core::option::Option<NotebookRuntimeTemplate>,
+    /// Required. The update mask applies to the resource.
+    /// For the `FieldMask` definition, see
+    /// [google.protobuf.FieldMask][google.protobuf.FieldMask]. Input format:
+    /// `{paths: "${updated_filed}"}` Updatable fields:
+    ///
+    ///    * `encryption_spec.kms_key_name`
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for
+/// [NotebookService.AssignNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.AssignNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssignNotebookRuntimeRequest {
+    /// Required. The resource name of the Location to get the NotebookRuntime
+    /// assignment. Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The resource name of the NotebookRuntimeTemplate based on which a
+    /// NotebookRuntime will be assigned (reuse or create a new one).
+    #[prost(string, tag = "2")]
+    pub notebook_runtime_template: ::prost::alloc::string::String,
+    /// Required. Provide runtime specific information (e.g. runtime owner,
+    /// notebook id) used for NotebookRuntime assignment.
+    #[prost(message, optional, tag = "3")]
+    pub notebook_runtime: ::core::option::Option<NotebookRuntime>,
+    /// Optional. User specified ID for the notebook runtime.
+    #[prost(string, tag = "4")]
+    pub notebook_runtime_id: ::prost::alloc::string::String,
+}
+/// Metadata information for
+/// [NotebookService.AssignNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.AssignNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssignNotebookRuntimeOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+    /// A human-readable message that shows the intermediate progress details of
+    /// NotebookRuntime.
+    #[prost(string, tag = "2")]
+    pub progress_message: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.GetNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.GetNotebookRuntime]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetNotebookRuntimeRequest {
+    /// Required. The name of the NotebookRuntime resource.
+    /// Instead of checking whether the name is in valid NotebookRuntime resource
+    /// name format, directly throw NotFound exception if there is no such
+    /// NotebookRuntime in spanner.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookRuntimesRequest {
+    /// Required. The resource name of the Location from which to list the
+    /// NotebookRuntimes.
+    /// Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. An expression for filtering the results of the request. For field
+    /// names both snake_case and camelCase are supported.
+    ///
+    ///    * `notebookRuntime` supports = and !=. `notebookRuntime` represents the
+    ///      NotebookRuntime ID,
+    ///      i.e. the last segment of the NotebookRuntime's \[resource name\]
+    ///      \[google.cloud.aiplatform.v1.NotebookRuntime.name\].
+    ///    * `displayName` supports = and != and regex.
+    ///    * `notebookRuntimeTemplate` supports = and !=. `notebookRuntimeTemplate`
+    ///      represents the NotebookRuntimeTemplate ID,
+    ///      i.e. the last segment of the NotebookRuntimeTemplate's \[resource name\]
+    ///      \[google.cloud.aiplatform.v1.NotebookRuntimeTemplate.name\].
+    ///    * `healthState` supports = and !=. healthState enum: [HEALTHY, UNHEALTHY,
+    ///    HEALTH_STATE_UNSPECIFIED].
+    ///    * `runtimeState` supports = and !=. runtimeState enum:
+    ///    [RUNTIME_STATE_UNSPECIFIED, RUNNING, BEING_STARTED, BEING_STOPPED,
+    ///    STOPPED, BEING_UPGRADED, ERROR, INVALID].
+    ///    * `runtimeUser` supports = and !=.
+    ///    * API version is UI only: `uiState` supports = and !=. uiState enum:
+    ///    [UI_RESOURCE_STATE_UNSPECIFIED, UI_RESOURCE_STATE_BEING_CREATED,
+    ///    UI_RESOURCE_STATE_ACTIVE, UI_RESOURCE_STATE_BEING_DELETED,
+    ///    UI_RESOURCE_STATE_CREATION_FAILED].
+    ///    * `notebookRuntimeType` supports = and !=. notebookRuntimeType enum:
+    ///    \[USER_DEFINED, ONE_CLICK\].
+    ///
+    /// Some examples:
+    ///
+    ///    * `notebookRuntime="notebookRuntime123"`
+    ///    * `displayName="myDisplayName"` and `displayName=~"myDisplayNameRegex"`
+    ///    * `notebookRuntimeTemplate="notebookRuntimeTemplate321"`
+    ///    * `healthState=HEALTHY`
+    ///    * `runtimeState=RUNNING`
+    ///    * `runtimeUser="test@google.com"`
+    ///    * `uiState=UI_RESOURCE_STATE_BEING_DELETED`
+    ///    * `notebookRuntimeType=USER_DEFINED`
+    #[prost(string, tag = "2")]
+    pub filter: ::prost::alloc::string::String,
+    /// Optional. The standard list page size.
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
+    /// Optional. The standard list page token.
+    /// Typically obtained via
+    /// [ListNotebookRuntimesResponse.next_page_token][google.cloud.aiplatform.v1.ListNotebookRuntimesResponse.next_page_token]
+    /// of the previous
+    /// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes]
+    /// call.
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Optional. Mask specifying which fields to read.
+    #[prost(message, optional, tag = "5")]
+    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending. Supported fields:
+    ///
+    ///    * `display_name`
+    ///    * `create_time`
+    ///    * `update_time`
+    ///
+    /// Example: `display_name, create_time desc`.
+    #[prost(string, tag = "6")]
+    pub order_by: ::prost::alloc::string::String,
+}
+/// Response message for
+/// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookRuntimesResponse {
+    /// List of NotebookRuntimes in the requested page.
+    #[prost(message, repeated, tag = "1")]
+    pub notebook_runtimes: ::prost::alloc::vec::Vec<NotebookRuntime>,
+    /// A token to retrieve next page of results.
+    /// Pass to
+    /// [ListNotebookRuntimesRequest.page_token][google.cloud.aiplatform.v1.ListNotebookRuntimesRequest.page_token]
+    /// to obtain that page.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.DeleteNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.DeleteNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteNotebookRuntimeRequest {
+    /// Required. The name of the NotebookRuntime resource to be deleted.
+    /// Instead of checking whether the name is in valid NotebookRuntime resource
+    /// name format, directly throw NotFound exception if there is no such
+    /// NotebookRuntime in spanner.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for
+/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeNotebookRuntimeRequest {
+    /// Required. The name of the NotebookRuntime resource to be upgrade.
+    /// Instead of checking whether the name is in valid NotebookRuntime resource
+    /// name format, directly throw NotFound exception if there is no such
+    /// NotebookRuntime in spanner.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Metadata information for
+/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeNotebookRuntimeOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+    /// A human-readable message that shows the intermediate progress details of
+    /// NotebookRuntime.
+    #[prost(string, tag = "2")]
+    pub progress_message: ::prost::alloc::string::String,
+}
+/// Response message for
+/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UpgradeNotebookRuntimeResponse {}
+/// Request message for
+/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StartNotebookRuntimeRequest {
+    /// Required. The name of the NotebookRuntime resource to be started.
+    /// Instead of checking whether the name is in valid NotebookRuntime resource
+    /// name format, directly throw NotFound exception if there is no such
+    /// NotebookRuntime in spanner.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Metadata information for
+/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StartNotebookRuntimeOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+    /// A human-readable message that shows the intermediate progress details of
+    /// NotebookRuntime.
+    #[prost(string, tag = "2")]
+    pub progress_message: ::prost::alloc::string::String,
+}
+/// Response message for
+/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct StartNotebookRuntimeResponse {}
+/// Request message for \[NotebookService.CreateNotebookExecutionJob\]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateNotebookExecutionJobRequest {
+    /// Required. The resource name of the Location to create the
+    /// NotebookExecutionJob. Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The NotebookExecutionJob to create.
+    #[prost(message, optional, tag = "2")]
+    pub notebook_execution_job: ::core::option::Option<NotebookExecutionJob>,
+    /// Optional. User specified ID for the NotebookExecutionJob.
+    #[prost(string, tag = "3")]
+    pub notebook_execution_job_id: ::prost::alloc::string::String,
+}
+/// Metadata information for
+/// [NotebookService.CreateNotebookExecutionJob][google.cloud.aiplatform.v1.NotebookService.CreateNotebookExecutionJob].
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateNotebookExecutionJobOperationMetadata {
+    /// The operation generic information.
+    #[prost(message, optional, tag = "1")]
+    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
+    /// A human-readable message that shows the intermediate progress details of
+    /// NotebookRuntime.
+    #[prost(string, tag = "2")]
+    pub progress_message: ::prost::alloc::string::String,
+}
+/// Request message for \[NotebookService.GetNotebookExecutionJob\]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetNotebookExecutionJobRequest {
+    /// Required. The name of the NotebookExecutionJob resource.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Optional. The NotebookExecutionJob view. Defaults to BASIC.
+    #[prost(enumeration = "NotebookExecutionJobView", tag = "6")]
+    pub view: i32,
+}
+/// Request message for \[NotebookService.ListNotebookExecutionJobs\]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookExecutionJobsRequest {
+    /// Required. The resource name of the Location from which to list the
+    /// NotebookExecutionJobs.
+    /// Format: `projects/{project}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. An expression for filtering the results of the request. For field
+    /// names both snake_case and camelCase are supported.
+    ///
+    ///    * `notebookExecutionJob` supports = and !=. `notebookExecutionJob`
+    ///    represents the NotebookExecutionJob ID.
+    ///    * `displayName` supports = and != and regex.
+    ///    * `schedule` supports = and != and regex.
+    ///
+    /// Some examples:
+    ///    * `notebookExecutionJob="123"`
+    ///    * `notebookExecutionJob="my-execution-job"`
+    ///    * `displayName="myDisplayName"` and `displayName=~"myDisplayNameRegex"`
+    #[prost(string, tag = "2")]
+    pub filter: ::prost::alloc::string::String,
+    /// Optional. The standard list page size.
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
+    /// Optional. The standard list page token.
+    /// Typically obtained via
+    /// [ListNotebookExecutionJobs.next_page_token][] of the previous
+    /// [NotebookService.ListNotebookExecutionJobs][google.cloud.aiplatform.v1.NotebookService.ListNotebookExecutionJobs]
+    /// call.
+    #[prost(string, tag = "4")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Optional. A comma-separated list of fields to order by, sorted in ascending
+    /// order. Use "desc" after a field name for descending. Supported fields:
+    ///
+    ///    * `display_name`
+    ///    * `create_time`
+    ///    * `update_time`
+    ///
+    /// Example: `display_name, create_time desc`.
+    #[prost(string, tag = "5")]
+    pub order_by: ::prost::alloc::string::String,
+    /// Optional. The NotebookExecutionJob view. Defaults to BASIC.
+    #[prost(enumeration = "NotebookExecutionJobView", tag = "6")]
+    pub view: i32,
+}
+/// Response message for \[NotebookService.CreateNotebookExecutionJob\]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListNotebookExecutionJobsResponse {
+    /// List of NotebookExecutionJobs in the requested page.
+    #[prost(message, repeated, tag = "1")]
+    pub notebook_execution_jobs: ::prost::alloc::vec::Vec<NotebookExecutionJob>,
+    /// A token to retrieve next page of results.
+    /// Pass to [ListNotebookExecutionJobs.page_token][] to obtain that
+    /// page.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for \[NotebookService.DeleteNotebookExecutionJob\]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteNotebookExecutionJobRequest {
+    /// Required. The name of the NotebookExecutionJob resource to be deleted.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Views for Get/List NotebookExecutionJob
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum NotebookExecutionJobView {
+    /// When unspecified, the API defaults to the BASIC view.
+    Unspecified = 0,
+    /// Includes all fields except for direct notebook inputs.
+    Basic = 1,
+    /// Includes all fields.
+    Full = 2,
+}
+impl NotebookExecutionJobView {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            NotebookExecutionJobView::Unspecified => {
+                "NOTEBOOK_EXECUTION_JOB_VIEW_UNSPECIFIED"
+            }
+            NotebookExecutionJobView::Basic => "NOTEBOOK_EXECUTION_JOB_VIEW_BASIC",
+            NotebookExecutionJobView::Full => "NOTEBOOK_EXECUTION_JOB_VIEW_FULL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "NOTEBOOK_EXECUTION_JOB_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
+            "NOTEBOOK_EXECUTION_JOB_VIEW_BASIC" => Some(Self::Basic),
+            "NOTEBOOK_EXECUTION_JOB_VIEW_FULL" => Some(Self::Full),
+            _ => None,
+        }
+    }
+}
+/// Generated client implementations.
+pub mod notebook_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// The interface for Vertex Notebook service (a.k.a. Colab on Workbench).
+    #[derive(Debug, Clone)]
+    pub struct NotebookServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> NotebookServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> NotebookServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            NotebookServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Creates a NotebookRuntimeTemplate.
+        pub async fn create_notebook_runtime_template(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateNotebookRuntimeTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/CreateNotebookRuntimeTemplate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "CreateNotebookRuntimeTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets a NotebookRuntimeTemplate.
+        pub async fn get_notebook_runtime_template(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetNotebookRuntimeTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotebookRuntimeTemplate>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookRuntimeTemplate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "GetNotebookRuntimeTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists NotebookRuntimeTemplates in a Location.
+        pub async fn list_notebook_runtime_templates(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListNotebookRuntimeTemplatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotebookRuntimeTemplatesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookRuntimeTemplates",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "ListNotebookRuntimeTemplates",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a NotebookRuntimeTemplate.
+        pub async fn delete_notebook_runtime_template(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteNotebookRuntimeTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookRuntimeTemplate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "DeleteNotebookRuntimeTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates a NotebookRuntimeTemplate.
+        pub async fn update_notebook_runtime_template(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateNotebookRuntimeTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotebookRuntimeTemplate>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/UpdateNotebookRuntimeTemplate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "UpdateNotebookRuntimeTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Assigns a NotebookRuntime to a user for a particular Notebook file. This
+        /// method will either returns an existing assignment or generates a new one.
+        pub async fn assign_notebook_runtime(
+            &mut self,
+            request: impl tonic::IntoRequest<super::AssignNotebookRuntimeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/AssignNotebookRuntime",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "AssignNotebookRuntime",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets a NotebookRuntime.
+        pub async fn get_notebook_runtime(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetNotebookRuntimeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotebookRuntime>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookRuntime",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "GetNotebookRuntime",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists NotebookRuntimes in a Location.
+        pub async fn list_notebook_runtimes(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListNotebookRuntimesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotebookRuntimesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookRuntimes",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "ListNotebookRuntimes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a NotebookRuntime.
+        pub async fn delete_notebook_runtime(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteNotebookRuntimeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookRuntime",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "DeleteNotebookRuntime",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Upgrades a NotebookRuntime.
+        pub async fn upgrade_notebook_runtime(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpgradeNotebookRuntimeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/UpgradeNotebookRuntime",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "UpgradeNotebookRuntime",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Starts a NotebookRuntime.
+        pub async fn start_notebook_runtime(
+            &mut self,
+            request: impl tonic::IntoRequest<super::StartNotebookRuntimeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/StartNotebookRuntime",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "StartNotebookRuntime",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a NotebookExecutionJob.
+        pub async fn create_notebook_execution_job(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateNotebookExecutionJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/CreateNotebookExecutionJob",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "CreateNotebookExecutionJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets a NotebookExecutionJob.
+        pub async fn get_notebook_execution_job(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetNotebookExecutionJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotebookExecutionJob>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookExecutionJob",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "GetNotebookExecutionJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists NotebookExecutionJobs in a Location.
+        pub async fn list_notebook_execution_jobs(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListNotebookExecutionJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotebookExecutionJobsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookExecutionJobs",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "ListNotebookExecutionJobs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a NotebookExecutionJob.
+        pub async fn delete_notebook_execution_job(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteNotebookExecutionJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookExecutionJob",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.aiplatform.v1.NotebookService",
+                        "DeleteNotebookExecutionJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
 /// Instance of a general artifact.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -12045,7 +13613,7 @@ pub struct Schedule {
     /// Required.
     /// The API request template to launch the scheduled runs.
     /// User-specified ID is not supported in the request template.
-    #[prost(oneof = "schedule::Request", tags = "14")]
+    #[prost(oneof = "schedule::Request", tags = "14, 20")]
     pub request: ::core::option::Option<schedule::Request>,
 }
 /// Nested message and enum types in `Schedule`.
@@ -12138,6 +13706,10 @@ pub mod schedule {
         /// projects/{project}/locations/{location}).
         #[prost(message, tag = "14")]
         CreatePipelineJobRequest(super::CreatePipelineJobRequest),
+        /// Request for
+        /// [NotebookService.CreateNotebookExecutionJob][google.cloud.aiplatform.v1.NotebookService.CreateNotebookExecutionJob].
+        #[prost(message, tag = "20")]
+        CreateNotebookExecutionJobRequest(super::CreateNotebookExecutionJobRequest),
     }
 }
 /// A message representing a Study.
@@ -18903,37 +20475,6 @@ pub mod migration_service_client {
         }
     }
 }
-/// Network spec.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NetworkSpec {
-    /// Whether to enable public internet access. Default false.
-    #[prost(bool, tag = "1")]
-    pub enable_internet_access: bool,
-    /// The full name of the Google Compute Engine
-    /// [network](<https://cloud.google.com//compute/docs/networks-and-firewalls#networks>)
-    #[prost(string, tag = "2")]
-    pub network: ::prost::alloc::string::String,
-    /// The name of the subnet that this instance is in.
-    /// Format:
-    /// `projects/{project_id_or_number}/regions/{region}/subnetworks/{subnetwork_id}`
-    #[prost(string, tag = "3")]
-    pub subnetwork: ::prost::alloc::string::String,
-}
-/// The idle shutdown configuration of NotebookRuntimeTemplate, which contains
-/// the idle_timeout as required field.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct NotebookIdleShutdownConfig {
-    /// Required. Duration is accurate to the second. In Notebook, Idle Timeout is
-    /// accurate to minute so the range of idle_timeout (second) is: 10 * 60 ~ 1440
-    /// * 60.
-    #[prost(message, optional, tag = "1")]
-    pub idle_timeout: ::core::option::Option<::prost_types::Duration>,
-    /// Whether Idle Shutdown is disabled in this NotebookRuntimeTemplate.
-    #[prost(bool, tag = "2")]
-    pub idle_shutdown_disabled: bool,
-}
 /// Represents long-lasting resources that are dedicated to users to runs custom
 /// workloads.
 /// A PersistentResource can have multiple node pools and each node
@@ -23971,1543 +25512,6 @@ pub mod feature_online_store_admin_service_client {
                     GrpcMethod::new(
                         "google.cloud.aiplatform.v1.FeatureOnlineStoreAdminService",
                         "ListFeatureViewSyncs",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// NotebookExecutionJob represents an instance of a notebook execution.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotebookExecutionJob {
-    /// Output only. The resource name of this NotebookExecutionJob. Format:
-    /// `projects/{project_id}/locations/{location}/notebookExecutionJobs/{job_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The display name of the NotebookExecutionJob. The name can be up to 128
-    /// characters long and can consist of any UTF-8 characters.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// Max running time of the execution job in seconds (default 86400s / 24 hrs).
-    #[prost(message, optional, tag = "5")]
-    pub execution_timeout: ::core::option::Option<::prost_types::Duration>,
-    /// Output only. The Schedule resource name if this job is triggered by one.
-    /// Format:
-    /// `projects/{project_id}/locations/{location}/schedules/{schedule_id}`
-    #[prost(string, tag = "6")]
-    pub schedule_resource_name: ::prost::alloc::string::String,
-    /// Output only. The state of the NotebookExecutionJob.
-    #[prost(enumeration = "JobState", tag = "10")]
-    pub job_state: i32,
-    /// Output only. Populated when the NotebookExecutionJob is completed. When
-    /// there is an error during notebook execution, the error details are
-    /// populated.
-    #[prost(message, optional, tag = "11")]
-    pub status: ::core::option::Option<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when this NotebookExecutionJob was created.
-    #[prost(message, optional, tag = "12")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this NotebookExecutionJob was most recently
-    /// updated.
-    #[prost(message, optional, tag = "13")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The labels with user-defined metadata to organize NotebookExecutionJobs.
-    ///
-    /// Label keys and values can be no longer than 64 characters
-    /// (Unicode codepoints), can only contain lowercase letters, numeric
-    /// characters, underscores and dashes. International characters are allowed.
-    ///
-    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
-    /// System reserved label keys are prefixed with "aiplatform.googleapis.com/"
-    /// and are immutable.
-    #[prost(btree_map = "string, string", tag = "19")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Customer-managed encryption key spec for the notebook execution job.
-    /// This field is auto-populated if the
-    /// [NotebookService.NotebookRuntimeTemplate][] has an encryption spec.
-    #[prost(message, optional, tag = "22")]
-    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
-    /// The input notebook.
-    #[prost(oneof = "notebook_execution_job::NotebookSource", tags = "3, 4, 17")]
-    pub notebook_source: ::core::option::Option<notebook_execution_job::NotebookSource>,
-    /// The compute config to use for an execution job.
-    #[prost(oneof = "notebook_execution_job::EnvironmentSpec", tags = "14")]
-    pub environment_spec: ::core::option::Option<
-        notebook_execution_job::EnvironmentSpec,
-    >,
-    /// The location to store the notebook execution result.
-    #[prost(oneof = "notebook_execution_job::ExecutionSink", tags = "8")]
-    pub execution_sink: ::core::option::Option<notebook_execution_job::ExecutionSink>,
-    /// The identity to run the execution as.
-    #[prost(oneof = "notebook_execution_job::ExecutionIdentity", tags = "9, 18")]
-    pub execution_identity: ::core::option::Option<
-        notebook_execution_job::ExecutionIdentity,
-    >,
-}
-/// Nested message and enum types in `NotebookExecutionJob`.
-pub mod notebook_execution_job {
-    /// The Dataform Repository containing the input notebook.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct DataformRepositorySource {
-        /// The resource name of the Dataform Repository. Format:
-        /// `projects/{project_id}/locations/{location}/repositories/{repository_id}`
-        #[prost(string, tag = "1")]
-        pub dataform_repository_resource_name: ::prost::alloc::string::String,
-        /// The commit SHA to read repository with. If unset, the file will be read
-        /// at HEAD.
-        #[prost(string, tag = "2")]
-        pub commit_sha: ::prost::alloc::string::String,
-    }
-    /// The Cloud Storage uri for the input notebook.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct GcsNotebookSource {
-        /// The Cloud Storage uri pointing to the ipynb file. Format:
-        /// `gs://bucket/notebook_file.ipynb`
-        #[prost(string, tag = "1")]
-        pub uri: ::prost::alloc::string::String,
-        /// The version of the Cloud Storage object to read. If unset, the current
-        /// version of the object is read. See
-        /// <https://cloud.google.com/storage/docs/metadata#generation-number.>
-        #[prost(string, tag = "2")]
-        pub generation: ::prost::alloc::string::String,
-    }
-    /// The content of the input notebook in ipynb format.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct DirectNotebookSource {
-        /// The base64-encoded contents of the input notebook file.
-        #[prost(bytes = "bytes", tag = "1")]
-        pub content: ::prost::bytes::Bytes,
-    }
-    /// The input notebook.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum NotebookSource {
-        /// The Dataform Repository pointing to a single file notebook repository.
-        #[prost(message, tag = "3")]
-        DataformRepositorySource(DataformRepositorySource),
-        /// The Cloud Storage url pointing to the ipynb file. Format:
-        /// `gs://bucket/notebook_file.ipynb`
-        #[prost(message, tag = "4")]
-        GcsNotebookSource(GcsNotebookSource),
-        /// The contents of an input notebook file.
-        #[prost(message, tag = "17")]
-        DirectNotebookSource(DirectNotebookSource),
-    }
-    /// The compute config to use for an execution job.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum EnvironmentSpec {
-        /// The NotebookRuntimeTemplate to source compute configuration from.
-        #[prost(string, tag = "14")]
-        NotebookRuntimeTemplateResourceName(::prost::alloc::string::String),
-    }
-    /// The location to store the notebook execution result.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum ExecutionSink {
-        /// The Cloud Storage location to upload the result to. Format:
-        /// `gs://bucket-name`
-        #[prost(string, tag = "8")]
-        GcsOutputUri(::prost::alloc::string::String),
-    }
-    /// The identity to run the execution as.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum ExecutionIdentity {
-        /// The user email to run the execution as. Only supported by Colab runtimes.
-        #[prost(string, tag = "9")]
-        ExecutionUser(::prost::alloc::string::String),
-        /// The service account to run the execution as.
-        #[prost(string, tag = "18")]
-        ServiceAccount(::prost::alloc::string::String),
-    }
-}
-/// The euc configuration of NotebookRuntimeTemplate.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct NotebookEucConfig {
-    /// Input only. Whether EUC is disabled in this NotebookRuntimeTemplate.
-    /// In proto3, the default value of a boolean is false. In this way, by default
-    /// EUC will be enabled for NotebookRuntimeTemplate.
-    #[prost(bool, tag = "1")]
-    pub euc_disabled: bool,
-    /// Output only. Whether ActAs check is bypassed for service account attached
-    /// to the VM. If false, we need ActAs check for the default Compute Engine
-    /// Service account. When a Runtime is created, a VM is allocated using Default
-    /// Compute Engine Service Account. Any user requesting to use this Runtime
-    /// requires Service Account User (ActAs) permission over this SA. If true,
-    /// Runtime owner is using EUC and does not require the above permission as VM
-    /// no longer use default Compute Engine SA, but a P4SA.
-    #[prost(bool, tag = "2")]
-    pub bypass_actas_check: bool,
-}
-/// Points to a NotebookRuntimeTemplateRef.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotebookRuntimeTemplateRef {
-    /// Immutable. A resource name of the NotebookRuntimeTemplate.
-    #[prost(string, tag = "1")]
-    pub notebook_runtime_template: ::prost::alloc::string::String,
-}
-/// A template that specifies runtime configurations such as machine type,
-/// runtime version, network configurations, etc.
-/// Multiple runtimes can be created from a runtime template.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotebookRuntimeTemplate {
-    /// The resource name of the NotebookRuntimeTemplate.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The display name of the NotebookRuntimeTemplate.
-    /// The name can be up to 128 characters long and can consist of any UTF-8
-    /// characters.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// The description of the NotebookRuntimeTemplate.
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. The default template to use if not specified.
-    #[prost(bool, tag = "4")]
-    pub is_default: bool,
-    /// Optional. Immutable. The specification of a single machine for the
-    /// template.
-    #[prost(message, optional, tag = "5")]
-    pub machine_spec: ::core::option::Option<MachineSpec>,
-    /// Optional. The specification of [persistent
-    /// disk][<https://cloud.google.com/compute/docs/disks/persistent-disks]>
-    /// attached to the runtime as data disk storage.
-    #[prost(message, optional, tag = "8")]
-    pub data_persistent_disk_spec: ::core::option::Option<PersistentDiskSpec>,
-    /// Optional. Network spec.
-    #[prost(message, optional, tag = "12")]
-    pub network_spec: ::core::option::Option<NetworkSpec>,
-    /// The service account that the runtime workload runs as.
-    /// You can use any service account within the same project, but you
-    /// must have the service account user permission to use the instance.
-    ///
-    /// If not specified, the [Compute Engine default service
-    /// account](<https://cloud.google.com/compute/docs/access/service-accounts#default_service_account>)
-    /// is used.
-    #[prost(string, tag = "13")]
-    pub service_account: ::prost::alloc::string::String,
-    /// Used to perform consistent read-modify-write updates. If not set, a blind
-    /// "overwrite" update happens.
-    #[prost(string, tag = "14")]
-    pub etag: ::prost::alloc::string::String,
-    /// The labels with user-defined metadata to organize the
-    /// NotebookRuntimeTemplates.
-    ///
-    /// Label keys and values can be no longer than 64 characters
-    /// (Unicode codepoints), can only contain lowercase letters, numeric
-    /// characters, underscores and dashes. International characters are allowed.
-    ///
-    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
-    #[prost(btree_map = "string, string", tag = "15")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// The idle shutdown configuration of NotebookRuntimeTemplate. This config
-    /// will only be set when idle shutdown is enabled.
-    #[prost(message, optional, tag = "17")]
-    pub idle_shutdown_config: ::core::option::Option<NotebookIdleShutdownConfig>,
-    /// EUC configuration of the NotebookRuntimeTemplate.
-    #[prost(message, optional, tag = "18")]
-    pub euc_config: ::core::option::Option<NotebookEucConfig>,
-    /// Output only. Timestamp when this NotebookRuntimeTemplate was created.
-    #[prost(message, optional, tag = "10")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this NotebookRuntimeTemplate was most recently
-    /// updated.
-    #[prost(message, optional, tag = "11")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Optional. Immutable. The type of the notebook runtime template.
-    #[prost(enumeration = "NotebookRuntimeType", tag = "19")]
-    pub notebook_runtime_type: i32,
-    /// Optional. Immutable. Runtime Shielded VM spec.
-    #[prost(message, optional, tag = "20")]
-    pub shielded_vm_config: ::core::option::Option<ShieldedVmConfig>,
-    /// Optional. The Compute Engine tags to add to runtime (see [Tagging
-    /// instances](<https://cloud.google.com/vpc/docs/add-remove-network-tags>)).
-    #[prost(string, repeated, tag = "21")]
-    pub network_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Customer-managed encryption key spec for the notebook runtime.
-    #[prost(message, optional, tag = "23")]
-    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
-}
-/// A runtime is a virtual machine allocated to a particular user for a
-/// particular Notebook file on temporary basis with lifetime limited to 24
-/// hours.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct NotebookRuntime {
-    /// Output only. The resource name of the NotebookRuntime.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The user email of the NotebookRuntime.
-    #[prost(string, tag = "2")]
-    pub runtime_user: ::prost::alloc::string::String,
-    /// Output only. The pointer to NotebookRuntimeTemplate this NotebookRuntime is
-    /// created from.
-    #[prost(message, optional, tag = "3")]
-    pub notebook_runtime_template_ref: ::core::option::Option<
-        NotebookRuntimeTemplateRef,
-    >,
-    /// Output only. The proxy endpoint used to access the NotebookRuntime.
-    #[prost(string, tag = "5")]
-    pub proxy_uri: ::prost::alloc::string::String,
-    /// Output only. Timestamp when this NotebookRuntime was created.
-    #[prost(message, optional, tag = "6")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this NotebookRuntime was most recently updated.
-    #[prost(message, optional, tag = "7")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The health state of the NotebookRuntime.
-    #[prost(enumeration = "notebook_runtime::HealthState", tag = "8")]
-    pub health_state: i32,
-    /// Required. The display name of the NotebookRuntime.
-    /// The name can be up to 128 characters long and can consist of any UTF-8
-    /// characters.
-    #[prost(string, tag = "10")]
-    pub display_name: ::prost::alloc::string::String,
-    /// The description of the NotebookRuntime.
-    #[prost(string, tag = "11")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. The service account that the NotebookRuntime workload runs as.
-    #[prost(string, tag = "13")]
-    pub service_account: ::prost::alloc::string::String,
-    /// Output only. The runtime (instance) state of the NotebookRuntime.
-    #[prost(enumeration = "notebook_runtime::RuntimeState", tag = "14")]
-    pub runtime_state: i32,
-    /// Output only. Whether NotebookRuntime is upgradable.
-    #[prost(bool, tag = "15")]
-    pub is_upgradable: bool,
-    /// The labels with user-defined metadata to organize your
-    /// NotebookRuntime.
-    ///
-    /// Label keys and values can be no longer than 64 characters
-    /// (Unicode codepoints), can only contain lowercase letters, numeric
-    /// characters, underscores and dashes. International characters are allowed.
-    /// No more than 64 user labels can be associated with one NotebookRuntime
-    /// (System labels are excluded).
-    ///
-    /// See <https://goo.gl/xmQnxf> for more information and examples of labels.
-    /// System reserved label keys are prefixed with "aiplatform.googleapis.com/"
-    /// and are immutable. Following system labels exist for NotebookRuntime:
-    ///
-    /// * "aiplatform.googleapis.com/notebook_runtime_gce_instance_id": output
-    /// only, its value is the Compute Engine instance id.
-    /// * "aiplatform.googleapis.com/colab_enterprise_entry_service": its value is
-    /// either "bigquery" or "vertex"; if absent, it should be "vertex". This is to
-    /// describe the entry service, either BigQuery or Vertex.
-    #[prost(btree_map = "string, string", tag = "16")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. Timestamp when this NotebookRuntime will be expired:
-    /// 1. System Predefined NotebookRuntime: 24 hours after creation. After
-    /// expiration, system predifined runtime will be deleted.
-    /// 2. User created NotebookRuntime: 6 months after last upgrade. After
-    /// expiration, user created runtime will be stopped and allowed for upgrade.
-    #[prost(message, optional, tag = "17")]
-    pub expiration_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The VM os image version of NotebookRuntime.
-    #[prost(string, tag = "18")]
-    pub version: ::prost::alloc::string::String,
-    /// Output only. The type of the notebook runtime.
-    #[prost(enumeration = "NotebookRuntimeType", tag = "19")]
-    pub notebook_runtime_type: i32,
-    /// Output only. The idle shutdown configuration of the notebook runtime.
-    #[prost(message, optional, tag = "23")]
-    pub idle_shutdown_config: ::core::option::Option<NotebookIdleShutdownConfig>,
-    /// Optional. The Compute Engine tags to add to runtime (see [Tagging
-    /// instances](<https://cloud.google.com/vpc/docs/add-remove-network-tags>)).
-    #[prost(string, repeated, tag = "25")]
-    pub network_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Output only. Customer-managed encryption key spec for the notebook runtime.
-    #[prost(message, optional, tag = "28")]
-    pub encryption_spec: ::core::option::Option<EncryptionSpec>,
-    /// Output only. Reserved for future use.
-    #[prost(bool, tag = "29")]
-    pub satisfies_pzs: bool,
-    /// Output only. Reserved for future use.
-    #[prost(bool, tag = "30")]
-    pub satisfies_pzi: bool,
-}
-/// Nested message and enum types in `NotebookRuntime`.
-pub mod notebook_runtime {
-    /// The substate of the NotebookRuntime to display health information.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum HealthState {
-        /// Unspecified health state.
-        Unspecified = 0,
-        /// NotebookRuntime is in healthy state. Applies to ACTIVE state.
-        Healthy = 1,
-        /// NotebookRuntime is in unhealthy state. Applies to ACTIVE state.
-        Unhealthy = 2,
-    }
-    impl HealthState {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                HealthState::Unspecified => "HEALTH_STATE_UNSPECIFIED",
-                HealthState::Healthy => "HEALTHY",
-                HealthState::Unhealthy => "UNHEALTHY",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "HEALTH_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "HEALTHY" => Some(Self::Healthy),
-                "UNHEALTHY" => Some(Self::Unhealthy),
-                _ => None,
-            }
-        }
-    }
-    /// The substate of the NotebookRuntime to display state of runtime.
-    /// The resource of NotebookRuntime is in ACTIVE state for these sub state.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum RuntimeState {
-        /// Unspecified runtime state.
-        Unspecified = 0,
-        /// NotebookRuntime is in running state.
-        Running = 1,
-        /// NotebookRuntime is in starting state.
-        BeingStarted = 2,
-        /// NotebookRuntime is in stopping state.
-        BeingStopped = 3,
-        /// NotebookRuntime is in stopped state.
-        Stopped = 4,
-        /// NotebookRuntime is in upgrading state. It is in the middle of upgrading
-        /// process.
-        BeingUpgraded = 5,
-        /// NotebookRuntime was unable to start/stop properly.
-        Error = 100,
-        /// NotebookRuntime is in invalid state. Cannot be recovered.
-        Invalid = 101,
-    }
-    impl RuntimeState {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                RuntimeState::Unspecified => "RUNTIME_STATE_UNSPECIFIED",
-                RuntimeState::Running => "RUNNING",
-                RuntimeState::BeingStarted => "BEING_STARTED",
-                RuntimeState::BeingStopped => "BEING_STOPPED",
-                RuntimeState::Stopped => "STOPPED",
-                RuntimeState::BeingUpgraded => "BEING_UPGRADED",
-                RuntimeState::Error => "ERROR",
-                RuntimeState::Invalid => "INVALID",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "RUNTIME_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "RUNNING" => Some(Self::Running),
-                "BEING_STARTED" => Some(Self::BeingStarted),
-                "BEING_STOPPED" => Some(Self::BeingStopped),
-                "STOPPED" => Some(Self::Stopped),
-                "BEING_UPGRADED" => Some(Self::BeingUpgraded),
-                "ERROR" => Some(Self::Error),
-                "INVALID" => Some(Self::Invalid),
-                _ => None,
-            }
-        }
-    }
-}
-/// Represents a notebook runtime type.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum NotebookRuntimeType {
-    /// Unspecified notebook runtime type, NotebookRuntimeType will default to
-    /// USER_DEFINED.
-    Unspecified = 0,
-    /// runtime or template with coustomized configurations from user.
-    UserDefined = 1,
-    /// runtime or template with system defined configurations.
-    OneClick = 2,
-}
-impl NotebookRuntimeType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            NotebookRuntimeType::Unspecified => "NOTEBOOK_RUNTIME_TYPE_UNSPECIFIED",
-            NotebookRuntimeType::UserDefined => "USER_DEFINED",
-            NotebookRuntimeType::OneClick => "ONE_CLICK",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "NOTEBOOK_RUNTIME_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-            "USER_DEFINED" => Some(Self::UserDefined),
-            "ONE_CLICK" => Some(Self::OneClick),
-            _ => None,
-        }
-    }
-}
-/// Request message for
-/// [NotebookService.CreateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.CreateNotebookRuntimeTemplate].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateNotebookRuntimeTemplateRequest {
-    /// Required. The resource name of the Location to create the
-    /// NotebookRuntimeTemplate. Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The NotebookRuntimeTemplate to create.
-    #[prost(message, optional, tag = "2")]
-    pub notebook_runtime_template: ::core::option::Option<NotebookRuntimeTemplate>,
-    /// Optional. User specified ID for the notebook runtime template.
-    #[prost(string, tag = "3")]
-    pub notebook_runtime_template_id: ::prost::alloc::string::String,
-}
-/// Metadata information for
-/// [NotebookService.CreateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.CreateNotebookRuntimeTemplate].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateNotebookRuntimeTemplateOperationMetadata {
-    /// The operation generic information.
-    #[prost(message, optional, tag = "1")]
-    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
-}
-/// Request message for
-/// [NotebookService.GetNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.GetNotebookRuntimeTemplate]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetNotebookRuntimeTemplateRequest {
-    /// Required. The name of the NotebookRuntimeTemplate resource.
-    /// Format:
-    /// `projects/{project}/locations/{location}/notebookRuntimeTemplates/{notebook_runtime_template}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookRuntimeTemplatesRequest {
-    /// Required. The resource name of the Location from which to list the
-    /// NotebookRuntimeTemplates.
-    /// Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. An expression for filtering the results of the request. For field
-    /// names both snake_case and camelCase are supported.
-    ///
-    ///    * `notebookRuntimeTemplate` supports = and !=. `notebookRuntimeTemplate`
-    ///      represents the NotebookRuntimeTemplate ID,
-    ///      i.e. the last segment of the NotebookRuntimeTemplate's \[resource name\]
-    ///      \[google.cloud.aiplatform.v1.NotebookRuntimeTemplate.name\].
-    ///    * `display_name` supports = and !=
-    ///    * `labels` supports general map functions that is:
-    ///      * `labels.key=value` - key:value equality
-    ///      * `labels.key:* or labels:key - key existence
-    ///      * A key including a space must be quoted. `labels."a key"`.
-    ///    * `notebookRuntimeType` supports = and !=. notebookRuntimeType enum:
-    ///    \[USER_DEFINED, ONE_CLICK\].
-    ///
-    /// Some examples:
-    ///
-    ///    * `notebookRuntimeTemplate=notebookRuntimeTemplate123`
-    ///    * `displayName="myDisplayName"`
-    ///    * `labels.myKey="myValue"`
-    ///    * `notebookRuntimeType=USER_DEFINED`
-    #[prost(string, tag = "2")]
-    pub filter: ::prost::alloc::string::String,
-    /// Optional. The standard list page size.
-    #[prost(int32, tag = "3")]
-    pub page_size: i32,
-    /// Optional. The standard list page token.
-    /// Typically obtained via
-    /// [ListNotebookRuntimeTemplatesResponse.next_page_token][google.cloud.aiplatform.v1.ListNotebookRuntimeTemplatesResponse.next_page_token]
-    /// of the previous
-    /// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates]
-    /// call.
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Optional. Mask specifying which fields to read.
-    #[prost(message, optional, tag = "5")]
-    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Optional. A comma-separated list of fields to order by, sorted in ascending
-    /// order. Use "desc" after a field name for descending. Supported fields:
-    ///
-    ///    * `display_name`
-    ///    * `create_time`
-    ///    * `update_time`
-    ///
-    /// Example: `display_name, create_time desc`.
-    #[prost(string, tag = "6")]
-    pub order_by: ::prost::alloc::string::String,
-}
-/// Response message for
-/// [NotebookService.ListNotebookRuntimeTemplates][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimeTemplates].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookRuntimeTemplatesResponse {
-    /// List of NotebookRuntimeTemplates in the requested page.
-    #[prost(message, repeated, tag = "1")]
-    pub notebook_runtime_templates: ::prost::alloc::vec::Vec<NotebookRuntimeTemplate>,
-    /// A token to retrieve next page of results.
-    /// Pass to
-    /// [ListNotebookRuntimeTemplatesRequest.page_token][google.cloud.aiplatform.v1.ListNotebookRuntimeTemplatesRequest.page_token]
-    /// to obtain that page.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.DeleteNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.DeleteNotebookRuntimeTemplate].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteNotebookRuntimeTemplateRequest {
-    /// Required. The name of the NotebookRuntimeTemplate resource to be deleted.
-    /// Format:
-    /// `projects/{project}/locations/{location}/notebookRuntimeTemplates/{notebook_runtime_template}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.UpdateNotebookRuntimeTemplate][google.cloud.aiplatform.v1.NotebookService.UpdateNotebookRuntimeTemplate].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateNotebookRuntimeTemplateRequest {
-    /// Required. The NotebookRuntimeTemplate to update.
-    #[prost(message, optional, tag = "1")]
-    pub notebook_runtime_template: ::core::option::Option<NotebookRuntimeTemplate>,
-    /// Required. The update mask applies to the resource.
-    /// For the `FieldMask` definition, see
-    /// [google.protobuf.FieldMask][google.protobuf.FieldMask]. Input format:
-    /// `{paths: "${updated_filed}"}` Updatable fields:
-    ///
-    ///    * `encryption_spec.kms_key_name`
-    #[prost(message, optional, tag = "2")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Request message for
-/// [NotebookService.AssignNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.AssignNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssignNotebookRuntimeRequest {
-    /// Required. The resource name of the Location to get the NotebookRuntime
-    /// assignment. Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The resource name of the NotebookRuntimeTemplate based on which a
-    /// NotebookRuntime will be assigned (reuse or create a new one).
-    #[prost(string, tag = "2")]
-    pub notebook_runtime_template: ::prost::alloc::string::String,
-    /// Required. Provide runtime specific information (e.g. runtime owner,
-    /// notebook id) used for NotebookRuntime assignment.
-    #[prost(message, optional, tag = "3")]
-    pub notebook_runtime: ::core::option::Option<NotebookRuntime>,
-    /// Optional. User specified ID for the notebook runtime.
-    #[prost(string, tag = "4")]
-    pub notebook_runtime_id: ::prost::alloc::string::String,
-}
-/// Metadata information for
-/// [NotebookService.AssignNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.AssignNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssignNotebookRuntimeOperationMetadata {
-    /// The operation generic information.
-    #[prost(message, optional, tag = "1")]
-    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
-    /// A human-readable message that shows the intermediate progress details of
-    /// NotebookRuntime.
-    #[prost(string, tag = "2")]
-    pub progress_message: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.GetNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.GetNotebookRuntime]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetNotebookRuntimeRequest {
-    /// Required. The name of the NotebookRuntime resource.
-    /// Instead of checking whether the name is in valid NotebookRuntime resource
-    /// name format, directly throw NotFound exception if there is no such
-    /// NotebookRuntime in spanner.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookRuntimesRequest {
-    /// Required. The resource name of the Location from which to list the
-    /// NotebookRuntimes.
-    /// Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. An expression for filtering the results of the request. For field
-    /// names both snake_case and camelCase are supported.
-    ///
-    ///    * `notebookRuntime` supports = and !=. `notebookRuntime` represents the
-    ///      NotebookRuntime ID,
-    ///      i.e. the last segment of the NotebookRuntime's \[resource name\]
-    ///      \[google.cloud.aiplatform.v1.NotebookRuntime.name\].
-    ///    * `displayName` supports = and != and regex.
-    ///    * `notebookRuntimeTemplate` supports = and !=. `notebookRuntimeTemplate`
-    ///      represents the NotebookRuntimeTemplate ID,
-    ///      i.e. the last segment of the NotebookRuntimeTemplate's \[resource name\]
-    ///      \[google.cloud.aiplatform.v1.NotebookRuntimeTemplate.name\].
-    ///    * `healthState` supports = and !=. healthState enum: [HEALTHY, UNHEALTHY,
-    ///    HEALTH_STATE_UNSPECIFIED].
-    ///    * `runtimeState` supports = and !=. runtimeState enum:
-    ///    [RUNTIME_STATE_UNSPECIFIED, RUNNING, BEING_STARTED, BEING_STOPPED,
-    ///    STOPPED, BEING_UPGRADED, ERROR, INVALID].
-    ///    * `runtimeUser` supports = and !=.
-    ///    * API version is UI only: `uiState` supports = and !=. uiState enum:
-    ///    [UI_RESOURCE_STATE_UNSPECIFIED, UI_RESOURCE_STATE_BEING_CREATED,
-    ///    UI_RESOURCE_STATE_ACTIVE, UI_RESOURCE_STATE_BEING_DELETED,
-    ///    UI_RESOURCE_STATE_CREATION_FAILED].
-    ///    * `notebookRuntimeType` supports = and !=. notebookRuntimeType enum:
-    ///    \[USER_DEFINED, ONE_CLICK\].
-    ///
-    /// Some examples:
-    ///
-    ///    * `notebookRuntime="notebookRuntime123"`
-    ///    * `displayName="myDisplayName"` and `displayName=~"myDisplayNameRegex"`
-    ///    * `notebookRuntimeTemplate="notebookRuntimeTemplate321"`
-    ///    * `healthState=HEALTHY`
-    ///    * `runtimeState=RUNNING`
-    ///    * `runtimeUser="test@google.com"`
-    ///    * `uiState=UI_RESOURCE_STATE_BEING_DELETED`
-    ///    * `notebookRuntimeType=USER_DEFINED`
-    #[prost(string, tag = "2")]
-    pub filter: ::prost::alloc::string::String,
-    /// Optional. The standard list page size.
-    #[prost(int32, tag = "3")]
-    pub page_size: i32,
-    /// Optional. The standard list page token.
-    /// Typically obtained via
-    /// [ListNotebookRuntimesResponse.next_page_token][google.cloud.aiplatform.v1.ListNotebookRuntimesResponse.next_page_token]
-    /// of the previous
-    /// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes]
-    /// call.
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Optional. Mask specifying which fields to read.
-    #[prost(message, optional, tag = "5")]
-    pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Optional. A comma-separated list of fields to order by, sorted in ascending
-    /// order. Use "desc" after a field name for descending. Supported fields:
-    ///
-    ///    * `display_name`
-    ///    * `create_time`
-    ///    * `update_time`
-    ///
-    /// Example: `display_name, create_time desc`.
-    #[prost(string, tag = "6")]
-    pub order_by: ::prost::alloc::string::String,
-}
-/// Response message for
-/// [NotebookService.ListNotebookRuntimes][google.cloud.aiplatform.v1.NotebookService.ListNotebookRuntimes].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookRuntimesResponse {
-    /// List of NotebookRuntimes in the requested page.
-    #[prost(message, repeated, tag = "1")]
-    pub notebook_runtimes: ::prost::alloc::vec::Vec<NotebookRuntime>,
-    /// A token to retrieve next page of results.
-    /// Pass to
-    /// [ListNotebookRuntimesRequest.page_token][google.cloud.aiplatform.v1.ListNotebookRuntimesRequest.page_token]
-    /// to obtain that page.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.DeleteNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.DeleteNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteNotebookRuntimeRequest {
-    /// Required. The name of the NotebookRuntime resource to be deleted.
-    /// Instead of checking whether the name is in valid NotebookRuntime resource
-    /// name format, directly throw NotFound exception if there is no such
-    /// NotebookRuntime in spanner.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for
-/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeNotebookRuntimeRequest {
-    /// Required. The name of the NotebookRuntime resource to be upgrade.
-    /// Instead of checking whether the name is in valid NotebookRuntime resource
-    /// name format, directly throw NotFound exception if there is no such
-    /// NotebookRuntime in spanner.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Metadata information for
-/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeNotebookRuntimeOperationMetadata {
-    /// The operation generic information.
-    #[prost(message, optional, tag = "1")]
-    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
-    /// A human-readable message that shows the intermediate progress details of
-    /// NotebookRuntime.
-    #[prost(string, tag = "2")]
-    pub progress_message: ::prost::alloc::string::String,
-}
-/// Response message for
-/// [NotebookService.UpgradeNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.UpgradeNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct UpgradeNotebookRuntimeResponse {}
-/// Request message for
-/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StartNotebookRuntimeRequest {
-    /// Required. The name of the NotebookRuntime resource to be started.
-    /// Instead of checking whether the name is in valid NotebookRuntime resource
-    /// name format, directly throw NotFound exception if there is no such
-    /// NotebookRuntime in spanner.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Metadata information for
-/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StartNotebookRuntimeOperationMetadata {
-    /// The operation generic information.
-    #[prost(message, optional, tag = "1")]
-    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
-    /// A human-readable message that shows the intermediate progress details of
-    /// NotebookRuntime.
-    #[prost(string, tag = "2")]
-    pub progress_message: ::prost::alloc::string::String,
-}
-/// Response message for
-/// [NotebookService.StartNotebookRuntime][google.cloud.aiplatform.v1.NotebookService.StartNotebookRuntime].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct StartNotebookRuntimeResponse {}
-/// Request message for \[NotebookService.CreateNotebookExecutionJob\]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateNotebookExecutionJobRequest {
-    /// Required. The resource name of the Location to create the
-    /// NotebookExecutionJob. Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The NotebookExecutionJob to create.
-    #[prost(message, optional, tag = "2")]
-    pub notebook_execution_job: ::core::option::Option<NotebookExecutionJob>,
-    /// Optional. User specified ID for the NotebookExecutionJob.
-    #[prost(string, tag = "3")]
-    pub notebook_execution_job_id: ::prost::alloc::string::String,
-}
-/// Metadata information for
-/// [NotebookService.CreateNotebookExecutionJob][google.cloud.aiplatform.v1.NotebookService.CreateNotebookExecutionJob].
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateNotebookExecutionJobOperationMetadata {
-    /// The operation generic information.
-    #[prost(message, optional, tag = "1")]
-    pub generic_metadata: ::core::option::Option<GenericOperationMetadata>,
-    /// A human-readable message that shows the intermediate progress details of
-    /// NotebookRuntime.
-    #[prost(string, tag = "2")]
-    pub progress_message: ::prost::alloc::string::String,
-}
-/// Request message for \[NotebookService.GetNotebookExecutionJob\]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetNotebookExecutionJobRequest {
-    /// Required. The name of the NotebookExecutionJob resource.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Optional. The NotebookExecutionJob view. Defaults to BASIC.
-    #[prost(enumeration = "NotebookExecutionJobView", tag = "6")]
-    pub view: i32,
-}
-/// Request message for \[NotebookService.ListNotebookExecutionJobs\]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookExecutionJobsRequest {
-    /// Required. The resource name of the Location from which to list the
-    /// NotebookExecutionJobs.
-    /// Format: `projects/{project}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. An expression for filtering the results of the request. For field
-    /// names both snake_case and camelCase are supported.
-    ///
-    ///    * `notebookExecutionJob` supports = and !=. `notebookExecutionJob`
-    ///    represents the NotebookExecutionJob ID.
-    ///    * `displayName` supports = and != and regex.
-    ///    * `schedule` supports = and != and regex.
-    ///
-    /// Some examples:
-    ///    * `notebookExecutionJob="123"`
-    ///    * `notebookExecutionJob="my-execution-job"`
-    ///    * `displayName="myDisplayName"` and `displayName=~"myDisplayNameRegex"`
-    #[prost(string, tag = "2")]
-    pub filter: ::prost::alloc::string::String,
-    /// Optional. The standard list page size.
-    #[prost(int32, tag = "3")]
-    pub page_size: i32,
-    /// Optional. The standard list page token.
-    /// Typically obtained via
-    /// [ListNotebookExecutionJobs.next_page_token][] of the previous
-    /// [NotebookService.ListNotebookExecutionJobs][google.cloud.aiplatform.v1.NotebookService.ListNotebookExecutionJobs]
-    /// call.
-    #[prost(string, tag = "4")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Optional. A comma-separated list of fields to order by, sorted in ascending
-    /// order. Use "desc" after a field name for descending. Supported fields:
-    ///
-    ///    * `display_name`
-    ///    * `create_time`
-    ///    * `update_time`
-    ///
-    /// Example: `display_name, create_time desc`.
-    #[prost(string, tag = "5")]
-    pub order_by: ::prost::alloc::string::String,
-    /// Optional. The NotebookExecutionJob view. Defaults to BASIC.
-    #[prost(enumeration = "NotebookExecutionJobView", tag = "6")]
-    pub view: i32,
-}
-/// Response message for \[NotebookService.CreateNotebookExecutionJob\]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListNotebookExecutionJobsResponse {
-    /// List of NotebookExecutionJobs in the requested page.
-    #[prost(message, repeated, tag = "1")]
-    pub notebook_execution_jobs: ::prost::alloc::vec::Vec<NotebookExecutionJob>,
-    /// A token to retrieve next page of results.
-    /// Pass to [ListNotebookExecutionJobs.page_token][] to obtain that
-    /// page.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for \[NotebookService.DeleteNotebookExecutionJob\]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteNotebookExecutionJobRequest {
-    /// Required. The name of the NotebookExecutionJob resource to be deleted.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Views for Get/List NotebookExecutionJob
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum NotebookExecutionJobView {
-    /// When unspecified, the API defaults to the BASIC view.
-    Unspecified = 0,
-    /// Includes all fields except for direct notebook inputs.
-    Basic = 1,
-    /// Includes all fields.
-    Full = 2,
-}
-impl NotebookExecutionJobView {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            NotebookExecutionJobView::Unspecified => {
-                "NOTEBOOK_EXECUTION_JOB_VIEW_UNSPECIFIED"
-            }
-            NotebookExecutionJobView::Basic => "NOTEBOOK_EXECUTION_JOB_VIEW_BASIC",
-            NotebookExecutionJobView::Full => "NOTEBOOK_EXECUTION_JOB_VIEW_FULL",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "NOTEBOOK_EXECUTION_JOB_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
-            "NOTEBOOK_EXECUTION_JOB_VIEW_BASIC" => Some(Self::Basic),
-            "NOTEBOOK_EXECUTION_JOB_VIEW_FULL" => Some(Self::Full),
-            _ => None,
-        }
-    }
-}
-/// Generated client implementations.
-pub mod notebook_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// The interface for Vertex Notebook service (a.k.a. Colab on Workbench).
-    #[derive(Debug, Clone)]
-    pub struct NotebookServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> NotebookServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> NotebookServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            NotebookServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Creates a NotebookRuntimeTemplate.
-        pub async fn create_notebook_runtime_template(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateNotebookRuntimeTemplateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/CreateNotebookRuntimeTemplate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "CreateNotebookRuntimeTemplate",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets a NotebookRuntimeTemplate.
-        pub async fn get_notebook_runtime_template(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetNotebookRuntimeTemplateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::NotebookRuntimeTemplate>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookRuntimeTemplate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "GetNotebookRuntimeTemplate",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists NotebookRuntimeTemplates in a Location.
-        pub async fn list_notebook_runtime_templates(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListNotebookRuntimeTemplatesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListNotebookRuntimeTemplatesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookRuntimeTemplates",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "ListNotebookRuntimeTemplates",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a NotebookRuntimeTemplate.
-        pub async fn delete_notebook_runtime_template(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteNotebookRuntimeTemplateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookRuntimeTemplate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "DeleteNotebookRuntimeTemplate",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates a NotebookRuntimeTemplate.
-        pub async fn update_notebook_runtime_template(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateNotebookRuntimeTemplateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::NotebookRuntimeTemplate>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/UpdateNotebookRuntimeTemplate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "UpdateNotebookRuntimeTemplate",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Assigns a NotebookRuntime to a user for a particular Notebook file. This
-        /// method will either returns an existing assignment or generates a new one.
-        pub async fn assign_notebook_runtime(
-            &mut self,
-            request: impl tonic::IntoRequest<super::AssignNotebookRuntimeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/AssignNotebookRuntime",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "AssignNotebookRuntime",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets a NotebookRuntime.
-        pub async fn get_notebook_runtime(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetNotebookRuntimeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::NotebookRuntime>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookRuntime",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "GetNotebookRuntime",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists NotebookRuntimes in a Location.
-        pub async fn list_notebook_runtimes(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListNotebookRuntimesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListNotebookRuntimesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookRuntimes",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "ListNotebookRuntimes",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a NotebookRuntime.
-        pub async fn delete_notebook_runtime(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteNotebookRuntimeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookRuntime",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "DeleteNotebookRuntime",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Upgrades a NotebookRuntime.
-        pub async fn upgrade_notebook_runtime(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpgradeNotebookRuntimeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/UpgradeNotebookRuntime",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "UpgradeNotebookRuntime",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Starts a NotebookRuntime.
-        pub async fn start_notebook_runtime(
-            &mut self,
-            request: impl tonic::IntoRequest<super::StartNotebookRuntimeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/StartNotebookRuntime",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "StartNotebookRuntime",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a NotebookExecutionJob.
-        pub async fn create_notebook_execution_job(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateNotebookExecutionJobRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/CreateNotebookExecutionJob",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "CreateNotebookExecutionJob",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets a NotebookExecutionJob.
-        pub async fn get_notebook_execution_job(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetNotebookExecutionJobRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::NotebookExecutionJob>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/GetNotebookExecutionJob",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "GetNotebookExecutionJob",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists NotebookExecutionJobs in a Location.
-        pub async fn list_notebook_execution_jobs(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListNotebookExecutionJobsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListNotebookExecutionJobsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/ListNotebookExecutionJobs",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "ListNotebookExecutionJobs",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a NotebookExecutionJob.
-        pub async fn delete_notebook_execution_job(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteNotebookExecutionJobRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.aiplatform.v1.NotebookService/DeleteNotebookExecutionJob",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.aiplatform.v1.NotebookService",
-                        "DeleteNotebookExecutionJob",
                     ),
                 );
             self.inner.unary(req, path, codec).await
