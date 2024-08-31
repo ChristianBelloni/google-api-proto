@@ -1,6 +1,6 @@
 [package]
 name = "google-api-proto"
-version = "1.705.0"
+version = "1.706.0"
 authors = ["mechiru <u9053u6d41@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
