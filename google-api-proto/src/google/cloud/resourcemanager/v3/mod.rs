@@ -3,7 +3,6 @@
 /// TagBindings. If a TagValue has any TagHolds, deletion will be blocked.
 /// This resource is intended to be created in the same cloud location as the
 /// `holder`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TagHold {
     /// Output only. The resource name of a TagHold. This is a String of the form:
@@ -33,7 +32,6 @@ pub struct TagHold {
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// The request message to create a TagHold.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagHoldRequest {
     /// Required. The resource name of the TagHold's parent TagValue. Must be of
@@ -51,11 +49,9 @@ pub struct CreateTagHoldRequest {
 /// Runtime operation information for creating a TagHold.
 /// (-- The metadata is currently empty, but may include information in the
 /// future. --)
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateTagHoldMetadata {}
 /// The request message to delete a TagHold.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTagHoldRequest {
     /// Required. The resource name of the TagHold to delete. Must be of the form:
@@ -70,11 +66,9 @@ pub struct DeleteTagHoldRequest {
 /// Runtime operation information for deleting a TagHold.
 /// (-- The metadata is currently empty, but may include information in the
 /// future. --)
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteTagHoldMetadata {}
 /// The request message for listing the TagHolds under a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagHoldsRequest {
     /// Required. The resource name of the parent TagValue. Must be of the form:
@@ -105,7 +99,6 @@ pub struct ListTagHoldsRequest {
     pub filter: ::prost::alloc::string::String,
 }
 /// The ListTagHolds response.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagHoldsResponse {
     /// A possibly paginated list of TagHolds.
@@ -302,7 +295,6 @@ pub mod tag_holds_client {
 }
 /// The root node in the resource hierarchy to which a particular entity's
 /// (a company, for example) resources belong.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Organization {
     /// Output only. The resource name of the organization. This is the
@@ -393,7 +385,6 @@ pub mod organization {
     /// The lifetime of the organization and all of its descendants are bound to
     /// the owner. If the owner is deleted, the organization and all its
     /// descendants will be deleted.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Owner {
         /// Immutable. The G Suite / Workspace customer id used in the Directory API.
@@ -403,7 +394,6 @@ pub mod organization {
 }
 /// The request sent to the `GetOrganization` method. The `name` field is
 /// required. `organization_id` is no longer accepted.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetOrganizationRequest {
     /// Required. The resource name of the Organization to fetch. This is the
@@ -413,7 +403,6 @@ pub struct GetOrganizationRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request sent to the `SearchOrganizations` method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchOrganizationsRequest {
     /// Optional. The maximum number of organizations to return in the response.
@@ -448,7 +437,6 @@ pub struct SearchOrganizationsRequest {
     pub query: ::prost::alloc::string::String,
 }
 /// The response returned from the `SearchOrganizations` method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchOrganizationsResponse {
     /// The list of Organizations that matched the search query, possibly
@@ -465,12 +453,10 @@ pub struct SearchOrganizationsResponse {
 }
 /// A status object which is used as the `metadata` field for the operation
 /// returned by DeleteOrganization.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteOrganizationMetadata {}
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UndeleteOrganization.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UndeleteOrganizationMetadata {}
 /// Generated client implementations.
@@ -732,7 +718,6 @@ pub mod organizations_client {
 }
 /// A TagValue is a child of a particular TagKey. This is used to group
 /// cloud resources for the purpose of controlling them using policies.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TagValue {
     /// Immutable. Resource name for TagValue in the format `tagValues/456`.
@@ -777,7 +762,6 @@ pub struct TagValue {
 /// The request message for listing TagValues for the specified TagKey.
 /// Resource name for TagKey, parent of the TagValues to be listed,
 /// in the format `tagKeys/123`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagValuesRequest {
     /// Required.
@@ -794,7 +778,6 @@ pub struct ListTagValuesRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// The ListTagValues response.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagValuesResponse {
     /// A possibly paginated list of TagValues that are direct descendants of
@@ -808,7 +791,6 @@ pub struct ListTagValuesResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for getting a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTagValueRequest {
     /// Required. Resource name for TagValue to be fetched in the format
@@ -817,7 +799,6 @@ pub struct GetTagValueRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for getting a TagValue by its namespaced name.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetNamespacedTagValueRequest {
     /// Required. A namespaced tag value name in the following format:
@@ -833,7 +814,6 @@ pub struct GetNamespacedTagValueRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for creating a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagValueRequest {
     /// Required. The TagValue to be created. Only fields `short_name`,
@@ -846,11 +826,9 @@ pub struct CreateTagValueRequest {
     pub validate_only: bool,
 }
 /// Runtime operation information for creating a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateTagValueMetadata {}
 /// The request message for updating a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTagValueRequest {
     /// Required. The new definition of the TagValue. Only fields `description` and
@@ -868,11 +846,9 @@ pub struct UpdateTagValueRequest {
     pub validate_only: bool,
 }
 /// Runtime operation information for updating a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateTagValueMetadata {}
 /// The request message for deleting a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTagValueRequest {
     /// Required. Resource name for TagValue to be deleted in the format
@@ -889,7 +865,6 @@ pub struct DeleteTagValueRequest {
     pub etag: ::prost::alloc::string::String,
 }
 /// Runtime operation information for deleting a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteTagValueMetadata {}
 /// Generated client implementations.
@@ -1273,7 +1248,6 @@ pub mod tag_values_client {
 /// A project is a high-level Google Cloud entity. It is a
 /// container for ACLs, APIs, App Engine Apps, VMs, and other
 /// Google Cloud Platform resources.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Project {
     /// Output only. The unique resource name of the project. It is an int64
@@ -1394,7 +1368,6 @@ pub mod project {
 /// The request sent to the
 /// [GetProject][google.cloud.resourcemanager.v3.Projects.GetProject]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
@@ -1404,7 +1377,6 @@ pub struct GetProjectRequest {
 /// The request sent to the
 /// [ListProjects][google.cloud.resourcemanager.v3.Projects.ListProjects]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListProjectsRequest {
     /// Required. The name of the parent resource whose projects are being listed.
@@ -1440,7 +1412,6 @@ pub struct ListProjectsRequest {
 ///
 /// NOTE: A response may contain fewer elements than the request `page_size` and
 /// still have a `next_page_token`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListProjectsResponse {
     /// The list of Projects under the parent. This list can be paginated.
@@ -1463,7 +1434,6 @@ pub struct ListProjectsResponse {
 /// The request sent to the
 /// [SearchProjects][google.cloud.resourcemanager.v3.Projects.SearchProjects]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchProjectsRequest {
     /// Optional. A query string for searching for projects that the caller has
@@ -1519,7 +1489,6 @@ pub struct SearchProjectsRequest {
 /// A paginated response where more pages are available has
 /// `next_page_token` set. This token can be used in a subsequent request to
 /// retrieve the next request page.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchProjectsResponse {
     /// The list of Projects that matched the list filter query. This list can
@@ -1543,7 +1512,6 @@ pub struct SearchProjectsResponse {
 /// The request sent to the
 /// [CreateProject][google.cloud.resourcemanager.v3.Projects.CreateProject]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateProjectRequest {
     /// Required. The Project to create.
@@ -1561,7 +1529,6 @@ pub struct CreateProjectRequest {
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by CreateProject. It provides insight for when significant phases of
 /// Project creation have completed.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateProjectMetadata {
     /// Creation time of the project creation workflow.
@@ -1583,7 +1550,6 @@ pub struct CreateProjectMetadata {
 /// Only the `display_name` and `labels` fields can be change. Use the
 /// [MoveProject][google.cloud.resourcemanager.v3.Projects.MoveProject] method to
 /// change the `parent` field.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateProjectRequest {
     /// Required. The new definition of the project.
@@ -1595,13 +1561,11 @@ pub struct UpdateProjectRequest {
 }
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UpdateProject.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateProjectMetadata {}
 /// The request sent to
 /// [MoveProject][google.cloud.resourcemanager.v3.Projects.MoveProject]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MoveProjectRequest {
     /// Required. The name of the project to move.
@@ -1613,12 +1577,10 @@ pub struct MoveProjectRequest {
 }
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by MoveProject.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MoveProjectMetadata {}
 /// [DeleteProject][google.cloud.resourcemanager.v3.Projects.DeleteProject]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteProjectRequest {
     /// Required. The name of the Project (for example, `projects/415104041262`).
@@ -1627,13 +1589,11 @@ pub struct DeleteProjectRequest {
 }
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by `DeleteProject`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteProjectMetadata {}
 /// The request sent to the \[UndeleteProject\]
 /// \[google.cloud.resourcemanager.v3.Projects.UndeleteProject\]
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeleteProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
@@ -1644,7 +1604,6 @@ pub struct UndeleteProjectRequest {
 }
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by `UndeleteProject`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UndeleteProjectMetadata {}
 /// Generated client implementations.
@@ -2197,7 +2156,6 @@ pub mod projects_client {
 }
 /// A folder in an organization's resource hierarchy, used to
 /// organize that organization's resources.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Folder {
     /// Output only. The resource name of the folder.
@@ -2286,7 +2244,6 @@ pub mod folder {
     }
 }
 /// The GetFolder request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetFolderRequest {
     /// Required. The resource name of the folder to retrieve.
@@ -2295,7 +2252,6 @@ pub struct GetFolderRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The ListFolders request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListFoldersRequest {
     /// Required. The name of the parent resource whose folders are being listed.
@@ -2325,7 +2281,6 @@ pub struct ListFoldersRequest {
     pub show_deleted: bool,
 }
 /// The ListFolders response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListFoldersResponse {
     /// A possibly paginated list of folders that are direct descendants of
@@ -2338,7 +2293,6 @@ pub struct ListFoldersResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for searching folders.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchFoldersRequest {
     /// Optional. The maximum number of folders to return in the response. The
@@ -2385,7 +2339,6 @@ pub struct SearchFoldersRequest {
     pub query: ::prost::alloc::string::String,
 }
 /// The response message for searching folders.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchFoldersResponse {
     /// A possibly paginated folder search results.
@@ -2398,7 +2351,6 @@ pub struct SearchFoldersResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The CreateFolder request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateFolderRequest {
     /// Required. The folder being created, only the display name and parent will
@@ -2407,7 +2359,6 @@ pub struct CreateFolderRequest {
     pub folder: ::core::option::Option<Folder>,
 }
 /// Metadata pertaining to the Folder creation process.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateFolderMetadata {
     /// The display name of the folder.
@@ -2426,7 +2377,6 @@ pub struct CreateFolderMetadata {
 /// ignored. Use the
 /// [MoveFolder][google.cloud.resourcemanager.v3.Folders.MoveFolder] method to
 /// change the `parent` field.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateFolderRequest {
     /// Required. The new definition of the Folder. It must include the `name`
@@ -2440,11 +2390,9 @@ pub struct UpdateFolderRequest {
 }
 /// A status object which is used as the `metadata` field for the Operation
 /// returned by UpdateFolder.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateFolderMetadata {}
 /// The MoveFolder request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MoveFolderRequest {
     /// Required. The resource name of the Folder to move.
@@ -2458,7 +2406,6 @@ pub struct MoveFolderRequest {
     pub destination_parent: ::prost::alloc::string::String,
 }
 /// Metadata pertaining to the folder move process.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MoveFolderMetadata {
     /// The display name of the folder.
@@ -2472,7 +2419,6 @@ pub struct MoveFolderMetadata {
     pub destination_parent: ::prost::alloc::string::String,
 }
 /// The DeleteFolder request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteFolderRequest {
     /// Required. The resource name of the folder to be deleted.
@@ -2482,11 +2428,9 @@ pub struct DeleteFolderRequest {
 }
 /// A status object which is used as the `metadata` field for the `Operation`
 /// returned by `DeleteFolder`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteFolderMetadata {}
 /// The UndeleteFolder request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeleteFolderRequest {
     /// Required. The resource name of the folder to undelete.
@@ -2496,7 +2440,6 @@ pub struct UndeleteFolderRequest {
 }
 /// A status object which is used as the `metadata` field for the `Operation`
 /// returned by `UndeleteFolder`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UndeleteFolderMetadata {}
 /// Generated client implementations.
@@ -3032,7 +2975,6 @@ pub mod folders_client {
 /// A TagBinding represents a connection between a TagValue and a cloud
 /// resource Once a TagBinding is created, the TagValue is applied to all the
 /// descendants of the Google Cloud resource.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TagBinding {
     /// Output only. The name of the TagBinding. This is a String of the form:
@@ -3059,11 +3001,9 @@ pub struct TagBinding {
     pub tag_value_namespaced_name: ::prost::alloc::string::String,
 }
 /// Runtime operation information for creating a TagValue.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateTagBindingMetadata {}
 /// The request message to create a TagBinding.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagBindingRequest {
     /// Required. The TagBinding to be created.
@@ -3075,11 +3015,9 @@ pub struct CreateTagBindingRequest {
     pub validate_only: bool,
 }
 /// Runtime operation information for deleting a TagBinding.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteTagBindingMetadata {}
 /// The request message to delete a TagBinding.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTagBindingRequest {
     /// Required. The name of the TagBinding. This is a String of the form:
@@ -3089,7 +3027,6 @@ pub struct DeleteTagBindingRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request message to list all TagBindings for a parent.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagBindingsRequest {
     /// Required. The full resource name of a resource for which you want to list
@@ -3108,7 +3045,6 @@ pub struct ListTagBindingsRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// The ListTagBindings response.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagBindingsResponse {
     /// A possibly paginated list of TagBindings for the specified resource.
@@ -3129,7 +3065,6 @@ pub struct ListTagBindingsResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message to ListEffectiveTags
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEffectiveTagsRequest {
     /// Required. The full resource name of a resource for which you want to list
@@ -3148,7 +3083,6 @@ pub struct ListEffectiveTagsRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response of ListEffectiveTags.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEffectiveTagsResponse {
     /// A possibly paginated list of effective tags for the specified resource.
@@ -3173,7 +3107,6 @@ pub struct ListEffectiveTagsResponse {
 /// its ancestor. EffectiveTag contains the name and
 /// namespaced_name of the tag value and tag key, with additional fields of
 /// `inherited` to indicate the inheritance status of the effective tag.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EffectiveTag {
     /// Resource name for TagValue in the format `tagValues/456`.
@@ -3415,7 +3348,6 @@ pub mod tag_bindings_client {
     }
 }
 /// A TagKey, used to group a set of TagValues.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TagKey {
     /// Immutable. The resource name for a TagKey. Must be in the format
@@ -3478,7 +3410,6 @@ pub struct TagKey {
     >,
 }
 /// The request message for listing all TagKeys under a parent resource.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagKeysRequest {
     /// Required. The resource name of the TagKey's parent.
@@ -3497,7 +3428,6 @@ pub struct ListTagKeysRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// The ListTagKeys response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagKeysResponse {
     /// List of TagKeys that live under the specified parent in the request.
@@ -3509,7 +3439,6 @@ pub struct ListTagKeysResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for getting a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTagKeyRequest {
     /// Required. A resource name in the format `tagKeys/{id}`, such as
@@ -3518,7 +3447,6 @@ pub struct GetTagKeyRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for getting a TagKey by its namespaced name.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetNamespacedTagKeyRequest {
     /// Required. A namespaced tag key name in the format
@@ -3529,7 +3457,6 @@ pub struct GetNamespacedTagKeyRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for creating a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTagKeyRequest {
     /// Required. The TagKey to be created. Only fields `short_name`,
@@ -3542,11 +3469,9 @@ pub struct CreateTagKeyRequest {
     pub validate_only: bool,
 }
 /// Runtime operation information for creating a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CreateTagKeyMetadata {}
 /// The request message for updating a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTagKeyRequest {
     /// Required. The new definition of the TagKey. Only the `description` and
@@ -3566,11 +3491,9 @@ pub struct UpdateTagKeyRequest {
     pub validate_only: bool,
 }
 /// Runtime operation information for updating a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct UpdateTagKeyMetadata {}
 /// The request message for deleting a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTagKeyRequest {
     /// Required. The resource name of a TagKey to be deleted in the format
@@ -3588,7 +3511,6 @@ pub struct DeleteTagKeyRequest {
     pub etag: ::prost::alloc::string::String,
 }
 /// Runtime operation information for deleting a TagKey.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteTagKeyMetadata {}
 /// A purpose for each policy engine requiring such an integration. A single

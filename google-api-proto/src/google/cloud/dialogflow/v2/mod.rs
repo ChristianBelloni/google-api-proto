@@ -11,7 +11,6 @@
 ///
 /// For more information, see the
 /// [Entity guide](<https://cloud.google.com/dialogflow/docs/entities-overview>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntityType {
     /// The unique identifier of the entity type.
@@ -43,7 +42,6 @@ pub struct EntityType {
 /// Nested message and enum types in `EntityType`.
 pub mod entity_type {
     /// An **entity entry** for an associated entity type.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Entity {
         /// Required. The primary value associated with this entity entry.
@@ -166,7 +164,6 @@ pub mod entity_type {
 }
 /// The request message for
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.v2.EntityTypes.ListEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEntityTypesRequest {
     /// Required. The agent to list all entity types from.
@@ -190,7 +187,6 @@ pub struct ListEntityTypesRequest {
 }
 /// The response message for
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.v2.EntityTypes.ListEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEntityTypesResponse {
     /// The list of agent entity types. There will be a maximum number of items
@@ -204,7 +200,6 @@ pub struct ListEntityTypesResponse {
 }
 /// The request message for
 /// [EntityTypes.GetEntityType][google.cloud.dialogflow.v2.EntityTypes.GetEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntityTypeRequest {
     /// Required. The name of the entity type.
@@ -221,7 +216,6 @@ pub struct GetEntityTypeRequest {
 }
 /// The request message for
 /// [EntityTypes.CreateEntityType][google.cloud.dialogflow.v2.EntityTypes.CreateEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateEntityTypeRequest {
     /// Required. The agent to create a entity type for.
@@ -241,7 +235,6 @@ pub struct CreateEntityTypeRequest {
 }
 /// The request message for
 /// [EntityTypes.UpdateEntityType][google.cloud.dialogflow.v2.EntityTypes.UpdateEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateEntityTypeRequest {
     /// Required. The entity type to update.
@@ -260,7 +253,6 @@ pub struct UpdateEntityTypeRequest {
 }
 /// The request message for
 /// [EntityTypes.DeleteEntityType][google.cloud.dialogflow.v2.EntityTypes.DeleteEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteEntityTypeRequest {
     /// Required. The name of the entity type to delete.
@@ -270,7 +262,6 @@ pub struct DeleteEntityTypeRequest {
 }
 /// The request message for
 /// [EntityTypes.BatchUpdateEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchUpdateEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchUpdateEntityTypesRequest {
     /// Required. The name of the agent to update or create entity types in.
@@ -306,7 +297,6 @@ pub mod batch_update_entity_types_request {
     ///
     /// *   If `name` is specified, we update an existing entity type.
     /// *   If `name` is not specified, we create a new entity type.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum EntityTypeBatch {
         /// The URI to a Google Cloud Storage file containing entity types to update
@@ -322,7 +312,6 @@ pub mod batch_update_entity_types_request {
 }
 /// The response message for
 /// [EntityTypes.BatchUpdateEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchUpdateEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchUpdateEntityTypesResponse {
     /// The collection of updated or created entity types.
@@ -331,7 +320,6 @@ pub struct BatchUpdateEntityTypesResponse {
 }
 /// The request message for
 /// [EntityTypes.BatchDeleteEntityTypes][google.cloud.dialogflow.v2.EntityTypes.BatchDeleteEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchDeleteEntityTypesRequest {
     /// Required. The name of the agent to delete all entities types for. Format:
@@ -345,7 +333,6 @@ pub struct BatchDeleteEntityTypesRequest {
 }
 /// The request message for
 /// [EntityTypes.BatchCreateEntities][google.cloud.dialogflow.v2.EntityTypes.BatchCreateEntities].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchCreateEntitiesRequest {
     /// Required. The name of the entity type to create entities in. Format:
@@ -365,7 +352,6 @@ pub struct BatchCreateEntitiesRequest {
 }
 /// The request message for
 /// [EntityTypes.BatchUpdateEntities][google.cloud.dialogflow.v2.EntityTypes.BatchUpdateEntities].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchUpdateEntitiesRequest {
     /// Required. The name of the entity type to update or create entities in.
@@ -388,7 +374,6 @@ pub struct BatchUpdateEntitiesRequest {
 }
 /// The request message for
 /// [EntityTypes.BatchDeleteEntities][google.cloud.dialogflow.v2.EntityTypes.BatchDeleteEntities].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchDeleteEntitiesRequest {
     /// Required. The name of the entity type to delete entries for. Format:
@@ -409,7 +394,6 @@ pub struct BatchDeleteEntitiesRequest {
     pub language_code: ::prost::alloc::string::String,
 }
 /// This message is a wrapper around a collection of entity types.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntityTypeBatch {
     /// A collection of entity types.
@@ -879,7 +863,6 @@ pub mod entity_types_client {
 ///
 /// For more information, see the [session entity
 /// guide](<https://cloud.google.com/dialogflow/docs/entities-session>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SessionEntityType {
     /// Required. The unique identifier of this session entity type. Format:
@@ -961,7 +944,6 @@ pub mod session_entity_type {
 }
 /// The request message for
 /// [SessionEntityTypes.ListSessionEntityTypes][google.cloud.dialogflow.v2.SessionEntityTypes.ListSessionEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSessionEntityTypesRequest {
     /// Required. The session to list all session entity types from.
@@ -982,7 +964,6 @@ pub struct ListSessionEntityTypesRequest {
 }
 /// The response message for
 /// [SessionEntityTypes.ListSessionEntityTypes][google.cloud.dialogflow.v2.SessionEntityTypes.ListSessionEntityTypes].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSessionEntityTypesResponse {
     /// The list of session entity types. There will be a maximum number of items
@@ -996,7 +977,6 @@ pub struct ListSessionEntityTypesResponse {
 }
 /// The request message for
 /// [SessionEntityTypes.GetSessionEntityType][google.cloud.dialogflow.v2.SessionEntityTypes.GetSessionEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSessionEntityTypeRequest {
     /// Required. The name of the session entity type. Format:
@@ -1011,7 +991,6 @@ pub struct GetSessionEntityTypeRequest {
 }
 /// The request message for
 /// [SessionEntityTypes.CreateSessionEntityType][google.cloud.dialogflow.v2.SessionEntityTypes.CreateSessionEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSessionEntityTypeRequest {
     /// Required. The session to create a session entity type for.
@@ -1028,7 +1007,6 @@ pub struct CreateSessionEntityTypeRequest {
 }
 /// The request message for
 /// [SessionEntityTypes.UpdateSessionEntityType][google.cloud.dialogflow.v2.SessionEntityTypes.UpdateSessionEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateSessionEntityTypeRequest {
     /// Required. The session entity type to update.
@@ -1040,7 +1018,6 @@ pub struct UpdateSessionEntityTypeRequest {
 }
 /// The request message for
 /// [SessionEntityTypes.DeleteSessionEntityType][google.cloud.dialogflow.v2.SessionEntityTypes.DeleteSessionEntityType].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteSessionEntityTypeRequest {
     /// Required. The name of the entity type to delete. Format:
@@ -1307,7 +1284,6 @@ pub mod session_entity_types_client {
     }
 }
 /// The request to get location-level encryption specification.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEncryptionSpecRequest {
     /// Required. The name of the encryption spec resource to get.
@@ -1316,7 +1292,6 @@ pub struct GetEncryptionSpecRequest {
 }
 /// A customer-managed encryption key specification that can be applied to all
 /// created resources (e.g. Conversation).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EncryptionSpec {
     /// Immutable. The resource name of the encryption key specification resource.
@@ -1333,7 +1308,6 @@ pub struct EncryptionSpec {
     pub kms_key: ::prost::alloc::string::String,
 }
 /// The request to initialize a location-level encryption specification.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitializeEncryptionSpecRequest {
     /// Required. The encryption spec used for CMEK encryption. It is required that
@@ -1344,11 +1318,9 @@ pub struct InitializeEncryptionSpecRequest {
     pub encryption_spec: ::core::option::Option<EncryptionSpec>,
 }
 /// The response to initialize a location-level encryption specification.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct InitializeEncryptionSpecResponse {}
 /// Metadata for initializing a location-level encryption specification.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitializeEncryptionSpecMetadata {
     /// Output only. The original request for initialization.
@@ -1505,7 +1477,6 @@ pub mod encryption_spec_service_client {
 ///
 /// Note: The `projects.agent.knowledgeBases` resource is deprecated;
 /// only use `projects.knowledgeBases`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct KnowledgeBase {
     /// The knowledge base resource name.
@@ -1526,7 +1497,6 @@ pub struct KnowledgeBase {
 }
 /// Request message for
 /// [KnowledgeBases.ListKnowledgeBases][google.cloud.dialogflow.v2.KnowledgeBases.ListKnowledgeBases].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListKnowledgeBasesRequest {
     /// Required. The project to list of knowledge bases for.
@@ -1571,7 +1541,6 @@ pub struct ListKnowledgeBasesRequest {
 }
 /// Response message for
 /// [KnowledgeBases.ListKnowledgeBases][google.cloud.dialogflow.v2.KnowledgeBases.ListKnowledgeBases].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListKnowledgeBasesResponse {
     /// The list of knowledge bases.
@@ -1584,7 +1553,6 @@ pub struct ListKnowledgeBasesResponse {
 }
 /// Request message for
 /// [KnowledgeBases.GetKnowledgeBase][google.cloud.dialogflow.v2.KnowledgeBases.GetKnowledgeBase].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetKnowledgeBaseRequest {
     /// Required. The name of the knowledge base to retrieve.
@@ -1595,7 +1563,6 @@ pub struct GetKnowledgeBaseRequest {
 }
 /// Request message for
 /// [KnowledgeBases.CreateKnowledgeBase][google.cloud.dialogflow.v2.KnowledgeBases.CreateKnowledgeBase].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateKnowledgeBaseRequest {
     /// Required. The project to create a knowledge base for.
@@ -1608,7 +1575,6 @@ pub struct CreateKnowledgeBaseRequest {
 }
 /// Request message for
 /// [KnowledgeBases.DeleteKnowledgeBase][google.cloud.dialogflow.v2.KnowledgeBases.DeleteKnowledgeBase].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteKnowledgeBaseRequest {
     /// Required. The name of the knowledge base to delete.
@@ -1623,7 +1589,6 @@ pub struct DeleteKnowledgeBaseRequest {
 }
 /// Request message for
 /// [KnowledgeBases.UpdateKnowledgeBase][google.cloud.dialogflow.v2.KnowledgeBases.UpdateKnowledgeBase].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateKnowledgeBaseRequest {
     /// Required. The knowledge base to update.
@@ -1858,7 +1823,6 @@ pub mod knowledge_bases_client {
 }
 /// Hints for the speech recognizer to help with recognition in a specific
 /// conversation state.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SpeechContext {
     /// Optional. A list of strings containing words and phrases that the speech
@@ -1889,7 +1853,6 @@ pub struct SpeechContext {
     pub boost: f32,
 }
 /// Information for a word recognized by the speech recognizer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SpeechWordInfo {
     /// The word this info is for.
@@ -1916,7 +1879,6 @@ pub struct SpeechWordInfo {
     pub confidence: f32,
 }
 /// Instructs the speech recognizer how to process the audio content.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InputAudioConfig {
     /// Required. Audio encoding of the audio content to process.
@@ -2003,7 +1965,6 @@ pub struct InputAudioConfig {
     pub opt_out_conformer_model_migration: bool,
 }
 /// Description of which voice to use for speech synthesis.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VoiceSelectionParams {
     /// Optional. The name of the voice. If not set, the service will choose a
@@ -2021,7 +1982,6 @@ pub struct VoiceSelectionParams {
     pub ssml_gender: i32,
 }
 /// Configuration of how speech should be synthesized.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SynthesizeSpeechConfig {
     /// Optional. Speaking rate/speed, in the range \[0.25, 4.0\]. 1.0 is the normal
@@ -2057,7 +2017,6 @@ pub struct SynthesizeSpeechConfig {
 /// Instructs the speech synthesizer on how to generate the output audio content.
 /// If this audio config is supplied in a request, it overrides all existing
 /// text-to-speech settings applied to the agent.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OutputAudioConfig {
     /// Required. Audio encoding of the synthesized audio content.
@@ -2075,7 +2034,6 @@ pub struct OutputAudioConfig {
     pub synthesize_speech_config: ::core::option::Option<SynthesizeSpeechConfig>,
 }
 /// A wrapper of repeated TelephonyDtmf digits.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TelephonyDtmfEvents {
     /// A sequence of TelephonyDtmf digits.
@@ -2084,7 +2042,6 @@ pub struct TelephonyDtmfEvents {
 }
 /// Configures speech transcription for
 /// [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SpeechToTextConfig {
     /// The speech model used in speech to text.
@@ -2485,7 +2442,6 @@ impl OutputAudioEncoding {
 ///
 /// For more information about context, see the
 /// [Contexts guide](<https://cloud.google.com/dialogflow/docs/contexts-overview>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Context {
     /// Required. The unique identifier of the context. Format:
@@ -2532,7 +2488,6 @@ pub struct Context {
 }
 /// The request message for
 /// [Contexts.ListContexts][google.cloud.dialogflow.v2.Contexts.ListContexts].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListContextsRequest {
     /// Required. The session to list all contexts from.
@@ -2553,7 +2508,6 @@ pub struct ListContextsRequest {
 }
 /// The response message for
 /// [Contexts.ListContexts][google.cloud.dialogflow.v2.Contexts.ListContexts].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListContextsResponse {
     /// The list of contexts. There will be a maximum number of items
@@ -2567,7 +2521,6 @@ pub struct ListContextsResponse {
 }
 /// The request message for
 /// [Contexts.GetContext][google.cloud.dialogflow.v2.Contexts.GetContext].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetContextRequest {
     /// Required. The name of the context. Format:
@@ -2581,7 +2534,6 @@ pub struct GetContextRequest {
 }
 /// The request message for
 /// [Contexts.CreateContext][google.cloud.dialogflow.v2.Contexts.CreateContext].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateContextRequest {
     /// Required. The session to create a context for.
@@ -2598,7 +2550,6 @@ pub struct CreateContextRequest {
 }
 /// The request message for
 /// [Contexts.UpdateContext][google.cloud.dialogflow.v2.Contexts.UpdateContext].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateContextRequest {
     /// Required. The context to update.
@@ -2610,7 +2561,6 @@ pub struct UpdateContextRequest {
 }
 /// The request message for
 /// [Contexts.DeleteContext][google.cloud.dialogflow.v2.Contexts.DeleteContext].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteContextRequest {
     /// Required. The name of the context to delete. Format:
@@ -2624,7 +2574,6 @@ pub struct DeleteContextRequest {
 }
 /// The request message for
 /// [Contexts.DeleteAllContexts][google.cloud.dialogflow.v2.Contexts.DeleteAllContexts].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteAllContextsRequest {
     /// Required. The name of the session to delete all contexts from. Format:
@@ -2892,7 +2841,6 @@ pub mod contexts_client {
 ///
 /// For more information, see the [intent
 /// guide](<https://cloud.google.com/dialogflow/docs/intents-overview>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Intent {
     /// Optional. The unique identifier of this intent.
@@ -3013,7 +2961,6 @@ pub struct Intent {
 /// Nested message and enum types in `Intent`.
 pub mod intent {
     /// Represents an example that the agent is trained on.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct TrainingPhrase {
         /// Output only. The unique identifier of this training phrase.
@@ -3054,7 +3001,6 @@ pub mod intent {
     /// Nested message and enum types in `TrainingPhrase`.
     pub mod training_phrase {
         /// Represents a part of a training phrase.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Part {
             /// Required. The text for this part.
@@ -3127,7 +3073,6 @@ pub mod intent {
         }
     }
     /// Represents intent parameters.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Parameter {
         /// The unique identifier of this parameter.
@@ -3174,7 +3119,6 @@ pub mod intent {
     /// For more information, see
     /// [Rich response
     /// messages](<https://cloud.google.com/dialogflow/docs/intents-rich-messages>).
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Message {
         /// Optional. The platform that this message is intended for.
@@ -3190,7 +3134,6 @@ pub mod intent {
     /// Nested message and enum types in `Message`.
     pub mod message {
         /// The text response message.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Text {
             /// Optional. The collection of the agent's responses.
@@ -3198,7 +3141,6 @@ pub mod intent {
             pub text: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
         }
         /// The image response message.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Image {
             /// Optional. The public URI to an image file.
@@ -3210,7 +3152,6 @@ pub mod intent {
             pub accessibility_text: ::prost::alloc::string::String,
         }
         /// The quick replies response message.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct QuickReplies {
             /// Optional. The title of the collection of quick replies.
@@ -3221,7 +3162,6 @@ pub mod intent {
             pub quick_replies: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
         }
         /// The card response message.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Card {
             /// Optional. The title of the card.
@@ -3240,7 +3180,6 @@ pub mod intent {
         /// Nested message and enum types in `Card`.
         pub mod card {
             /// Contains information about a button.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct Button {
                 /// Optional. The text to show on the button.
@@ -3253,7 +3192,6 @@ pub mod intent {
             }
         }
         /// The simple response message containing speech or text.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct SimpleResponse {
             /// One of text_to_speech or ssml must be provided. The plain text of the
@@ -3273,7 +3211,6 @@ pub mod intent {
         /// This message in `QueryResult.fulfillment_messages` and
         /// `WebhookResponse.fulfillment_messages` should contain only one
         /// `SimpleResponse`.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct SimpleResponses {
             /// Required. The list of simple responses.
@@ -3281,7 +3218,6 @@ pub mod intent {
             pub simple_responses: ::prost::alloc::vec::Vec<SimpleResponse>,
         }
         /// The basic card message. Useful for displaying information.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct BasicCard {
             /// Optional. The title of the card.
@@ -3303,7 +3239,6 @@ pub mod intent {
         /// Nested message and enum types in `BasicCard`.
         pub mod basic_card {
             /// The button object that appears at the bottom of a card.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct Button {
                 /// Required. The title of the button.
@@ -3316,7 +3251,6 @@ pub mod intent {
             /// Nested message and enum types in `Button`.
             pub mod button {
                 /// Opens the given URI.
-                #[allow(clippy::derive_partial_eq_without_eq)]
                 #[derive(Clone, PartialEq, ::prost::Message)]
                 pub struct OpenUriAction {
                     /// Required. The HTTP or HTTPS scheme URI.
@@ -3327,7 +3261,6 @@ pub mod intent {
         }
         /// The suggestion chip message that the user can tap to quickly post a reply
         /// to the conversation.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Suggestion {
             /// Required. The text shown the in the suggestion chip.
@@ -3335,7 +3268,6 @@ pub mod intent {
             pub title: ::prost::alloc::string::String,
         }
         /// The collection of suggestions.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Suggestions {
             /// Required. The list of suggested replies.
@@ -3344,7 +3276,6 @@ pub mod intent {
         }
         /// The suggestion chip message that allows the user to jump out to the app
         /// or website associated with this agent.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct LinkOutSuggestion {
             /// Required. The name of the app or site this chip is linking to.
@@ -3356,7 +3287,6 @@ pub mod intent {
             pub uri: ::prost::alloc::string::String,
         }
         /// The card for presenting a list of options to select from.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct ListSelect {
             /// Optional. The overall title of the list.
@@ -3372,7 +3302,6 @@ pub mod intent {
         /// Nested message and enum types in `ListSelect`.
         pub mod list_select {
             /// An item in the list.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct Item {
                 /// Required. Additional information about this option.
@@ -3390,7 +3319,6 @@ pub mod intent {
             }
         }
         /// The card for presenting a carousel of options to select from.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct CarouselSelect {
             /// Required. Carousel items.
@@ -3400,7 +3328,6 @@ pub mod intent {
         /// Nested message and enum types in `CarouselSelect`.
         pub mod carousel_select {
             /// An item in the carousel.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct Item {
                 /// Required. Additional info about the option item.
@@ -3419,7 +3346,6 @@ pub mod intent {
         }
         /// Additional info about the select item for when it is triggered in a
         /// dialog.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct SelectItemInfo {
             /// Required. A unique key that will be sent back to the agent if this
@@ -3432,7 +3358,6 @@ pub mod intent {
             pub synonyms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
         }
         /// The media content card for Actions on Google.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct MediaContent {
             /// Optional. What type of media is the content (ie "audio").
@@ -3447,7 +3372,6 @@ pub mod intent {
         /// Nested message and enum types in `MediaContent`.
         pub mod media_content {
             /// Response media object for media content card.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct ResponseMediaObject {
                 /// Required. Name of media card.
@@ -3466,7 +3390,6 @@ pub mod intent {
             /// Nested message and enum types in `ResponseMediaObject`.
             pub mod response_media_object {
                 /// Image to show with the media card.
-                #[allow(clippy::derive_partial_eq_without_eq)]
                 #[derive(Clone, PartialEq, ::prost::Oneof)]
                 pub enum Image {
                     /// Optional. Image to display above media content.
@@ -3521,7 +3444,6 @@ pub mod intent {
         }
         /// Browse Carousel Card for Actions on Google.
         /// <https://developers.google.com/actions/assistant/responses#browsing_carousel>
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct BrowseCarouselCard {
             /// Required. List of items in the Browse Carousel Card. Minimum of two
@@ -3541,7 +3463,6 @@ pub mod intent {
         /// Nested message and enum types in `BrowseCarouselCard`.
         pub mod browse_carousel_card {
             /// Browsing carousel tile
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct BrowseCarouselCardItem {
                 /// Required. Action to present to the user.
@@ -3567,7 +3488,6 @@ pub mod intent {
             /// Nested message and enum types in `BrowseCarouselCardItem`.
             pub mod browse_carousel_card_item {
                 /// Actions on Google action to open a given url.
-                #[allow(clippy::derive_partial_eq_without_eq)]
                 #[derive(Clone, PartialEq, ::prost::Message)]
                 pub struct OpenUrlAction {
                     /// Required. URL
@@ -3694,7 +3614,6 @@ pub mod intent {
             }
         }
         /// Table card for Actions on Google.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TableCard {
             /// Required. Title of the card.
@@ -3718,7 +3637,6 @@ pub mod intent {
         }
         /// Column properties for
         /// [TableCard][google.cloud.dialogflow.v2.Intent.Message.TableCard].
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct ColumnProperties {
             /// Required. Column heading.
@@ -3781,7 +3699,6 @@ pub mod intent {
             }
         }
         /// Row of [TableCard][google.cloud.dialogflow.v2.Intent.Message.TableCard].
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TableCardRow {
             /// Optional. List of cells that make up this row.
@@ -3793,7 +3710,6 @@ pub mod intent {
         }
         /// Cell of
         /// [TableCardRow][google.cloud.dialogflow.v2.Intent.Message.TableCardRow].
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TableCardCell {
             /// Required. Text in this cell.
@@ -3875,7 +3791,6 @@ pub mod intent {
             }
         }
         /// Required. The rich response message.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Message {
             /// The text response.
@@ -3923,7 +3838,6 @@ pub mod intent {
         }
     }
     /// Represents a single followup intent in the chain.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct FollowupIntentInfo {
         /// The unique identifier of the followup intent.
@@ -3986,7 +3900,6 @@ pub mod intent {
 }
 /// The request message for
 /// [Intents.ListIntents][google.cloud.dialogflow.v2.Intents.ListIntents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListIntentsRequest {
     /// Required. The agent to list all intents from.
@@ -4021,7 +3934,6 @@ pub struct ListIntentsRequest {
 }
 /// The response message for
 /// [Intents.ListIntents][google.cloud.dialogflow.v2.Intents.ListIntents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListIntentsResponse {
     /// The list of agent intents. There will be a maximum number of items
@@ -4035,7 +3947,6 @@ pub struct ListIntentsResponse {
 }
 /// The request message for
 /// [Intents.GetIntent][google.cloud.dialogflow.v2.Intents.GetIntent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetIntentRequest {
     /// Required. The name of the intent.
@@ -4055,7 +3966,6 @@ pub struct GetIntentRequest {
 }
 /// The request message for
 /// [Intents.CreateIntent][google.cloud.dialogflow.v2.Intents.CreateIntent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateIntentRequest {
     /// Required. The agent to create a intent for.
@@ -4078,7 +3988,6 @@ pub struct CreateIntentRequest {
 }
 /// The request message for
 /// [Intents.UpdateIntent][google.cloud.dialogflow.v2.Intents.UpdateIntent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateIntentRequest {
     /// Required. The intent to update.
@@ -4100,7 +4009,6 @@ pub struct UpdateIntentRequest {
 }
 /// The request message for
 /// [Intents.DeleteIntent][google.cloud.dialogflow.v2.Intents.DeleteIntent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteIntentRequest {
     /// Required. The name of the intent to delete. If this intent has direct or
@@ -4109,7 +4017,6 @@ pub struct DeleteIntentRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchUpdateIntentsRequest {
     /// Required. The name of the agent to update or create intents in.
@@ -4136,7 +4043,6 @@ pub struct BatchUpdateIntentsRequest {
 /// Nested message and enum types in `BatchUpdateIntentsRequest`.
 pub mod batch_update_intents_request {
     /// The source of the intent batch.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum IntentBatch {
         /// The URI to a Google Cloud Storage file containing intents to update or
@@ -4151,7 +4057,6 @@ pub mod batch_update_intents_request {
 }
 /// The response message for
 /// [Intents.BatchUpdateIntents][google.cloud.dialogflow.v2.Intents.BatchUpdateIntents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchUpdateIntentsResponse {
     /// The collection of updated or created intents.
@@ -4160,7 +4065,6 @@ pub struct BatchUpdateIntentsResponse {
 }
 /// The request message for
 /// [Intents.BatchDeleteIntents][google.cloud.dialogflow.v2.Intents.BatchDeleteIntents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchDeleteIntentsRequest {
     /// Required. The name of the agent to delete all entities types for. Format:
@@ -4173,7 +4077,6 @@ pub struct BatchDeleteIntentsRequest {
     pub intents: ::prost::alloc::vec::Vec<Intent>,
 }
 /// This message is a wrapper around a collection of intents.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IntentBatch {
     /// A collection of intents.
@@ -4517,7 +4420,6 @@ pub mod intents_client {
     }
 }
 /// The request to detect user's intent.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DetectIntentRequest {
     /// Required. The name of the session this query is sent to. Format:
@@ -4574,7 +4476,6 @@ pub struct DetectIntentRequest {
     pub input_audio: ::prost::bytes::Bytes,
 }
 /// The message returned from the DetectIntent method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DetectIntentResponse {
     /// The unique identifier of the response. It can be used to
@@ -4605,7 +4506,6 @@ pub struct DetectIntentResponse {
     pub output_audio_config: ::core::option::Option<OutputAudioConfig>,
 }
 /// Represents the parameters of the conversational query.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParameters {
     /// The time zone of this conversational query from the
@@ -4673,7 +4573,6 @@ pub struct QueryParameters {
 /// 2. A conversational query in the form of text.
 ///
 /// 3. An event that specifies which intent to trigger.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryInput {
     /// Required. The input specification.
@@ -4683,7 +4582,6 @@ pub struct QueryInput {
 /// Nested message and enum types in `QueryInput`.
 pub mod query_input {
     /// Required. The input specification.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Input {
         /// Instructs the speech recognizer how to process the speech audio.
@@ -4699,7 +4597,6 @@ pub mod query_input {
     }
 }
 /// Represents the result of conversational query or event processing.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryResult {
     /// The original conversational query text:
@@ -4846,7 +4743,6 @@ pub struct QueryResult {
 ///      * Dialogflow will use the language code from the first message.
 ///
 /// After you sent all input, you must half-close or abort the request stream.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingDetectIntentRequest {
     /// Required. The name of the session the query is sent to.
@@ -4921,7 +4817,6 @@ pub struct StreamingDetectIntentRequest {
 /// It will get populated in `StreamingDetectIntentResponse` or
 /// `StreamingAnalyzeContentResponse` when the flag `enable_debugging_info` is
 /// set to true in corresponding requests.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
@@ -5009,7 +4904,6 @@ pub struct CloudConversationDebuggingInfo {
 ///
 /// 2.  The next message contains `response_id`, `query_result`
 ///      and optionally `webhook_status` if a WebHook was called.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingDetectIntentResponse {
     /// The unique identifier of the response. It can be used to
@@ -5082,7 +4976,6 @@ pub struct StreamingDetectIntentResponse {
 ///
 /// Concatenating the finalized transcripts with `is_final` set to true,
 /// the complete utterance becomes "to be or not to be that is the question".
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingRecognitionResult {
     /// Type of the result message.
@@ -5177,7 +5070,6 @@ pub mod streaming_recognition_result {
 /// Auxiliary proto messages.
 ///
 /// Represents the natural language text to be processed.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextInput {
     /// Required. The UTF-8 encoded natural language text to be processed.
@@ -5196,7 +5088,6 @@ pub struct TextInput {
 /// parameters: { name: "Sam" } }>` can trigger a personalized welcome response.
 /// The parameter `name` may be used by the agent in the response:
 /// `"Hello #welcome_event.name! What can I do for you today?"`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventInput {
     /// Required. The unique identifier of the event.
@@ -5231,7 +5122,6 @@ pub struct EventInput {
     pub language_code: ::prost::alloc::string::String,
 }
 /// Configures the types of sentiment analysis to perform.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SentimentAnalysisRequestConfig {
     /// Instructs the service to perform sentiment analysis on
@@ -5253,7 +5143,6 @@ pub struct SentimentAnalysisRequestConfig {
 /// [Participants.StreamingAnalyzeContent][google.cloud.dialogflow.v2.Participants.StreamingAnalyzeContent],
 /// it needs to be configured in
 /// [ConversationProfile.human_agent_assistant_config][google.cloud.dialogflow.v2.ConversationProfile.human_agent_assistant_config]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SentimentAnalysisResult {
     /// The sentiment analysis result for `query_text`.
@@ -5264,7 +5153,6 @@ pub struct SentimentAnalysisResult {
 /// of analysis, such as the query text. See:
 /// <https://cloud.google.com/natural-language/docs/basics#interpreting_sentiment_analysis_values>
 /// for how to interpret the result.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Sentiment {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
@@ -5450,7 +5338,6 @@ pub mod sessions_client {
     }
 }
 /// Represents a conversation participant (human agent, virtual agent, end-user).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Participant {
     /// Optional. The unique identifier of this participant.
@@ -5577,7 +5464,6 @@ pub mod participant {
     }
 }
 /// Represents a message posted into a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Message {
     /// Optional. The unique identifier of the message.
@@ -5614,7 +5500,6 @@ pub struct Message {
 }
 /// The request message for
 /// [Participants.CreateParticipant][google.cloud.dialogflow.v2.Participants.CreateParticipant].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateParticipantRequest {
     /// Required. Resource identifier of the conversation adding the participant.
@@ -5628,7 +5513,6 @@ pub struct CreateParticipantRequest {
 }
 /// The request message for
 /// [Participants.GetParticipant][google.cloud.dialogflow.v2.Participants.GetParticipant].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetParticipantRequest {
     /// Required. The name of the participant. Format:
@@ -5639,7 +5523,6 @@ pub struct GetParticipantRequest {
 }
 /// The request message for
 /// [Participants.ListParticipants][google.cloud.dialogflow.v2.Participants.ListParticipants].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListParticipantsRequest {
     /// Required. The conversation to list all participants from.
@@ -5657,7 +5540,6 @@ pub struct ListParticipantsRequest {
 }
 /// The response message for
 /// [Participants.ListParticipants][google.cloud.dialogflow.v2.Participants.ListParticipants].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListParticipantsResponse {
     /// The list of participants. There is a maximum number of items
@@ -5671,7 +5553,6 @@ pub struct ListParticipantsResponse {
 }
 /// The request message for
 /// [Participants.UpdateParticipant][google.cloud.dialogflow.v2.Participants.UpdateParticipant].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateParticipantRequest {
     /// Required. The participant to update.
@@ -5683,7 +5564,6 @@ pub struct UpdateParticipantRequest {
 }
 /// The request message for
 /// [Participants.AnalyzeContent][google.cloud.dialogflow.v2.Participants.AnalyzeContent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeContentRequest {
     /// Required. The name of the participant this text comes from.
@@ -5724,7 +5604,6 @@ pub struct AnalyzeContentRequest {
 /// Nested message and enum types in `AnalyzeContentRequest`.
 pub mod analyze_content_request {
     /// Required. The input content.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Input {
         /// The natural language text to be processed.
@@ -5739,7 +5618,6 @@ pub mod analyze_content_request {
     }
 }
 /// The message in the response that indicates the parameters of DTMF.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DtmfParameters {
     /// Indicates whether DTMF input can be handled in the next request.
@@ -5748,7 +5626,6 @@ pub struct DtmfParameters {
 }
 /// The response message for
 /// [Participants.AnalyzeContent][google.cloud.dialogflow.v2.Participants.AnalyzeContent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeContentResponse {
     /// The output text content.
@@ -5845,7 +5722,6 @@ pub struct AnalyzeContentResponse {
 ///     Moreover, you must not send more than two messages.
 ///
 ///   After you sent all input, you must half-close or abort the request stream.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingAnalyzeContentRequest {
     /// Required. The name of the participant this text comes from.
@@ -5915,7 +5791,6 @@ pub struct StreamingAnalyzeContentRequest {
 /// Nested message and enum types in `StreamingAnalyzeContentRequest`.
 pub mod streaming_analyze_content_request {
     /// The input config.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Config {
         /// Instructs the speech recognizer how to process the speech audio.
@@ -5926,7 +5801,6 @@ pub mod streaming_analyze_content_request {
         TextConfig(super::InputTextConfig),
     }
     /// The input.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Input {
         /// The input audio content to be recognized. Must be sent if `audio_config`
@@ -5970,7 +5844,6 @@ pub mod streaming_analyze_content_request {
 ///      In human assist stage: the following N (N >= 1) messages contain
 ///      `human_agent_suggestion_results`, `end_user_suggestion_results` or
 ///      `message`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingAnalyzeContentResponse {
     /// The result of speech recognition.
@@ -6026,7 +5899,6 @@ pub struct StreamingAnalyzeContentResponse {
 }
 /// The request message for
 /// [Participants.SuggestArticles][google.cloud.dialogflow.v2.Participants.SuggestArticles].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestArticlesRequest {
     /// Required. The name of the participant to fetch suggestion for.
@@ -6053,7 +5925,6 @@ pub struct SuggestArticlesRequest {
 }
 /// The response message for
 /// [Participants.SuggestArticles][google.cloud.dialogflow.v2.Participants.SuggestArticles].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestArticlesResponse {
     /// Articles ordered by score in descending order.
@@ -6077,7 +5948,6 @@ pub struct SuggestArticlesResponse {
 }
 /// The request message for
 /// [Participants.SuggestFaqAnswers][google.cloud.dialogflow.v2.Participants.SuggestFaqAnswers].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestFaqAnswersRequest {
     /// Required. The name of the participant to fetch suggestion for.
@@ -6103,7 +5973,6 @@ pub struct SuggestFaqAnswersRequest {
 }
 /// The request message for
 /// [Participants.SuggestFaqAnswers][google.cloud.dialogflow.v2.Participants.SuggestFaqAnswers].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestFaqAnswersResponse {
     /// Answers extracted from FAQ documents.
@@ -6127,7 +5996,6 @@ pub struct SuggestFaqAnswersResponse {
 }
 /// The request message for
 /// [Participants.SuggestSmartReplies][google.cloud.dialogflow.v2.Participants.SuggestSmartReplies].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestSmartRepliesRequest {
     /// Required. The name of the participant to fetch suggestion for.
@@ -6155,7 +6023,6 @@ pub struct SuggestSmartRepliesRequest {
 }
 /// The response message for
 /// [Participants.SuggestSmartReplies][google.cloud.dialogflow.v2.Participants.SuggestSmartReplies].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestSmartRepliesResponse {
     /// Output only. Multiple reply options provided by smart reply service. The
@@ -6180,7 +6047,6 @@ pub struct SuggestSmartRepliesResponse {
     pub context_size: i32,
 }
 /// Represents the natural language speech audio to be played to the end user.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OutputAudio {
     /// Instructs the speech synthesizer how to generate the speech
@@ -6192,7 +6058,6 @@ pub struct OutputAudio {
     pub audio: ::prost::bytes::Bytes,
 }
 /// Represents a response from an automated agent.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutomatedAgentReply {
     /// Response of the Dialogflow
@@ -6265,7 +6130,6 @@ pub mod automated_agent_reply {
     }
 }
 /// Represents article answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ArticleAnswer {
     /// The article title.
@@ -6297,7 +6161,6 @@ pub struct ArticleAnswer {
     pub answer_record: ::prost::alloc::string::String,
 }
 /// Represents answer from "frequently asked questions".
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FaqAnswer {
     /// The piece of text from the `source` knowledge base document.
@@ -6331,7 +6194,6 @@ pub struct FaqAnswer {
     pub answer_record: ::prost::alloc::string::String,
 }
 /// Represents a smart reply answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SmartReplyAnswer {
     /// The content of the reply.
@@ -6350,7 +6212,6 @@ pub struct SmartReplyAnswer {
     pub answer_record: ::prost::alloc::string::String,
 }
 /// Represents an intent suggestion.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IntentSuggestion {
     /// The display name of the intent.
@@ -6367,7 +6228,6 @@ pub struct IntentSuggestion {
 /// Nested message and enum types in `IntentSuggestion`.
 pub mod intent_suggestion {
     /// The name of the intent.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Intent {
         /// The unique identifier of this
@@ -6378,7 +6238,6 @@ pub mod intent_suggestion {
     }
 }
 /// Represents a Dialogflow assist answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DialogflowAssistAnswer {
     /// The name of answer record, in the format of
@@ -6393,7 +6252,6 @@ pub struct DialogflowAssistAnswer {
 /// Nested message and enum types in `DialogflowAssistAnswer`.
 pub mod dialogflow_assist_answer {
     /// Result from DetectIntent for one matched intent.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Result {
         /// Result from v2 agent.
@@ -6411,7 +6269,6 @@ pub mod dialogflow_assist_answer {
 /// [Participants.AnalyzeContent][google.cloud.dialogflow.v2.Participants.AnalyzeContent],
 /// as well as
 /// [HumanAgentAssistantEvent][google.cloud.dialogflow.v2.HumanAgentAssistantEvent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestionResult {
     /// Different type of suggestion response.
@@ -6423,7 +6280,6 @@ pub struct SuggestionResult {
 /// Nested message and enum types in `SuggestionResult`.
 pub mod suggestion_result {
     /// Different type of suggestion response.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum SuggestionResponse {
         /// Error status if the request failed.
@@ -6444,7 +6300,6 @@ pub mod suggestion_result {
     }
 }
 /// Defines the language used in the input text.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InputTextConfig {
     /// Required. The language of this conversational query. See [Language
@@ -6456,7 +6311,6 @@ pub struct InputTextConfig {
 /// Represents a part of a message possibly annotated with an entity. The part
 /// can be an entity or purely a part of the message between two entities or
 /// message start/end.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnnotatedMessagePart {
     /// A part of a message possibly annotated with an entity.
@@ -6482,7 +6336,6 @@ pub struct AnnotatedMessagePart {
     pub formatted_value: ::core::option::Option<::prost_types::Value>,
 }
 /// Represents the result of annotation for the message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessageAnnotation {
     /// The collection of annotated message parts ordered by their
@@ -6495,7 +6348,6 @@ pub struct MessageAnnotation {
     pub contain_entities: bool,
 }
 /// Represents the selection of a suggestion.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestionInput {
     /// Required. The ID of a suggestion selected by the human agent.
@@ -6508,7 +6360,6 @@ pub struct SuggestionInput {
     pub answer_record: ::prost::alloc::string::String,
 }
 /// Represents the parameters of human assist query.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssistQueryParameters {
     /// Key-value filters on the metadata of documents returned by article
@@ -6536,7 +6387,6 @@ pub struct AssistQueryParameters {
 }
 /// The request message for
 /// [Participants.SuggestKnowledgeAssist][google.cloud.dialogflow.v2.Participants.SuggestKnowledgeAssist].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestKnowledgeAssistRequest {
     /// Required. The name of the participant to fetch suggestions for.
@@ -6565,7 +6415,6 @@ pub struct SuggestKnowledgeAssistRequest {
 }
 /// The response message for
 /// [Participants.SuggestKnowledgeAssist][google.cloud.dialogflow.v2.Participants.SuggestKnowledgeAssist].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestKnowledgeAssistResponse {
     /// Output only. Knowledge Assist suggestion.
@@ -6585,7 +6434,6 @@ pub struct SuggestKnowledgeAssistResponse {
     pub context_size: i32,
 }
 /// Represents a Knowledge Assist answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct KnowledgeAssistAnswer {
     /// The query suggested based on the context. Suggestion is made only if it
@@ -6607,7 +6455,6 @@ pub struct KnowledgeAssistAnswer {
 /// Nested message and enum types in `KnowledgeAssistAnswer`.
 pub mod knowledge_assist_answer {
     /// Represents a suggested query.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SuggestedQuery {
         /// Suggested query text.
@@ -6616,7 +6463,6 @@ pub mod knowledge_assist_answer {
     }
     /// Represents an answer from Knowledge. Currently supports FAQ and Generative
     /// answers.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct KnowledgeAnswer {
         /// The piece of text from the `source` that answers this suggested query.
@@ -6629,7 +6475,6 @@ pub mod knowledge_assist_answer {
     /// Nested message and enum types in `KnowledgeAnswer`.
     pub mod knowledge_answer {
         /// Details about source of FAQ answer.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct FaqSource {
             /// The corresponding FAQ question.
@@ -6637,7 +6482,6 @@ pub mod knowledge_assist_answer {
             pub question: ::prost::alloc::string::String,
         }
         /// Details about source of Generative answer.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct GenerativeSource {
             /// All snippets used for this Generative Prediction, with their source URI
@@ -6648,7 +6492,6 @@ pub mod knowledge_assist_answer {
         /// Nested message and enum types in `GenerativeSource`.
         pub mod generative_source {
             /// Snippet Source for a Generative Prediction.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct Snippet {
                 /// URI the data is sourced from.
@@ -6663,7 +6506,6 @@ pub mod knowledge_assist_answer {
             }
         }
         /// Source of result.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Source {
             /// Populated if the prediction came from FAQ.
@@ -7081,7 +6923,6 @@ pub mod participants_client {
 }
 /// Represents a notification sent to Pub/Sub subscribers for conversation
 /// lifecycle events.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationEvent {
     /// The unique identifier of the conversation this notification
@@ -7172,7 +7013,6 @@ pub mod conversation_event {
         }
     }
     /// Payload of conversation event.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Payload {
         /// Payload of NEW_MESSAGE event.
@@ -7181,7 +7021,6 @@ pub mod conversation_event {
     }
 }
 /// Defines the services to connect to incoming Dialogflow conversations.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationProfile {
     /// The unique identifier of this conversation profile.
@@ -7251,7 +7090,6 @@ pub struct ConversationProfile {
 }
 /// The request message for
 /// [ConversationProfiles.ListConversationProfiles][google.cloud.dialogflow.v2.ConversationProfiles.ListConversationProfiles].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationProfilesRequest {
     /// Required. The project to list all conversation profiles from.
@@ -7268,7 +7106,6 @@ pub struct ListConversationProfilesRequest {
 }
 /// The response message for
 /// [ConversationProfiles.ListConversationProfiles][google.cloud.dialogflow.v2.ConversationProfiles.ListConversationProfiles].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationProfilesResponse {
     /// The list of project conversation profiles. There is a maximum number
@@ -7282,7 +7119,6 @@ pub struct ListConversationProfilesResponse {
 }
 /// The request message for
 /// [ConversationProfiles.GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConversationProfileRequest {
     /// Required. The resource name of the conversation profile.
@@ -7293,7 +7129,6 @@ pub struct GetConversationProfileRequest {
 }
 /// The request message for
 /// [ConversationProfiles.CreateConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.CreateConversationProfile].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationProfileRequest {
     /// Required. The project to create a conversation profile for.
@@ -7306,7 +7141,6 @@ pub struct CreateConversationProfileRequest {
 }
 /// The request message for
 /// [ConversationProfiles.UpdateConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.UpdateConversationProfile].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateConversationProfileRequest {
     /// Required. The conversation profile to update.
@@ -7321,7 +7155,6 @@ pub struct UpdateConversationProfileRequest {
 ///
 /// This operation fails if the conversation profile is still referenced from
 /// a phone number.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteConversationProfileRequest {
     /// Required. The name of the conversation profile to delete.
@@ -7331,7 +7164,6 @@ pub struct DeleteConversationProfileRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Defines the Automated Agent to connect to a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutomatedAgentConfig {
     /// Required. ID of the Dialogflow agent environment to use.
@@ -7361,7 +7193,6 @@ pub struct AutomatedAgentConfig {
     pub session_ttl: ::core::option::Option<::prost_types::Duration>,
 }
 /// Defines the Human Agent Assist to connect to a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HumanAgentAssistantConfig {
     /// Pub/Sub topic on which to publish new agent assistant events.
@@ -7389,7 +7220,6 @@ pub struct HumanAgentAssistantConfig {
 /// Nested message and enum types in `HumanAgentAssistantConfig`.
 pub mod human_agent_assistant_config {
     /// Settings of suggestion trigger.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct SuggestionTriggerSettings {
         /// Do not trigger if last utterance is small talk.
@@ -7401,7 +7231,6 @@ pub mod human_agent_assistant_config {
         pub only_end_user: bool,
     }
     /// Config for suggestion features.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SuggestionFeatureConfig {
         /// The suggestion feature.
@@ -7453,7 +7282,6 @@ pub mod human_agent_assistant_config {
         >,
     }
     /// Detail human agent assistant config.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SuggestionConfig {
         /// Configuration of different suggestion features. One feature can have only
@@ -7487,7 +7315,6 @@ pub mod human_agent_assistant_config {
         pub disable_high_latency_features_sync_delivery: bool,
     }
     /// Config for suggestion query.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SuggestionQueryConfig {
         /// Maximum number of results to return. Currently, if unset, defaults to 10.
@@ -7535,7 +7362,6 @@ pub mod human_agent_assistant_config {
         /// Knowledge base source settings.
         ///
         /// Supported features: ARTICLE_SUGGESTION, FAQ.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct KnowledgeBaseQuerySource {
             /// Required. Knowledge bases to query. Format:
@@ -7550,7 +7376,6 @@ pub mod human_agent_assistant_config {
         /// Document source settings.
         ///
         /// Supported features: SMART_REPLY, SMART_COMPOSE.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct DocumentQuerySource {
             /// Required. Knowledge documents to query from. Format:
@@ -7563,7 +7388,6 @@ pub mod human_agent_assistant_config {
         /// Dialogflow source setting.
         ///
         /// Supported feature: DIALOGFLOW_ASSIST.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct DialogflowQuerySource {
             /// Required. The name of a Dialogflow virtual agent used for end user side
@@ -7582,7 +7406,6 @@ pub mod human_agent_assistant_config {
         pub mod dialogflow_query_source {
             /// The configuration used for human agent side Dialogflow assist
             /// suggestion.
-            #[allow(clippy::derive_partial_eq_without_eq)]
             #[derive(Clone, PartialEq, ::prost::Message)]
             pub struct HumanAgentSideConfig {
                 /// Optional. The name of a dialogflow virtual agent used for intent
@@ -7594,7 +7417,6 @@ pub mod human_agent_assistant_config {
         }
         /// Settings that determine how to filter recent conversation context when
         /// generating suggestions.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, Copy, PartialEq, ::prost::Message)]
         pub struct ContextFilterSettings {
             /// If set to true, the last message from virtual agent (hand off message)
@@ -7613,7 +7435,6 @@ pub mod human_agent_assistant_config {
         ///
         /// Supported features: CONVERSATION_SUMMARIZATION,
         /// CONVERSATION_SUMMARIZATION_VOICE.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Sections {
             /// The selected sections chosen to return when requesting a summary of a
@@ -7697,7 +7518,6 @@ pub mod human_agent_assistant_config {
             }
         }
         /// Source of query.
-        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum QuerySource {
             /// Query from knowledgebase. It is used by:
@@ -7717,7 +7537,6 @@ pub mod human_agent_assistant_config {
     ///
     /// Supported feature: ARTICLE_SUGGESTION, SMART_COMPOSE, SMART_REPLY,
     /// CONVERSATION_SUMMARIZATION.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ConversationModelConfig {
         /// Conversation model resource name. Format: `projects/<Project
@@ -7736,7 +7555,6 @@ pub mod human_agent_assistant_config {
         pub baseline_model_version: ::prost::alloc::string::String,
     }
     /// Config to process conversation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ConversationProcessConfig {
         /// Number of recent non-small-talk sentences to use as context for article
@@ -7745,7 +7563,6 @@ pub mod human_agent_assistant_config {
         pub recent_sentences_count: i32,
     }
     /// Configuration for analyses to run on each conversation message.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct MessageAnalysisConfig {
         /// Enable entity extraction in conversation messages on [agent assist
@@ -7785,7 +7602,6 @@ pub mod human_agent_assistant_config {
 ///
 /// Currently, this feature is not general available, please contact Google
 /// to get access.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HumanAgentHandoffConfig {
     /// Required. Specifies which agent service to connect for human agent handoff.
@@ -7795,7 +7611,6 @@ pub struct HumanAgentHandoffConfig {
 /// Nested message and enum types in `HumanAgentHandoffConfig`.
 pub mod human_agent_handoff_config {
     /// Configuration specific to [LivePerson](<https://www.liveperson.com>).
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct LivePersonConfig {
         /// Required. Account number of the LivePerson account to connect. This is
@@ -7804,7 +7619,6 @@ pub mod human_agent_handoff_config {
         pub account_number: ::prost::alloc::string::String,
     }
     /// Configuration specific to Salesforce Live Agent.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SalesforceLiveAgentConfig {
         /// Required. The organization ID of the Salesforce account.
@@ -7824,7 +7638,6 @@ pub mod human_agent_handoff_config {
         pub endpoint_domain: ::prost::alloc::string::String,
     }
     /// Required. Specifies which agent service to connect for human agent handoff.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum AgentService {
         /// Uses [LivePerson](<https://www.liveperson.com>).
@@ -7836,7 +7649,6 @@ pub mod human_agent_handoff_config {
     }
 }
 /// Defines notification behavior.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NotificationConfig {
     /// Name of the Pub/Sub topic to publish conversation
@@ -7908,7 +7720,6 @@ pub mod notification_config {
     }
 }
 /// Defines logging behavior for conversation lifecycle events.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct LoggingConfig {
     /// Whether to log conversation events like
@@ -7921,7 +7732,6 @@ pub struct LoggingConfig {
 /// The type of Human Agent Assistant API suggestion to perform, and the maximum
 /// number of results to return for that type. Multiple `Feature` objects can
 /// be specified in the `features` list.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SuggestionFeature {
     /// Type of Human Agent Assistant API feature to request.
@@ -7988,7 +7798,6 @@ pub mod suggestion_feature {
 }
 /// The request message for
 /// [ConversationProfiles.SetSuggestionFeature][].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetSuggestionFeatureConfigRequest {
     /// Required. The Conversation Profile to add or update the suggestion feature
@@ -8007,7 +7816,6 @@ pub struct SetSuggestionFeatureConfigRequest {
     >,
 }
 /// The request message for [ConversationProfiles.ClearFeature][].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClearSuggestionFeatureConfigRequest {
     /// Required. The Conversation Profile to add or update the suggestion feature
@@ -8025,7 +7833,6 @@ pub struct ClearSuggestionFeatureConfigRequest {
 }
 /// Metadata for a [ConversationProfile.SetSuggestionFeatureConfig][]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetSuggestionFeatureConfigOperationMetadata {
     /// The resource name of the conversation profile. Format:
@@ -8046,7 +7853,6 @@ pub struct SetSuggestionFeatureConfigOperationMetadata {
 }
 /// Metadata for a [ConversationProfile.ClearSuggestionFeatureConfig][]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClearSuggestionFeatureConfigOperationMetadata {
     /// The resource name of the conversation profile. Format:
@@ -8395,7 +8201,6 @@ pub mod conversation_profiles_client {
     }
 }
 /// Request message of CreateGenerator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateGeneratorRequest {
     /// Required. The project/location to create generator for. Format:
@@ -8419,7 +8224,6 @@ pub struct CreateGeneratorRequest {
     pub generator_id: ::prost::alloc::string::String,
 }
 /// Request message of GetGenerator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetGeneratorRequest {
     /// Required. The generator resource name to retrieve. Format:
@@ -8428,7 +8232,6 @@ pub struct GetGeneratorRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request message of ListGenerators.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListGeneratorsRequest {
     /// Required. The project/location to list generators for. Format:
@@ -8444,7 +8247,6 @@ pub struct ListGeneratorsRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response of ListGenerators.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListGeneratorsResponse {
     /// List of generators retrieved.
@@ -8456,7 +8258,6 @@ pub struct ListGeneratorsResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request of DeleteGenerator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteGeneratorRequest {
     /// Required. The generator resource name to delete. Format:
@@ -8465,7 +8266,6 @@ pub struct DeleteGeneratorRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request of UpdateGenerator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateGeneratorRequest {
     /// Required. The generator to update.
@@ -8477,7 +8277,6 @@ pub struct UpdateGeneratorRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Represents a message entry of a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessageEntry {
     /// Optional. Participant role of the message.
@@ -8547,7 +8346,6 @@ pub mod message_entry {
     }
 }
 /// Context of the conversation, including transcripts.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationContext {
     /// Optional. List of message transcripts in the conversation.
@@ -8555,7 +8353,6 @@ pub struct ConversationContext {
     pub message_entries: ::prost::alloc::vec::Vec<MessageEntry>,
 }
 /// List of summarization sections.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SummarizationSectionList {
     /// Optional. Summarization sections.
@@ -8565,7 +8362,6 @@ pub struct SummarizationSectionList {
 /// Providing examples in the generator (i.e. building a few-shot generator)
 /// helps convey the desired format of the LLM response.
 /// NEXT_ID: 10
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FewShotExample {
     /// Optional. Conversation transcripts.
@@ -8589,7 +8385,6 @@ pub struct FewShotExample {
 /// Nested message and enum types in `FewShotExample`.
 pub mod few_shot_example {
     /// Instruction list of this few_shot example.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum InstructionList {
         /// Summarization sections.
@@ -8598,7 +8393,6 @@ pub mod few_shot_example {
     }
 }
 /// The parameters of inference.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct InferenceParameter {
     /// Optional. Maximum number of the output tokens for the generator.
@@ -8632,7 +8426,6 @@ pub struct InferenceParameter {
     pub top_p: ::core::option::Option<f64>,
 }
 /// Represents the section of summarization.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SummarizationSection {
     /// Optional. Name of the section, for example, "situation".
@@ -8723,7 +8516,6 @@ pub mod summarization_section {
     }
 }
 /// Summarization context that customer can configure.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SummarizationContext {
     /// Optional. List of sections. Note it contains both predefined section sand
@@ -8744,7 +8536,6 @@ pub struct SummarizationContext {
     pub output_language_code: ::prost::alloc::string::String,
 }
 /// LLM generator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Generator {
     /// Output only. Identifier. The resource name of the generator. Format:
@@ -8774,7 +8565,6 @@ pub struct Generator {
 /// Nested message and enum types in `Generator`.
 pub mod generator {
     /// Required. Input context of the generator.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Context {
         /// Input of prebuilt Summarization feature.
@@ -8783,7 +8573,6 @@ pub mod generator {
     }
 }
 /// Suggested summary of the conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SummarySuggestion {
     /// Required. All the parts of generated summary.
@@ -8793,7 +8582,6 @@ pub struct SummarySuggestion {
 /// Nested message and enum types in `SummarySuggestion`.
 pub mod summary_suggestion {
     /// A component of the generated summary.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SummarySection {
         /// Required. Name of the section.
@@ -8805,7 +8593,6 @@ pub mod summary_suggestion {
     }
 }
 /// Suggestion generated using a Generator.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GeneratorSuggestion {
     /// The suggestion could be one of the many types
@@ -8815,7 +8602,6 @@ pub struct GeneratorSuggestion {
 /// Nested message and enum types in `GeneratorSuggestion`.
 pub mod generator_suggestion {
     /// The suggestion could be one of the many types
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Suggestion {
         /// Optional. Suggested summary.
@@ -9086,7 +8872,6 @@ pub mod generators_client {
 /// A conversation is an interaction between an agent, including live agents
 /// and Dialogflow agents, and a support customer. Conversations can
 /// include phone calls and text-based chat sessions.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Conversation {
     /// Output only. Identifier. The unique identifier of this conversation.
@@ -9228,7 +9013,6 @@ pub mod conversation {
 }
 /// The request message for
 /// [Conversations.CreateConversation][google.cloud.dialogflow.v2.Conversations.CreateConversation].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationRequest {
     /// Required. Resource identifier of the project creating the conversation.
@@ -9253,7 +9037,6 @@ pub struct CreateConversationRequest {
 }
 /// The request message for
 /// [Conversations.ListConversations][google.cloud.dialogflow.v2.Conversations.ListConversations].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationsRequest {
     /// Required. The project from which to list all conversation.
@@ -9280,7 +9063,6 @@ pub struct ListConversationsRequest {
 }
 /// The response message for
 /// [Conversations.ListConversations][google.cloud.dialogflow.v2.Conversations.ListConversations].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationsResponse {
     /// The list of conversations. There will be a maximum number of items
@@ -9294,7 +9076,6 @@ pub struct ListConversationsResponse {
 }
 /// The request message for
 /// [Conversations.GetConversation][google.cloud.dialogflow.v2.Conversations.GetConversation].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConversationRequest {
     /// Required. The name of the conversation. Format:
@@ -9305,7 +9086,6 @@ pub struct GetConversationRequest {
 }
 /// The request message for
 /// [Conversations.CompleteConversation][google.cloud.dialogflow.v2.Conversations.CompleteConversation].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CompleteConversationRequest {
     /// Required. Resource identifier of the conversation to close.
@@ -9316,7 +9096,6 @@ pub struct CompleteConversationRequest {
 }
 /// The request message for
 /// [Conversations.ListMessages][google.cloud.dialogflow.v2.Conversations.ListMessages].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMessagesRequest {
     /// Required. The name of the conversation to list messages for.
@@ -9344,7 +9123,6 @@ pub struct ListMessagesRequest {
 }
 /// The response message for
 /// [Conversations.ListMessages][google.cloud.dialogflow.v2.Conversations.ListMessages].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMessagesResponse {
     /// The list of messages. There will be a maximum number of items
@@ -9359,7 +9137,6 @@ pub struct ListMessagesResponse {
 }
 /// Represents a phone number for telephony integration. It allows for connecting
 /// a particular conversation over telephony.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationPhoneNumber {
     /// Output only. The phone number to connect to this conversation.
@@ -9368,7 +9145,6 @@ pub struct ConversationPhoneNumber {
 }
 /// The request message for
 /// [Conversations.SuggestConversationSummary][google.cloud.dialogflow.v2.Conversations.SuggestConversationSummary].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestConversationSummaryRequest {
     /// Required. The conversation to fetch suggestion for.
@@ -9396,7 +9172,6 @@ pub struct SuggestConversationSummaryRequest {
 }
 /// The response message for
 /// [Conversations.SuggestConversationSummary][google.cloud.dialogflow.v2.Conversations.SuggestConversationSummary].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuggestConversationSummaryResponse {
     /// Generated summary.
@@ -9419,7 +9194,6 @@ pub struct SuggestConversationSummaryResponse {
 /// Nested message and enum types in `SuggestConversationSummaryResponse`.
 pub mod suggest_conversation_summary_response {
     /// Generated summary for a conversation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Summary {
         /// The summary content that is concatenated into one string.
@@ -9445,7 +9219,6 @@ pub mod suggest_conversation_summary_response {
 }
 /// The request message for
 /// [Conversations.GenerateStatelessSummary][google.cloud.dialogflow.v2.Conversations.GenerateStatelessSummary].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateStatelessSummaryRequest {
     /// Required. The conversation to suggest a summary for.
@@ -9475,7 +9248,6 @@ pub struct GenerateStatelessSummaryRequest {
 pub mod generate_stateless_summary_request {
     /// The minimum amount of information required to generate a Summary without
     /// having a Conversation resource created.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct MinimalConversation {
         /// Required. The messages that the Summary will be generated from. It is
@@ -9493,7 +9265,6 @@ pub mod generate_stateless_summary_request {
 }
 /// The response message for
 /// [Conversations.GenerateStatelessSummary][google.cloud.dialogflow.v2.Conversations.GenerateStatelessSummary].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateStatelessSummaryResponse {
     /// Generated summary.
@@ -9514,7 +9285,6 @@ pub struct GenerateStatelessSummaryResponse {
 /// Nested message and enum types in `GenerateStatelessSummaryResponse`.
 pub mod generate_stateless_summary_response {
     /// Generated summary for a conversation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Summary {
         /// The summary content that is concatenated into one string.
@@ -9536,7 +9306,6 @@ pub mod generate_stateless_summary_response {
 }
 /// The request message for
 /// [Conversations.GenerateStatelessSuggestion][google.cloud.dialogflow.v2.Conversations.GenerateStatelessSuggestion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateStatelessSuggestionRequest {
     /// Required. The parent resource to charge for the Suggestion's generation.
@@ -9562,7 +9331,6 @@ pub struct GenerateStatelessSuggestionRequest {
 /// Nested message and enum types in `GenerateStatelessSuggestionRequest`.
 pub mod generate_stateless_suggestion_request {
     /// Generator.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum GeneratorResource {
         /// Uncreated generator. It should be a complete generator that includes all
@@ -9577,7 +9345,6 @@ pub mod generate_stateless_suggestion_request {
 }
 /// The response message for
 /// [Conversations.GenerateStatelessSuggestion][google.cloud.dialogflow.v2.Conversations.GenerateStatelessSuggestion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateStatelessSuggestionResponse {
     /// Required. Generated suggestion for a conversation.
@@ -9586,7 +9353,6 @@ pub struct GenerateStatelessSuggestionResponse {
 }
 /// The request message for
 /// [Conversations.SearchKnowledge][google.cloud.dialogflow.v2.Conversations.SearchKnowledge].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchKnowledgeRequest {
     /// Required. The parent resource contains the conversation profile
@@ -9625,7 +9391,6 @@ pub struct SearchKnowledgeRequest {
 }
 /// The response message for
 /// [Conversations.SearchKnowledge][google.cloud.dialogflow.v2.Conversations.SearchKnowledge].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchKnowledgeResponse {
     /// Most relevant snippets extracted from articles in the given knowledge base,
@@ -9637,7 +9402,6 @@ pub struct SearchKnowledgeResponse {
     pub rewritten_query: ::prost::alloc::string::String,
 }
 /// Represents a SearchKnowledge answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchKnowledgeAnswer {
     /// The piece of text from the knowledge base documents that answers
@@ -9659,7 +9423,6 @@ pub struct SearchKnowledgeAnswer {
 /// Nested message and enum types in `SearchKnowledgeAnswer`.
 pub mod search_knowledge_answer {
     /// The sources of the answers.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct AnswerSource {
         /// The title of the article.
@@ -10098,7 +9861,6 @@ pub mod conversations_client {
     }
 }
 /// Google Cloud Storage location for the inputs.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GcsSources {
     /// Required. Google Cloud Storage URIs for the inputs. A URI is of the form:
@@ -10108,7 +9870,6 @@ pub struct GcsSources {
     pub uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Google Cloud Storage location for the output.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GcsDestination {
     /// The Google Cloud Storage URIs for the output. A URI is of the
@@ -10120,7 +9881,6 @@ pub struct GcsDestination {
     pub uri: ::prost::alloc::string::String,
 }
 /// Represents a single validation error.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidationError {
     /// The severity of the error.
@@ -10201,7 +9961,6 @@ pub mod validation_error {
     }
 }
 /// Represents the output of agent validation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidationResult {
     /// Contains all validation errors.
@@ -10218,7 +9977,6 @@ pub struct ValidationResult {
 /// For more information about agents, see the
 /// [Agent guide](<https://cloud.google.com/dialogflow/docs/agents-overview>).
 ///
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Agent {
     /// Required. The project of this agent.
@@ -10428,7 +10186,6 @@ pub mod agent {
 }
 /// The request message for
 /// [Agents.GetAgent][google.cloud.dialogflow.v2.Agents.GetAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAgentRequest {
     /// Required. The project that the agent to fetch is associated with.
@@ -10438,7 +10195,6 @@ pub struct GetAgentRequest {
 }
 /// The request message for
 /// [Agents.SetAgent][google.cloud.dialogflow.v2.Agents.SetAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetAgentRequest {
     /// Required. The agent to update.
@@ -10450,7 +10206,6 @@ pub struct SetAgentRequest {
 }
 /// The request message for
 /// [Agents.DeleteAgent][google.cloud.dialogflow.v2.Agents.DeleteAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteAgentRequest {
     /// Required. The project that the agent to delete is associated with.
@@ -10460,7 +10215,6 @@ pub struct DeleteAgentRequest {
 }
 /// The request message for
 /// [Agents.SearchAgents][google.cloud.dialogflow.v2.Agents.SearchAgents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchAgentsRequest {
     /// Required. The project to list agents from.
@@ -10477,7 +10231,6 @@ pub struct SearchAgentsRequest {
 }
 /// The response message for
 /// [Agents.SearchAgents][google.cloud.dialogflow.v2.Agents.SearchAgents].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchAgentsResponse {
     /// The list of agents. There will be a maximum number of items returned based
@@ -10491,7 +10244,6 @@ pub struct SearchAgentsResponse {
 }
 /// The request message for
 /// [Agents.TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TrainAgentRequest {
     /// Required. The project that the agent to train is associated with.
@@ -10501,7 +10253,6 @@ pub struct TrainAgentRequest {
 }
 /// The request message for
 /// [Agents.ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportAgentRequest {
     /// Required. The project that the agent to export is associated with.
@@ -10523,7 +10274,6 @@ pub struct ExportAgentRequest {
 }
 /// The response message for
 /// [Agents.ExportAgent][google.cloud.dialogflow.v2.Agents.ExportAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportAgentResponse {
     /// The exported agent.
@@ -10533,7 +10283,6 @@ pub struct ExportAgentResponse {
 /// Nested message and enum types in `ExportAgentResponse`.
 pub mod export_agent_response {
     /// The exported agent.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Agent {
         /// The URI to a file containing the exported agent. This field is populated
@@ -10547,7 +10296,6 @@ pub mod export_agent_response {
 }
 /// The request message for
 /// [Agents.ImportAgent][google.cloud.dialogflow.v2.Agents.ImportAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportAgentRequest {
     /// Required. The project that the agent to import is associated with.
@@ -10561,7 +10309,6 @@ pub struct ImportAgentRequest {
 /// Nested message and enum types in `ImportAgentRequest`.
 pub mod import_agent_request {
     /// Required. The agent to import.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Agent {
         /// The URI to a Google Cloud Storage file containing the agent to import.
@@ -10581,7 +10328,6 @@ pub mod import_agent_request {
 }
 /// The request message for
 /// [Agents.RestoreAgent][google.cloud.dialogflow.v2.Agents.RestoreAgent].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RestoreAgentRequest {
     /// Required. The project that the agent to restore is associated with.
@@ -10595,7 +10341,6 @@ pub struct RestoreAgentRequest {
 /// Nested message and enum types in `RestoreAgentRequest`.
 pub mod restore_agent_request {
     /// Required. The agent to restore.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Agent {
         /// The URI to a Google Cloud Storage file containing the agent to restore.
@@ -10615,7 +10360,6 @@ pub mod restore_agent_request {
 }
 /// The request message for
 /// [Agents.GetValidationResult][google.cloud.dialogflow.v2.Agents.GetValidationResult].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetValidationResultRequest {
     /// Required. The project that the agent is associated with.
@@ -11064,7 +10808,6 @@ pub mod agents_client {
 /// [AnswerRecord.name][google.cloud.dialogflow.v2.AnswerRecord.name] to call the
 ///     [UpdateAnswerRecord][] method to send feedback about a specific answer
 ///     that they believe is wrong.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnswerRecord {
     /// The unique identifier of this answer record.
@@ -11084,7 +10827,6 @@ pub struct AnswerRecord {
 /// Nested message and enum types in `AnswerRecord`.
 pub mod answer_record {
     /// The record for this answer.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Record {
         /// Output only. The record for human agent assistant.
@@ -11094,7 +10836,6 @@ pub mod answer_record {
 }
 /// Request message for
 /// [AnswerRecords.ListAnswerRecords][google.cloud.dialogflow.v2.AnswerRecords.ListAnswerRecords].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListAnswerRecordsRequest {
     /// Required. The project to list all answer records for in reverse
@@ -11125,7 +10866,6 @@ pub struct ListAnswerRecordsRequest {
 }
 /// Response message for
 /// [AnswerRecords.ListAnswerRecords][google.cloud.dialogflow.v2.AnswerRecords.ListAnswerRecords].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListAnswerRecordsResponse {
     /// The list of answer records.
@@ -11142,7 +10882,6 @@ pub struct ListAnswerRecordsResponse {
 }
 /// Request message for
 /// [AnswerRecords.UpdateAnswerRecord][google.cloud.dialogflow.v2.AnswerRecords.UpdateAnswerRecord].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateAnswerRecordRequest {
     /// Required. Answer record to update.
@@ -11154,7 +10893,6 @@ pub struct UpdateAnswerRecordRequest {
 }
 /// Represents feedback the customer has about the quality & correctness of a
 /// certain answer in a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnswerFeedback {
     /// The correctness level of the specific answer.
@@ -11230,7 +10968,6 @@ pub mod answer_feedback {
         }
     }
     /// Normally, detail feedback is provided when answer is not fully correct.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum DetailFeedback {
         /// Detail feedback of agent assist suggestions.
@@ -11239,7 +10976,6 @@ pub mod answer_feedback {
     }
 }
 /// Detail feedback of Agent Assist result.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AgentAssistantFeedback {
     /// Optional. Whether or not the suggested answer is relevant.
@@ -11290,7 +11026,6 @@ pub struct AgentAssistantFeedback {
 /// Nested message and enum types in `AgentAssistantFeedback`.
 pub mod agent_assistant_feedback {
     /// Feedback for conversation summarization.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SummarizationFeedback {
         /// Timestamp when composing of the summary starts.
@@ -11310,7 +11045,6 @@ pub mod agent_assistant_feedback {
         >,
     }
     /// Feedback for knowledge search.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct KnowledgeSearchFeedback {
         /// Whether the answer was copied by the human agent or not.
@@ -11328,7 +11062,6 @@ pub mod agent_assistant_feedback {
         pub clicked_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     }
     /// Feedback for knowledge assist.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct KnowledgeAssistFeedback {
         /// Whether the suggested answer was copied by the human agent.
@@ -11476,7 +11209,6 @@ pub mod agent_assistant_feedback {
     }
 }
 /// Represents a record of a human agent assist answer.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AgentAssistantRecord {
     /// Output only. The agent assist answer.
@@ -11486,7 +11218,6 @@ pub struct AgentAssistantRecord {
 /// Nested message and enum types in `AgentAssistantRecord`.
 pub mod agent_assistant_record {
     /// Output only. The agent assist answer.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Answer {
         /// Output only. The article suggestion answer.
@@ -11648,7 +11379,6 @@ pub mod answer_records_client {
 ///
 /// For more information, see the [fulfillment
 /// guide](<https://cloud.google.com/dialogflow/docs/fulfillment-overview>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Fulfillment {
     /// Required. The unique identifier of the fulfillment.
@@ -11687,7 +11417,6 @@ pub mod fulfillment {
     ///
     /// More information could be found at:
     /// <https://cloud.google.com/dialogflow/docs/fulfillment-configure.>
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct GenericWebService {
         /// Required. The fulfillment URI for receiving POST requests.
@@ -11717,7 +11446,6 @@ pub mod fulfillment {
         pub is_cloud_function: bool,
     }
     /// Whether fulfillment is enabled for the specific feature.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Feature {
         /// The type of the feature that enabled for fulfillment.
@@ -11767,7 +11495,6 @@ pub mod fulfillment {
         }
     }
     /// Required. The fulfillment configuration.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Fulfillment {
         /// Configuration for a generic web service.
@@ -11777,7 +11504,6 @@ pub mod fulfillment {
 }
 /// The request message for
 /// [Fulfillments.GetFulfillment][google.cloud.dialogflow.v2.Fulfillments.GetFulfillment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetFulfillmentRequest {
     /// Required. The name of the fulfillment.
@@ -11787,7 +11513,6 @@ pub struct GetFulfillmentRequest {
 }
 /// The request message for
 /// [Fulfillments.UpdateFulfillment][google.cloud.dialogflow.v2.Fulfillments.UpdateFulfillment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateFulfillmentRequest {
     /// Required. The fulfillment to update.
@@ -11939,7 +11664,6 @@ pub mod fulfillments_client {
 ///
 /// Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
 /// only use `projects.knowledgeBases.documents`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Document {
     /// Optional. The document resource name.
@@ -12005,7 +11729,6 @@ pub struct Document {
 /// Nested message and enum types in `Document`.
 pub mod document {
     /// The status of a reload attempt.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ReloadStatus {
         /// The time of a reload attempt.
@@ -12132,7 +11855,6 @@ pub mod document {
         }
     }
     /// Required. The source of this document.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// The URI where the file content is located.
@@ -12154,7 +11876,6 @@ pub mod document {
 }
 /// Request message for
 /// [Documents.GetDocument][google.cloud.dialogflow.v2.Documents.GetDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDocumentRequest {
     /// Required. The name of the document to retrieve.
@@ -12165,7 +11886,6 @@ pub struct GetDocumentRequest {
 }
 /// Request message for
 /// [Documents.ListDocuments][google.cloud.dialogflow.v2.Documents.ListDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListDocumentsRequest {
     /// Required. The knowledge base to list all documents for.
@@ -12206,7 +11926,6 @@ pub struct ListDocumentsRequest {
 }
 /// Response message for
 /// [Documents.ListDocuments][google.cloud.dialogflow.v2.Documents.ListDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListDocumentsResponse {
     /// The list of documents.
@@ -12219,7 +11938,6 @@ pub struct ListDocumentsResponse {
 }
 /// Request message for
 /// [Documents.CreateDocument][google.cloud.dialogflow.v2.Documents.CreateDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateDocumentRequest {
     /// Required. The knowledge base to create a document for.
@@ -12233,7 +11951,6 @@ pub struct CreateDocumentRequest {
 }
 /// Request message for
 /// [Documents.ImportDocuments][google.cloud.dialogflow.v2.Documents.ImportDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportDocumentsRequest {
     /// Required. The knowledge base to import documents into.
@@ -12269,7 +11986,6 @@ pub mod import_documents_request {
     ///
     /// Dialogflow supports up to 350 documents in each request. If you try to
     /// import more, Dialogflow will return an error.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// Optional. The Google Cloud Storage location for the documents.
@@ -12283,7 +11999,6 @@ pub mod import_documents_request {
     }
 }
 /// The template used for importing documents.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportDocumentTemplate {
     /// Required. The MIME type of the document.
@@ -12309,7 +12024,6 @@ pub struct ImportDocumentTemplate {
 }
 /// Response message for
 /// [Documents.ImportDocuments][google.cloud.dialogflow.v2.Documents.ImportDocuments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportDocumentsResponse {
     /// Includes details about skipped documents or any other warnings.
@@ -12318,7 +12032,6 @@ pub struct ImportDocumentsResponse {
 }
 /// Request message for
 /// [Documents.DeleteDocument][google.cloud.dialogflow.v2.Documents.DeleteDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteDocumentRequest {
     /// Required. The name of the document to delete.
@@ -12329,7 +12042,6 @@ pub struct DeleteDocumentRequest {
 }
 /// Request message for
 /// [Documents.UpdateDocument][google.cloud.dialogflow.v2.Documents.UpdateDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateDocumentRequest {
     /// Required. The document to update.
@@ -12343,7 +12055,6 @@ pub struct UpdateDocumentRequest {
 }
 /// Request message for
 /// [Documents.ReloadDocument][google.cloud.dialogflow.v2.Documents.ReloadDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReloadDocumentRequest {
     /// Required. The name of the document to reload.
@@ -12380,7 +12091,6 @@ pub mod reload_document_request {
     /// Reloading from a new document source is allowed for smart messaging
     /// documents only. If you want to update the source for other document types,
     /// please delete the existing document and create a new one instead.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// Optional. The path of gcs source file for reloading document content. For
@@ -12394,7 +12104,6 @@ pub mod reload_document_request {
 }
 /// Request message for
 /// [Documents.ExportDocument][google.cloud.dialogflow.v2.Documents.ExportDocument].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportDocumentRequest {
     /// Required. The name of the document to export.
@@ -12417,7 +12126,6 @@ pub struct ExportDocumentRequest {
 /// Nested message and enum types in `ExportDocumentRequest`.
 pub mod export_document_request {
     /// Required. The destination for the export.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Destination {
         /// Cloud Storage file path to export the document.
@@ -12426,7 +12134,6 @@ pub mod export_document_request {
     }
 }
 /// Metadata related to the Export Data Operations (e.g. ExportDocument).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportOperationMetadata {
     /// Cloud Storage file path of the exported data.
@@ -12434,7 +12141,6 @@ pub struct ExportOperationMetadata {
     pub exported_gcs_destination: ::core::option::Option<GcsDestination>,
 }
 /// Metadata in google::longrunning::Operation for Knowledge operations.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct KnowledgeOperationMetadata {
     /// Output only. The current state of this operation.
@@ -12499,7 +12205,6 @@ pub mod knowledge_operation_metadata {
         }
     }
     /// Additional metadata for the Knowledge operation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OperationMetadata {
         /// Metadata for the Export Data Operation such as the destination of export.
@@ -12890,7 +12595,6 @@ pub mod documents_client {
     }
 }
 /// The request message for a webhook call.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WebhookRequest {
     /// The unique identifier of detectIntent request session.
@@ -12930,7 +12634,6 @@ pub struct WebhookRequest {
 /// For more information, see the
 /// [Protocol Buffers Language
 /// Guide](<https://developers.google.com/protocol-buffers/docs/proto3#json>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WebhookResponse {
     /// Optional. The text response message intended for the end-user.
@@ -12989,7 +12692,6 @@ pub struct WebhookResponse {
 }
 /// Represents the contents of the original request that was passed to
 /// the `\[Streaming\]DetectIntent` call.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OriginalDetectIntentRequest {
     /// The source of this request, e.g., `google`, `facebook`, `slack`. It is set
@@ -13035,7 +12737,6 @@ pub struct OriginalDetectIntentRequest {
 ///
 /// For more information, see the [versions and environments
 /// guide](<https://cloud.google.com/dialogflow/docs/agents-versions>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Version {
     /// Output only. The unique identifier of this agent version.
@@ -13114,7 +12815,6 @@ pub mod version {
 }
 /// The request message for
 /// [Versions.ListVersions][google.cloud.dialogflow.v2.Versions.ListVersions].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVersionsRequest {
     /// Required. The agent to list all versions from.
@@ -13134,7 +12834,6 @@ pub struct ListVersionsRequest {
 }
 /// The response message for
 /// [Versions.ListVersions][google.cloud.dialogflow.v2.Versions.ListVersions].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVersionsResponse {
     /// The list of agent versions. There will be a maximum number of items
@@ -13148,7 +12847,6 @@ pub struct ListVersionsResponse {
 }
 /// The request message for
 /// [Versions.GetVersion][google.cloud.dialogflow.v2.Versions.GetVersion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetVersionRequest {
     /// Required. The name of the version.
@@ -13162,7 +12860,6 @@ pub struct GetVersionRequest {
 }
 /// The request message for
 /// [Versions.CreateVersion][google.cloud.dialogflow.v2.Versions.CreateVersion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateVersionRequest {
     /// Required. The agent to create a version for.
@@ -13178,7 +12875,6 @@ pub struct CreateVersionRequest {
 }
 /// The request message for
 /// [Versions.UpdateVersion][google.cloud.dialogflow.v2.Versions.UpdateVersion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateVersionRequest {
     /// Required. The version to update.
@@ -13195,7 +12891,6 @@ pub struct UpdateVersionRequest {
 }
 /// The request message for
 /// [Versions.DeleteVersion][google.cloud.dialogflow.v2.Versions.DeleteVersion].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteVersionRequest {
     /// Required. The name of the version to delete.
@@ -13448,7 +13143,6 @@ pub mod versions_client {
 ///
 /// For more information, see the [versions and environments
 /// guide](<https://cloud.google.com/dialogflow/docs/agents-versions>).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Environment {
     /// Output only. The unique identifier of this agent environment.
@@ -13543,7 +13237,6 @@ pub mod environment {
     }
 }
 /// Instructs the speech synthesizer on how to generate the output audio content.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextToSpeechSettings {
     /// Optional. Indicates whether text to speech is enabled. Even when this field
@@ -13571,7 +13264,6 @@ pub struct TextToSpeechSettings {
 }
 /// The request message for
 /// [Environments.ListEnvironments][google.cloud.dialogflow.v2.Environments.ListEnvironments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEnvironmentsRequest {
     /// Required. The agent to list all environments from.
@@ -13591,7 +13283,6 @@ pub struct ListEnvironmentsRequest {
 }
 /// The response message for
 /// [Environments.ListEnvironments][google.cloud.dialogflow.v2.Environments.ListEnvironments].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEnvironmentsResponse {
     /// The list of agent environments. There will be a maximum number of items
@@ -13605,7 +13296,6 @@ pub struct ListEnvironmentsResponse {
 }
 /// The request message for
 /// [Environments.GetEnvironment][google.cloud.dialogflow.v2.Environments.GetEnvironment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEnvironmentRequest {
     /// Required. The name of the environment.
@@ -13621,7 +13311,6 @@ pub struct GetEnvironmentRequest {
 }
 /// The request message for
 /// [Environments.CreateEnvironment][google.cloud.dialogflow.v2.Environments.CreateEnvironment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateEnvironmentRequest {
     /// Required. The agent to create an environment for.
@@ -13640,7 +13329,6 @@ pub struct CreateEnvironmentRequest {
 }
 /// The request message for
 /// [Environments.UpdateEnvironment][google.cloud.dialogflow.v2.Environments.UpdateEnvironment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateEnvironmentRequest {
     /// Required. The environment to update.
@@ -13658,7 +13346,6 @@ pub struct UpdateEnvironmentRequest {
 }
 /// The request message for
 /// [Environments.DeleteEnvironment][google.cloud.dialogflow.v2.Environments.DeleteEnvironment].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteEnvironmentRequest {
     /// Required. The name of the environment to delete.
@@ -13674,7 +13361,6 @@ pub struct DeleteEnvironmentRequest {
 }
 /// The request message for
 /// [Environments.GetEnvironmentHistory][google.cloud.dialogflow.v2.Environments.GetEnvironmentHistory].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEnvironmentHistoryRequest {
     /// Required. The name of the environment to retrieve history for.
@@ -13697,7 +13383,6 @@ pub struct GetEnvironmentHistoryRequest {
 }
 /// The response message for
 /// [Environments.GetEnvironmentHistory][google.cloud.dialogflow.v2.Environments.GetEnvironmentHistory].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EnvironmentHistory {
     /// Output only. The name of the environment this history is for.
@@ -13722,7 +13407,6 @@ pub struct EnvironmentHistory {
 /// Nested message and enum types in `EnvironmentHistory`.
 pub mod environment_history {
     /// Represents an environment history entry.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Entry {
         /// The agent version loaded into this environment history entry.
@@ -14000,7 +13684,6 @@ pub mod environments_client {
 }
 /// Represents a notification sent to Cloud Pub/Sub subscribers for
 /// human agent assistant events in a specific conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HumanAgentAssistantEvent {
     /// The conversation this notification refers to.
@@ -14017,7 +13700,6 @@ pub struct HumanAgentAssistantEvent {
     pub suggestion_results: ::prost::alloc::vec::Vec<SuggestionResult>,
 }
 /// Represents a conversation model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationModel {
     /// ConversationModel resource name. Format:
@@ -14169,7 +13851,6 @@ pub mod conversation_model {
     /// Required.
     /// The model metadata that is specific to the problem type.
     /// Must match the metadata type of the dataset used to train the model.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum ModelMetadata {
         /// Metadata for article suggestion models.
@@ -14181,7 +13862,6 @@ pub mod conversation_model {
     }
 }
 /// Represents evaluation result of a conversation model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationModelEvaluation {
     /// The resource name of the evaluation. Format:
@@ -14222,7 +13902,6 @@ pub struct ConversationModelEvaluation {
 /// Nested message and enum types in `ConversationModelEvaluation`.
 pub mod conversation_model_evaluation {
     /// Metrics details.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Metrics {
         /// Output only. Only available when model is for smart reply.
@@ -14231,7 +13910,6 @@ pub mod conversation_model_evaluation {
     }
 }
 /// The configuration for model evaluation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EvaluationConfig {
     /// Required. Datasets used for evaluation.
@@ -14246,7 +13924,6 @@ pub struct EvaluationConfig {
 /// Nested message and enum types in `EvaluationConfig`.
 pub mod evaluation_config {
     /// Smart reply specific configuration for evaluation job.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SmartReplyConfig {
         /// The allowlist document resource name.
@@ -14262,7 +13939,6 @@ pub mod evaluation_config {
         pub max_result_count: i32,
     }
     /// Smart compose specific configuration for evaluation job.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SmartComposeConfig {
         /// The allowlist document resource name.
@@ -14278,7 +13954,6 @@ pub mod evaluation_config {
         pub max_result_count: i32,
     }
     /// Specific configurations for different models in order to do evaluation.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ModelSpecificConfig {
         /// Configuration for smart reply model evalution.
@@ -14291,7 +13966,6 @@ pub mod evaluation_config {
 }
 /// InputDataset used to create model or do evaluation.
 /// NextID:5
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InputDataset {
     /// Required. ConversationDataset resource name. Format:
@@ -14301,7 +13975,6 @@ pub struct InputDataset {
     pub dataset: ::prost::alloc::string::String,
 }
 /// Metadata for article suggestion models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ArticleSuggestionModelMetadata {
     /// Optional. Type of the article suggestion model. If not provided, model_type
@@ -14310,7 +13983,6 @@ pub struct ArticleSuggestionModelMetadata {
     pub training_model_type: i32,
 }
 /// Metadata for smart reply models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SmartReplyModelMetadata {
     /// Optional. Type of the smart reply model. If not provided, model_type is
@@ -14319,7 +13991,6 @@ pub struct SmartReplyModelMetadata {
     pub training_model_type: i32,
 }
 /// The evaluation metrics for smart reply model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SmartReplyMetrics {
     /// Percentage of target participant messages in the evaluation dataset for
@@ -14337,7 +14008,6 @@ pub struct SmartReplyMetrics {
 /// Nested message and enum types in `SmartReplyMetrics`.
 pub mod smart_reply_metrics {
     /// Evaluation metrics when retrieving `n` smart replies with the model.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct TopNMetrics {
         /// Number of retrieved smart replies. For example, when `n` is 3, this
@@ -14355,7 +14025,6 @@ pub mod smart_reply_metrics {
 }
 /// The request message for
 /// [ConversationModels.CreateConversationModel][google.cloud.dialogflow.v2.ConversationModels.CreateConversationModel]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationModelRequest {
     /// The project to create conversation model for. Format:
@@ -14368,7 +14037,6 @@ pub struct CreateConversationModelRequest {
 }
 /// The request message for
 /// [ConversationModels.GetConversationModel][google.cloud.dialogflow.v2.ConversationModels.GetConversationModel]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConversationModelRequest {
     /// Required. The conversation model to retrieve. Format:
@@ -14378,7 +14046,6 @@ pub struct GetConversationModelRequest {
 }
 /// The request message for
 /// [ConversationModels.ListConversationModels][google.cloud.dialogflow.v2.ConversationModels.ListConversationModels]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationModelsRequest {
     /// Required. The project to list all conversation models for.
@@ -14395,7 +14062,6 @@ pub struct ListConversationModelsRequest {
 }
 /// The response message for
 /// [ConversationModels.ListConversationModels][google.cloud.dialogflow.v2.ConversationModels.ListConversationModels]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationModelsResponse {
     /// The list of models to return.
@@ -14408,7 +14074,6 @@ pub struct ListConversationModelsResponse {
 }
 /// The request message for
 /// [ConversationModels.DeleteConversationModel][google.cloud.dialogflow.v2.ConversationModels.DeleteConversationModel]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteConversationModelRequest {
     /// Required. The conversation model to delete. Format:
@@ -14418,7 +14083,6 @@ pub struct DeleteConversationModelRequest {
 }
 /// The request message for
 /// [ConversationModels.DeployConversationModel][google.cloud.dialogflow.v2.ConversationModels.DeployConversationModel]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeployConversationModelRequest {
     /// Required. The conversation model to deploy. Format:
@@ -14428,7 +14092,6 @@ pub struct DeployConversationModelRequest {
 }
 /// The request message for
 /// [ConversationModels.UndeployConversationModel][google.cloud.dialogflow.v2.ConversationModels.UndeployConversationModel]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeployConversationModelRequest {
     /// Required. The conversation model to undeploy. Format:
@@ -14438,7 +14101,6 @@ pub struct UndeployConversationModelRequest {
 }
 /// The request message for
 /// [ConversationModels.GetConversationModelEvaluation][google.cloud.dialogflow.v2.ConversationModels.GetConversationModelEvaluation]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConversationModelEvaluationRequest {
     /// Required. The conversation model evaluation resource name. Format:
@@ -14449,7 +14111,6 @@ pub struct GetConversationModelEvaluationRequest {
 }
 /// The request message for
 /// [ConversationModels.ListConversationModelEvaluations][google.cloud.dialogflow.v2.ConversationModels.ListConversationModelEvaluations]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationModelEvaluationsRequest {
     /// Required. The conversation model resource name. Format:
@@ -14466,7 +14127,6 @@ pub struct ListConversationModelEvaluationsRequest {
 }
 /// The response message for
 /// [ConversationModels.ListConversationModelEvaluations][google.cloud.dialogflow.v2.ConversationModels.ListConversationModelEvaluations]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationModelEvaluationsResponse {
     /// The list of evaluations to return.
@@ -14481,7 +14141,6 @@ pub struct ListConversationModelEvaluationsResponse {
 }
 /// The request message for
 /// [ConversationModels.CreateConversationModelEvaluation][google.cloud.dialogflow.v2.ConversationModels.CreateConversationModelEvaluation]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationModelEvaluationRequest {
     /// Required. The conversation model resource name. Format:
@@ -14498,7 +14157,6 @@ pub struct CreateConversationModelEvaluationRequest {
 /// Metadata for a
 /// [ConversationModels.CreateConversationModel][google.cloud.dialogflow.v2.ConversationModels.CreateConversationModel]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationModelOperationMetadata {
     /// The resource name of the conversation model. Format:
@@ -14583,7 +14241,6 @@ pub mod create_conversation_model_operation_metadata {
 /// Metadata for a
 /// [ConversationModels.DeployConversationModel][google.cloud.dialogflow.v2.ConversationModels.DeployConversationModel]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeployConversationModelOperationMetadata {
     /// The resource name of the conversation model. Format:
@@ -14598,7 +14255,6 @@ pub struct DeployConversationModelOperationMetadata {
 /// Metadata for a
 /// [ConversationModels.UndeployConversationModel][google.cloud.dialogflow.v2.ConversationModels.UndeployConversationModel]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeployConversationModelOperationMetadata {
     /// The resource name of the conversation model. Format:
@@ -14613,7 +14269,6 @@ pub struct UndeployConversationModelOperationMetadata {
 /// Metadata for a
 /// [ConversationModels.DeleteConversationModel][google.cloud.dialogflow.v2.ConversationModels.DeleteConversationModel]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteConversationModelOperationMetadata {
     /// The resource name of the conversation model. Format:
@@ -14628,7 +14283,6 @@ pub struct DeleteConversationModelOperationMetadata {
 /// Metadata for a
 /// [ConversationModels.CreateConversationModelEvaluation][google.cloud.dialogflow.v2.ConversationModels.CreateConversationModelEvaluation]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationModelEvaluationOperationMetadata {
     /// The resource name of the conversation model. Format:
@@ -15115,7 +14769,6 @@ pub mod conversation_models_client {
     }
 }
 /// Represents metadata of a conversation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationInfo {
     /// Optional. The language code of the conversation data within this dataset.
@@ -15126,7 +14779,6 @@ pub struct ConversationInfo {
 }
 /// Represents the configuration of importing a set of conversation files in
 /// Google Cloud Storage.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InputConfig {
     /// Required. Where the data is from.
@@ -15136,7 +14788,6 @@ pub struct InputConfig {
 /// Nested message and enum types in `InputConfig`.
 pub mod input_config {
     /// Required. Where the data is from.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// The Cloud Storage URI has the form gs://<Google Cloud Storage bucket
@@ -15150,7 +14801,6 @@ pub mod input_config {
 /// The data inside ConversationDataset can not be changed after
 /// ImportConversationData finishes (and calling ImportConversationData on a
 /// dataset that already has data is not allowed).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConversationDataset {
     /// Output only. ConversationDataset resource name. Format:
@@ -15180,7 +14830,6 @@ pub struct ConversationDataset {
 }
 /// The request message for
 /// [ConversationDatasets.CreateConversationDataset][google.cloud.dialogflow.v2.ConversationDatasets.CreateConversationDataset].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationDatasetRequest {
     /// Required. The project to create conversation dataset for. Format:
@@ -15193,7 +14842,6 @@ pub struct CreateConversationDatasetRequest {
 }
 /// The request message for
 /// [ConversationDatasets.GetConversationDataset][google.cloud.dialogflow.v2.ConversationDatasets.GetConversationDataset].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConversationDatasetRequest {
     /// Required. The conversation dataset to retrieve. Format:
@@ -15204,7 +14852,6 @@ pub struct GetConversationDatasetRequest {
 }
 /// The request message for
 /// [ConversationDatasets.ListConversationDatasets][google.cloud.dialogflow.v2.ConversationDatasets.ListConversationDatasets].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationDatasetsRequest {
     /// Required. The project and location name to list all conversation datasets
@@ -15221,7 +14868,6 @@ pub struct ListConversationDatasetsRequest {
 }
 /// The response message for
 /// [ConversationDatasets.ListConversationDatasets][google.cloud.dialogflow.v2.ConversationDatasets.ListConversationDatasets].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConversationDatasetsResponse {
     /// The list of datasets to return.
@@ -15234,7 +14880,6 @@ pub struct ListConversationDatasetsResponse {
 }
 /// The request message for
 /// [ConversationDatasets.DeleteConversationDataset][google.cloud.dialogflow.v2.ConversationDatasets.DeleteConversationDataset].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteConversationDatasetRequest {
     /// Required. The conversation dataset to delete. Format:
@@ -15245,7 +14890,6 @@ pub struct DeleteConversationDatasetRequest {
 }
 /// The request message for
 /// [ConversationDatasets.ImportConversationData][google.cloud.dialogflow.v2.ConversationDatasets.ImportConversationData].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportConversationDataRequest {
     /// Required. Dataset resource name. Format:
@@ -15260,7 +14904,6 @@ pub struct ImportConversationDataRequest {
 /// Metadata for a
 /// [ConversationDatasets.ImportConversationData][google.cloud.dialogflow.v2.ConversationDatasets.ImportConversationData]
 /// operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportConversationDataOperationMetadata {
     /// The resource name of the imported conversation dataset. Format:
@@ -15280,7 +14923,6 @@ pub struct ImportConversationDataOperationMetadata {
 /// Response used for
 /// [ConversationDatasets.ImportConversationData][google.cloud.dialogflow.v2.ConversationDatasets.ImportConversationData]
 /// long running operation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportConversationDataOperationResponse {
     /// The resource name of the imported conversation dataset. Format:
@@ -15293,7 +14935,6 @@ pub struct ImportConversationDataOperationResponse {
     pub import_count: i32,
 }
 /// Metadata for [ConversationDatasets][CreateConversationDataset].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConversationDatasetOperationMetadata {
     /// The resource name of the conversation dataset that will be created. Format:
@@ -15303,7 +14944,6 @@ pub struct CreateConversationDatasetOperationMetadata {
     pub conversation_dataset: ::prost::alloc::string::String,
 }
 /// Metadata for [ConversationDatasets][DeleteConversationDataset].
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeleteConversationDatasetOperationMetadata {}
 /// Generated client implementations.

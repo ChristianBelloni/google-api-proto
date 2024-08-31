@@ -12,7 +12,6 @@
 ///   - reader can use the resource (e.g. tuned model) for inference
 ///   - writer has reader's permissions and additionally can edit and share
 ///   - owner has writer's permissions and additionally can delete
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Permission {
     /// Output only. The permission name. A unique name will be generated on
@@ -131,7 +130,6 @@ pub mod permission {
     }
 }
 /// Information about a Generative Language Model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Model {
     /// Required. The resource name of the `Model`.
@@ -206,7 +204,6 @@ pub struct Model {
     pub top_k: ::core::option::Option<i32>,
 }
 /// A fine-tuned model created using ModelService.CreateTunedModel.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TunedModel {
     /// Output only. The tuned model name. A unique name will be generated on
@@ -320,7 +317,6 @@ pub mod tuned_model {
         }
     }
     /// The model used as the starting point for tuning.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum SourceModel {
         /// Optional. TunedModel to use as the starting point for training the new
@@ -334,7 +330,6 @@ pub mod tuned_model {
     }
 }
 /// Tuned model as a source for training a new model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TunedModelSource {
     /// Immutable. The name of the `TunedModel` to use as the starting point for
@@ -348,7 +343,6 @@ pub struct TunedModelSource {
     pub base_model: ::prost::alloc::string::String,
 }
 /// Tuning tasks that create tuned models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TuningTask {
     /// Output only. The timestamp when tuning this model started.
@@ -369,7 +363,6 @@ pub struct TuningTask {
     pub hyperparameters: ::core::option::Option<Hyperparameters>,
 }
 /// Hyperparameters controlling the tuning process.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Hyperparameters {
     /// Immutable. The number of training epochs. An epoch is one pass through the
@@ -388,7 +381,6 @@ pub struct Hyperparameters {
     pub learning_rate: ::core::option::Option<f32>,
 }
 /// Dataset for training or validation.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Dataset {
     /// Inline data or a reference to the data.
@@ -398,7 +390,6 @@ pub struct Dataset {
 /// Nested message and enum types in `Dataset`.
 pub mod dataset {
     /// Inline data or a reference to the data.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Dataset {
         /// Optional. Inline examples.
@@ -407,7 +398,6 @@ pub mod dataset {
     }
 }
 /// A set of tuning examples. Can be training or validatation data.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TuningExamples {
     /// Required. The examples. Example input can be for text or discuss, but all
@@ -416,7 +406,6 @@ pub struct TuningExamples {
     pub examples: ::prost::alloc::vec::Vec<TuningExample>,
 }
 /// A single example for tuning.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TuningExample {
     /// Required. The expected model output.
@@ -429,7 +418,6 @@ pub struct TuningExample {
 /// Nested message and enum types in `TuningExample`.
 pub mod tuning_example {
     /// The input to the model for this example.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ModelInput {
         /// Optional. Text model input.
@@ -438,7 +426,6 @@ pub mod tuning_example {
     }
 }
 /// Record for a single tuning step.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TuningSnapshot {
     /// Output only. The tuning step.
@@ -455,7 +442,6 @@ pub struct TuningSnapshot {
     pub compute_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Request for getting information about a specific Model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetModelRequest {
     /// Required. The resource name of the model.
@@ -467,7 +453,6 @@ pub struct GetModelRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request for listing all Models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListModelsRequest {
     /// The maximum number of `Models` to return (per page).
@@ -489,7 +474,6 @@ pub struct ListModelsRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response from `ListModel` containing a paginated list of Models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListModelsResponse {
     /// The returned Models.
@@ -502,7 +486,6 @@ pub struct ListModelsResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for getting information about a specific Model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTunedModelRequest {
     /// Required. The resource name of the model.
@@ -512,7 +495,6 @@ pub struct GetTunedModelRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request for listing TunedModels.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTunedModelsRequest {
     /// Optional. The maximum number of `TunedModels` to return (per page).
@@ -534,7 +516,6 @@ pub struct ListTunedModelsRequest {
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response from `ListTunedModels` containing a paginated list of Models.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTunedModelsResponse {
     /// The returned Models.
@@ -547,7 +528,6 @@ pub struct ListTunedModelsResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request to create a TunedModel.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTunedModelRequest {
     /// Optional. The unique id for the tuned model if specified.
@@ -562,7 +542,6 @@ pub struct CreateTunedModelRequest {
 }
 /// Metadata about the state and progress of creating a tuned model returned from
 /// the long-running operation
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTunedModelMetadata {
     /// Name of the tuned model associated with the tuning operation.
@@ -582,7 +561,6 @@ pub struct CreateTunedModelMetadata {
     pub snapshots: ::prost::alloc::vec::Vec<TuningSnapshot>,
 }
 /// Request to update a TunedModel.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTunedModelRequest {
     /// Required. The tuned model to update.
@@ -593,7 +571,6 @@ pub struct UpdateTunedModelRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request to delete a TunedModel.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTunedModelRequest {
     /// Required. The resource name of the model.
@@ -890,7 +867,6 @@ pub mod model_service_client {
     }
 }
 /// A collection of source attributions for a piece of content.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CitationMetadata {
     /// Citations to sources for a specific response.
@@ -898,7 +874,6 @@ pub struct CitationMetadata {
     pub citation_sources: ::prost::alloc::vec::Vec<CitationSource>,
 }
 /// A citation to a source for a portion of a specific response.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CitationSource {
     /// Optional. Start of segment of the response that is attributed to this
@@ -924,7 +899,6 @@ pub struct CitationSource {
 ///
 /// ContentFilter contains a reason and an optional supporting string. The reason
 /// may be unspecified.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ContentFilter {
     /// The reason content was blocked during request processing.
@@ -987,7 +961,6 @@ pub mod content_filter {
 /// Each SafetyFeedback will return the safety settings used by the request as
 /// well as the lowest HarmProbability that should be allowed in order to return
 /// a result.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SafetyFeedback {
     /// Safety rating evaluated from content.
@@ -1004,7 +977,6 @@ pub struct SafetyFeedback {
 /// Content is classified for safety across a number of
 /// harm categories and the probability of the harm classification is included
 /// here.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SafetyRating {
     /// Required. The category for this rating.
@@ -1075,7 +1047,6 @@ pub mod safety_rating {
 ///
 /// Passing a safety setting for a category changes the allowed proability that
 /// content is blocked.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SafetySetting {
     /// Required. The category for this setting.
@@ -1193,7 +1164,6 @@ impl HarmCategory {
     }
 }
 /// Request to generate a text completion response from the model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateTextRequest {
     /// Required. The name of the `Model` or `TunedModel` to use for generating the
@@ -1275,7 +1245,6 @@ pub struct GenerateTextRequest {
     pub stop_sequences: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// The response from the model, including candidate completions.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateTextResponse {
     /// Candidate responses from the model.
@@ -1301,7 +1270,6 @@ pub struct GenerateTextResponse {
 /// Text given to the model as a prompt.
 ///
 /// The Model will use this TextPrompt to Generate a text completion.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextPrompt {
     /// Required. The prompt text.
@@ -1309,7 +1277,6 @@ pub struct TextPrompt {
     pub text: ::prost::alloc::string::String,
 }
 /// Output text returned from a model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextCompletion {
     /// Output only. The generated text returned from the model.
@@ -1329,7 +1296,6 @@ pub struct TextCompletion {
     pub citation_metadata: ::core::option::Option<CitationMetadata>,
 }
 /// Request to get a text embedding from the model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EmbedTextRequest {
     /// Required. The model name to use with the format model=models/{model}.
@@ -1341,7 +1307,6 @@ pub struct EmbedTextRequest {
     pub text: ::prost::alloc::string::String,
 }
 /// The response to a EmbedTextRequest.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EmbedTextResponse {
     /// Output only. The embedding generated from the input text.
@@ -1349,7 +1314,6 @@ pub struct EmbedTextResponse {
     pub embedding: ::core::option::Option<Embedding>,
 }
 /// Batch request to get a text embedding from the model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchEmbedTextRequest {
     /// Required. The name of the `Model` to use for generating the embedding.
@@ -1364,7 +1328,6 @@ pub struct BatchEmbedTextRequest {
     pub texts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// The response to a EmbedTextRequest.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BatchEmbedTextResponse {
     /// Output only. The embeddings generated from the input text.
@@ -1372,7 +1335,6 @@ pub struct BatchEmbedTextResponse {
     pub embeddings: ::prost::alloc::vec::Vec<Embedding>,
 }
 /// A list of floats representing the embedding.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Embedding {
     /// The embedding values.
@@ -1383,7 +1345,6 @@ pub struct Embedding {
 ///
 /// Models may tokenize text differently, so each model may return a different
 /// `token_count`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CountTextTokensRequest {
     /// Required. The model's resource name. This serves as an ID for the Model to
@@ -1401,7 +1362,6 @@ pub struct CountTextTokensRequest {
 /// A response from `CountTextTokens`.
 ///
 /// It returns the model's `token_count` for the `prompt`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CountTextTokensResponse {
     /// The number of tokens that the `model` tokenizes the `prompt` into.
@@ -1616,7 +1576,6 @@ pub mod text_service_client {
     }
 }
 /// Request to generate a message response from the model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateMessageRequest {
     /// Required. The name of the model to use.
@@ -1666,7 +1625,6 @@ pub struct GenerateMessageRequest {
 ///
 /// This includes candidate messages and
 /// conversation history in the form of chronologically-ordered messages.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateMessageResponse {
     /// Candidate response messages from the model.
@@ -1691,7 +1649,6 @@ pub struct GenerateMessageResponse {
 ///
 /// The `author` is used to tag messages when they are fed to the
 /// model as text.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Message {
     /// Optional. The author of this Message.
@@ -1721,7 +1678,6 @@ pub struct Message {
 /// prime the model to respond in different ways, and the conversation history
 /// or list of messages representing the alternating turns of the conversation
 /// between the user and the model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessagePrompt {
     /// Optional. Text that should be provided to the model first to ground the
@@ -1765,7 +1721,6 @@ pub struct MessagePrompt {
 /// An input/output example used to instruct the Model.
 ///
 /// It demonstrates how the model should respond or format its response.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Example {
     /// Required. An example of an input `Message` from the user.
@@ -1779,7 +1734,6 @@ pub struct Example {
 ///
 /// Models may tokenize text differently, so each model may return a different
 /// `token_count`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CountMessageTokensRequest {
     /// Required. The model's resource name. This serves as an ID for the Model to
@@ -1797,7 +1751,6 @@ pub struct CountMessageTokensRequest {
 /// A response from `CountMessageTokens`.
 ///
 /// It returns the model's `token_count` for the `prompt`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct CountMessageTokensResponse {
     /// The number of tokens that the `model` tokenizes the `prompt` into.
@@ -1949,7 +1902,6 @@ pub mod discuss_service_client {
     }
 }
 /// Request to create a `Permission`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreatePermissionRequest {
     /// Required. The parent resource of the `Permission`.
@@ -1961,7 +1913,6 @@ pub struct CreatePermissionRequest {
     pub permission: ::core::option::Option<Permission>,
 }
 /// Request for getting information about a specific `Permission`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPermissionRequest {
     /// Required. The resource name of the permission.
@@ -1971,7 +1922,6 @@ pub struct GetPermissionRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request for listing permissions.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPermissionsRequest {
     /// Required. The parent resource of the permissions.
@@ -1998,7 +1948,6 @@ pub struct ListPermissionsRequest {
 }
 /// Response from `ListPermissions` containing a paginated list of
 /// permissions.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPermissionsResponse {
     /// Returned permissions.
@@ -2011,7 +1960,6 @@ pub struct ListPermissionsResponse {
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request to update the `Permission`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdatePermissionRequest {
     /// Required. The permission to update.
@@ -2025,7 +1973,6 @@ pub struct UpdatePermissionRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request to delete the `Permission`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeletePermissionRequest {
     /// Required. The resource name of the permission.
@@ -2034,7 +1981,6 @@ pub struct DeletePermissionRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// Request to transfer the ownership of the tuned model.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferOwnershipRequest {
     /// Required. The resource name of the tuned model to transfer ownership .
@@ -2048,7 +1994,6 @@ pub struct TransferOwnershipRequest {
     pub email_address: ::prost::alloc::string::String,
 }
 /// Response from `TransferOwnership`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct TransferOwnershipResponse {}
 /// Generated client implementations.

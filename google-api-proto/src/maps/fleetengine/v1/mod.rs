@@ -2,7 +2,6 @@
 /// Traffic density indicator on a contiguous segment of a path. Given a path
 /// with points P_0, P_1, ... , P_N (zero-based index), the SpeedReadingInterval
 /// defines an interval and describes its traffic using the following categories.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct SpeedReadingInterval {
     /// The starting index of this interval in the path.
@@ -68,7 +67,6 @@ pub mod speed_reading_interval {
     }
 }
 /// Traffic density along a Vehicle's path.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumableTrafficPolyline {
     /// Traffic speed along the path from the previous waypoint to the current
@@ -84,7 +82,6 @@ pub struct ConsumableTrafficPolyline {
 }
 /// Deprecated: TerminalPoints are no longer supported in Fleet Engine. Use
 /// `TerminalLocation.point` instead.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TerminalPointId {
     /// Deprecated.
@@ -98,7 +95,6 @@ pub struct TerminalPointId {
 /// Nested message and enum types in `TerminalPointId`.
 pub mod terminal_point_id {
     /// Deprecated.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Id {
         /// Deprecated.
@@ -110,7 +106,6 @@ pub mod terminal_point_id {
     }
 }
 /// Describes the location of a waypoint.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TerminalLocation {
     /// Required. Denotes the location of a trip waypoint.
@@ -135,7 +130,6 @@ pub struct TerminalLocation {
 }
 /// Describes a stopping point on a vehicle's route or an ending point on a
 /// vehicle's trip.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TripWaypoint {
     /// The location of this waypoint.
@@ -179,7 +173,6 @@ pub struct TripWaypoint {
 }
 /// Describes a vehicle attribute as a key-value pair. The "key:value" string
 /// length cannot exceed 256 characters.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VehicleAttribute {
     /// The attribute's key. Keys may not contain the colon character (:).
@@ -197,7 +190,6 @@ pub struct VehicleAttribute {
 /// Nested message and enum types in `VehicleAttribute`.
 pub mod vehicle_attribute {
     /// The attribute's value, can be in string, bool, or double type.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum VehicleAttributeValue {
         /// String typed attribute value.
@@ -218,7 +210,6 @@ pub mod vehicle_attribute {
     }
 }
 /// The location, speed, and heading of a vehicle at a point in time.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VehicleLocation {
     /// The location of the vehicle.
@@ -545,7 +536,6 @@ impl LocationSensor {
     }
 }
 /// Vehicle metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Vehicle {
     /// Output only. The unique name for this vehicle.
@@ -657,7 +647,6 @@ pub struct Vehicle {
 /// Nested message and enum types in `Vehicle`.
 pub mod vehicle {
     /// The type of vehicle.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct VehicleType {
         /// Vehicle type category
@@ -729,7 +718,6 @@ pub mod vehicle {
     }
 }
 /// Information about the device's battery.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct BatteryInfo {
     /// Status of the battery, whether full or charging etc.
@@ -743,7 +731,6 @@ pub struct BatteryInfo {
     pub battery_percentage: f32,
 }
 /// Information about various settings on the mobile device.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct DeviceSettings {
     /// How location features are set to behave on the device when battery saver is
@@ -763,7 +750,6 @@ pub struct DeviceSettings {
 /// The license plate information of the Vehicle.  To avoid storing
 /// personally-identifiable information, only the minimum information
 /// about the license plate is stored as part of the entity.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LicensePlate {
     /// Required. CLDR Country/Region Code.  For example, `US` for United States,
@@ -781,7 +767,6 @@ pub struct LicensePlate {
 }
 /// Describes how clients should color one portion of the polyline along the
 /// route.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VisualTrafficReportPolylineRendering {
     /// Optional. Road stretches that should be rendered along the polyline.
@@ -798,7 +783,6 @@ pub struct VisualTrafficReportPolylineRendering {
 /// Nested message and enum types in `VisualTrafficReportPolylineRendering`.
 pub mod visual_traffic_report_polyline_rendering {
     /// One road stretch that should be rendered.
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RoadStretch {
         /// Required. The style to apply.
@@ -860,7 +844,6 @@ pub mod visual_traffic_report_polyline_rendering {
     }
 }
 /// Traffic conditions along the expected vehicle route.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TrafficPolylineData {
     /// A polyline rendering of how fast traffic is for all regions along
@@ -1059,7 +1042,6 @@ impl PowerSource {
     }
 }
 /// A RequestHeader contains fields common to all Fleet Engine RPC requests.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RequestHeader {
     /// The BCP-47 language code, such as en-US or sr-Latn. For more information,
@@ -1210,7 +1192,6 @@ pub mod request_header {
     }
 }
 /// `CreateVehicle` request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateVehicleRequest {
     /// The standard Fleet Engine request header.
@@ -1263,7 +1244,6 @@ pub struct CreateVehicleRequest {
     pub vehicle: ::core::option::Option<Vehicle>,
 }
 /// `GetVehicle` request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetVehicleRequest {
     /// The standard Fleet Engine request header.
@@ -1291,7 +1271,6 @@ pub struct GetVehicleRequest {
     pub waypoints_version: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// `UpdateVehicle request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateVehicleRequest {
     /// The standard Fleet Engine request header.
@@ -1328,7 +1307,6 @@ pub struct UpdateVehicleRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// `UpdateVehicleAttributes` request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateVehicleAttributesRequest {
     /// The standard Fleet Engine request header.
@@ -1346,7 +1324,6 @@ pub struct UpdateVehicleAttributesRequest {
     pub attributes: ::prost::alloc::vec::Vec<VehicleAttribute>,
 }
 /// `UpdateVehicleAttributes` response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateVehicleAttributesResponse {
     /// Required. The updated full list of vehicle attributes, including new,
@@ -1355,7 +1332,6 @@ pub struct UpdateVehicleAttributesResponse {
     pub attributes: ::prost::alloc::vec::Vec<VehicleAttribute>,
 }
 /// `SearchVehicles` request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchVehiclesRequest {
     /// The standard Fleet Engine request header.
@@ -1627,7 +1603,6 @@ pub mod search_vehicles_request {
     }
 }
 /// `SearchVehicles` response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchVehiclesResponse {
     /// List of vehicles that match the `SearchVehiclesRequest` criteria, ordered
@@ -1636,7 +1611,6 @@ pub struct SearchVehiclesResponse {
     pub matches: ::prost::alloc::vec::Vec<VehicleMatch>,
 }
 /// `ListVehicles` request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVehiclesRequest {
     /// The standard Fleet Engine request header.
@@ -1785,7 +1759,6 @@ pub struct ListVehiclesRequest {
     >,
 }
 /// `ListVehicles` response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVehiclesResponse {
     /// Vehicles matching the criteria in the request.
@@ -1805,7 +1778,6 @@ pub struct ListVehiclesResponse {
 /// Describes intermediate points along a route for a `VehicleMatch` in a
 /// `SearchVehiclesResponse`. This concept is represented as a `TripWaypoint` in
 /// all other endpoints.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Waypoint {
     /// The location of this waypoint.
@@ -1817,7 +1789,6 @@ pub struct Waypoint {
 }
 /// Contains the vehicle and related estimates for a vehicle that match the
 /// points of active trips for the vehicle `SearchVehiclesRequest`.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VehicleMatch {
     /// Required. A vehicle that matches the request.
@@ -1944,7 +1915,6 @@ pub mod vehicle_match {
     }
 }
 /// A list-of-lists datatype for vehicle attributes.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VehicleAttributeList {
     /// A list of attributes in this collection.
@@ -2248,7 +2218,6 @@ pub mod vehicle_service_client {
     }
 }
 /// Trip metadata.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Trip {
     /// Output only. In the format "providers/{provider}/trips/{trip}"
@@ -2428,7 +2397,6 @@ pub struct Trip {
     pub view: i32,
 }
 /// The actual location where a stop (pickup/dropoff) happened.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct StopLocation {
     /// Required. Denotes the actual location.
@@ -2598,7 +2566,6 @@ impl TripView {
     }
 }
 /// CreateTrip request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTripRequest {
     /// The standard Fleet Engine request header.
@@ -2660,7 +2627,6 @@ pub struct CreateTripRequest {
     pub trip: ::core::option::Option<Trip>,
 }
 /// GetTrip request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTripRequest {
     /// The standard Fleet Engine request header.
@@ -2714,7 +2680,6 @@ pub struct GetTripRequest {
     >,
 }
 /// ReportBillableTrip request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportBillableTripRequest {
     /// Required. Must be in the format
@@ -2791,7 +2756,6 @@ pub mod report_billable_trip_request {
     }
 }
 /// UpdateTrip request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTripRequest {
     /// The standard Fleet Engine request header.
@@ -2852,7 +2816,6 @@ pub struct UpdateTripRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// SearchTrips request message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchTripsRequest {
     /// The standard Fleet Engine request header.
@@ -2890,7 +2853,6 @@ pub struct SearchTripsRequest {
     pub minimum_staleness: ::core::option::Option<::prost_types::Duration>,
 }
 /// SearchTrips response message.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchTripsResponse {
     /// The list of trips for the requested vehicle.
