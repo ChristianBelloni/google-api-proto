@@ -25627,6 +25627,10 @@ pub mod generate_content_response {
         pub candidates_token_count: i32,
         #[prost(int32, tag = "3")]
         pub total_token_count: i32,
+        /// Output only. Number of tokens in the cached part in the input (the cached
+        /// content).
+        #[prost(int32, tag = "5")]
+        pub cached_content_token_count: i32,
     }
 }
 /// Request message for \[PredictionService.ChatCompletions\]
@@ -35830,12 +35834,34 @@ pub struct CachedContent {
     /// Output only. When the cache entry was last updated in UTC time.
     #[prost(message, optional, tag = "8")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Metadata on the usage of the cached content.
+    #[prost(message, optional, tag = "12")]
+    pub usage_metadata: ::core::option::Option<cached_content::UsageMetadata>,
     /// Expiration time of the cached content.
     #[prost(oneof = "cached_content::Expiration", tags = "9, 10")]
     pub expiration: ::core::option::Option<cached_content::Expiration>,
 }
 /// Nested message and enum types in `CachedContent`.
 pub mod cached_content {
+    /// Metadata on the usage of the cached content.
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct UsageMetadata {
+        /// Total number of tokens that the cached content consumes.
+        #[prost(int32, tag = "1")]
+        pub total_token_count: i32,
+        /// Number of text characters.
+        #[prost(int32, tag = "2")]
+        pub text_count: i32,
+        /// Number of images.
+        #[prost(int32, tag = "3")]
+        pub image_count: i32,
+        /// Duration of video in seconds.
+        #[prost(int32, tag = "4")]
+        pub video_duration_seconds: i32,
+        /// Duration of audio in seconds.
+        #[prost(int32, tag = "5")]
+        pub audio_duration_seconds: i32,
+    }
     /// Expiration time of the cached content.
     #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
     pub enum Expiration {
